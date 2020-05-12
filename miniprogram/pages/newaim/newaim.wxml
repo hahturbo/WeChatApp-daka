@@ -1,0 +1,44 @@
+<!-- <text>miniprogram/pages/newaim/newaim.wxml</text> -->
+
+<!--index.wxml-->
+<view>
+<image class='background' src="../../images/background.png" mode="aspectFill">
+</image>
+<view class="container">
+  <!--打卡分类 -->
+  <view class="select">
+    <view class="single">
+    个人打卡
+    </view>
+    <view class="team">
+        小组打卡
+    </view>
+  </view>
+
+  <!-- 选项 -->
+  <view class="card">
+    <view class="uploader-text" bindtap="doUpload">
+      <text style="text-align:center; color:blue">打卡类型</text>
+    </view>
+  </view>
+
+    <view class="card">
+    <view class="uploader-text" bindtap="doUpload">
+      <text style="text-align:center; color:blue">打卡类型</text>
+    </view>
+  </view>
+
+    <view class="card">
+    <view class="uploader-text" bindtap="doUpload">
+      <text style="text-align:center; color:blue">打卡类型</text>
+    </view>
+  </view>
+
+    <view class="card">
+    <view class="uploader-text" bindtap="doUpload">
+      <text style="text-align:center; color:blue">打卡类型</text>
+    </view>
+  </view>
+
+</view>
+</view>

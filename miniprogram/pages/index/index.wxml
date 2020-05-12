@@ -1,0 +1,27 @@
+<!--index.wxml-->
+<view class="container">
+
+<image class='background' src="../../images/background.png" mode="aspectFill">
+</image>
+<view class='down'>
+<image class='downmainimg' src="../../images/down.png" mode="aspectFill"></image>
+  <view class="downleft">
+    <navigator url="../im/im" open-type="navigate" class="uploader-text">
+      <image  class='downimg'  src="../../images/aim3.png" ></image>
+    </navigator>
+  </view>
+   <view class="downmid">
+    <navigator url="../newaim/newaim" open-type="navigate" class="uploader-text">
+      <image  class='newimg'  src="../../images/newaim3.png" ></image>
+    </navigator>
+  </view>
+
+  <view class="downright">
+    <navigator url="../im/im" open-type="navigate" class="uploader-text">
+      <image  class='downimg'  src="../../images/setting3.png" ></image>
+    </navigator>
+  </view>
+   
+ </view>
+<view>456</view>
+</view>
