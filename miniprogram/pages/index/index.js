@@ -6,7 +6,7 @@ const app = getApp()
 Page({
   data: {
     //主页面数据
-     isLogin:false,
+    isLogin: false,
     // isLogin:true,
     apiUrl: 'http://58.218.198.18:9998',
     avatarUrl: './user-unlogin.png',
@@ -14,17 +14,30 @@ Page({
     logged: false,
     takeSession: false,
     requestResult: '',
+    login_key: '',
+
+
     // open_animation:'open 1s forwards',
     nowPage: 0,
     changedPageCounts: 0,
 
-    ConsoleText:'200',
+    ConsoleText: '200',
 
     //弹窗数据
-    dialogTitle:'',
-    dialogText:'',
-    dialogShow:false,
-    dialogsButton:[{text: '取消'}, {text: '确定'}],
+    dialogTitle: '',
+    dialogText: '',
+    dialogShow: false,
+    dialogsButton: [{
+      text: '取消'
+    }, {
+      text: '确定'
+    }],
+
+    //微信运动
+    "stepInfoList": [{
+      "timestamp": 0,
+      "step": 0,
+    }, ],
 
     //新建打卡页面数据
     team: 0,
@@ -32,7 +45,7 @@ Page({
     type_array: ['极简', '普通', '微信运动'],
     type: 1,
 
-    title:null,
+    title: null,
 
     date_start: '请选择',
     date_end: '请先选择开始日期',
@@ -72,7 +85,7 @@ Page({
             }
           })
         }
-      })    
+      })
     }
     if (!wx.cloud) {
       wx.redirectTo({
@@ -107,15 +120,35 @@ Page({
     })
   },
 
-  // //微信运动
-  // GetWeRunData:function (){
-  //   wx.getWeRunData({
-  //     success (res) {
-  //       // 拿 encryptedData 到开发者后台解密开放数据
-  //       const encryptedData = res.encryptedData
-  //     }
-  //   })
-  // },
+  //微信运动
+  GetWeRunData: function () {
+    if (this.data.login_key) {
+
+      wx.getWeRunData({
+        success(res) {
+          wx.request({
+            url: this.data.apiUrl + '/user/getWeRunData',
+            data: {
+              encryptedData: res.encryptedData,
+              iv: res.iv,
+              login_key: this.data.login_key,
+            },
+
+            success: (res) => {
+              this.setData({
+                "stepInfoList": res,
+              })
+
+            }
+          })
+          // 拿 encryptedData 到开发者后台解密开放数据
+          const encryptedData = res.encryptedData
+        }
+      })
+    } else {
+      console.log("nokey" + this.data.login_key);
+    }
+  },
 
 
   onGetUserInfo: function (e) {
@@ -154,16 +187,17 @@ Page({
                           code: code
                         },
                         success: (res) => {
-                          console.log(JSON.stringify(res));
+                          if (res.status = "success") {
+                            this.setData({
+                              login_key: res.data.login_key,
+                              isLogin: true,
+                            })
+                          }
+                          // console.log(JSON.stringify(res));
                           this.setData({
-                            isLogin: true,
-                            // ConsoleText:this.data.isLogin,
+                            ConsoleText: this.data.isLogin,
                           })
-                          this.setData({
-                           
-                            ConsoleText:this.data.isLogin,
-                          })
-                          console.log("this.setData:"+this.data.isLogin);
+                          console.log("this.setData:" + this.data.isLogin);
                         }
                       })
                     }
@@ -189,7 +223,7 @@ Page({
     } else {
       console.log('用户拒绝了授权');
       this.setData({
-        ConsoleText:'用户拒绝了授权',
+        ConsoleText: '用户拒绝了授权',
       })
     }
   },
@@ -230,15 +264,15 @@ Page({
     })
   },
 
-  ClearNewAimData: function(){
+  ClearNewAimData: function () {
     this.setData({
       team: 0,
       type: 1,
-  
-      title:null,  
+
+      title: null,
       date_start: '请选择',
       date_end: '请先选择开始日期',
-  
+
       frequencytype: 0,
       frequency: [0, 0, 0, 0],
       frequencynum: 1,
@@ -252,55 +286,67 @@ Page({
     })
   },
 
-//弹窗
+  //弹窗
   changePage_Finish: function (e) {
-    console.log(this.data.title!=null);
-if(this.data.title!=null&&(this.data.type==0)||( this.data.date_end!= '请先选择开始日期'&& this.data.time_aim2!= '请选择')){
-  this.setData({
-    changedPageCounts: this.data.changedPageCounts + 1,
-    nowPage: e.currentTarget.dataset.to,
-  })
-}else{
-  this.setData({
-    dialogTitle:"打卡信息未填完哦~",
-    dialogsButton:[ {text: '继续填写',extClass:"btn_go_on"},{text: '取消',extClass:"btn_cancel"}],
-    dialogShow:true,
-})
-}
+    console.log(this.data.title != null);
+    if (this.data.title != null && (this.data.type == 0) || (this.data.date_end != '请先选择开始日期' && this.data.time_aim2 != '请选择')) {
+      this.setData({
+        changedPageCounts: this.data.changedPageCounts + 1,
+        nowPage: e.currentTarget.dataset.to,
+      })
+    } else {
+      this.setData({
+        dialogTitle: "打卡信息未填完哦~",
+        dialogsButton: [{
+          text: '继续填写',
+          extClass: "btn_go_on"
+        }, {
+          text: '取消',
+          extClass: "btn_cancel"
+        }],
+        dialogShow: true,
+      })
+    }
   },
 
-changePage_Back: function (e) {
-    console.log(this.data.title!=null);
+  changePage_Back: function (e) {
+    console.log(this.data.title != null);
 
-  this.setData({
-    dialogTitle:"打卡未保存，确认退出？",
-    dialogsButton:[{text: '退出编辑',extClass:"btn_go_on"},{text: '取消',extClass:"btn_cancel"}],
-    dialogShow:true,
-})
+    this.setData({
+      dialogTitle: "打卡未保存，确认退出？",
+      dialogsButton: [{
+        text: '退出编辑',
+        extClass: "btn_go_on"
+      }, {
+        text: '取消',
+        extClass: "btn_cancel"
+      }],
+      dialogShow: true,
+    })
 
   },
 
   tapDialogButton: function (e) {
-    console.log(e.detail.item.text); 
-    if(e.detail.item.text=="退出编辑"){
-    this.ClearNewAimData();
+    console.log(e.detail.item.text);
+    if (e.detail.item.text == "退出编辑") {
+      this.ClearNewAimData();
       this.setData({
         changedPageCounts: this.data.changedPageCounts + 1,
-        nowPage: 0,  
-        dialogShow:false,
+        nowPage: 0,
+        dialogShow: false,
       })
       8
-    }else{
+    } else {
       this.setData({
-        dialogShow:false,
-    })
+        dialogShow: false,
+      })
     }
 
   },
 
   //以上为公共
   //新建界面
-  bindPickerTypeChange: function(e){
+  bindPickerTypeChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     if (e.detail.value == 0) {
       this.setData({
