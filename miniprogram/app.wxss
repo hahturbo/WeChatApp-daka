@@ -1,19 +1,152 @@
 /**app.wxss**/
 page {
-  /* background-image:url('http://ymzp.0633hr.com/upload/app/2019-08-02/1564730097202-2019-08-02.png'); */
-  /* display: flex; */
+
+  --main-color: #FFC864;
+}
+ /* @media screen and (min-width: 500px) {
+  page {
+    --main-color:lightblue;
+  }
+} */
+@media screen and (min-width: 500px) {
+  page  .card {
+    margin-top: 10rpx;
+    height: 50rpx;
+    width: 100%;
+    background: #fff;
+    /* border: 5rpx solid #eee; */
+    border-left: none;
+    border-right: none;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: left;
+    transition: all 300ms ease;
+    box-sizing: border-box;
+  }
+
+  /* 整一个下部导航栏定义 */
+  page .down{
+  width: 100vw;
+  height: 10vh;
+  bottom:0px;
+  display: flex;
+  justify-content: space-around;
+   align-items: center; 
+  position:fixed; 
+  z-index: 10;
+  flex-direction: row;
+}
+
+page .downmainimg {
+  width: 100vw;
+  height: 10vh;
+  bottom:0px;
+  position:fixed; 
+  z-index: -1;
+
+  align-items: center; 
+  display: flex;
+  justify-content: space-around;
+}
+
+page .downleft {
+  margin: 0px;
+  width: 25vw;
+  height: 10vh;
+  align-items: center; 
+
+  align-items: center; 
+  display: flex;
+  justify-content: space-around;
+}
+page .downright {
+  margin: 0px;
+  width: 25vw;
+  height: 10vh;
+
+  align-items: center; 
+  display: flex;
+  justify-content: space-around;
+}
+/* 中圈 */
+page .downmid{
+  width: 20vw;
+  height: 20vw;
+  background:rgb(255, 255, 255);
+  border-radius: 50%;
+  border-style:solid;
+  border-color:var(--main-color);
+  border-width: 1vw;
+  bottom:5vh;
+  position: relative; 
+
+  align-items: center; 
+  display: flex;
+  justify-content: space-around;
+}
+
+.downmiddisable{
+  background:var(--main-color) !important;
+}
+
+
+
+
+/* 导航栏图片统一定义 */
+page .downimg{
+  width: 100rpx;
+  height: 100rpx;
+  /* text-align: center; */
+  top:1vw;
+  /* left: 3vw; */
+  position:relative;
+}
+ page .downmidimg{
+  width:110rpx;
+  height: 110rpx;
+  top:0rpx;
+  position:relative;
+}
+
+} 
+
+navigator{
+  align-items: center; 
+  display: flex;
+  justify-content: space-around;
   /* flex-direction: column; */
-  /* justify-content: flex-start; */
+
 }
 
 .container{
-  /* background-color: #FFC864; */
+  /* background-color: --main-color; */
 
   width: 100%;
   height: 100%;
   position:fixed; 
-  background-size:100% 100%;
+  /* background-size:100% 100%; */
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
+.containerB{
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box; */
+  width: 100%;
+  height: 100%;
+  /* position:fixed;  */
+
+  border-radius: 50rpx 50rpx 0rpx 0rpx;
+  background: #eee;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 背景图片定义 */
 .background {
   text-align: center;
   width: 100vw;
@@ -22,7 +155,48 @@ page {
   background-size:100% 100%;
   z-index: -2;
 }
-.down {
+
+.right_text{
+  right: 30rpx;
+  display: inline-block;
+  position: absolute;
+}
+.right_text picker{
+  display: inline-block;
+}
+.right_text_unselect{
+  color: gray !important; 
+}
+/* 弹窗按钮颜色 */
+page .btn_cancel{
+  /* background: red; */
+  color:black;
+}
+
+page .btn_go_on{
+  /* background: red; */
+  color:red;
+}
+
+.card {
+  margin-top: 20rpx;
+  height: 100rpx;
+  width: 100%;
+  background: #fff;
+  /* border: 5rpx solid #eee; */
+  border-left: none;
+  border-right: none;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: left;
+  transition: all 300ms ease;
+  box-sizing: border-box;
+}
+
+.lastCard{border: none !important;}
+/* 整一个下部导航栏定义 */
+.down{
   width: 100vw;
   height: 14vh;
   bottom:0px;
@@ -30,59 +204,77 @@ page {
   justify-content: space-around;
    align-items: center; 
   position:fixed; 
-  z-index: -1;
+  z-index: 10;
+  flex-direction: row;
 }
+
 .downmainimg {
   width: 100vw;
   height: 14vh;
   bottom:0px;
   position:fixed; 
   z-index: -1;
+
+  align-items: center; 
+  display: flex;
+  justify-content: space-around;
 }
 
 .downleft {
   margin: 0px;
   width: 25vw;
   height: 12vh;
-  /* left: 5vw;
-  bottom:0px;
-  position:fixed; 
-  z-index: -1; */
+  align-items: center; 
+
+  align-items: center; 
+  display: flex;
+  justify-content: space-around;
 }
 .downright {
   margin: 0px;
   width: 25vw;
   height: 12vh;
-  /* right: 5vw;
-  bottom:0px;
-  position:fixed; 
-  z-index: -1; */
+
+  align-items: center; 
+  display: flex;
+  justify-content: space-around;
 }
+/* 中圈 */
 .downmid{
   width: 27vw;
   height: 27vw;
   background:rgb(255, 255, 255);
   border-radius: 50%;
   border-style:solid;
-  border-color:#FFC864;
+  border-color:var(--main-color);
   border-width: 2vw;
   bottom:5vh;
   position: relative; 
-  /* margin: auto; */
+
+  align-items: center; 
+  display: flex;
+  justify-content: space-around;
 }
+
+.downmiddisable{
+  background:var(--main-color) !important;
+}
+
+
+
+/* 导航栏图片统一定义 */
 .downimg{
-  width: 20vw;
-  height: 22vw;
+  width: 130rpx;
+  height: 160rpx;
   /* text-align: center; */
-  top:-1vw;
-  left: 3vw;
+  top:1vw;
+  /* left: 3vw; */
   position:relative;
 }
-.newimg{
-  width: 21vw;
-  height: 24vw;
-  top:1vw;
-  left: 2vw;
+.downmidimg{
+  width: 170rpx;
+  height: 170rpx;
+  top:0rpx;
   position:relative;
 }
 

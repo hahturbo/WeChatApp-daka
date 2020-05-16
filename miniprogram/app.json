@@ -12,8 +12,7 @@
     "pages/openapi/callback/callback",
     "pages/openapi/cloudid/cloudid",
     "pages/im/im",
-    "pages/im/room/room",
-    "pages/newaim/newaim"
+    "pages/im/room/room"
   ],
   "window": {
     "backgroundColor": "#FFC864",
@@ -23,5 +22,12 @@
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",
-  "style": "v2"
+  "style": "v2",
+  "useExtendedLib":{
+      "kbone": true,
+      "weui": true
+    }
+  
+
+
 }

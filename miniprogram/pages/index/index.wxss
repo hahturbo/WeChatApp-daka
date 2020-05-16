@@ -1,153 +1,458 @@
 /**index.wxss**/
-
-page {
-  background: #f6f6f6;
+/* .container{
+  // background-color: var(--main-color); 
+  width: 100%;
+  height: 100%;
+  position:fixed; 
+  align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+}
+.background {
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  position:fixed; 
+  background-size:100% 100%;
+  z-index: -2;
+} */
+/* 
+.down{
+  width: 100vw;
+  height: 14vh;
+  bottom:0px;
+  display: flex;
+  justify-content: space-around;
+   align-items: center; 
+  position:fixed; 
+  z-index: -1;
+}
+.downmainimg {
+  width: 100vw;
+  height: 14vh;
+  bottom:0px;
+  position:fixed; 
+  z-index: -1;
 }
 
-.userinfo, .uploader, .tunnel {
+.downleft {
+  margin: 0px;
+  width: 25vw;
+  height: 12vh;
+}
+.downright {
+  margin: 0px;
+  width: 25vw;
+  height: 12vh;
+}
+
+.downimg{
+  width: 20vw;
+  height: 22vw;
+//
+  top:-1vw;
+  left: 3vw;
+  position:relative;
+} */
+/* .newimg{
+  width: 21vw;
+  height: 24vw;
+  top:1vw;
+  left: 2vw;
+  position:relative;
+}
+
+.downmid{
+  width: 27vw;
+  height: 27vw;
+  background:rgb(255, 255, 255);
+  border-radius: 50%;
+  border-style:solid;
+  border-color:var(--main-color);
+  border-width: 2vw;
+  bottom:5vh;
+  position: relative; 
+} */
+
+@media screen and (min-width: 500px) {
+  /* .right_text_unselect{
+    color: blue !important; 
+ } */
+
+ page .aim_card{
+  width: 500rpx;
+  height: 400rpx;
+  background:var(--main-color);
+  border-radius: 45rpx;
+  box-shadow: 0px 0px 40rpx 10rpx  #888888;
+  border-style:dashed;
+  border-color:#FFFFFF;
+  border-width: 5rpx;
+  position: relative; 
+  margin-top: 30rpx;
+
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;  
+}
+
+ page .select {
+  margin-top: 15rpx;
+  height: 50rpx;
+  width: 75%;
+  background: #fff;
+  border-radius: 25rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: all 300ms ease;
+  /* justify-content: space-around; */
+
+  border: 1rpx solid black;
+}
+ page  #single{
+  height: 100%;
+  width: 50%;
+  background: white;
+  border-radius: 50rpx 0rpx 0rpx 50rpx; 
+  border: 1rpx solid black;
+  text-align: center; 
+  font-size: 20rpx;
+  font-weight: normal;
+  justify-content: space-around; 
+}
+page #team{
+  height: 100%;
+  width: 50%;
+  background: white;
+  border-radius: 0rpx 50rpx 50rpx 0rpx; 
+  border: 1rpx solid black;
+  text-align: center; 
+  font-size: 20rpx;
+  font-weight: normal;
+  justify-content: space-around; 
+}
+page .title_input{
+  width: 250rpx;
+  height: 100%;  
+  font-size: 20rpx;
+  margin: 5rpx;
+}
+
+
+page .containerB text {      
+  /* newaim */
+  /* margin: 20rpx; */
+  margin-left: 20rpx;
+  line-height: 50rpx;
+  text-align: center;
+  font-size: 20rpx;
+  /* position: relative; */
+}
+
+page .return2Home{
+  animation: closePad 1s forwards;
+}
+
+} 
+
+.auth{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: #FFF;
+  z-index: 999;
+  padding-top: 100px; 
+  text-align: center;
+}
+.auth button{
+  margin-top: 20px;
+}
+
+
+/* 主新建卡类定义 类：home-content */
+.home-content text{
+  color: #FFFFFF;
+  font-size: 50rpx;
+  font-weight:bold;
+  text-align: center;
+}
+
+#main_container{
+  transition: 1s;
+  /* 好的 不行 */
+}
+/* 目标选项卡定义 */
+.aim_card{
+  width: 500rpx;
+  height: 600rpx;
+  background:var(--main-color);
+  border-radius: 45rpx;
+  box-shadow: 0px 0px 40rpx 10rpx  #888888;
+  border-style:dashed;
+  border-color:#FFFFFF;
+  border-width: 5rpx;
+  position: relative; 
+  margin-top: 50rpx;
+
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;  
+}
+.home-content{
+  width:100%;
+  height: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;  
+}
+
+
+.displayNone{
+  display: none !important;
+}
+.displayBlock{
+  display: block !important;
+}
+.toFullCard{
+  animation: open 1s forwards ;
+}
+.return2Home{
+  animation: close 1s forwards;
+}
+.fadeOut{
+  animation: fadeOutAnimation 1s forwards;
+}
+@keyframes fadeOutAnimation{
+   from{
+     opacity: 1;
+   }
+   to{
+      opacity: 0; 
+     display: none;
+   }
+ } /*就是字面意思啊， 把home页的文字和按钮 消逝掉 */
+
+@keyframes open{
+  from{
+    opacity: 0;
+    width: 500rpx;
+    height: 600rpx;
+    background-color: var(--main-color);
+  }
+  to{
+    opacity: 1; 
+    width: 100%;
+    height: 100%;
+    background-color: #FFFFFF;
+  }
+}
+@keyframes close{
+  to{
+    opacity: 1;
+    width: 500rpx;
+    height: 600rpx;
+    background-color: var(--main-color);
+  }
+  from{
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #FFFFFF;
+  }
+}
+
+@keyframes closePad{
+  to{
+    opacity: 1;
+    width: 450rpx;
+    height: 300rpx;
+    background-color: var(--main-color);
+  }
+  from{
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #FFFFFF;
+  }
+}
+
+/* 新建打卡按钮 */
+.new_aim_card{
+  width: 300rpx;
+  height: 150rpx;
+  background:rgb(255,153,102);
+  border-radius: 45rpx;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+/* 新建打卡界面css如下 类：newaim*/
+
+.select {
+  margin-top: 30rpx;
+  height: 100rpx;
+  width: 75%;
+  background: #fff;
+  border-radius: 50rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: all 300ms ease;
+  /* justify-content: space-around; */
+
+  border: 1rpx solid black;
+}
+#single{
+  height: 100%;
+  width: 50%;
+  background: white;
+  border-radius: 50rpx 0rpx 0rpx 50rpx; 
+  border: 1rpx solid black;
+  text-align: center; 
+  font-size: 40rpx;
+  font-weight: normal;
+  justify-content: space-around; 
+}
+#team{
+  height: 100%;
+  width: 50%;
+  background: white;
+  border-radius: 0rpx 50rpx 50rpx 0rpx; 
+  border: 1rpx solid black;
+  text-align: center; 
+  font-size: 40rpx;
+  font-weight: normal;
+  justify-content: space-around; 
+}
+.team_select{
+  background: var(--main-color) !important;
+}
+
+.containerB text {      
+  /* newaim */
+  /* margin: 20rpx; */
+  margin-left: 20rpx;
+  line-height: 100rpx;
+  text-align: center;
+
+  color: black;
+  font-size: 40rpx;
+  /* position: relative; */
+}
+
+/* .fre_diy{
+  display: inline-block;
+}
+.fre_num_input{
+  width: 200rpx;
+  height: 40rpx;
+  border-radius: 20rpx;
+  border:5rpx solid #000;
+  text-align: center;
+
+} */
+
+.title_input{
+  width: 250rpx;
+  height: 60rpx;  
+  line-height:100rpx ;
+  font-size: 40rpx; 
+  text-align: right; 
+  margin: 20rpx;
+}
+.picker{
+width: 720rpx;
+}
+
+
+.date {
   margin-top: 40rpx;
-  height: 140rpx;
+  /* height: 360rpx; */
   width: 100%;
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-left: none;
   border-right: none;
   display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  transition: all 300ms ease;
+  box-sizing: border-box;
+}
+
+.date {
+  background-color: #FFF;
+}
+
+.date .card {
+  position: relative;
+  top: -2rpx;
+  margin: 0;
+  border-bottom: 1px solid #F1F2F3;
+}
+
+/* .lastCard{border: none !important;} */
+ .fre_diy{
+  
+  padding:  30rpx;
+  box-sizing: border-box;
+}
+.fre_num_btn{  
+  /* ???? */
+  float: right;
+}
+.fre_num_input{
+  padding: 8px 0;
+  margin-bottom: 8px;
+  border: none;
+  border-radius: 0;
+  border-bottom: 2px solid #EAEBEC;
+}
+.fre_num_input,
+.fre_num_btn{
+  width: 100% !important;
+  display: block;
+}
+
+/* 设置css */
+.user {
+  /* margin-top: 30rpx; */
+  height: 250rpx;
+  width: 100%;
+  background: #fff;
+  border-radius: 50rpx 50rpx 0rpx 0rpx;
+  display: flex;
   flex-direction: row;
   align-items: center;
   transition: all 300ms ease;
-}
-
-.userinfo {
-  padding-left: 120rpx;
-}
-
-.userinfo-avatar {
-  width: 100rpx;
-  height: 100rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-  background-size: cover;
-  background-color: white;
-}
-
-.userinfo-avatar[size] {
-  width: 100rpx;
-}
-
-
-.userinfo-avatar:after {
-  border: none;
-}
-
-.userinfo-nickname {
-  font-size: 32rpx;
-  color: #007aff;
-  background-color: white;
-  background-size: cover;
-  text-align: left;
-  padding-left: 0;
-  margin-left: 10px;
-}
-
-.userinfo-nickname::after {
-  border: none;
-}
-
-.userinfo-nickname-wrapper {
-  flex: 1;
-}
-
-.uploader, .tunnel {
-  height: auto;
-  padding: 0 0 0 40rpx;
-  flex-direction: column;
-  align-items: flex-start;
-  box-sizing: border-box;
-}
-
-.uploader-text, .tunnel-text {
-  width: 100%;
-  line-height: 52px;
-  font-size: 34rpx;
-  color: #007aff;
-}
-
-.uploader-container {
-  width: 100%;
-  height: 400rpx;
-  padding: 20rpx 20rpx 20rpx 0;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  box-sizing: border-box;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.uploader-image {
-  width: 100%;
-  height: 360rpx;
-}
-
-.tunnel {
-  padding: 0 0 0 40rpx;
-}
-
-.tunnel-text {
-  position: relative;
-  color: #222;
-  display: flex;
-  flex-direction: row;
-  align-content: center;
   justify-content: space-between;
-  box-sizing: border-box;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
-
-.tunnel-text:first-child {
-  border-top: none;
+.user_img{
+  margin: 40rpx;
+  width: 150rpx;
+  height: 150rpx;
+  border-radius:50%;
+  /* border-width: 8rpx; */
+  overflow:hidden;
+  text-align: center;
 }
-
-.tunnel-switch {
-  position: absolute;
-  right: 20rpx;
-  top: -2rpx;
-}
-
-.disable {
-  color: #888;
-}
-
-.service {
-  position: fixed;
-  right: 40rpx;
-  bottom: 40rpx;
-  width: 140rpx;
-  height: 140rpx;
-  border-radius: 50%;
-  background: linear-gradient(#007aff, #0063ce);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+.userzonetext{
   display: flex;
-  align-content: center;
-  justify-content: center;
-  transition: all 300ms ease;
+  flex-direction: column;
+  width: 70%;
+  /* justify-content: ; */
+}
+.user_name{
+font-size: 70rpx;
+margin-left: 20rpx;
 }
 
-.service-button {
-  position: absolute;
-  top: 40rpx;
-}
 
-.service:active {
-  box-shadow: none;
-}
 
-.request-text {
-  padding: 20rpx 0;
-  font-size: 24rpx;
-  line-height: 36rpx;
-  word-break: break-all;
-}
+
