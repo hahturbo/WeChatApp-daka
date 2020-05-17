@@ -185,6 +185,8 @@ page .return2Home{
 }
 /* 目标选项卡定义 */
 .aim_card{
+  overflow-y: scroll; /*滚动条*/
+
   width: 500rpx;
   height: 600rpx;
   background:var(--main-color);

@@ -39,6 +39,8 @@ Page({
       "step": 0,
     }, ],
 
+    goals:[],
+    card_num:0,
     //新建打卡页面数据
     team: 0,
 
@@ -51,6 +53,7 @@ Page({
     date_end: '请先选择开始日期',
 
     frequencytype: 0,
+    frequencytype2: 0,  //0天1月目前都没用
     frequency: [0, 0, 0, 0],
     frequencynum: 1,
     frequencyout: '每天',
@@ -123,26 +126,27 @@ Page({
   //微信运动
   GetWeRunData: function () {
     if (this.data.login_key) {
-
       wx.getWeRunData({
-        success(res) {
+        success:(res) => {
+          console.log();
           wx.request({
+            method: 'POST',
             url: this.data.apiUrl + '/user/getWeRunData',
-            data: {
+            data:{
               encryptedData: res.encryptedData,
               iv: res.iv,
               login_key: this.data.login_key,
             },
-
             success: (res) => {
+              // console.log("22");
+              // console.log(res.data.stepInfoList);
               this.setData({
-                "stepInfoList": res,
+                "stepInfoList": res.data.stepInfoList,
               })
-
             }
           })
-          // 拿 encryptedData 到开发者后台解密开放数据
-          const encryptedData = res.encryptedData
+            // console.log("11");
+            // console.log(this.data.stepInfoList);
         }
       })
     } else {
@@ -187,27 +191,24 @@ Page({
                           code: code
                         },
                         success: (res) => {
+                          res=res.data;
+                          console.log("this:" + JSON.stringify(res));
                           if (res.status = "success") {
                             this.setData({
-                              login_key: res.data.login_key,
+                              login_key: res.data['login_key'],
                               isLogin: true,
                             })
                           }
                           // console.log(JSON.stringify(res));
-                          this.setData({
-                            ConsoleText: this.data.isLogin,
-                          })
-                          console.log("this.setData:" + this.data.isLogin);
+                          // this.setData({
+                          //   ConsoleText: this.data.isLogin,
+                          // })
+                          console.log("this.setData:" + res.data);
                         }
                       })
                     }
                   })
-
-
-
-
                 }
-
               }
             })
 
@@ -274,6 +275,7 @@ Page({
       date_end: '请先选择开始日期',
 
       frequencytype: 0,
+      frequencytype2: 0,
       frequency: [0, 0, 0, 0],
       frequencynum: 1,
       frequencyout: '每天',
@@ -290,6 +292,7 @@ Page({
   changePage_Finish: function (e) {
     console.log(this.data.title != null);
     if (this.data.title != null && (this.data.type == 0) || (this.data.date_end != '请先选择开始日期' && this.data.time_aim2 != '请选择')) {
+      this.PostCardData();
       this.setData({
         changedPageCounts: this.data.changedPageCounts + 1,
         nowPage: e.currentTarget.dataset.to,
@@ -307,6 +310,41 @@ Page({
         dialogShow: true,
       })
     }
+  },
+
+  PostCardData: function(e){
+    let fre;
+    if(this.data.frequency[2]==2){
+        fre=this.data.frequency[3]+'|'+1;
+    }else{
+      fre=this.data.frequency[3]+'|'+0;
+    }
+    wx.request({
+      method: 'POST',
+      url: this.data.apiUrl + '/user/goal/add',
+      data:{
+        goal_name:this.data.title,
+        goal_type:this.data.type,
+        started_at:this.data.date_start,
+        ended_in:this.data.date_end,
+        frequency:this.data.frequencynum,
+        frequency_type:fre,
+        reminder_at:-30,
+        needed_be_signed_at:this.data.time_aim1,
+        needed_be_signed_deadline:this.data.time_aim2,
+        signed_type:1,
+        signed_day:0,
+        login_key:this.data.login_key,
+      },
+      success: (res) => {
+        console.log("提交成功");
+        console.log(res.data);
+        //this.ClearNewAimData();
+        this.setData({
+        })
+      }
+    })
+
   },
 
   changePage_Back: function (e) {
@@ -354,6 +392,7 @@ Page({
         type: e.detail.value
       })
     } else {
+     //this.GetWeRunData();//微信运动函数
       this.setData({
         normal_card_display: 0,
         type: e.detail.value
@@ -399,33 +438,24 @@ Page({
     console.log(f[0], f[1], f[2], f[3]);
     switch (f[2]) {
       case 0:
-        d = 1 * f[1];
+        d = 1 * f[1]+1;
         break;
       case 1:
-        d = 7 * f[1];
+        d = 7 * f[1]+7;
         break;
       case 2:
-        d = -1 * f[1];
+        d = 1 * f[1]+1;
         break;
       default:
         console.log("error-34");
     }
 
     console.log("arrat:", this.data.frequencyArray[e.detail.value]);
-    if (f[1] != 1) {
       this.setData({
         frequency: f,
         frequencynum: d,
         frequencyout: this.data.frequencyArray[0][0] + this.data.frequencyArray[1][f[1]] + this.data.frequencyArray[2][f[2]] + this.data.frequencyArray[3][f[3]],
-
       })
-    } else {
-      this.setData({
-        frequency: f,
-        fre_diy_display: "block",
-        frequencyout: "自定义：" + this.data.frequencyArray[1][f[1]],
-      })
-    }
     console.log(f);
   },
   bindMultiPickerColumnChange: function (e) {
