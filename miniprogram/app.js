@@ -1,4 +1,5 @@
 //app.js
+import 'store.js'
 App({
   onLaunch: function () {
     

@@ -1,0 +1,97 @@
+/* pages/setting/setting.wxss */
+
+.uploader-text{
+  width: 100%;
+  height: 100%;
+}
+.containerB{
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box; */
+  width: 720rpx;
+  height: 100%;
+  /* position:fixed;  */
+  border-radius: 50rpx 50rpx 0rpx 0rpx;
+  background: #eee;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  
+}
+.right_text{
+  right: 0rpx;
+  margin-right: 30rpx;
+  /* display: inline-block;
+  position: absolute; */
+  float: right;
+}
+
+
+
+.right_text picker{
+  display: inline-block;
+}
+.right_text_unselect{
+  color: gray !important; 
+}
+.displayNone{
+  display: none !important;
+}
+
+.card {
+  margin-top: 20rpx;
+  height: 100rpx;
+  width: 720rpx;
+  background: #fff;
+  /* border: 5rpx solid #eee; */
+  border-left: none;
+  border-right: none;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: left;
+  transition: all 300ms ease;
+  box-sizing: border-box;
+}
+
+
+  .right_text navigator{
+    width:720rpx;
+    display: inline-block;
+  }
+
+
+
+/* 设置css */
+.user {
+  /* margin-top: 30rpx; */
+  height: 250rpx;
+  width: 100%;
+  background: #fff;
+  border-radius: 50rpx 50rpx 0rpx 0rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: all 300ms ease;
+  justify-content: space-between;
+}
+.user_img{
+  margin: 40rpx;
+  width: 150rpx;
+  height: 150rpx;
+  border-radius:50%;
+  /* border-width: 8rpx; */
+  overflow:hidden;
+  text-align: center;
+}
+.userzonetext{
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  /* justify-content: ; */
+}
+.user_name{
+font-size: 70rpx;
+margin-left: 20rpx;
+}

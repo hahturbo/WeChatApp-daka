@@ -1,0 +1,44 @@
+<!--pages/setting/setting.wxml-->
+
+<view id="settings" class=' containerB'>
+	<!--账户信息区 -->
+	<view class="user">
+		<open-data class='user_img' type="userAvatarUrl"></open-data>
+
+		<view class="userzonetext">
+			<open-data class='user_name' type="userNickName"></open-data>
+			<text style="font-size:30rpx;text-align: left;">使用天数:100</text>
+		</view>
+
+	</view>
+	<!-- 选项 -->
+	<view class="card">
+		<navigator>
+			<text >账户管理：</text><text class="right_text">》</text>
+		</navigator>
+	</view>
+
+	<view class="card">
+		<navigator>
+			<text >打卡记录</text><text class="right_text">》</text>
+		</navigator>
+	</view>
+
+	<view class="card">
+		<view class="uploader-text" bindtap="doUpload">
+			<text >外观设置</text><text class="right_text">》</text>
+		</view>
+	</view>
+
+	<view class="card">
+		<navigator>
+			<text >关于打卡卡</text><text class="right_text">》</text>
+		</navigator>
+	</view>
+
+	<view class="card">
+		<view class="uploader-text" bindtap="doUpload">
+			<text >使用提示</text><text class="right_text">》</text>
+		</view>
+	</view>
+</view>

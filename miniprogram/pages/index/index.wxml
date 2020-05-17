@@ -1,7 +1,8 @@
 <!--index.wxml-->
 <view class="container">
-	<view class="auth {{isLogin ? 'displayNone' : ''}}">
+	<view class="auth {{$state.isLogin ? 'displayNone' : ''}}">
 		<!-- <view class="auth "> -->
+
 		<h1>请允许小程序获取你的信息</h1>
 		<button open-type='getUserInfo' bindgetuserinfo='checkPermission' id='bn_login'>使用微信登录</button>
 		<!-- <text>{{ConsoleText}}</text> -->
@@ -14,7 +15,7 @@
 	<view class='down'>
 		<image class='downmainimg' src="../../images/down.png" mode="aspectFill"></image>
 		<view class="downleft">
-			<image class='downimg {{nowPage!=0 ? "displayNone" : ""}}' src="../../images/aim3.png"></image>
+			<image class='downimg {{nowPage!=0 ? "displayNone" : ""}}' src="../../images/aim3.png" bindtap="GetCardData"></image>
 			<image class='downimg {{nowPage!=1 ? "displayNone" : ""}}' src="../../images/back.png" data-to="0" bindtap="changePage_Back"></image>
 			<image class='downimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/tick.png" data-to="0" bindtap="changePage"></image>
 		</view>
@@ -41,148 +42,37 @@
          这里的 changedPageCounts 就是为了判断是不是 首次进入首页，如果是第一次进入首页的话 就不会给他添加return2Home的类， 否则就会添加 
          nmd这里n个三元运算符
     -->
-	<view id="main_container" class='aim_card {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}} {{card_num>2 && nowPage== 0?"displayNone":""}}' animation="{{open_animation}}">
-		<view class='home-content {{nowPage!=0 ? "displayNone" : ""}}'>
-			<image class='{{card_num==0?"":"displayNone"}}' style=" width:100%;height:100%" src="../../images/mainnew.png"></image>
-			<!-- <text>isLogin:{{ConsoleText}}</text> -->
+	<view class='AllMainCard '>
+		<view id="main_container" class='aim_card  {{card_num<3 && nowPage== 0?"":"displayNone"}} {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}}' animation="{{open_animation}}">
+			<!-- <view> -->
+			<view class='home-content {{nowPage!=0 ? "displayNone" : ""}}'>
+				<image class='{{card_num==0?"":"displayNone"}}' style=" width:100%;height:100%" src="../../images/mainnew.png"></image>
+				<!-- <text>isLogin:{{ConsoleText}}</text> -->
 
-			<view class='{{(card_num==1||card_num==2)?"":"displayNone"}}'>
-				<text>每天实现一个小目标</text>
-				<button class='new_aim_card ' data-to="1" bindtap="changePage"><text>今日打卡</text></button>
+				<view class='{{(card_num==1||card_num==2)?"":"displayNone"}}'>
+					<text>每天实现一个小目标</text>
+					<button class='new_aim_card ' data-to="1" bindtap="changePage"><text>今日打卡</text></button>
+				</view>
+
 			</view>
 
 		</view>
+	</view>
+	<!-- class='AllMainCard'end -->
+
+	<view class='FullScreenCard aim_card {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}} {{nowPage==1||nowPage==2 ? "" : "displayNone"}}' animation="{{open_animation}}">
 		<!-- <view class=' containerB {{nowPage==1 ? "displayBlock" : "displayNone"}}'> -->
 		<view class=' containerB {{nowPage==1 ? "" : "displayNone"}}'>
-			<!-- <button class="new_aim_card" data-to="0" bindtap="changePage"><text>返回</text></button> -->
-			<!-- <view class="newaim" > -->
-			<!--打卡分类 -->
-			<view class="select">
-				<button class='{{team==0?".team_select":""}}' id="single" bindtap="click_single_btn">
-					个人打卡
-				</button>
-				<button class='{{team==1?".team_select":""}}' id="team" bindtap="click_team_btn">
-					小组打卡
-				</button>
-			</view>
+			<newaimcard></newaimcard>
 
-			<!-- 选项 -->
-			<view class="card">
-				<picker bindchange="bindPickerTypeChange" value="{{type}}" range="{{type_array}}">
-					<view class="picker">
-						<text>打卡类型：</text><text class="right_text">{{type_array[type]}}</text>
-					</view>
-				</picker>
-			</view>
-			<view class="card">
-				<text >打卡标题</text>
-				<input class="right_text title_input" maxlength="10" placeholder="点此输入" bindinput="TitleInput" value="{{title}}" />
-
-			</view>
-
-			<view class="date">
-				<view class='card {{normal_card_display==1 ? "displayNone" : ""}}' bindtap="doUpload">
-					<picker mode="date" value="{{date_start}}" start="2019-09-01" end="2099-09-01" bindchange="bindDatestartChange">
-						<view class="picker">
-							<text>开始日期: </text><text class='right_text {{date_start=="请选择"?"right_text_unselect":""}}'>{{ date_start}}</text>
-						</view>
-					</picker>
-				</view>
-				<view class='card  {{normal_card_display==1 ? "displayNone" : ""}}' bindtap="doUpload">
-					<picker mode="date" value="{{date_start}}" start="2019-09-01" end="2099-09-01" bindchange="bindDateendChange">
-						<view class="picker">
-							<text>结束日期: </text><text class='right_text {{date_end=="请先选择开始日期"?"right_text_unselect":""}}'>{{ date_end}}</text>
-						</view>
-					</picker>
-				</view>
-
-				<view class='card  {{normal_card_display==1 ? "displayNone" : ""}}' bindtap="doUpload">
-					<picker mode="multiSelector" bindchange="bindPickerFrequencyChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{frequency}}" range="{{frequencyArray}}">
-						<view class="picker">
-							<text>打卡频率: </text><text class="right_text">{{frequencyout}}</text>
-							<!-- <text>打卡频率: {{frequencyArray[frequency]}}<text> -->
-						</view>
-					</picker>
-				</view>
-				<!-- <view class="fre_diy" id="frediy" > -->
-				<!-- <view class="fre_diy" id="frediy">
-					<input class="fre_num_input" type="number" maxlength="3" placeholder="在此输入" bindinput="KeyInput" value="{{freinputValue}}" />
-					<button class="fre_num_btn" style="background:#FFC864" bindtap="click_btn">确认</button>
-				</view> -->
-
-			</view>
-
-			<view class='card  {{normal_card_display==1 ? "displayNone" : ""}}'>
-
-				<view class="picker">
-					<text>打卡时间:  </text>
-					<view class='right_text '>
-						<picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeAim1Change">
-							<text class='{{time_aim1=="请选择"?"right_text_unselect":""}}'>{{time_aim1}}</text></picker>
-						<text>—</text>
-						<picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeAim2Change">
-							<text class='{{time_aim2=="请选择"?"right_text_unselect":""}}'>{{time_aim2}}</text></picker>
-					</view>
-					<!-- <text class='right_text {{time_aim1=="请选择"?"right_text_unselect":""}}'>——</text>
-			<text class='right_text {{time_aim2=="请选择"?"right_text_unselect":""}}'>	{{time_aim2}}</text> -->
-				</view>
-
-
-			</view>
-
-
-			<view class='card  {{normal_card_display==1 ? "displayNone" : ""}}'>
-				<picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeCallChange">
-					<view class="picker">
-						<text>提醒时间:  </text><text class="right_text">{{time_call}}</text>
-					</view>
-				</picker>
-			</view>
 			<!-- </view> -->
 		</view>
 		<!-- nowpage 1 end -->
 		<view class=' containerB {{nowPage==2 ? "" : "displayNone"}}'>
-			<!--账户信息区 -->
-			<view class="user">
-				<open-data class='user_img' type="userAvatarUrl"></open-data>
-
-				<view class="userzonetext">
-					<open-data class='user_name' type="userNickName"></open-data>
-					<text style="font-size:30rpx;text-align: left;">使用天数:100</text>
-				</view>
-
-			</view>
-			<!-- 选项 -->
-			<view class="card">
-				<picker bindchange="bindPickerTypeChange" value="{{type}}" range="{{type_array}}">
-					<text >账户管理：</text><text class="right_text">》</text>
-				</picker>
-			</view>
-
-			<view class="card">
-				<view class="uploader-text" bindtap="doUpload">
-					<text >打卡记录</text><text class="right_text">》</text>
-				</view>
-			</view>
-			<view class="card">
-				<view class="uploader-text" bindtap="doUpload">
-					<text >外观设置</text><text class="right_text">》</text>
-				</view>
-			</view>
-			<view class="card">
-				<view class="uploader-text" bindtap="doUpload">
-					<text >关于打卡卡</text><text class="right_text">》</text>
-				</view>
-			</view>
-			<view class="card">
-				<view class="uploader-text" bindtap="doUpload">
-					<text >使用提示</text><text class="right_text">》</text>
-				</view>
-			</view>
+		<setting></setting>
 		</view>
+			</view>
 
-
-	</view>
 	<!-- <view>456</view> -->
 
 

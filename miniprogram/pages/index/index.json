@@ -1,6 +1,8 @@
 {
 
   "usingComponents": {
-    "mp-dialog": "/miniprogram_npm/weui-miniprogram/dialog/dialog"
+    "mp-dialog": "/miniprogram_npm/weui-miniprogram/dialog/dialog",
+    "newaimcard":"../newaimcard/newaimcard",
+    "setting":"../setting/setting"
   }
 }

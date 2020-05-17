@@ -1,15 +1,16 @@
 /**app.wxss**/
 page {
 
-  --main-color: #FFC864;
+  --main-color: #FFCC66;
 }
- /* @media screen and (min-width: 500px) {
+
+/* @media screen and (min-width: 500px) {
   page {
     --main-color:lightblue;
   }
 } */
 @media screen and (min-width: 500px) {
-  page  .card {
+  page .card {
     margin-top: 10rpx;
     height: 50rpx;
     width: 100%;
@@ -25,112 +26,132 @@ page {
     box-sizing: border-box;
   }
 
+  page .containerB text {
+    /* newaim */
+    /* margin: 20rpx; */
+    margin-left: 20rpx;
+    line-height: 50rpx;
+    text-align: center;
+    font-size: 20rpx;
+    /* position: relative; */
+  }
+
   /* 整一个下部导航栏定义 */
-  page .down{
-  width: 100vw;
-  height: 10vh;
-  bottom:0px;
-  display: flex;
-  justify-content: space-around;
-   align-items: center; 
-  position:fixed; 
-  z-index: 10;
-  flex-direction: row;
-}
+  page .down {
+    width: 100vw;
+    height: 10vh;
+    bottom: 0px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    z-index: 10;
+    flex-direction: row;
+  }
 
-page .downmainimg {
-  width: 100vw;
-  height: 10vh;
-  bottom:0px;
-  position:fixed; 
-  z-index: -1;
+  page .downmainimg {
+    width: 100vw;
+    height: 10vh;
+    bottom: 0px;
+    position: fixed;
+    z-index: -1;
 
-  align-items: center; 
-  display: flex;
-  justify-content: space-around;
-}
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+  }
 
-page .downleft {
-  margin: 0px;
-  width: 25vw;
-  height: 10vh;
-  align-items: center; 
+  page .downleft {
+    margin: 0px;
+    width: 25vw;
+    height: 10vh;
+    align-items: center;
 
-  align-items: center; 
-  display: flex;
-  justify-content: space-around;
-}
-page .downright {
-  margin: 0px;
-  width: 25vw;
-  height: 10vh;
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+  }
 
-  align-items: center; 
-  display: flex;
-  justify-content: space-around;
-}
-/* 中圈 */
-page .downmid{
-  width: 20vw;
-  height: 20vw;
-  background:rgb(255, 255, 255);
-  border-radius: 50%;
-  border-style:solid;
-  border-color:var(--main-color);
-  border-width: 1vw;
-  bottom:5vh;
-  position: relative; 
+  page .downright {
+    margin: 0px;
+    width: 25vw;
+    height: 10vh;
 
-  align-items: center; 
-  display: flex;
-  justify-content: space-around;
-}
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+  }
 
-.downmiddisable{
-  background:var(--main-color) !important;
-}
+  /* 中圈 */
+  page .downmid {
+    width: 20vw;
+    height: 20vw;
+    background: rgb(255, 255, 255);
+    border-radius: 50%;
+    border-style: solid;
+    border-color: var(--main-color);
+    border-width: 1vw;
+    bottom: 5vh;
+    position: relative;
+
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .downmiddisable {
+    background: var(--main-color) !important;
+  }
 
 
 
 
-/* 导航栏图片统一定义 */
-page .downimg{
-  width: 100rpx;
-  height: 100rpx;
-  /* text-align: center; */
-  top:1vw;
-  /* left: 3vw; */
-  position:relative;
-}
- page .downmidimg{
-  width:110rpx;
-  height: 110rpx;
-  top:0rpx;
-  position:relative;
-}
+  /* 导航栏图片统一定义 */
+  page .downimg {
+    width: 100rpx;
+    height: 100rpx;
+    /* text-align: center; */
+    top: 1vw;
+    /* left: 3vw; */
+    position: relative;
+  }
 
-} 
-
-navigator{
-  align-items: center; 
-  display: flex;
-  justify-content: space-around;
-  /* flex-direction: column; */
+  page .downmidimg {
+    width: 110rpx;
+    height: 110rpx;
+    top: 0rpx;
+    position: relative;
+  }
 
 }
 
-.container{
+.displayNone {
+  display: none !important;
+}
+
+.displayBlock {
+  display: block !important;
+}
+
+#settings navigator {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
   /* background-color: --main-color; */
 
   width: 100%;
   height: 100%;
-  position:fixed; 
+  position: fixed;
   /* background-size:100% 100%; */
   align-items: center;
   display: flex;
   flex-direction: column;
+  /* overflow-y: scroll; */
 }
-.containerB{
+
+.containerB {
   /* display: flex;
   flex-direction: column;
   align-items: center;
@@ -138,7 +159,6 @@ navigator{
   width: 100%;
   height: 100%;
   /* position:fixed;  */
-
   border-radius: 50rpx 50rpx 0rpx 0rpx;
   background: #eee;
   align-items: center;
@@ -146,64 +166,87 @@ navigator{
   flex-direction: column;
 }
 
+.right_text {
+  right: 30rpx;
+  display: inline-block;
+  position: absolute;
+}
+
+.right_text picker {
+  display: inline-block;
+}
+
+.right_text_unselect {
+  color: gray !important;
+}
+
+.containerB text {
+  /* newaim */
+  /* margin: 20rpx; */
+  margin-left: 20rpx;
+  line-height: 100rpx;
+  text-align: center;
+
+  color: black;
+  font-size: 40rpx;
+  /* position: relative; */
+}
+
 /* 背景图片定义 */
 .background {
   text-align: center;
   width: 100vw;
   height: 100vh;
-  position:fixed; 
-  background-size:100% 100%;
+  position: fixed;
+  background-size: 100% 100%;
   z-index: -2;
 }
 
-.right_text{
-  right: 30rpx;
-  display: inline-block;
-  position: absolute;
-}
-.right_text picker{
-  display: inline-block;
-}
-.right_text_unselect{
-  color: gray !important; 
-}
+
+
 /* 弹窗按钮颜色 */
-page .btn_cancel{
+page .btn_cancel {
   /* background: red; */
-  color:black;
+  color: black;
 }
 
-page .btn_go_on{
+page .btn_go_on {
   /* background: red; */
-  color:red;
+  color: red;
 }
 
-.card {
-  margin-top: 20rpx;
-  height: 100rpx;
-  width: 100%;
-  background: #fff;
-  /* border: 5rpx solid #eee; */
-  border-left: none;
-  border-right: none;
-  display: flex;
+/* 选项卡定义 */
+.aim_card {
+  overflow-y: scroll;
+  /*滚动条*/
+
+  width: 500rpx;
+  height: 600rpx;
+  background: var(--main-color);
+  border-radius: 45rpx;
+  box-shadow: 0px 0px 40rpx 10rpx #888888;
+  border-style: dashed;
+  border-color: #FFFFFF;
+  border-width: 5rpx;
   position: relative;
-  flex-direction: row;
-  align-items: left;
-  transition: all 300ms ease;
-  box-sizing: border-box;
+  margin-top: 50rpx;
+
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-.lastCard{border: none !important;}
+
 /* 整一个下部导航栏定义 */
-.down{
+.down {
   width: 100vw;
   height: 14vh;
-  bottom:0px;
+  bottom: 0px;
   display: flex;
   justify-content: space-around;
-   align-items: center; 
-  position:fixed; 
+  align-items: center;
+  position: fixed;
   z-index: 10;
   flex-direction: row;
 }
@@ -211,11 +254,11 @@ page .btn_go_on{
 .downmainimg {
   width: 100vw;
   height: 14vh;
-  bottom:0px;
-  position:fixed; 
+  bottom: 0px;
+  position: fixed;
   z-index: -1;
 
-  align-items: center; 
+  align-items: center;
   display: flex;
   justify-content: space-around;
 }
@@ -224,58 +267,59 @@ page .btn_go_on{
   margin: 0px;
   width: 25vw;
   height: 12vh;
-  align-items: center; 
+  align-items: center;
 
-  align-items: center; 
+  align-items: center;
   display: flex;
   justify-content: space-around;
 }
+
 .downright {
   margin: 0px;
   width: 25vw;
   height: 12vh;
 
-  align-items: center; 
+  align-items: center;
   display: flex;
   justify-content: space-around;
 }
+
 /* 中圈 */
-.downmid{
+.downmid {
   width: 27vw;
   height: 27vw;
-  background:rgb(255, 255, 255);
+  background: rgb(255, 255, 255);
   border-radius: 50%;
-  border-style:solid;
-  border-color:var(--main-color);
+  border-style: solid;
+  border-color: var(--main-color);
   border-width: 2vw;
-  bottom:5vh;
-  position: relative; 
+  bottom: 5vh;
+  position: relative;
 
-  align-items: center; 
+  align-items: center;
   display: flex;
   justify-content: space-around;
 }
 
-.downmiddisable{
-  background:var(--main-color) !important;
+.downmiddisable {
+  background: var(--main-color) !important;
 }
 
 
 
 /* 导航栏图片统一定义 */
-.downimg{
+.downimg {
   width: 130rpx;
   height: 160rpx;
   /* text-align: center; */
-  top:1vw;
+  top: 1vw;
   /* left: 3vw; */
-  position:relative;
+  position: relative;
 }
-.downmidimg{
+
+.downmidimg {
   width: 170rpx;
   height: 170rpx;
-  top:0rpx;
-  position:relative;
+  top: 0rpx;
+  position: relative;
 }
-
-

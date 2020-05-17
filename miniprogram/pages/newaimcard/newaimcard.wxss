@@ -1,0 +1,235 @@
+/* pages/newaimcard/newaimcard.wxss */
+
+@media screen and (min-width: 500px) {
+  /* .right_text_unselect{
+    color: blue !important; 
+ } */
+
+ page .card {
+  margin-top: 10rpx;
+  height: 50rpx;
+  width: 100%;
+  background: #fff;
+  /* border: 5rpx solid #eee; */
+  border-left: none;
+  border-right: none;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: left;
+  transition: all 300ms ease;
+  box-sizing: border-box;
+}
+
+ page .aim_card{
+  width: 500rpx;
+  height: 400rpx;
+  background:var(--main-color);
+  border-radius: 45rpx;
+  box-shadow: 0px 0px 40rpx 10rpx  #888888;
+  border-style:dashed;
+  border-color:#FFFFFF;
+  border-width: 5rpx;
+  position: relative; 
+  margin-top: 30rpx;
+
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;  
+}
+
+ page .select {
+  margin-top: 15rpx;
+  height: 50rpx;
+  width: 75%;
+  background: #fff;
+  border-radius: 25rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: all 300ms ease;
+  /* justify-content: space-around; */
+
+  border: 1rpx solid black;
+}
+ page  #single{
+  height: 100%;
+  width: 50%;
+  background: white;
+  border-radius: 50rpx 0rpx 0rpx 50rpx; 
+  border: 1rpx solid black;
+  text-align: center; 
+  font-size: 20rpx;
+  font-weight: normal;
+  justify-content: space-around; 
+}
+page #team{
+  height: 100%;
+  width: 50%;
+  background: white;
+  border-radius: 0rpx 50rpx 50rpx 0rpx; 
+  border: 1rpx solid black;
+  text-align: center; 
+  font-size: 20rpx;
+  font-weight: normal;
+  justify-content: space-around; 
+}
+page .title_input{
+  width: 250rpx;
+  height: 100%;  
+  font-size: 20rpx;
+  margin: 5rpx;
+}
+}
+.containerB{
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box; */
+  width: 100%;
+  height: 100%;
+  /* position:fixed;  */
+  border-radius: 50rpx 50rpx 0rpx 0rpx;
+  background: #eee;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.right_text{
+  margin-right: 30rpx;
+  /* display: inline-block;
+  position: absolute; */
+  float: right;
+}
+
+.right_text picker{
+  display: inline-block;
+}
+.right_text_unselect{
+  color: gray !important; 
+}
+.displayNone{
+  display: none !important;
+}
+
+.card {
+  margin-top: 20rpx;
+  height: 100rpx;
+  width: 100%;
+  background: #fff;
+  /* border: 5rpx solid #eee; */
+  border-left: none;
+  border-right: none;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: left;
+  transition: all 300ms ease;
+  box-sizing: border-box;
+}
+
+.lastCard{border: none !important;}
+
+.select {
+  margin-top: 30rpx;
+  height: 100rpx;
+  width: 75%;
+  background: #fff;
+  border-radius: 50rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: all 300ms ease;
+  /* justify-content: space-around; */
+
+  border: 1rpx solid black;
+}
+#single{
+  height: 100%;
+  width: 50%;
+  background: white;
+  border-radius: 50rpx 0rpx 0rpx 50rpx; 
+  border: 1rpx solid black;
+  text-align: center; 
+  font-size: 40rpx;
+  font-weight: normal;
+  justify-content: space-around; 
+}
+#team{
+  height: 100%;
+  width: 50%;
+  background: white;
+  border-radius: 0rpx 50rpx 50rpx 0rpx; 
+  border: 1rpx solid black;
+  text-align: center; 
+  font-size: 40rpx;
+  font-weight: normal;
+  justify-content: space-around; 
+}
+.team_select{
+  background: var(--main-color) !important;
+}
+
+.title_input{
+  width: 250rpx;
+  height: 60rpx;  
+  line-height:100rpx ;
+  font-size: 40rpx; 
+  text-align: right; 
+  margin: 20rpx 0;
+  position: absolute;
+  right: 30rpx;
+}
+.picker{
+width: 720rpx;
+}
+
+
+.date {
+  margin-top: 40rpx;
+  /* height: 360rpx; */
+  width: 100%;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-left: none;
+  border-right: none;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  transition: all 300ms ease;
+  box-sizing: border-box;
+}
+
+.date {
+  background-color: #FFF;
+}
+
+.date .card {
+  position: relative;
+  top: -2rpx;
+  margin: 0;
+  border-bottom: 1px solid #F1F2F3;
+}
+
+.fre_diy{  
+  padding:  30rpx;
+  box-sizing: border-box;
+}
+.fre_num_btn{  
+  
+  float: right;
+}
+.fre_num_input{
+  padding: 8px 0;
+  margin-bottom: 8px;
+  border: none;
+  border-radius: 0;
+  border-bottom: 2px solid #EAEBEC;
+}
+.fre_num_input,
+.fre_num_btn{
+  width: 100% !important;
+  display: block;
+}
