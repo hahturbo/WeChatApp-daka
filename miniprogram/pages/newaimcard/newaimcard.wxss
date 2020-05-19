@@ -53,7 +53,7 @@
 
   border: 1rpx solid black;
 }
- page  #single{
+ page  .single{
   height: 100%;
   width: 50%;
   background: white;
@@ -64,7 +64,7 @@
   font-weight: normal;
   justify-content: space-around; 
 }
-page #team{
+page .team{
   height: 100%;
   width: 50%;
   background: white;
@@ -146,7 +146,7 @@ page .title_input{
 
   border: 1rpx solid black;
 }
-#single{
+.single{
   height: 100%;
   width: 50%;
   background: white;
@@ -157,7 +157,8 @@ page .title_input{
   font-weight: normal;
   justify-content: space-around; 
 }
-#team{
+
+.team{
   height: 100%;
   width: 50%;
   background: white;

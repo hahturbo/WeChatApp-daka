@@ -215,6 +215,11 @@ page .return2Home{
 .toFullCard{
   animation: open 1s forwards ;
 }
+.toGoalCard{
+  animation: open_goal 1s forwards ;
+}
+
+
 .return2Home{
   animation: close 1s forwards;
 }
@@ -243,6 +248,26 @@ page .return2Home{
     width: 100%;
     height: 100%;
     background-color: #FFFFFF;
+  }
+}
+@keyframes open_goal{
+  from{
+    opacity: 0;
+    /* width:500rpx;
+    height: 600rpx;
+    background-color: var(--main-color); */
+
+
+  }
+  to{
+    opacity: 1; 
+    /* width: 670rpx;
+    height: 70vh;
+    border-radius: 50rpx 50rpx 50rpx 50rpx;
+    align-items: center;
+    display: flex;
+    flex-direction: column; */
+
   }
 }
 @keyframes close{

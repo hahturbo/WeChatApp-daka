@@ -99,6 +99,19 @@ page {
     justify-content: space-around;
   }
 
+  page .downmidshadow {
+    width: 18vw;
+    height: 7vw;
+    top:-80rpx;
+    border-radius:  20vw  20vw 0 0;
+    border-style: solid;
+    border-color: var(--main-color);
+    border-width: 2vw;
+    bottom: 5vh;
+    position: absolute;
+    box-shadow: 0rpx 0rpx 30rpx 15rpx #888888;
+  }
+
   .downmiddisable {
     background: var(--main-color) !important;
   }
@@ -164,6 +177,29 @@ page {
   align-items: center;
   display: flex;
   flex-direction: column;
+}
+
+.containerC {
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box; */
+  width: 670rpx;
+  height: 70vh;
+  /* position:fixed;  */
+  margin-top:70rpx ;
+  border-radius: 50rpx 50rpx 50rpx 50rpx;
+  background: rgb(255, 255, 255);
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+#clicp{
+width: 110rpx;
+height: 110rpx;
+position: fixed;
+right:100rpx;
 }
 
 .right_text {
@@ -249,6 +285,7 @@ page .btn_go_on {
   position: fixed;
   z-index: 10;
   flex-direction: row;
+  box-shadow: 0rpx 0rpx 30rpx 10rpx #888888;
 }
 
 .downmainimg {
@@ -295,10 +332,23 @@ page .btn_go_on {
   border-width: 2vw;
   bottom: 5vh;
   position: relative;
-
+  /* box-shadow: 0rpx 0rpx 20rpx 10rpx #888888; */
   align-items: center;
   display: flex;
   justify-content: space-around;
+}
+
+.downmidshadow {
+  width: 27vw;
+  height: 10vw;
+  top:-90rpx;
+  border-radius:  27vw  27vw 0 0;
+  border-style: solid;
+  border-color: var(--main-color);
+  border-width: 2vw;
+  bottom: 5vh;
+  position: absolute;
+  box-shadow: 0rpx 0rpx 30rpx 15rpx #888888;
 }
 
 .downmiddisable {

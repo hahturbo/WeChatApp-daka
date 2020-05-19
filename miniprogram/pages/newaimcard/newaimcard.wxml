@@ -1,10 +1,10 @@
 <!--pages/newaimcard/newaimcard.wxml-->
 <view class=' containerB'>
 	<view class="select">
-		<button class='{{team==0?".team_select":""}}' id="single" bindtap="click_single_btn">
+		<button class='{{team==0?".team_select":""}} single' bindtap="click_single_btn">
 			个人打卡
 		</button>
-		<button class='{{team==1?".team_select":""}}' id="team" bindtap="click_team_btn">
+		<button class='{{team==1?".team_select":""}} team' bindtap="click_team_btn">
 			小组打卡
 		</button>
 	</view>
@@ -74,9 +74,9 @@
 
 	</view>
 	<view class='card  {{normal_card_display==1 ? "displayNone" : ""}}'>
-		<picker mode="time" value="{{time}}" start="00:00" end="23:59" data-name="reminder_time" bindchange="valueChanged">
+		<picker  value="{{reminder}}" range="{{reminder_Array}}" data-name="reminder_time" bindchange="valueChanged">
 			<view class="picker">
-				<text>提醒时间:  </text><text class="right_text">{{time_call}}</text>
+				<text>提醒时间:  </text><text class="right_text">{{reminder_Array[reminder]}}</text>
 			</view>
 		</picker>
 	</view>

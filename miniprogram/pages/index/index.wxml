@@ -15,20 +15,22 @@
 	<view class='down'>
 		<image class='downmainimg' src="../../images/down.png" mode="aspectFill"></image>
 		<view class="downleft">
-			<image class='downimg {{nowPage!=0 ? "displayNone" : ""}}' src="../../images/aim3.png" bindtap="GetCardData"></image>
+			<image class='downimg {{nowPage!=0 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="3" bindtap="changePage"></image>
 			<image class='downimg {{nowPage!=1 ? "displayNone" : ""}}' src="../../images/back.png" data-to="0" bindtap="changePage_Back"></image>
-			<image class='downimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/tick.png" data-to="0" bindtap="changePage"></image>
-		</view>
-		<view class='downmid {{nowPage==1 ? "downmiddisable" : ""}}'>
-			<image class='downmidimg {{nowPage!=0 ? "displayNone" : ""}}' src="../../images/newaim3.png" data-to="1" bindtap="changePage"></image>
-			<image class='downmidimg {{nowPage!=1 ? "displayNone" : ""}}' src="../../images/newaim3.png" data-to="1" bindtap="changePage"></image>
-			<image class='downmidimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="0" bindtap="changePage"></image>
+			<image class='downimg {{nowPage!=2&&nowPage!=3 ? "displayNone" : ""}}' src="../../images/tick.png" data-to="0" bindtap="changePage"></image>
 
+		</view>		
+		<view class='downmidshadow '></view>
+		<view class='downmid {{nowPage==1||nowPage==3 ? "downmiddisable" : ""}}'>
+		<image class='downmidimg {{nowPage!=0&&nowPage!=1 ? "displayNone" : ""}}' src="../../images/newaim3.png" data-to="1" bindtap="changePage"></image>
+			<!-- <image class='downmidimg {{nowPage!=1 ? "displayNone" : ""}}' src="../../images/newaim3.png" data-to="1" bindtap="changePage"></image> -->
+			<image class='downmidimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="0" bindtap="changePage"></image>
+				<image class='downmidimg {{nowPage!=3 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="0" bindtap=""></image>			
 
 		</view>
 
 		<view class="downright">
-			<image class='downimg {{nowPage!=0 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="2" bindtap="changePage"></image>
+			<image class='downimg {{nowPage!=0&&nowPage!=3 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="2" bindtap="changePage"></image>
 
 			<image class='downimg {{nowPage!=1 ? "displayNone" : ""}}' src="../../images/finish.png" data-to="0" bindtap="changePage_Finish"></image>
 
@@ -44,6 +46,8 @@
     -->
 	<view class='AllMainCard '>
 		<view id="main_container" class='aim_card  {{card_num<3 && nowPage== 0?"":"displayNone"}} {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}}' animation="{{open_animation}}">
+		<!-- <view id="main_container" class='aim_card  displayNone' animation="{{open_animation}}"> -->
+		<!-- 调试用 -->
 			<!-- <view> -->
 			<view class='home-content {{nowPage!=0 ? "displayNone" : ""}}'>
 				<image class='{{card_num==0?"":"displayNone"}}' style=" width:100%;height:100%" src="../../images/mainnew.png"></image>
@@ -60,18 +64,26 @@
 	</view>
 	<!-- class='AllMainCard'end -->
 
-	<view class='FullScreenCard aim_card {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}} {{nowPage==1||nowPage==2 ? "" : "displayNone"}}' animation="{{open_animation}}">
+	<view class='FullScreenCard aim_card {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}} {{nowPage==1||nowPage==2 ? "" : "displayNone"}}' >
+	<!-- animation="{{open_animation}}" -->
 		<!-- <view class=' containerB {{nowPage==1 ? "displayBlock" : "displayNone"}}'> -->
-		<view class=' containerB {{nowPage==1 ? "" : "displayNone"}}'>
+		<!-- <view class=' containerB {{wx:if="{{view == 'WEBVIEW'}}" ? "" : "displayNone"}}'> -->
+			<view class=' containerB' wx:if="{{nowPage==1}}">
 			<newaimcard></newaimcard>
-
 			<!-- </view> -->
 		</view>
 		<!-- nowpage 1 end -->
 		<view class=' containerB {{nowPage==2 ? "" : "displayNone"}}'>
-		<setting></setting>
+			<setting></setting>
 		</view>
-			</view>
+	</view>
+	<!-- nowpage3 start -->
+	<view class='{{nowPage==3 ? "toGoalCard" : "displayNone"}}'>
+		<image id="clicp" src="../../images/clicp.png"></image>
+		<view class='containerC '>
+			<tick></tick>
+		</view>
+	</view>
 
 	<!-- <view>456</view> -->
 

@@ -1,13 +1,13 @@
 //index.js
-// data-to:0=主页面 1=新建页面 2=设置页面
+// data-to:0=主页面 1=新建页面 2=设置页面 3=目标页面
 
 const app = getApp()
 
 Page({
   data: {
     //主页面数据
-    isLogin: false,
-    // isLogin:true,
+    // isLogin: false,
+    isLogin:true,
     apiUrl: 'http://58.218.198.18:9998',
     avatarUrl: './user-unlogin.png',
     userInfo: {},
@@ -106,7 +106,7 @@ Page({
       success: (res) => {
         console.log("拉取post成功");
         console.log(res.data);
-        //this.ClearNewAimData();
+        this.ClearNewAimData();
         this.setData({
 
         })
@@ -262,6 +262,7 @@ Page({
   },
 
   ClearNewAimData: function () {
+
     this.setData({
       team: 0,
       type: 1,
@@ -349,7 +350,7 @@ Page({
       success: (res) => {
         console.log("提交成功");
         console.log(res.data);
-        //this.ClearNewAimData();
+        this.ClearNewAimData();//测试可注释
         this.setData({
         })
       }

@@ -37,13 +37,40 @@ Component({
     time_call: '请选择',
     normal_card_display: 0,
     fre_diy_display: 'none',
+    reminder_Array:['打卡时','提前5分钟','提前10分钟','提前15分钟','提前30分钟','提前一小时'],
+    reminder:0,
+
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
-    //新建界面
+
+    ClearNewAimData: function () {
+
+      this.setData({
+        team: 0,
+        type: 1,
+  
+        title: null,
+        date_start: '请选择',
+        date_end: '请先选择开始日期',
+  
+        frequencytype: 0,
+        frequencytype2: 0,
+        frequency: [0, 0, 0, 0],
+        frequencynum: 1,
+        frequencyout: '每天',
+  
+        time_aim1: '请选择',
+        time_aim2: '请选择',
+        time_call: '请选择',
+        normal_card_display: 0,
+  
+      })
+    },
+    
     bindPickerTypeChange: function (e) {
       console.log('picker发送选择改变，携带值为', e.detail.value)
       if (e.detail.value == 0) {

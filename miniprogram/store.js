@@ -4,9 +4,10 @@ let store = {
   msg: 'xxxxx',
   user: {},
   apiURL: "http://58.218.198.18:9998",
-  isLogin: false,
+  isLogin: true,
   login_key: null,
-  aimCardData: []
+  aimCardData: [],
+  aimCardDatadetail: ''
 }
 // 所有已加载的页面和组件
 let pcList = []

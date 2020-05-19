@@ -56,7 +56,7 @@
 }
 
 
-  .right_text navigator{
+  navigator{
     width:720rpx;
     display: inline-block;
   }

@@ -14,7 +14,7 @@
 	<!-- 选项 -->
 	<view class="card">
 		<navigator>
-			<text >账户管理：</text><text class="right_text">》</text>
+			<text >账户管理</text><text class="right_text">》</text>
 		</navigator>
 	</view>
 
