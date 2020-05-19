@@ -100,15 +100,18 @@ Page({
       url: this.data.apiUrl + '/user/goal/get',
       data:{
         from:0,
-        amount:5,
-        login_key:this.data.login_key,
+        amount:2,
+        login_key:this.$state.login_key,
       },
       success: (res) => {
         console.log("拉取post成功");
         console.log(res.data);
         this.ClearNewAimData();
+        this.setState({
+          aimCardDatas:res.data.data,
+        })
         this.setData({
-
+          card_num:this.$state.aimCardDatas.length,
         })
       }
     })
@@ -200,6 +203,7 @@ Page({
                           //   ConsoleText: this.data.isLogin,
                           // })
                           console.log("this.setData:" + res.data);
+                          this.GetCardData();
                         }
                       })
                       // this.GetCardData();
@@ -222,7 +226,8 @@ Page({
         ConsoleText: '用户拒绝了授权',
       })
     }
-    // this.GetCardData();
+   
+  
   },
 
 
@@ -308,11 +313,12 @@ Page({
         dialogShow: true,
       })
     }
+    this.GetCardData();
   },
 
   PostCardData: function(e){
     let goal_type, team, num;
-    !this.$state.aimCardData['goal_type'] ? goal_type = 1 : goal_type = this.$state.aimCardData['goal_type']
+    !this.$state.aimCardData['goal_type'] ? goal_type = 1 : goal_type =parseInt(this.$state.aimCardData['goal_type']) ;
     !this.$state.aimCardData['team'] ? team = 0 : team = this.$state.aimCardData['team']
     
     if (!this.$state.aimCardData['frequency']) {

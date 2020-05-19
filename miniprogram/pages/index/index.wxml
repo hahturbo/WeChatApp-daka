@@ -19,13 +19,13 @@
 			<image class='downimg {{nowPage!=1 ? "displayNone" : ""}}' src="../../images/back.png" data-to="0" bindtap="changePage_Back"></image>
 			<image class='downimg {{nowPage!=2&&nowPage!=3 ? "displayNone" : ""}}' src="../../images/tick.png" data-to="0" bindtap="changePage"></image>
 
-		</view>		
+		</view>
 		<view class='downmidshadow '></view>
 		<view class='downmid {{nowPage==1||nowPage==3 ? "downmiddisable" : ""}}'>
-		<image class='downmidimg {{nowPage!=0&&nowPage!=1 ? "displayNone" : ""}}' src="../../images/newaim3.png" data-to="1" bindtap="changePage"></image>
+			<image class='downmidimg {{nowPage!=0&&nowPage!=1 ? "displayNone" : ""}}' src="../../images/newaim3.png" data-to="1" bindtap="changePage"></image>
 			<!-- <image class='downmidimg {{nowPage!=1 ? "displayNone" : ""}}' src="../../images/newaim3.png" data-to="1" bindtap="changePage"></image> -->
 			<image class='downmidimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="0" bindtap="changePage"></image>
-				<image class='downmidimg {{nowPage!=3 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="0" bindtap=""></image>			
+			<image class='downmidimg {{nowPage!=3 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="0" bindtap=""></image>
 
 		</view>
 
@@ -44,36 +44,54 @@
          这里的 changedPageCounts 就是为了判断是不是 首次进入首页，如果是第一次进入首页的话 就不会给他添加return2Home的类， 否则就会添加 
          nmd这里n个三元运算符
     -->
-	<view class='AllMainCard '>
-		<view id="main_container" class='aim_card  {{card_num<3 && nowPage== 0?"":"displayNone"}} {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}}' animation="{{open_animation}}">
-		<!-- <view id="main_container" class='aim_card  displayNone' animation="{{open_animation}}"> -->
-		<!-- 调试用 -->
-			<!-- <view> -->
-			<view class='home-content {{nowPage!=0 ? "displayNone" : ""}}'>
-				<image class='{{card_num==0?"":"displayNone"}}' style=" width:100%;height:100%" src="../../images/mainnew.png"></image>
-				<!-- <text>isLogin:{{ConsoleText}}</text> -->
 
-				<view class='{{(card_num==1||card_num==2)?"":"displayNone"}}'>
-					<text>每天实现一个小目标</text>
-					<button class='new_aim_card ' data-to="1" bindtap="changePage"><text>今日打卡</text></button>
+	<scroll-view scroll-y="true" class='AllMainCard {{nowPage== 0?"":"displayNone"}} '>
+		<view class="LetAMCCenter">
+			<view id="main_container" class='aim_card  {{card_num<3 && nowPage== 0?"":"displayNone"}} {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}}' animation="{{open_animation}}">
+				<!-- <view id="main_container" class='aim_card  displayNone' animation="{{open_animation}}"> -->
+				<!-- 调试用 -->
+				<!-- <view> -->
+
+				<view class='home-content {{nowPage!=0 ? "displayNone" : ""}}' bindtap="">
+					<image class='{{card_num==0?"":"displayNone"}}' style=" width:100%;height:100%" src="../../images/mainnew.png"></image>
+					<!-- <text>isLogin:{{ConsoleText}}</text> -->
+
+					<view class='home-content {{(card_num==1||card_num==2)?"":"displayNone"}}'>
+						<text>{{$state.aimCardDatas[0].goal_name}}</text>
+						<image class='' style=" width:70%;height:45%" src="../../images/mainnew2.png"></image>
+						<button class='new_aim_card ' data-to="1" bindtap="changePage"><text>今日打卡</text></button>
+					</view>
 				</view>
-
 			</view>
-
 		</view>
-	</view>
+		<view class="LetAMCCenter">
+			<view class=".mid-contentA"></view>
+		</view>
+		<view class="LetAMCCenter">
+			<view class=".mid-contentA"></view>
+		</view>
+		<view class="LetAMCCenter">
+			<view class=".mid-contentA"></view>
+		</view>
+		<view class="LetAMCCenter">
+			<view class=".mid-contentA"></view>
+		</view>
+
+
+	</scroll-view>
+
 	<!-- class='AllMainCard'end -->
 
-	<view class='FullScreenCard aim_card {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}} {{nowPage==1||nowPage==2 ? "" : "displayNone"}}' >
-	<!-- animation="{{open_animation}}" -->
+	<view class='FullScreenCard aim_card {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}} {{nowPage==1||nowPage==2 ? "" : "displayNone"}}'>
+		<!-- animation="{{open_animation}}" -->
 		<!-- <view class=' containerB {{nowPage==1 ? "displayBlock" : "displayNone"}}'> -->
 		<!-- <view class=' containerB {{wx:if="{{view == 'WEBVIEW'}}" ? "" : "displayNone"}}'> -->
-			<view class=' containerB' wx:if="{{nowPage==1}}">
+		<view class=' containerB toFullCard' wx:if="{{nowPage==1}}">
 			<newaimcard></newaimcard>
 			<!-- </view> -->
 		</view>
 		<!-- nowpage 1 end -->
-		<view class=' containerB {{nowPage==2 ? "" : "displayNone"}}'>
+		<view class=' containerB {{nowPage==2 ? "" : "displayNone"}} toFullCard'>
 			<setting></setting>
 		</view>
 	</view>

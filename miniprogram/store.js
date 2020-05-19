@@ -4,9 +4,11 @@ let store = {
   msg: 'xxxxx',
   user: {},
   apiURL: "http://58.218.198.18:9998",
-  isLogin: true,
+  isLogin: false,
+  // isLogin: true,
   login_key: null,
   aimCardData: [],
+  aimCardDatas: [],
   aimCardDatadetail: ''
 }
 // 所有已加载的页面和组件
