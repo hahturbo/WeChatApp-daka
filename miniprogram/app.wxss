@@ -15,7 +15,7 @@ page {
     height: 50rpx;
     width: 100%;
     background: #fff;
-    /* border: 5rpx solid #eee; */
+
     border-left: none;
     border-right: none;
     display: flex;
@@ -37,9 +37,9 @@ page {
   }
 
   /* 整一个下部导航栏定义 */
-  page .down {
+  /* page .down {
     width: 100vw;
-    height: 10vh;
+    height: 5vh;
     bottom: 0px;
     display: flex;
     justify-content: space-around;
@@ -51,7 +51,7 @@ page {
 
   page .downmainimg {
     width: 100vw;
-    height: 10vh;
+    height: 5vh;
     bottom: 0px;
     position: fixed;
     z-index: -1;
@@ -64,7 +64,7 @@ page {
   page .downleft {
     margin: 0px;
     width: 25vw;
-    height: 10vh;
+    height: 5vh;
     align-items: center;
 
     align-items: center;
@@ -75,17 +75,19 @@ page {
   page .downright {
     margin: 0px;
     width: 25vw;
-    height: 10vh;
+    height: 5vh;
 
     align-items: center;
     display: flex;
     justify-content: space-around;
-  }
+  }*/
 
   /* 中圈 */
+  
   page .downmid {
-    width: 20vw;
-    height: 20vw;
+    bottom: 0rpx;
+    width: 18vw;
+    height: 18vw;
     background: rgb(255, 255, 255);
     border-radius: 50%;
     border-style: solid;
@@ -100,9 +102,9 @@ page {
   }
 
   page .downmidshadow {
-    width: 18vw;
+    width: 15vw;
     height: 7vw;
-    top:-80rpx;
+    top:-50rpx;
     border-radius:  20vw  20vw 0 0;
     border-style: solid;
     border-color: var(--main-color);
@@ -110,7 +112,7 @@ page {
     bottom: 5vh;
     position: absolute;
     box-shadow: 0rpx 0rpx 30rpx 15rpx #888888;
-  }
+  } 
 
   .downmiddisable {
     background: var(--main-color) !important;
@@ -121,8 +123,8 @@ page {
 
   /* 导航栏图片统一定义 */
   page .downimg {
-    width: 100rpx;
-    height: 100rpx;
+    width: 60rpx;
+    height: 60rpx;
     /* text-align: center; */
     top: 1vw;
     /* left: 3vw; */
@@ -130,8 +132,8 @@ page {
   }
 
   page .downmidimg {
-    width: 110rpx;
-    height: 110rpx;
+    width: 60rpx;
+    height: 60rpx;
     top: 0rpx;
     position: relative;
   }
@@ -280,7 +282,7 @@ page .btn_go_on {
 /* 整一个下部导航栏定义 */
 .down {
   width: 100vw;
-  height: 14vh;
+  height: 10vh;
   bottom: 0px;
   display: flex;
   justify-content: space-around;
@@ -293,41 +295,49 @@ page .btn_go_on {
 
 .downmainimg {
   width: 100vw;
-  height: 14vh;
+  height:10vh;
   bottom: 0px;
   position: fixed;
   z-index: -1;
-
+  
   align-items: center;
   display: flex;
   justify-content: space-around;
+
+
 }
 
 .downleft {
   margin: 0px;
-  width: 25vw;
-  height: 12vh;
+  width: 42vw;
+  height: 10vh;
   align-items: center;
 
   align-items: center;
   display: flex;
   justify-content: space-around;
+
+  background-color: white;
+  border-radius: 0rpx 45rpx 0rpx 0rpx;
 }
 
 .downright {
   margin: 0px;
-  width: 25vw;
-  height: 12vh;
+  width: 42vw;
+  height: 10vh;
 
   align-items: center;
   display: flex;
   justify-content: space-around;
+
+  background-color: white;
+  border-radius: 45rpx 0rpx  0rpx 0rpx;
 }
 
 /* 中圈 */
 .downmid {
-  width: 27vw;
-  height: 27vw;
+  width: 25vw;
+  height: 25vw;
   background: rgb(255, 255, 255);
   border-radius: 50%;
   border-style: solid;
@@ -342,16 +352,25 @@ page .btn_go_on {
 }
 
 .downmidshadow {
-  width: 27vw;
+  width: 20vw;
   height: 10vw;
   top:-90rpx;
-  border-radius:  27vw  27vw 0 0;
+  border-radius:  20vw  20vw 0 0;
   border-style: solid;
   border-color: var(--main-color);
   border-width: 2vw;
   bottom: 5vh;
   position: absolute;
   box-shadow: 0rpx 0rpx 30rpx 15rpx #888888;
+}
+
+.downmidbg {
+  width: 34vw;
+  height: 8vh;
+  bottom:0rpx;
+  background-color:  white;
+  position: absolute;
+  
 }
 
 .downmiddisable {
@@ -363,7 +382,7 @@ page .btn_go_on {
 /* 导航栏图片统一定义 */
 .downimg {
   width: 130rpx;
-  height: 160rpx;
+  height: 140rpx;
   /* text-align: center; */
   top: 1vw;
   /* left: 3vw; */

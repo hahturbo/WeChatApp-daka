@@ -49,7 +49,6 @@ Component({
   methods: {
 
     ClearNewAimData: function () {
-
       this.setData({
         team: 0,
         type: 1,
@@ -150,20 +149,6 @@ Component({
             })
           }
           break;
-        case "goal_type":
-          if (e.detail.value == 0) {
-            this.setData({
-              normal_card_display: 1,
-              type: e.detail.value
-            })
-          } else {
-            //this.GetWeRunData();//微信运动函数
-            this.setData({
-              normal_card_display: 0,
-              type: e.detail.value
-            })
-          }
-          break;
         case "end_time":
           if (this.data.date_start !== '请选择') {
             //  在已选开始日期条件下，不早于开始日期
@@ -180,7 +165,6 @@ Component({
           }
           break;
         case "frequency":
-
           var f=e.detail.value;
           let d = 1;
           

@@ -183,7 +183,7 @@ page .return2Home{
 .AllMainCard{
   left:200rpx;
   width: 700rpx;
-  height: 85vh;
+  height: 90vh;
   /* overflow: visible; */
   display: flex;
   align-items: center;  
@@ -210,7 +210,7 @@ page .return2Home{
 }
 
 .mid-contentA{
-  width:550rpx;
+  width:600rpx;
   height: 180rpx;
   border-radius: 30rpx;
   box-shadow: 0px 0px 40rpx 10rpx #888888;
@@ -267,6 +267,11 @@ flex-direction:column;
   border-radius:  30rpx;  
   align-items: center;
   display: flex;
+}
+.buttonNo{
+
+  background-color: #FF996600 !important;
+
 }
 .icon{  
   width: 100%;
@@ -363,7 +368,7 @@ flex-direction:column;
 @keyframes close{
   to{
     opacity: 1;
-    width: 550rpx;
+    width: 600rpx;
     height: 600rpx;
     background-color: var(--main-color);
   }
@@ -378,8 +383,8 @@ flex-direction:column;
 @keyframes closePad{
   to{
     opacity: 1;
-    width: 450rpx;
-    height: 300rpx;
+    width: 600rpx;
+    height: 600rpx;
     background-color: var(--main-color);
   }
   from{
@@ -392,15 +397,23 @@ flex-direction:column;
 
 /* 新建打卡按钮 */
 .new_aim_card{
-  width: 100rpx;
-  height: 80rpx;
+  width: 20% ;
+  /* height: 80rpx; */
   background:rgb(255,153,102);
   border-radius: 25rpx;
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  margin: 0;
+  border-width:5rpx;
+  border-style: dashed;
+  border-color:rgb(255,153,102);
 }
+.NACunable{
+  background:var(--main-color) !important;
+}
+
 
 /* 新建打卡界面css如下 类：newaim*/
 
