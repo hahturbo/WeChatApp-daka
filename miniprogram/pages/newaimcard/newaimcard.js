@@ -39,6 +39,7 @@ Component({
     fre_diy_display: 'none',
     reminder_Array:['打卡时','提前5分钟','提前10分钟','提前15分钟','提前30分钟','提前一小时'],
     reminder:0,
+    reminder_num:[0,5,10,15,30,60],
 
   },
 
@@ -67,6 +68,9 @@ Component({
         time_aim2: '请选择',
         time_call: '请选择',
         normal_card_display: 0,
+
+        reminder:0,
+
   
       })
     },
@@ -90,17 +94,27 @@ Component({
 
     //select
     click_single_btn: function (e) {
+      let data =this.$state.aimCardData;
       if (this.data.team != 0) {
+        data["team"]=0;
         this.setData({
           "team": '0'
         });
+        this.setState({
+          aimCardData:data,
+        })
       } else {}
     },
     click_team_btn: function (e) {
+      let data =this.$state.aimCardData;      
       if (this.data.team != 1) {
+        data["team"]=1;
         this.setData({
           "team": '1'
         });
+        this.setState({
+          aimCardData:data,
+        })
       } else {}
     },
     //标题输入
@@ -167,7 +181,7 @@ Component({
           break;
         case "frequency":
 
-          var f;
+          var f=e.detail.value;
           let d = 1;
           
           console.log(f);
@@ -224,15 +238,20 @@ Component({
             })
           }
           break;
-        case "reminder_time":
+        case "reminder_at":
           this.setData({
-            time_call: e.detail.value
+            reminder:  e.detail.value,
+          })
+          let data2 = this.$state.aimCardData;
+          data2["reminder_at"] =this.data.reminder_num[e.detail.value];
+          this.setState({
+            aimCardData: data2
           })
           break;
         default:
           break;
       }
-      if (e.target.dataset.name != "frequency") {
+      if (e.target.dataset.name != "frequency"&&e.target.dataset.name != "reminder_at") {
         var data_name = e.target.dataset.name
         let data = this.$state.aimCardData;
         data[data_name] = e.detail.value

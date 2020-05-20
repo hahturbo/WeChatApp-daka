@@ -258,7 +258,7 @@ page .btn_go_on {
 
   /*滚动条*/
 
-  width: 500rpx;
+  width: 550rpx;
   height: 600rpx;
   background: var(--main-color);
   border-radius: 45rpx;

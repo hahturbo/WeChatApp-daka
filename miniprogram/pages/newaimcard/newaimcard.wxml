@@ -74,7 +74,7 @@
 
 	</view>
 	<view class='card  {{normal_card_display==1 ? "displayNone" : ""}}'>
-		<picker  value="{{reminder}}" range="{{reminder_Array}}" data-name="reminder_time" bindchange="valueChanged">
+		<picker  value="{{reminder}}" range="{{reminder_Array}}" data-name="reminder_at" bindchange="valueChanged">
 			<view class="picker">
 				<text>提醒时间:  </text><text class="right_text">{{reminder_Array[reminder]}}</text>
 			</view>

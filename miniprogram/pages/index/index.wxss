@@ -176,26 +176,27 @@ page .return2Home{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  margin-bottom: 70rpx;
 }
 
 
 .AllMainCard{
   left:200rpx;
   width: 700rpx;
-  height: 90vh;
+  height: 85vh;
+  /* overflow: visible; */
   display: flex;
   align-items: center;  
-
 }
 
 
-
-.home-content text{
+.home-content text {
   color: #FFFFFF;
   font-size:44rpx;
   font-weight:bold;
   text-align: center;
   margin: 10rpx;
+
 }
 
 .home-content{
@@ -205,25 +206,71 @@ page .return2Home{
   display: flex;
   flex-direction: column;
   justify-content: space-around;  
+
 }
 
 .mid-contentA{
-  background-color:#A8D08C ;
-
-  width:500rpx;
-  height: 200rpx;
-  border-radius: 45rpx;
+  width:550rpx;
+  height: 180rpx;
+  border-radius: 30rpx;
   box-shadow: 0px 0px 40rpx 10rpx #888888;
   border-style: dashed;
   border-color: #FFFFFF;
   border-width: 5rpx;
   position: relative;
-  margin-top: 50rpx;
+  margin-top: 20rpx;
 
+  display: flex;
+  flex-direction: row;
+}
+.bgcolor-g{
+  background-color:#A8D08C ;
+}
+.bgcolor-b{
+  background-color:#B3D0EB ;
+}
+.bgcolor-o{
+  background-color:#FFCC66 ;
+}
+
+
+
+
+.contentAText{
+width: 70%;
+display: flex;
+align-items: left;
+flex-direction:column;
+}
+ .small-text{
+ 
+  color: #FFFFFF;
+  font-size:33rpx;
+  font-weight: 	normal;
+  text-align: left;
+  margin: 30rpx;
+  /* margin-top: 30rpx; */
+}
+.mid-text{
+  text-align: left;
+  color: #FFFFFF;
+  font-size:44rpx;
+  font-weight:bold;
+  margin:10rpx;
+  margin-left: 30rpx;
+
+}
+.button{
+  width:30%;
+  height: 99%;
+  background-color: #FF9966;
+  border-radius:  30rpx;  
   align-items: center;
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+}
+.icon{  
+  width: 100%;
+  height:90%;
 }
 
 
@@ -316,7 +363,7 @@ page .return2Home{
 @keyframes close{
   to{
     opacity: 1;
-    width: 500rpx;
+    width: 550rpx;
     height: 600rpx;
     background-color: var(--main-color);
   }
