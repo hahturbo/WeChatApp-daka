@@ -75,12 +75,12 @@
 		</view>
 
 		<view class="LetAMCCenter" wx:for='{{$state.aimCardDatas}}'>
-			<view class='mid-contentA  {{index%3==0?".bgcolor-g":""}} {{index%3==1?".bgcolor-b":""}} {{index%3==2?".bgcolor-p":""}} {{$state.aimCardDatas[index+1]?"":"displayNone"}} '>
+			<view class='mid-contentA  {{index%3==0?".bgcolor-g":""}} {{index%3==1?".bgcolor-b":""}} {{index%3==2?".bgcolor-o":""}} {{$state.aimCardDatas[index+1]?"":"displayNone"}} '>
 			<view class='contentAText'>
 			<text class="mid-text">{{$state.aimCardDatas[index+1].goal_name}}</text>
 			<text class='small-text {{$state.aimCardDatas[index+1].goal_is_a_group==0?"":"displayNone"}}'>已连续{{$state.aimCardDatas[index+1].constantly
 }}次</text>		
-			<text class='small-text {{$state.aimCardDatas[index+1].goal_is_a_group==1?"":"displayNone"}}'>今日小组已有{{$state.aimCardDatas[index+1].groupData.how_many_members_signed_today}}人打卡</text>									
+			<text class='small-text {{$state.aimCardDatas[index+1].goal_is_a_group==1?"":"displayNone"}}'>本次小组已有{{$state.aimCardDatas[index+1].groupData.how_many_members_signed_today}}人打卡</text>									
 			</view>
 			<view class='button {{$state.aimCardDatas[index+1].canBeSignedNow==1?"":"buttonNo"}}' data-id='{{$state.aimCardDatas[index+1].goal_id}}' bindtap='{{$state.aimCardDatas[index+1].canBeSignedNow==1?"sign_btn":""}}' >
 		<image class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==-118)||($state.aimCardDatas[index+1].canBeSignedNow==-520)?"":"displayNone"}}' src="../../images/tick_finish.png" ></image>
