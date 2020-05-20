@@ -104,7 +104,7 @@ Page({
       url: this.data.apiUrl + '/user/goal/get',
       data: {
         from: 0,
-        amount: 2,
+        amount: 5,
         login_key: this.$state.login_key,
       },
       success: (res) => {

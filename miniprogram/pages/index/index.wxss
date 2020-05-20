@@ -176,7 +176,7 @@ page .return2Home{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  margin-bottom: 70rpx;
+  margin-bottom: 30rpx;
 }
 
 
@@ -218,7 +218,7 @@ page .return2Home{
   border-color: #FFFFFF;
   border-width: 5rpx;
   position: relative;
-  margin-top: 20rpx;
+  margin:5rpx;
 
   display: flex;
   flex-direction: row;
