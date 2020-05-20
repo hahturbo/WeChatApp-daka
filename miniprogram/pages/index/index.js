@@ -418,11 +418,12 @@ Page({
   },
 
   sign_btn: function (e) {
+    let goal_id=e.currentTarget.dataset.id;
     wx.request({
       method: 'POST',
       url: this.$state.apiURL + '/user/goal/sign',
       data: {
-        goal_id: e.currentTarget.dataset.id,
+        goal_id: goal_id,
         login_key: this.$state.login_key,
       },
       success: (res) => {

@@ -58,13 +58,15 @@
 					<image class='{{card_num==0?"":"displayNone"}}' style=" width:100%;height:100%" src="../../images/mainnew.png"></image>
 					<!-- <text>isLogin:{{ConsoleText}}</text> -->
 
-					<view class='home-content '>
+					<view class='home-content {{card_num!=0?"":"displayNone"}}'>
 						<text>{{$state.aimCardDatas[0].goal_name}}</text>
 						<image class='' style=" width:70%;height:40%" src="../../images/mainnew2.png"></image>
-						<text style='color:#FF9966; font-size:30rpx;'>已连续{{$state.aimCardDatas[0].constantly
+
+						<text class='{{$state.aimCardDatas[0].goal_is_a_group==0?"":"displayNone"}}	' style='color:#FF9966; font-size:30rpx;'>已连续{{$state.aimCardDatas[0].constantly
 }}次</text>
-						<button class='new_aim_card {{$state.aimCardDatas[0].canBeSignedNow==1?"":"NACunable"}}' bindtap='{{$state.aimCardDatas[0].canBeSignedNow==1?"sign_btn":""}}'><text class=' {{$state.aimCardDatas[0].canBeSignedNow==1?"":"displayNone"}}'>今日打卡</text>
-						<image class='{{$state.aimCardDatas[0].canBeSignedNow==-118?"":"displayNone"}}' src='../../images/tickB_finish.png' style="width:100%; height:90rpx"></image>
+			<text class='{{$state.aimCardDatas[0].goal_is_a_group==1?"":"displayNone"}}	' style='color:#FF9966; font-size:30rpx;'>今日小组已有{{$state.aimCardDatas[0].groupData.how_many_members_signed_today}}人打卡</text>
+						<button class='new_aim_card {{$state.aimCardDatas[0].canBeSignedNow==1?"":"NACunable"}}' data-id='{{$state.aimCardDatas[0].goal_id}}' bindtap='{{$state.aimCardDatas[0].canBeSignedNow==1?"sign_btn":""}}'><text class=' {{$state.aimCardDatas[0].canBeSignedNow==1?"":"displayNone"}}'>今日打卡</text>
+						<image class='{{($state.aimCardDatas[0].canBeSignedNow==-118)||($state.aimCardDatas[0].canBeSignedNow==-520)?"":"displayNone"}}' src='../../images/tickB_finish.png' style="width:100%; height:90rpx"></image>
 						
 						</button>
 					</view>
@@ -76,13 +78,14 @@
 			<view class='mid-contentA  {{index%3==0?".bgcolor-g":""}} {{index%3==1?".bgcolor-b":""}} {{index%3==2?".bgcolor-p":""}} {{$state.aimCardDatas[index+1]?"":"displayNone"}} '>
 			<view class='contentAText'>
 			<text class="mid-text">{{$state.aimCardDatas[index+1].goal_name}}</text>
-			<text class='small-text'>已连续{{$state.aimCardDatas[index+1].constantly
-}}次</text>						
+			<text class='small-text {{$state.aimCardDatas[index+1].goal_is_a_group==0?"":"displayNone"}}'>已连续{{$state.aimCardDatas[index+1].constantly
+}}次</text>		
+			<text class='small-text {{$state.aimCardDatas[index+1].goal_is_a_group==1?"":"displayNone"}}'>今日小组已有{{$state.aimCardDatas[index+1].groupData.how_many_members_signed_today}}人打卡</text>									
 			</view>
 			<view class='button {{$state.aimCardDatas[index+1].canBeSignedNow==1?"":"buttonNo"}}' data-id='{{$state.aimCardDatas[index+1].goal_id}}' bindtap='{{$state.aimCardDatas[index+1].canBeSignedNow==1?"sign_btn":""}}' >
-		<image class='icon {{$state.aimCardDatas[index+1].canBeSignedNow==-118?"":"displayNone"}}' src="../../images/tick_finish.png" ></image>
-				<image class='icon {{((($state.aimCardDatas[index+1].canBeSignedNow==1)&&($state.aimCardDatas[index+1].frequency_type[0]==0))||($state.aimCardDatas[index+1].frequency_type==""))?"":"displayNone"}}' src="../../images/tick_able.png" ></image>
-						<image class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==1)&&($state.aimCardDatas[index+1].frequency_type[0]==1)?"":"displayNone"}}' src="../../images/tick_today.png" ></image>
+		<image class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==-118)||($state.aimCardDatas[index+1].canBeSignedNow==-520)?"":"displayNone"}}' src="../../images/tick_finish.png" ></image>
+				<image class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==1)&&($state.aimCardDatas[index+1].frequency_type[0]==0)?"":"displayNone"}}' src="../../images/tick_able.png" ></image>
+						<image class='icon {{(($state.aimCardDatas[index+1].canBeSignedNow==1)&&(($state.aimCardDatas[index+1].frequency_type[0]==1)||($state.aimCardDatas[index+1].frequency_type=="")))?"":"displayNone"}}' src="../../images/tick_today.png" ></image>
 		<!-- <image class='icon' src="../../images/tick_able.png"></image> -->
 			</view>			
 			</view>
