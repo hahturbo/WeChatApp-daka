@@ -46,7 +46,7 @@
 		<view id="main_container" class='aim_card  {{card_num<3 && nowPage== 0?"":"displayNone"}} {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}}' animation="{{open_animation}}">
 			<!-- <view> -->
 			<view class='home-content {{nowPage!=0 ? "displayNone" : ""}}'>
-				<image class='{{card_num==0?"":"displayNone"}}' style=" width:100%;height:100%" src="../../images/mainnew.png"></image>
+				<image class='{{card_num==0?"":"displayNone"}}' style=" width:100%;height:100%" src="../../images/mainnew.png" bindtap="gotodetails"></image>
 				<!-- <text>isLogin:{{ConsoleText}}</text> -->
 
 				<view class='{{(card_num==1||card_num==2)?"":"displayNone"}}'>
@@ -71,7 +71,7 @@
 		<view class=' containerB {{nowPage==2 ? "" : "displayNone"}}'>
 		<setting></setting>
 		</view>
-			</view>
+	</view>
 
 	<!-- <view>456</view> -->
 

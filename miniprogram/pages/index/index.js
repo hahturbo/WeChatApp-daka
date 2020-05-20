@@ -44,7 +44,6 @@ Page({
     //新建打卡页面数据
     
   },
-
   onLoad: function () {
     if (!this.data.isLogin) {
       wx.login({
@@ -390,7 +389,10 @@ Page({
       })
     }
   },
-
+// 跳转打卡详情页面
+  gotodetails: function (e) {
+    wx.navigateTo({url:'../carddetails/carddetails',})
+  }
   //以上为公共
   // //新建界面
   // bindPickerTypeChange: function (e) {

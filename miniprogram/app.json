@@ -1,12 +1,13 @@
 {
   "pages": [
-    "pages/index/index", 
+    "pages/index/index",
     "pages/openapi/openapi",
     "pages/openapi/serverapi/serverapi",
     "pages/openapi/callback/callback",
     "pages/openapi/cloudid/cloudid",
     "pages/im/im",
-    "pages/im/room/room"
+    "pages/im/room/room",
+    "pages/carddetails/carddetails"
   ],
   "window": {
     "backgroundColor": "#FFC864",
@@ -17,11 +18,8 @@
   },
   "sitemapLocation": "sitemap.json",
   "style": "v2",
-  "useExtendedLib":{
-      "kbone": true,
-      "weui": true
-    }
-  
-
-
+  "useExtendedLib": {
+    "kbone": true,
+    "weui": true
+  }
 }

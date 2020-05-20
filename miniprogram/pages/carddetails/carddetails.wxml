@@ -1,0 +1,73 @@
+<!--miniprogram/pages/carddetails/carddetails.wxml-->
+<view class="container main">
+	<!--蒙版（渐出淡去效果）-->
+	<view class="disapper" style='height: {{winH}}rpx;opacity: {{opacity}};'>
+		<text class="carddetails">你今天打卡了吗</text>
+	</view>
+
+	<!--正式内容（渐入加深效果）-->
+	<view class="container thiscarddetail" style='opacity: {{1-opacity}};'>
+		<!-- 打卡标题 -->
+		<text class="card_title">{{card_title}}</text>
+		<!-- 日历 -->
+		<view class="calander">
+			<!-- 年月 -->
+			<view class="calander_top">
+				<view class="lastmonth" bindtap="lastmonth">◀</view>
+				<view class="date_title">{{datetitle}}</view>
+				<view class="nextmonth" bindtap="nextmonth">▶</view>
+			</view>
+			<!-- 主体 -->
+			<view class="calander_main">
+				<!-- 表头 -->
+				<view class="header">
+					<view wx:for="{{weektext}}" class="weektext">{{item}}</view>
+				</view>
+				<!-- 日期 -->
+				<view class="date">
+					<!-- 上月 -->
+					<view class="gray grid" wx:for="{{lastmonthgrid}}">{{item}}</view>
+					<!-- 当月 -->
+					<view class="grid" wx:for="{{thismonthday}}" wx:key='thismonth'>
+						<!-- 是否今天 -->
+						<view class='self' wx:if="{{ format === year+'-'+item.monthFormat+'-'+item.dateFormat }}"></view>
+						<!-- select -->
+						<view class="wrap {{ select === year+'-'+item.monthFormat+'-'+item.dateFormat ? 'select' :''}}" bindtap='select' data-date='{{item.date}}'>{{item.date}}</view>
+					</view>
+					<!-- 下月 -->
+					<view class="gray grid" wx:for="{{nextmonthgrid}}">{{item}}</view>
+				</view>
+			</view>
+		</view>
+		<!-- 打卡详情 -->
+		<scroll-view class="scroll" scroll-y="true" style="height: 500rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+			<view class="card_otherdetails">
+				<view class="card_type">
+					<text>打卡类型{{card_type}}</text>
+				</view>
+				<view class="begin_time">
+					<text>开始时间{{begin_time}}</text>
+				</view>
+				<view class="end_time">
+					<text>结束时间{{end_time}}</text>
+				</view>
+				<view class="frequency_type">
+					<text>打卡频率{{frequency_type}}</text>
+				</view>
+				<view class="time_interval">
+					<text>打卡时间{{time_interval}}</text>
+				</view>
+				<view class="notice_time">
+					<text>提醒时间{{notice_time}}</text>
+				</view>
+				<button class="todaydaka" bindtap="todaydaka" style="background-color:{{todaydaka_bgc}};color:{{todaydaka_c}};">{{todaydaka}}</button>
+				<button class="deletedaka" bindtap="deletedaka">删除打卡</button>
+				<mp-dialog title="{{dialogtitle}}" show="{{dialogshow}}" bindbuttontap="buttontap" buttons="{{dialogbutton}}">
+					<!-- <view>{{dialogTitle}}</view> -->
+				</mp-dialog>
+
+			</view>
+		</scroll-view>
+		<!-- end -->
+	</view>
+</view>
