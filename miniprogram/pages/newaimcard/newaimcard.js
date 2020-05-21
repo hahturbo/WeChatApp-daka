@@ -121,7 +121,7 @@ Component({
       console.log(e);
       switch (e.target.dataset.name) {
         case "goal_type":
-          if (e.detail.value == 0) {
+          if (e.detail.value !=1) {
             this.setData({
               normal_card_display: 1,
               type: e.detail.value

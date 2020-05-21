@@ -15,9 +15,9 @@
 	<view class='down'>
 		<!-- <image class='downmainimg' src="../../images/down.png" mode="aspectFill"></image> -->
 		<view class="downleft">
-			<image class='downimg {{nowPage!=0 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="3" bindtap="changePage"></image>
+			<image class='downimg {{nowPage!=0 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="3" bindtap="ChangePageGetBoard"></image>
 			<image class='downimg {{nowPage!=1 ? "displayNone" : ""}}' src="../../images/back.png" data-to="0" bindtap="changePage_Back"></image>
-			<image class='downimg {{nowPage!=2&&nowPage!=3 ? "displayNone" : ""}}' src="../../images/tick.png" data-to="0" bindtap="changePage"></image>
+			<image class='downimg {{nowPage!=2&&nowPage!=3 ? "displayNone" : ""}}' src="../../images/tick.png" data-to="0" bindtap="ChangePagePostBoard"></image>
 
 		</view>
 		<view class='downmidshadow '></view>
@@ -31,11 +31,11 @@
 		</view>
 
 		<view class="downright">
-			<image class='downimg {{nowPage!=0&&nowPage!=3 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="2" bindtap="changePage"></image>
+			<image class='downimg {{nowPage!=0&&nowPage!=3 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="2" bindtap="ChangePagePostBoard"></image>
 
 			<image class='downimg {{nowPage!=1 ? "displayNone" : ""}}' src="../../images/finish.png" data-to="0" bindtap="changePage_Finish"></image>
 
-			<image class='downimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="0" bindtap="changePage"></image>
+			<image class='downimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="3" bindtap="ChangePageGetBoard"></image>
 
 
 		</view>
@@ -116,7 +116,8 @@
 		</view>
 	</view>
 	<!-- nowpage3 start -->
-	<view class='{{nowPage==3 ? "toGoalCard" : "displayNone"}}'>
+	<!-- <view class='{{nowPage==3 ? "toGoalCard" : "displayNone"}}'> -->
+		<view wx:if="{{nowPage==3}}" class="toGoalCard" >
 		<image id="clicp" src="../../images/clicp.png"></image>
 		<view class='containerC '>
 			<tick></tick>

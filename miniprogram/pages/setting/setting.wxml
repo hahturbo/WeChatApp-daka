@@ -7,7 +7,7 @@
 
 		<view class="userzonetext">
 			<open-data class='user_name' type="userNickName"></open-data>
-			<text style="font-size:30rpx;text-align: left;">使用天数:100</text>
+			<text style="font-size:30rpx;text-align: left;">使用天数:{{$state.using_day}}</text>
 		</view>
 
 	</view>

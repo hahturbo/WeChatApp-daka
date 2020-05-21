@@ -5,11 +5,15 @@ let store = {
   user: {},
   apiURL: "http://58.218.198.18:9998",
   isLogin: false,
+  signed_up:"" ,
+  using_day:0,
   // isLogin: true,
   login_key: null,
   aimCardData: [],
   aimCardDatas: [],
-  aimCardDatadetail: ''
+  aimCardDatadetail: '',
+  board_num:0,
+  goalsBoardData:[],
 }
 // 所有已加载的页面和组件
 let pcList = []
@@ -86,6 +90,9 @@ function unloadStore() {
     pcList.splice(index, 1)
   }
 }
+
+
+
 initPage()
 initComponent()
 // ：https://blog.csdn.net/milugloomy/java/article/details/102609414

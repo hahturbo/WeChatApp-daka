@@ -210,6 +210,10 @@ Page({
 
                           console.log("this.setData:" + res.data);
                           this.GetCardData();
+                          setTimeout(() => {
+                            this.GetBoard();
+                          }, 500);
+
                         },
 
                         fail: () => {
@@ -240,6 +244,32 @@ Page({
       // this.setData({
       //   ConsoleText:this.data.isLogin,
       // })
+
+      // 获取用户信息。计算使用天数
+      setTimeout(() => {
+        wx.request({
+          method: 'POST',
+          url: this.data.apiUrl + '/user/info',
+          data: {
+            login_key: this.$state.login_key,
+          },
+          success: (res) => {
+            console.log("info", res.data);
+            let DATE = new Date();
+            let DATESU=new Date(res.data.data.signed_up);
+            DATE= parseInt((DATE- DATESU)/(24*60*60*1000));
+            console.log("11",DATE);          
+            this.setState({
+              signed_up:res.data.data.signed_up,
+              using_day:DATE,
+            })           
+          }
+        })
+      }, 1500);
+
+
+
+
     } else {
       console.log('用户拒绝了授权');
       this.setData({
@@ -282,7 +312,6 @@ Page({
     this.setData({
       changedPageCounts: this.data.changedPageCounts + 1,
       nowPage: e.currentTarget.dataset.to,
-
     })
   },
 
@@ -336,7 +365,41 @@ Page({
         dialogShow: true,
       })
     }
+  },
 
+  ChangePageGetBoard: function (e) {
+    this.GetBoard();
+    //this.changePage(e);
+    setTimeout(() => {
+      this.changePage(e);
+    }, 300);
+
+    // this.setData({
+    //   changedPageCounts: this.data.changedPageCounts + 1,
+    //   nowPage: e.currentTarget.dataset.to,
+    // })
+  },
+
+  ChangePagePostBoard: function (e) {
+    wx.request({
+      method: 'POST',
+      url: this.$state.apiURL + '/user/board/change',
+      data: {
+        login_key: this.$state.login_key,
+        data: this.$state.goalsBoardData,
+      },
+      success: (res) => {
+        console.log("上传目标板成功");
+        console.log(res.data);
+        this.setData({})
+      }
+    })
+    // 换页部分
+    this.changePage(e);
+    // this.setData({
+    //   changedPageCounts: this.data.changedPageCounts + 1,
+    //   nowPage: e.currentTarget.dataset.to,
+    // })
 
   },
 
@@ -396,6 +459,22 @@ Page({
       })
     } else if (goal_type == 2) {
       // 微信运动预留
+      wx.request({
+        method: 'POST',
+        url: this.$state.apiURL + '/user/goal/add',
+        data: {
+          goal_name: this.$state.aimCardData['title'],
+          goal_type: goal_type,
+          goal_is_a_group: team,
+          frequency: 1, //目前预留
+          login_key: this.$state.login_key,
+        },
+        success: (res) => {
+          console.log("提交运动成功");
+          console.log(res.data);
+          this.setData({})
+        }
+      })
     } else if (goal_type == 0) {
       wx.request({
         method: 'POST',
@@ -413,12 +492,72 @@ Page({
         }
       })
     }
+    // 提交至目标板
+    let data, board_num;
+    board_num = this.$state.board_num;
+    board_num++;
+    console.log(board_num);
+    data = [{
+      id: board_num,
+      icon: 2,
+      name: this.$state.aimCardData['title'],
+    }]
+    wx.request({
+      method: 'POST',
+      url: this.$state.apiURL + '/user/board/change',
+      data: {
+        login_key: this.$state.login_key,
+        data: data,
+      },
+      success: (res) => {
+        console.log("上传目标板成功");
+        console.log(res.data);
+        this.setState({
+          board_num: board_num,
+        })
+      }
+    })
+
+
+
+
     this.ClearNewAimData(); //测试可注释
     //this.GetCardData();
   },
 
+
+
+  GetBoard: function () {
+    // 获取目标板
+    wx.request({
+      method: 'POST',
+      url: this.data.apiUrl + '/user/board/get',
+      data: {
+        login_key: this.$state.login_key,
+      },
+      success: (res) => {
+        let length = 0;
+        let title, back = 15;
+        console.log("拉取目标板成功");
+        console.log(res.data);
+        console.log('a', res.data.data[length].title);
+        title = res.data.data[length].title;
+
+        while (title) {
+          length++;
+          title = res.data.data[length].title;
+        }
+        this.setState({
+          goalsBoardData: res.data.data,
+          board_num: length,
+        })
+        console.log("this.$state.goalsBoardData", this.$state.goalsBoardData);
+      }
+    })
+  },
+
   sign_btn: function (e) {
-    let goal_id=e.currentTarget.dataset.id;
+    let goal_id = e.currentTarget.dataset.id;
     wx.request({
       method: 'POST',
       url: this.$state.apiURL + '/user/goal/sign',
