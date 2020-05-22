@@ -66,6 +66,7 @@
 }}次</text>
 			<text class='{{$state.aimCardDatas[0].goal_is_a_group==1?"":"displayNone"}}	' style='color:#FF9966; font-size:30rpx;'>今日小组已有{{$state.aimCardDatas[0].groupData.how_many_members_signed_today}}人打卡</text>
 						<button class='new_aim_card {{$state.aimCardDatas[0].canBeSignedNow==1?"":"NACunable"}}' data-id='{{$state.aimCardDatas[0].goal_id}}' bindtap='{{$state.aimCardDatas[0].canBeSignedNow==1?"sign_btn":""}}'><text class=' {{$state.aimCardDatas[0].canBeSignedNow==1?"":"displayNone"}}'>今日打卡</text>
+						<text class=' {{$state.aimCardDatas[0].canBeSignedNow==-121?"":"displayNone"}}'>今日未完成</text>
 						<image class='{{($state.aimCardDatas[0].canBeSignedNow==-118)||($state.aimCardDatas[0].canBeSignedNow==-520)?"":"displayNone"}}' src='../../images/tickB_finish.png' style="width:100%; height:90rpx"></image>
 						
 						</button>
@@ -86,6 +87,7 @@
 		<image class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==-118)||($state.aimCardDatas[index+1].canBeSignedNow==-520)?"":"displayNone"}}' src="../../images/tick_finish.png" ></image>
 				<image class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==1)&&($state.aimCardDatas[index+1].frequency_type[0]==0)?"":"displayNone"}}' src="../../images/tick_able.png" ></image>
 						<image class='icon {{(($state.aimCardDatas[index+1].canBeSignedNow==1)&&(($state.aimCardDatas[index+1].frequency_type[0]==1)||($state.aimCardDatas[index+1].frequency_type=="")))?"":"displayNone"}}' src="../../images/tick_today.png" ></image>
+						<image class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==-121)?"":"displayNone"}}' src="../../images/tick_unfinish.png" ></image>
 		<!-- <image class='icon' src="../../images/tick_able.png"></image> -->
 			</view>			
 			</view>

@@ -319,9 +319,11 @@ Component({
       let title;
       for (let i = 0; i < 15; i++) {
         if (i < length) {
-          //去除空行
+          //去除空行,不存在的打卡
           let title = goalsBoardData[i].title;
-          if (title) {
+          let icon = goalsBoardData[i].type;
+          //this.CheckIfisAim(title);
+          if (title&&(icon!=2|| this.CheckIfisAim(title))) {
             goalsBoard[i - x].name = goalsBoardData[i].title;
             // id  
             goalsBoard[i - x].icon = goalsBoardData[i].type;
@@ -347,6 +349,20 @@ Component({
         console.log("this:", this.data.goalsBoard);
       }
     },
+
+    CheckIfisAim(title){
+      let title_card;
+      for(let i=0;i<this.$state.aimCardDatas.length;i++){
+        title_card=this.$state.aimCardDatas[i].goal_name;
+        console.log( title_card,":",title_card)
+          if(title==title_card){
+            console.log("true");
+            return true;
+          }
+      }
+      return false;
+    },
+
     // 从Board刷新到all
     FreshBtoA: function () {
       let goalsBoardData = this.$state.goalsBoardData;

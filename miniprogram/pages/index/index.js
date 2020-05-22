@@ -116,42 +116,87 @@ Page({
           aimCardDatas: res.data.data,
         })
         console.log((this.$state.aimCardDatas[1].canBeSignedNow == 1) && (this.$state.aimCardDatas[1].frequency_type[2] == 1));
+        if ((this.$state.aimCardDatas[1].canBeSignedNow == 1) && (this.$state.aimCardDatas[1].frequency_type[2] == 1)) {} else {
+          this.setData({
+            error_code: "无法获取打卡信息",
+          })
+        }
         this.setData({
           card_num: this.$state.aimCardDatas.length,
         })
+//自动打卡微信运动
+        for(let i=0;i<this.data.card_num;i++){
+            if(this.$state.aimCardDatas[i].canBeSignedNow == 1&&this.$state.aimCardDatas[i].goal_type == 2){
+              wx.request({
+                method: 'POST',
+                url: this.$state.apiURL + '/user/goal/sign',
+                data: {
+                  goal_id: this.$state.aimCardDatas[i].goal_id,
+                  login_key: this.$state.login_key,
+                },
+                success: (res) => {
+                  console.log("自动打卡上传成功");
+                  console.log(res.data);
+                  this.setData({})
+                  setTimeout(() => {
+                    if(i==this.data.card_num-1)
+                    {
+                      this.GetCardData();
+                    }
+                  }, 500);
+                }
+              })
+            }
+        }
+
+
+
+
       }
     })
 
   },
 
+
   //微信运动
   GetWeRunData: function () {
-    if (this.data.login_key) {
-      wx.getWeRunData({
-        success: (res) => {
-          console.log();
-          wx.request({
-            method: 'POST',
-            url: this.data.apiUrl + '/user/getWeRunData',
-            data: {
-              encryptedData: res.encryptedData,
-              iv: res.iv,
-              login_key: this.data.login_key,
-            },
-            success: (res) => {
-              // console.log("22");
-              // console.log(res.data.stepInfoList);
-              this.setData({
-                "stepInfoList": res.data.stepInfoList,
-              })
-            }
-          })
-          // console.log("11");
-          // console.log(this.data.stepInfoList);
-        }
-      })
-    } else {
-      console.log("nokey" + this.data.login_key);
+    setTimeout(() => {
+      run()
+    }, 1000)
+
+    let run = () => {
+      if (this.$state.login_key) {
+        wx.getWeRunData({
+          success: (res) => {
+            console.log("this.$state.", res.encryptedData);
+            console.log("this.$state.api", this.$state.apiURL);
+            wx.request({
+              method: 'POST',
+              url: this.$state.apiURL + '/user/getWeRunData',
+              data: {
+                encryptedData: res.encryptedData,
+                iv: res.iv,
+                login_key: this.$state.login_key,
+              },
+              success: (res) => {
+                console.log("22");
+                console.log(res.data.stepInfoList);
+                this.setData({
+                  stepInfoList: res.data.stepInfoList,
+                })
+                console.log("12");
+                console.log(this.data.stepInfoList);
+              }
+            })
+
+          },
+          fail: res => {
+            console.log("微信步数获取失败： " + res);
+          }
+        })
+      } else {
+        console.log("nokey" + this.data.login_key);
+      }
     }
   },
 
@@ -208,6 +253,7 @@ Page({
                             })
                           }
 
+
                           console.log("this.setData:" + res.data);
                           this.GetCardData();
                           setTimeout(() => {
@@ -237,6 +283,7 @@ Page({
               }
             })
           }
+          this.GetWeRunData();
         }
       })
       console.log(e.detail.userInfo);
@@ -256,13 +303,13 @@ Page({
           success: (res) => {
             console.log("info", res.data);
             let DATE = new Date();
-            let DATESU=new Date(res.data.data.signed_up);
-            DATE= parseInt((DATE- DATESU)/(24*60*60*1000));
-            console.log("11",DATE);          
+            let DATESU = new Date(res.data.data.signed_up);
+            DATE = parseInt((DATE - DATESU) / (24 * 60 * 60 * 1000));
+            console.log("11", DATE);
             this.setState({
-              signed_up:res.data.data.signed_up,
-              using_day:DATE,
-            })           
+              signed_up: res.data.data.signed_up,
+              using_day: DATE,
+            })
           }
         })
       }, 1500);
@@ -342,7 +389,7 @@ Page({
   changePage_Finish: function (e) {
     console.log(this.$state.aimCardData);
     console.log(this.$state.aimCardData['title'] != null);
-    if (this.$state.aimCardData['title'] != null && (this.$state.aimCardData['goal_type'] == 0) || (this.$state.aimCardData['end_time'] != null && this.$state.aimCardData['needed_be_signed_deadline'] != null)) {
+    if (this.$state.aimCardData['title'] != null && (this.$state.aimCardData['goal_type'] != 1) || (this.$state.aimCardData['end_time'] != null && this.$state.aimCardData['needed_be_signed_deadline'] != null)) {
       this.PostCardData();
       setTimeout(() => {
         this.GetCardData();
@@ -458,15 +505,17 @@ Page({
 
       })
     } else if (goal_type == 2) {
-      // 微信运动预留
+      let num = this.$state.aimCardData['title'].replace(/[^0-9]/ig, "");
+      console.log("步数", num);
+      // 微信运动
       wx.request({
         method: 'POST',
         url: this.$state.apiURL + '/user/goal/add',
         data: {
           goal_name: this.$state.aimCardData['title'],
-          goal_type: goal_type,
+          goal_type: goal_type, //2
           goal_is_a_group: team,
-          frequency: 1, //目前预留
+          frequency: num,
           login_key: this.$state.login_key,
         },
         success: (res) => {

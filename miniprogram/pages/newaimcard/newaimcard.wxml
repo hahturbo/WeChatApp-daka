@@ -20,7 +20,8 @@
 	<view class="card">
 		<text class='{{type==2 ? "displayNone" : ""}}' >打卡标题：</text>
 		<text class='{{type!=2 ? "displayNone" : ""}}'>每日步数目标：</text>
-		<input class="right_text title_input" maxlength="10" placeholder="点此输入" data-name="title" bindinput="valueChanged" value="{{title}}" />
+		<input class='right_text title_input {{type==2 ? "displayNone" : ""}}' maxlength="10" placeholder="点此输入" data-name="title" bindinput="valueChanged" value="{{title}}" />
+		<input class='right_text title_input {{type!=2 ? "displayNone" : ""}}' maxlength="5" placeholder="点此输入步数" data-name="title" bindinput="valueChanged" value="{{title}}"  type='number'/>
 
 	</view>
 

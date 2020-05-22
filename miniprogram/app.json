@@ -12,7 +12,7 @@
     "backgroundColor": "#FFC864",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#FFC864",
-    "navigationBarTitleText": "云开发",
+    "navigationBarTitleText": "小小打卡",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",

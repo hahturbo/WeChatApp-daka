@@ -167,7 +167,7 @@ Component({
         case "frequency":
           var f=e.detail.value;
           let d = 1;
-          
+ 
           console.log(f);
 
           console.log(f[0], f[1], f[2], f[3]);
@@ -235,22 +235,35 @@ Component({
         default:
           break;
       }
-      if (e.target.dataset.name != "frequency"&&e.target.dataset.name != "reminder_at") {
+      if (e.target.dataset.name != "frequency"&&e.target.dataset.name != "reminder_at") {       
         var data_name = e.target.dataset.name
         let data = this.$state.aimCardData;
-        data[data_name] = e.detail.value
+        if(e.target.dataset.name == "title"&&this.data.type==2){
+          // 微信步数
+          data[data_name] =  "每天走"+ e.detail.value+"步";
+        }else{
+          data[data_name] = e.detail.value
+        }
+       
         this.setState({
           aimCardData: data
         })
       }
     },
+
+
     TitleInput: function (e) {
       console.log(e);
-
       if (e.detail.value) {
-        this.setData({
-          title: e.detail.value,
-        })
+        if(type!=2){
+          this.setData({
+            title: e.detail.value,
+          })
+        }else{
+          this.setData({
+            title: "每天走"+ e.detail.value+"步",
+          })
+        }
       } else {
         // this.setData({
         //   title: null,
