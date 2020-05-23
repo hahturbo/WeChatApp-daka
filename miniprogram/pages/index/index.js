@@ -1,5 +1,5 @@
 //index.js
-// data-to:0=主页面 1=新建页面 2=设置页面 3=目标页面
+// data-to:0=主页面 1=新建页面 2=设置页面 3=目标页面 4= 5=接受邀请页面
 
 const app = getApp()
 
@@ -25,6 +25,9 @@ Page({
 
     ConsoleText: '200',
 
+    //新建打卡数据：邀请次数，不重复post
+    invite_time:0,
+
     //弹窗数据
     dialogTitle: '',
     dialogText: '',
@@ -47,7 +50,10 @@ Page({
 
   },
 
-  onLoad: function () {
+  onLoad: function (options) {
+    console.log('options1', options);
+    console.log('options1', options.id);
+    let invite_id=options.id;
     if (!this.data.isLogin) {
       wx.login({
         success: function (res) {
@@ -94,8 +100,30 @@ Page({
       }
     })
 
+    if(invite_id){
 
+
+    }
   },
+//分享
+
+  onShareAppMessage: function (e) {
+    console.log("sharing");   
+    if(true){
+    console.log("T");
+      console.log('分享成功');
+    }else{      
+      console.log("F");
+    }   
+    return {
+      title: '弹出分享时显示的分享标题',
+      desc: '分享页面的内容',
+      path: 'pages/index/index?id='+this.$state.aimCardDatas[0].groupData.invite_id ,
+      // 路径，传递参数到指定页面。
+    }
+  
+},
+
 
   //获取打卡信息
   GetCardData: function (e) {
@@ -387,18 +415,25 @@ Page({
 
   //弹窗
   changePage_Finish: function (e) {
+    console.log("e",e);
     console.log(this.$state.aimCardData);
     console.log(this.$state.aimCardData['title'] != null);
     if (this.$state.aimCardData['title'] != null && (this.$state.aimCardData['goal_type'] != 1) || (this.$state.aimCardData['end_time'] != null && this.$state.aimCardData['needed_be_signed_deadline'] != null)) {
-      this.PostCardData();
-      setTimeout(() => {
-        this.GetCardData();
-        this.setData({
-          changedPageCounts: this.data.changedPageCounts + 1,
-          nowPage: e.currentTarget.dataset.to,
+      //data.invite_time
+      if(this.$state.can_share==false){
+        this.PostCardData();
+      }else{
+        this.setState({
+          can_share: false,
         })
-      }, 500);
-
+      }  
+      if(e.from!='button'){
+        setTimeout(() => {
+          this.GetCardData();
+          this.changePage(e);       
+        }, 500);
+      }
+        return true;
     } else {
       this.setData({
         dialogTitle: "打卡信息未填完哦~",
@@ -411,6 +446,7 @@ Page({
         }],
         dialogShow: true,
       })
+      return false;
     }
   },
 
@@ -451,6 +487,7 @@ Page({
   },
 
   PostCardData: function (e) {
+    console.log(e);
     let goal_type, team, num, reminder_at;
     !this.$state.aimCardData['goal_type'] ? goal_type = 1 : goal_type = parseInt(this.$state.aimCardData['goal_type']);
     console.log(this.$state.aimCardData);

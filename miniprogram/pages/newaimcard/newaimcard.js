@@ -11,6 +11,18 @@ Component({
    * 组件的初始数据
    */
   data: {
+    //弹窗
+    dialogTitle: '',
+    dialogText: '',
+    dialogShow: false,
+    dialogsButton: [{
+      text: '取消'
+    }, {
+      text: '确定'
+    }],
+
+    can_share: false,
+    share_text: ["(新建打卡后可邀请)", "新建打卡"],
     //新建打卡页面数据
     team: 0,
     type_array: ['极简', '普通', '微信运动'],
@@ -37,9 +49,9 @@ Component({
     time_call: '请选择',
     normal_card_display: 0,
     fre_diy_display: 'none',
-    reminder_Array:['打卡时','提前5分钟','提前10分钟','提前15分钟','提前30分钟','提前一小时'],
-    reminder:0,
-    reminder_num:[0,5,10,15,30,60],
+    reminder_Array: ['打卡时', '提前5分钟', '提前10分钟', '提前15分钟', '提前30分钟', '提前一小时'],
+    reminder: 0,
+    reminder_num: [0, 5, 10, 15, 30, 60],
 
   },
 
@@ -52,28 +64,46 @@ Component({
       this.setData({
         team: 0,
         type: 1,
-  
+
         title: null,
         date_start: '请选择',
         date_end: '请先选择开始日期',
-  
+
         frequencytype: 0,
         frequencytype2: 0,
         frequency: [0, 0, 0, 0],
         frequencynum: 1,
         frequencyout: '每天',
-  
+
         time_aim1: '请选择',
         time_aim2: '请选择',
         time_call: '请选择',
         normal_card_display: 0,
 
-        reminder:0,
+        reminder: 0,
 
-  
+
       })
     },
-    
+    // 分享
+
+    //   onShareAppMessage: function () {
+    //     console.log("share");
+    //     return {
+    //       title: '弹出分享时显示的分享标题',
+    //       desc: '分享页面的内容',
+    //       path: 'pages/index/index?id=123' ,
+    //       // 路径，传递参数到指定页面。
+    //     }
+    //     console.log('成功')
+
+    // },
+
+    onLoad: function (options) {
+      console.log('options2', options);
+    },
+
+
     bindPickerTypeChange: function (e) {
       console.log('picker发送选择改变，携带值为', e.detail.value)
       if (e.detail.value == 0) {
@@ -93,26 +123,26 @@ Component({
 
     //select
     click_single_btn: function (e) {
-      let data =this.$state.aimCardData;
+      let data = this.$state.aimCardData;
       if (this.data.team != 0) {
-        data["team"]=0;
+        data["team"] = 0;
         this.setData({
           "team": '0'
         });
         this.setState({
-          aimCardData:data,
+          aimCardData: data,
         })
       } else {}
     },
     click_team_btn: function (e) {
-      let data =this.$state.aimCardData;      
+      let data = this.$state.aimCardData;
       if (this.data.team != 1) {
-        data["team"]=1;
+        data["team"] = 1;
         this.setData({
           "team": '1'
         });
         this.setState({
-          aimCardData:data,
+          aimCardData: data,
         })
       } else {}
     },
@@ -121,7 +151,7 @@ Component({
       console.log(e);
       switch (e.target.dataset.name) {
         case "goal_type":
-          if (e.detail.value !=1) {
+          if (e.detail.value != 1) {
             this.setData({
               normal_card_display: 1,
               type: e.detail.value
@@ -165,9 +195,9 @@ Component({
           }
           break;
         case "frequency":
-          var f=e.detail.value;
+          var f = e.detail.value;
           let d = 1;
- 
+
           console.log(f);
 
           console.log(f[0], f[1], f[2], f[3]);
@@ -224,10 +254,10 @@ Component({
           break;
         case "reminder_at":
           this.setData({
-            reminder:  e.detail.value,
+            reminder: e.detail.value,
           })
           let data2 = this.$state.aimCardData;
-          data2["reminder_at"] =this.data.reminder_num[e.detail.value];
+          data2["reminder_at"] = this.data.reminder_num[e.detail.value];
           this.setState({
             aimCardData: data2
           })
@@ -235,16 +265,16 @@ Component({
         default:
           break;
       }
-      if (e.target.dataset.name != "frequency"&&e.target.dataset.name != "reminder_at") {       
+      if (e.target.dataset.name != "frequency" && e.target.dataset.name != "reminder_at") {
         var data_name = e.target.dataset.name
         let data = this.$state.aimCardData;
-        if(e.target.dataset.name == "title"&&this.data.type==2){
+        if (e.target.dataset.name == "title" && this.data.type == 2) {
           // 微信步数
-          data[data_name] =  "每天走"+ e.detail.value+"步";
-        }else{
+          data[data_name] = "每天走" + e.detail.value + "步";
+        } else {
           data[data_name] = e.detail.value
         }
-       
+
         this.setState({
           aimCardData: data
         })
@@ -255,13 +285,13 @@ Component({
     TitleInput: function (e) {
       console.log(e);
       if (e.detail.value) {
-        if(type!=2){
+        if (type != 2) {
           this.setData({
             title: e.detail.value,
           })
-        }else{
+        } else {
           this.setData({
-            title: "每天走"+ e.detail.value+"步",
+            title: "每天走" + e.detail.value + "步",
           })
         }
       } else {
@@ -460,5 +490,184 @@ Component({
       })
     },
 
-  }
+    //分享
+    btn_share: function (e) {
+      //!can_share
+      if (!this.data.can_share) {
+        // console.log("ii");
+        if (this.$state.aimCardData['title'] != null && (this.$state.aimCardData['goal_type'] != 1) || (this.$state.aimCardData['end_time'] != null && this.$state.aimCardData['needed_be_signed_deadline'] != null)) {
+          {
+            console.log(e);
+            let goal_type, team, num, reminder_at;
+            !this.$state.aimCardData['goal_type'] ? goal_type = 1 : goal_type = parseInt(this.$state.aimCardData['goal_type']);
+            console.log(this.$state.aimCardData);
+            !this.$state.aimCardData['team'] ? team = 0 : team = this.$state.aimCardData['team'];
+            !this.$state.aimCardData['reminder_at'] ? reminder_at = 0 : reminder_at = this.$state.aimCardData['reminder_at'];
+            console.log("team", team);
+            if (goal_type == 1) {
+              // 普通打卡提交  
+              if (!this.$state.aimCardData['frequency']) {
+                f = [0, 0, 0, 0];
+                num = 1;
+              } else {
+                f = this.$state.aimCardData['frequency'];
+                num = this.$state.aimCardData['frequencynum'];
+              }
+              let fre;
+              if (f[2] == 2) {
+                fre = f[3] + '|' + 1;
+              } else {
+                fre = f[3] + '|' + 0;
+              }
+              console.log(this.$state.aimCardData['reminder_at']);
+              wx.request({
+                method: 'POST',
+                url: this.$state.apiURL + '/user/goal/add',
+                data: {
+                  goal_name: this.$state.aimCardData['title'],
+                  goal_type: 1,
+                  started_at: this.$state.aimCardData['start_time'],
+                  ended_in: this.$state.aimCardData['end_time'],
+                  frequency: num,
+                  frequency_type: fre,
+                  goal_is_a_group: team,
+                  reminder_at: reminder_at,
+                  needed_be_signed_at: this.$state.aimCardData['needed_be_signed_at'],
+                  needed_be_signed_deadline: this.$state.aimCardData['needed_be_signed_deadline'],
+                  signed_type: 1,
+                  signed_day: 0,
+                  login_key: this.$state.login_key,
+                },
+                success: (res) => {
+                  console.log("提交成功");
+                  console.log(res.data);
+                  if (res.status != "success") {
+                    this.setData({
+                      error_code: res.status + res.code,
+                    })
+                  }
+                }
+              })
+            } else if (goal_type == 2) {
+              let num = this.$state.aimCardData['title'].replace(/[^0-9]/ig, "");
+              console.log("步数", num);
+              // 微信运动
+              wx.request({
+                method: 'POST',
+                url: this.$state.apiURL + '/user/goal/add',
+                data: {
+                  goal_name: this.$state.aimCardData['title'],
+                  goal_type: goal_type, //2
+                  goal_is_a_group: team,
+                  frequency: num,
+                  login_key: this.$state.login_key,
+                },
+                success: (res) => {
+                  console.log("提交运动成功");
+                  console.log(res.data);
+                  this.setData({})
+                }
+              })
+            } else if (goal_type == 0) {
+              wx.request({
+                method: 'POST',
+                url: this.$state.apiURL + '/user/goal/add',
+                data: {
+                  goal_name: this.$state.aimCardData['title'],
+                  goal_type: goal_type,
+                  goal_is_a_group: team,
+                  login_key: this.$state.login_key,
+                },
+                success: (res) => {
+                  console.log("提交极简成功");
+                  console.log(res.data);
+                  this.setData({})
+                }
+              })
+            }
+            // 提交至目标板
+            let data, board_num;
+            board_num = this.$state.board_num;
+            board_num++;
+            console.log(board_num);
+            data = [{
+              id: board_num,
+              icon: 2,
+              name: this.$state.aimCardData['title'],
+            }]
+            wx.request({
+              method: 'POST',
+              url: this.$state.apiURL + '/user/board/change',
+              data: {
+                login_key: this.$state.login_key,
+                data: data,
+              },
+              success: (res) => {
+                console.log("上传目标板成功");
+                console.log(res.data);
+                this.setState({
+                  board_num: board_num,
+                })
+              }
+            })
+            //end
+            //index页面.GetCardData()阉割版;
+            wx.request({
+              method: 'POST',
+              url: this.$state.apiURL + '/user/goal/get',
+              data: {
+                from: 0,
+                amount: 5,
+                login_key: this.$state.login_key,
+              },
+              success: (res) => {
+                console.log("拉取邀请码成功");
+                console.log(res.data);
+                this.setState({
+                  aimCardDatas: res.data.data,
+                })
+                console.log(this.$state.aimCardDatas[0].groupData.invite_id);
+              }
+            })
+
+            //index页面.GetCardData()end
+            this.setData({
+              can_share: true,
+              share_text: ["(共可邀请4人)", "发送邀请"],
+            })
+            this.setState({
+              can_share: true,
+            })
+
+          }
+        } else {
+          // console.log("22");
+          //未填完弹窗
+          this.setData({
+            dialogTitle: "打卡信息未填完哦~",
+            dialogsButton: [{
+              text: '继续填写',
+              extClass: "btn_go_on"
+            }, {
+              text: '取消',
+              extClass: "btn_cancel"
+            }],
+            dialogShow: true,
+          })
+
+        }
+      }
+    },
+
+
+    
+    tapDialogButton: function () {
+      this.setData({
+        dialogShow: false,
+      })
+    },
+
+  },
+
+
 })

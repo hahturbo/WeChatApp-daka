@@ -1,5 +1,8 @@
 <!--pages/newaimcard/newaimcard.wxml-->
 <view class=' containerB'>
+	<mp-dialog title="{{dialogTitle}}" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{dialogsButton}}">	</mp-dialog>
+
+
 	<view class="select">
 		<button class='{{team==0?".team_select":""}} single' bindtap="click_single_btn">
 			个人打卡
@@ -10,76 +13,88 @@
 	</view>
 
 	<!-- 选项 -->
-	<view class="card">
-		<picker data-name="goal_type" bindchange="valueChanged" value="{{type}}" range="{{type_array}}">
-			<view class="picker">
-				<text>打卡类型：</text><text class="right_text">{{type_array[type]}}</text>
+	<scroll-view scroll-y='{{team==0 ? "false" : "true"}}' style='height:75vh; margin-top: 20rpx;margin-bottom: 10vh;'>
+		<view class="card">
+			<picker data-name="goal_type" bindchange="valueChanged" value="{{type}}" range="{{type_array}}">
+				<view class="picker">
+					<text>打卡类型：</text><text class="right_text">{{type_array[type]}}</text>
+				</view>
+			</picker>
+		</view>
+		<view class="card">
+			<text class='{{type==2 ? "displayNone" : ""}}' >打卡标题：</text>
+			<text class='{{type!=2 ? "displayNone" : ""}}'>每日步数目标：</text>
+			<input class='right_text title_input {{type==2 ? "displayNone" : ""}}' maxlength="10" placeholder="点此输入" data-name="title" bindinput="valueChanged" value="{{title}}" />
+			<input class='right_text title_input {{type!=2 ? "displayNone" : ""}}' maxlength="5" placeholder="点此输入步数" data-name="title" bindinput="valueChanged" value="{{title}}" type='number' />
+
+		</view>
+
+		<view class="date">
+			<view class='card {{normal_card_display==1 ? "displayNone" : ""}}' bindtap="doUpload">
+				<picker mode="date" value="{{date_start}}" start="2019-09-01" end="2099-09-01" data-name="start_time" bindchange="valueChanged">
+					<view class="picker">
+						<text>开始日期: </text><text class='right_text {{date_start=="请选择"?"right_text_unselect":""}}'>{{ date_start}}</text>
+					</view>
+				</picker>
 			</view>
-		</picker>
-	</view>
-	<view class="card">
-		<text class='{{type==2 ? "displayNone" : ""}}' >打卡标题：</text>
-		<text class='{{type!=2 ? "displayNone" : ""}}'>每日步数目标：</text>
-		<input class='right_text title_input {{type==2 ? "displayNone" : ""}}' maxlength="10" placeholder="点此输入" data-name="title" bindinput="valueChanged" value="{{title}}" />
-		<input class='right_text title_input {{type!=2 ? "displayNone" : ""}}' maxlength="5" placeholder="点此输入步数" data-name="title" bindinput="valueChanged" value="{{title}}"  type='number'/>
+			<view class='card  {{normal_card_display==1 ? "displayNone" : ""}}' bindtap="doUpload">
+				<picker mode="date" value="{{date_start}}" start="2019-09-01" end="2099-09-01" data-name="end_time" bindchange="valueChanged">
+					<view class="picker">
+						<text>结束日期: </text><text class='right_text {{date_end=="请先选择开始日期"?"right_text_unselect":""}}'>{{ date_end}}</text>
+					</view>
+				</picker>
+			</view>
 
-	</view>
-
-	<view class="date">
-		<view class='card {{normal_card_display==1 ? "displayNone" : ""}}' bindtap="doUpload">
-			<picker mode="date" value="{{date_start}}" start="2019-09-01" end="2099-09-01" data-name="start_time" bindchange="valueChanged">
-				<view class="picker">
-					<text>开始日期: </text><text class='right_text {{date_start=="请选择"?"right_text_unselect":""}}'>{{ date_start}}</text>
-				</view>
-			</picker>
-		</view>
-		<view class='card  {{normal_card_display==1 ? "displayNone" : ""}}' bindtap="doUpload">
-			<picker mode="date" value="{{date_start}}" start="2019-09-01" end="2099-09-01" data-name="end_time" bindchange="valueChanged">
-				<view class="picker">
-					<text>结束日期: </text><text class='right_text {{date_end=="请先选择开始日期"?"right_text_unselect":""}}'>{{ date_end}}</text>
-				</view>
-			</picker>
-		</view>
-
-		<view class='card  {{normal_card_display==1 ? "displayNone" : ""}}' bindtap="doUpload">
-    <!-- bindPickerFrequencyChange -->
-			<picker mode="multiSelector" data-name="frequency"  bindchange="valueChanged" bindcolumnchange="bindMultiPickerColumnChange" value="{{frequency}}" range="{{frequencyArray}}">
-				<view class="picker">
-					<text>打卡频率: </text><text class="right_text">{{frequencyout}}</text>
-					<!-- <text>打卡频率: {{frequencyArray[frequency]}}<text> -->
-				</view>
-			</picker>
-		</view>
-		<!-- <view class="fre_diy" id="frediy" > -->
-		<!-- <view class="fre_diy" id="frediy">
+			<view class='card  {{normal_card_display==1 ? "displayNone" : ""}}' bindtap="doUpload">
+				<!-- bindPickerFrequencyChange -->
+				<picker mode="multiSelector" data-name="frequency" bindchange="valueChanged" bindcolumnchange="bindMultiPickerColumnChange" value="{{frequency}}" range="{{frequencyArray}}">
+					<view class="picker">
+						<text>打卡频率: </text><text class="right_text">{{frequencyout}}</text>
+						<!-- <text>打卡频率: {{frequencyArray[frequency]}}<text> -->
+					</view>
+				</picker>
+			</view>
+			<!-- <view class="fre_diy" id="frediy" > -->
+			<!-- <view class="fre_diy" id="frediy">
 					<input class="fre_num_input" type="number" maxlength="3" placeholder="在此输入" bindinput="KeyInput" value="{{freinputValue}}" />
 					<button class="fre_num_btn" style="background:#FFC864" bindtap="click_btn">确认</button>
 				</view> -->
 
-	</view>
-
-	<view class='card  {{normal_card_display==1 ? "displayNone" : ""}}'>
-
-		<view class="picker">
-			<text>打卡时间:  </text>
-			<view class='right_text '>
-				<picker mode="time" value="{{time}}" start="00:00" end="23:59" data-name="needed_be_signed_at" bindchange="valueChanged">
-					<text class='{{time_aim1=="请选择"?"right_text_unselect":""}}'>{{time_aim1}}</text></picker>
-				<text>—</text>
-				<picker mode="time" value="{{time}}" start="00:00" end="23:59" data-name="needed_be_signed_deadline" bindchange="valueChanged">
-					<text class='{{time_aim2=="请选择"?"right_text_unselect":""}}'>{{time_aim2}}</text></picker>
-			</view>
-			<!-- <text class='right_text {{time_aim1=="请选择"?"right_text_unselect":""}}'>——</text>
-			<text class='right_text {{time_aim2=="请选择"?"right_text_unselect":""}}'>	{{time_aim2}}</text> -->
 		</view>
 
+		<view class='card  {{normal_card_display==1 ? "displayNone" : ""}}'>
 
-	</view>
-	<view class='card  {{normal_card_display==1 ? "displayNone" : ""}}'>
-		<picker  value="{{reminder}}" range="{{reminder_Array}}" data-name="reminder_at" bindchange="valueChanged">
 			<view class="picker">
-				<text>提醒时间:  </text><text class="right_text">{{reminder_Array[reminder]}}</text>
+				<text>打卡时间:  </text>
+				<view class='right_text '>
+					<picker mode="time" value="{{time}}" start="00:00" end="23:59" data-name="needed_be_signed_at" bindchange="valueChanged">
+						<text class='{{time_aim1=="请选择"?"right_text_unselect":""}}'>{{time_aim1}}</text></picker>
+					<text>—</text>
+					<picker mode="time" value="{{time}}" start="00:00" end="23:59" data-name="needed_be_signed_deadline" bindchange="valueChanged">
+						<text class='{{time_aim2=="请选择"?"right_text_unselect":""}}'>{{time_aim2}}</text></picker>
+				</view>
+				<!-- <text class='right_text {{time_aim1=="请选择"?"right_text_unselect":""}}'>——</text>
+			<text class='right_text {{time_aim2=="请选择"?"right_text_unselect":""}}'>	{{time_aim2}}</text> -->
 			</view>
-		</picker>
-	</view>
+
+
+		</view>
+		<view class='card  {{normal_card_display==1 ? "displayNone" : ""}}'>
+			<picker value="{{reminder}}" range="{{reminder_Array}}" data-name="reminder_at" bindchange="valueChanged">
+				<view class="picker">
+					<text>提醒时间:  </text><text class="right_text">{{reminder_Array[reminder]}}</text>
+				</view>
+			</picker>
+		</view>
+
+		<view class='card {{team==0 ? "displayNone" : ""}}'>
+			<view class="picker" style=" display: flex;flex-direction: row;">
+				<text>邀请好友:  </text>
+				<text style='font-size:30rpx;color:grays'>{{share_text[0]}} </text>				
+				<button class="btn_invite"  open-type='{{can_share?"share":""}}' bindtap="btn_share">{{share_text[1]}}</button>
+			</view>	
+		</view>
+
+		<view style="height:15vh"></view>
+	</scroll-view>
 </view>

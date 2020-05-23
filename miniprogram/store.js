@@ -1,6 +1,8 @@
 
 // 全局变量
 let store = {
+  can_share:false,
+  invite_id:'',
   msg: 'xxxxx',
   user: {},
   apiURL: "http://58.218.198.18:9998",
