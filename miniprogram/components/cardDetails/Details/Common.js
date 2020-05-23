@@ -81,7 +81,7 @@ observers:{
           console.log('get fail');
         },
         complete: () => {
-          console.log(this.$state.aimCardDatadetail);
+          // console.log(this.$state.aimCardDatadetail);
           this.setData({
             todaydaka: (1 & this.$state.aimCardDatadetail[this.data.carditem].canBeSignedNow) ? "今日打卡" : "今日完成",
             todaydaka_bgc: (this.$state.aimCardDatadetail[this.data.carditem].canBeSignedNow & 1) ? 'rgb(255, 153, 102)' : 'transparent',

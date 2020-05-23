@@ -43,7 +43,7 @@ Component({
     getcarddetail: function () {
       wx.request({
         method: "POST",
-        url: this.$state.apiURL + '/user/getSignedRecord',
+        url: this.$state.apiURL + '/user/goal/get',
         data: {
           from: 0,
           amount: 10,
@@ -60,7 +60,7 @@ Component({
         },
         complete: () => {
           // console.log(this.$state.aimCardDatadetail);
-          // console.log(carditem);
+          // console.log(this.data.carditem);
           this.setData({
             todaydaka: (1 & this.$state.aimCardDatadetail[this.data.carditem].canBeSignedNow) ? "今日打卡" : "今日完成",
             todaydaka_bgc: (this.$state.aimCardDatadetail[this.data.carditem].canBeSignedNow & 1) ? 'rgb(255, 153, 102)' : 'transparent',
@@ -78,9 +78,9 @@ Component({
       if (this.$state.aimCardDatadetail[this.data.carditem].canBeSignedNow & 1) {
         wx.request({
           method: 'POST',
-          url: this.$state.apiURL + '/user/goal/get',
+          url: this.$state.apiURL + '/user/goal/sign',
           data: {
-            goal_id: this.$state.aimCardDatadetail[0].goal_id,
+            goal_id: this.$state.aimCardDatadetail[this.data.carditem].goal_id,
             login_key: this.$state.login_key,
           },
           success: (res) => {

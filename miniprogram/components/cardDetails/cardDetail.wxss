@@ -78,7 +78,6 @@
 .grid {
   display: inline-block;
   width: 13.69999%;
-  line-height: 60rpx;
   position: relative;
   margin: 2rpx;
   /* padding: 3rpx 0; */

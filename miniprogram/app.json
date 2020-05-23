@@ -6,8 +6,7 @@
     "pages/openapi/callback/callback",
     "pages/openapi/cloudid/cloudid",
     "pages/im/im",
-    "pages/im/room/room",
-    "pages/carddetails/carddetails"
+    "pages/im/room/room"
   ],
   "window": {
     "backgroundColor": "#FFC864",

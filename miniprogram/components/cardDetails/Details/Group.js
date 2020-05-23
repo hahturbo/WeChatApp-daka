@@ -59,7 +59,7 @@ Component({
           console.log('get fail');
         },
         complete: () => {
-          // console.log(this.$state.aimCardDatadetail);
+          console.log(this.$state.aimCardDatadetail);
           // console.log(carditem);
           this.setData({
             todaydaka: (1 & this.$state.aimCardDatadetail[this.data.carditem].canBeSignedNow) ? "今日打卡" : "今日完成",
@@ -75,12 +75,12 @@ Component({
     todaydaka: function (e) {
       // console.log('jinridaka');
       // console.log(this.$state.aimCardDatadetail[0].canBeSignedNow & 1);
-      if (this.$state.aimCardDatadetail[this.data.carditem].canBeSignedNow & 1) {
+      if (this.$state.aimCardDatadetail[this.data.carditem].canBeSignedNow == 1 & 1) {
         wx.request({
           method: 'POST',
           url: this.$state.apiURL + '/user/goal/sign',
           data: {
-            goal_id: this.$state.aimCardDatadetail[0].goal_id,
+            goal_id: this.$state.aimCardDatadetail[this.data.carditem].goal_id,
             login_key: this.$state.login_key,
           },
           success: (res) => {
@@ -98,7 +98,7 @@ Component({
           }
         })
       } else {
-        console.log('signed');
+        console.log('too few steps or signed');
       }
     },
     // 删除打卡
