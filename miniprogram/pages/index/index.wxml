@@ -15,10 +15,10 @@
 	<view class='down'>
 		<!-- <image class='downmainimg' src="../../images/down.png" mode="aspectFill"></image> -->
 		<view class="downleft">
-			<image class='downimg {{nowPage!=0 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="3" bindtap="ChangePageGetBoard"></image>
+			<image class='downimg {{nowPage!=0 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="3" bindtap="changePage"></image>
 			<image class='downimg {{nowPage!=1 ? "displayNone" : ""}}' src="../../images/back.png" data-to="0" bindtap="changePage_Back"></image>
-			<image class='downimg {{nowPage!=2&&nowPage!=3 ? "displayNone" : ""}}' src="../../images/tick.png" data-to="0" bindtap="ChangePagePostBoard"></image>
-
+			<image class='downimg {{nowPage!=2&&nowPage!=3 ? "displayNone" : ""}}' src="../../images/tick.png" data-to="0" bindtap="changePage"></image>
+			<image class='downimg {{nowPage==4 ? "" : "displayNone"}}' src="../../images/back.png" bindtap="changePage" data-to="0"></image>
 		</view>
 		<view class='downmidshadow '></view>
 		<view class='downmidbg '></view>
@@ -27,15 +27,14 @@
 			<!-- <image class='downmidimg {{nowPage!=1 ? "displayNone" : ""}}' src="../../images/newaim3.png" data-to="1" bindtap="changePage"></image> -->
 			<image class='downmidimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="0" bindtap="changePage"></image>
 			<image class='downmidimg {{nowPage!=3 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="0" bindtap=""></image>
-
+			<image class='downimg {{nowPage==4 ? "" : "displayNone"}}' src="../../images/carddetail.png" bindtap="changePage" data-to="0"></image>
 		</view>
 
 		<view class="downright">
-			<image class='downimg {{nowPage!=0&&nowPage!=3 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="2" bindtap="ChangePagePostBoard"></image>
-
+			<image class='downimg {{nowPage!=0&&nowPage!=3 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="2" bindtap="changePage"></image>
 			<image class='downimg {{nowPage!=1 ? "displayNone" : ""}}' src="../../images/finish.png" data-to="0" bindtap="changePage_Finish"></image>
-
 			<image class='downimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="3" bindtap="ChangePageGetBoard"></image>
+			<image class='downimg {{nowPage==4 ? "" : "displayNone"}}' src="../../images/modify.png" bindtap="changePage" data-to="0"></image>
 
 
 		</view>
@@ -54,21 +53,16 @@
 				<!-- 调试用 -->
 				<!-- <view> -->
 
-				<view class='home-content {{nowPage!=0 ? "displayNone" : ""}}' bindtap="">
+				<view class='home-content {{nowPage!=0 ? "displayNone" : ""}}'>
 					<image class='{{card_num==0?"":"displayNone"}}' style=" width:100%;height:100%" src="../../images/mainnew.png"></image>
 					<!-- <text>isLogin:{{ConsoleText}}</text> -->
 
-					<view class='home-content {{card_num!=0?"":"displayNone"}}'>
-						<text>{{$state.aimCardDatas[0].goal_name}}</text>
+					<view class='home-content '>
+						<text bindtap="gotodetails" data-to="{{0}}">{{$state.aimCardDatas[0].goal_name}}</text>
 						<image class='' style=" width:70%;height:40%" src="../../images/mainnew2.png"></image>
-
-						<text class='{{$state.aimCardDatas[0].goal_is_a_group==0?"":"displayNone"}}	' style='color:#FF9966; font-size:30rpx;'>已连续{{$state.aimCardDatas[0].constantly
-}}次</text>
-			<text class='{{$state.aimCardDatas[0].goal_is_a_group==1?"":"displayNone"}}	' style='color:#FF9966; font-size:30rpx;'>今日小组已有{{$state.aimCardDatas[0].groupData.how_many_members_signed_today}}人打卡</text>
-						<button class='new_aim_card {{$state.aimCardDatas[0].canBeSignedNow==1?"":"NACunable"}}' data-id='{{$state.aimCardDatas[0].goal_id}}' bindtap='{{$state.aimCardDatas[0].canBeSignedNow==1?"sign_btn":""}}'><text class=' {{$state.aimCardDatas[0].canBeSignedNow==1?"":"displayNone"}}'>今日打卡</text>
-						<text class=' {{$state.aimCardDatas[0].canBeSignedNow==-121?"":"displayNone"}}'>今日未完成</text>
-						<image class='{{($state.aimCardDatas[0].canBeSignedNow==-118)||($state.aimCardDatas[0].canBeSignedNow==-520)?"":"displayNone"}}' src='../../images/tickB_finish.png' style="width:100%; height:90rpx"></image>
-						
+						<text style='color:#FF9966; font-size:30rpx;'>已连续{{$state.aimCardDatas[0].constantly}}次</text>
+						<button class='new_aim_card {{$state.aimCardDatas[0].canBeSignedNow==1?"":"NACunable"}}' bindtap='{{$state.aimCardDatas[0].canBeSignedNow==1?"sign_btn":""}}'><text class=' {{$state.aimCardDatas[0].canBeSignedNow==1?"":"displayNone"}}'>今日打卡</text>
+							<image class='{{$state.aimCardDatas[0].canBeSignedNow==-118?"":"displayNone"}}' src='../../images/tickB_finish.png' style="width:100%; height:90rpx"></image>
 						</button>
 					</view>
 				</view>
@@ -76,35 +70,32 @@
 		</view>
 
 		<view class="LetAMCCenter" wx:for='{{$state.aimCardDatas}}'>
-			<view class='mid-contentA  {{index%3==0?".bgcolor-g":""}} {{index%3==1?".bgcolor-b":""}} {{index%3==2?".bgcolor-o":""}} {{$state.aimCardDatas[index+1]?"":"displayNone"}} '>
-			<view class='contentAText'>
-			<text class="mid-text">{{$state.aimCardDatas[index+1].goal_name}}</text>
-			<text class='small-text {{$state.aimCardDatas[index+1].goal_is_a_group==0?"":"displayNone"}}'>已连续{{$state.aimCardDatas[index+1].constantly
-}}次</text>		
-			<text class='small-text {{$state.aimCardDatas[index+1].goal_is_a_group==1?"":"displayNone"}}'>本次小组已有{{$state.aimCardDatas[index+1].groupData.how_many_members_signed_today}}人打卡</text>									
+			<view class='mid-contentA  {{index%3==0?".bgcolor-g":""}} {{index%3==1?".bgcolor-b":""}} {{index%3==2?".bgcolor-p":""}} {{$state.aimCardDatas[index+1]?"":"displayNone"}} '>
+				<view class='contentAText'>
+					<text class="mid-text" bindtap="gotodetails" data-to="{{index+1}}">{{$state.aimCardDatas[index+1].goal_name}}</text>
+					<text class='small-text'>已连续{{$state.aimCardDatas[index+1].constantly}}次</text>
+				</view>
+				<view class='button {{$state.aimCardDatas[index+1].canBeSignedNow==1?"":"buttonNo"}}' data-id='{{$state.aimCardDatas[index+1].goal_id}}' bindtap='{{$state.aimCardDatas[index+1].canBeSignedNow==1?"sign_btn":""}}'>
+					<image class='icon {{$state.aimCardDatas[index+1].canBeSignedNow==-118?"":"displayNone"}}' src="../../images/tick_finish.png"></image>
+					<image class='icon {{((($state.aimCardDatas[index+1].canBeSignedNow==1)&&($state.aimCardDatas[index+1].frequency_type[0]==0))||($state.aimCardDatas[index+1].frequency_type==""))?"":"displayNone"}}' src="../../images/tick_able.png"></image>
+					<image class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==1)&&($state.aimCardDatas[index+1].frequency_type[0]==1)?"":"displayNone"}}' src="../../images/tick_today.png"></image>
+					<!-- <image class='icon' src="../../images/tick_able.png"></image> -->
+				</view>
 			</view>
-			<view class='button {{$state.aimCardDatas[index+1].canBeSignedNow==1?"":"buttonNo"}}' data-id='{{$state.aimCardDatas[index+1].goal_id}}' bindtap='{{$state.aimCardDatas[index+1].canBeSignedNow==1?"sign_btn":""}}' >
-		<image class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==-118)||($state.aimCardDatas[index+1].canBeSignedNow==-520)?"":"displayNone"}}' src="../../images/tick_finish.png" ></image>
-				<image class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==1)&&($state.aimCardDatas[index+1].frequency_type[0]==0)?"":"displayNone"}}' src="../../images/tick_able.png" ></image>
-						<image class='icon {{(($state.aimCardDatas[index+1].canBeSignedNow==1)&&(($state.aimCardDatas[index+1].frequency_type[0]==1)||($state.aimCardDatas[index+1].frequency_type=="")))?"":"displayNone"}}' src="../../images/tick_today.png" ></image>
-						<image class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==-121)?"":"displayNone"}}' src="../../images/tick_unfinish.png" ></image>
-		<!-- <image class='icon' src="../../images/tick_able.png"></image> -->
-			</view>			
-			</view>
-		<!-- </view>
+			<!-- </view>
 			<view class="LetAMCCenter"> -->
 
 
 		</view>
 		<!-- LetAMCCenter_END -->
-		
+
 
 
 	</scroll-view>
 
 	<!-- class='AllMainCard'end -->
 
-	<view class='FullScreenCard aim_card {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}} {{nowPage==1||nowPage==2 ? "" : "displayNone"}}'>
+	<view class='FullScreenCard aim_card {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}} {{nowPage==1||nowPage==2||nowPage==4 ? "" : "displayNone"}}'>
 		<!-- animation="{{open_animation}}" -->
 		<!-- <view class=' containerB {{nowPage==1 ? "displayBlock" : "displayNone"}}'> -->
 		<!-- <view class=' containerB {{wx:if="{{view == 'WEBVIEW'}}" ? "" : "displayNone"}}'> -->
@@ -116,15 +107,19 @@
 		<view class=' containerB {{nowPage==2 ? "" : "displayNone"}} toFullCard'>
 			<setting></setting>
 		</view>
+		<!-- nowpage==4 -->
+		<view class='containerB toFucard' wx:if="{{nowPage==4}}">
+			<carddetail carditem="{{carditem}}"></carddetail>
+		</view>
 	</view>
 	<!-- nowpage3 start -->
-	<!-- <view class='{{nowPage==3 ? "toGoalCard" : "displayNone"}}'> -->
-		<view wx:if="{{nowPage==3}}" class="toGoalCard" >
+	<view class='{{nowPage==3 ? "toGoalCard" : "displayNone"}}'>
 		<image id="clicp" src="../../images/clicp.png"></image>
 		<view class='containerC '>
 			<tick></tick>
 		</view>
 	</view>
+
 
 	<!-- <view>456</view> -->
 

@@ -53,7 +53,6 @@
 
   border: 1rpx solid black;
 }
-
  page  .single{
   height: 100%;
   width: 50%;

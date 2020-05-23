@@ -47,17 +47,13 @@ Page({
     goals: [],
     card_num: 0,
     //新建打卡页面数据
-
+    carditem:'',
   },
-<<<<<<< HEAD
-  onLoad: function () {
-=======
 
   onLoad: function (options) {
     console.log('options1', options);
     console.log('options1', options.id);
     let invite_id=options.id;
->>>>>>> 打卡
     if (!this.data.isLogin) {
       wx.login({
         success: function (res) {
@@ -630,12 +626,12 @@ Page({
         let title, back = 15;
         console.log("拉取目标板成功");
         console.log(res.data);
-        console.log('a', res.data.data[length].title);
-        title = res.data.data[length].title;
+        // console.log('a', res.data.data[length].title);
+        // title = res.data.data[length].title;
 
         while (title) {
           length++;
-          title = res.data.data[length].title;
+          // title = res.data.data[length].title;
         }
         this.setState({
           goalsBoardData: res.data.data,
@@ -701,7 +697,13 @@ Page({
   },
 // 跳转打卡详情页面
   gotodetails: function (e) {
-    wx.navigateTo({url:'../carddetails/carddetails',})
+    // wx.navigateTo({url:'../carddetails/carddetails',})
+    this.setData({
+      nowPage:4,
+      carditem:e.currentTarget.dataset.to,
+    })
+    // console.log(this.data.nowPage);
+    // console.log(e.currentTarget.dataset.to);
   }
   //以上为公共
   // //新建界面

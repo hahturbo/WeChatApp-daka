@@ -7,8 +7,6 @@ let store = {
   user: {},
   apiURL: "http://58.218.198.18:9998",
   isLogin: false,
-  signed_up:"" ,
-  using_day:0,
   // isLogin: true,
   login_key: null,
   aimCardData: [],
@@ -16,6 +14,7 @@ let store = {
   aimCardDatadetail: '',
   board_num:0,
   goalsBoardData:[],
+  CardDetail:''
 }
 // 所有已加载的页面和组件
 let pcList = []

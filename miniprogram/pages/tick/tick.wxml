@@ -23,7 +23,7 @@
 	</movable-area>
 
 	<scroll-view scroll-y='{{pageInfo.scrollY}}' style='height:85%'>
-		<block wx:for='{{goalsBoard}}'  wx:if='{{(index<10)||(index<$state.board_num)}}'>
+		<block wx:for='{{goalsBoard}}'>
 			<view class='line {{pageInfo.readyPlaceIndex == index ? "ready-place" : ""}}'>
 				<view class='TapArea' data-index='{{index}}' bindtouchstart='dragStart' bindtouchmove='dragMove' bindtouchend='dragEnd'>{{item.id}}.</view>
 				<!-- <view class='' >{{item.name}}.</view>     -->
