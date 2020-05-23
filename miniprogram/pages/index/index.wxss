@@ -170,12 +170,114 @@ page .return2Home{
 
 
 /* 主新建卡类定义 类：home-content */
-.home-content text{
+.LetAMCCenter{
+  width: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-bottom: 30rpx;
+}
+
+
+.AllMainCard{
+  left:200rpx;
+  width: 700rpx;
+  height: 90vh;
+  /* overflow: visible; */
+  display: flex;
+  align-items: center;  
+}
+
+
+.home-content text {
   color: #FFFFFF;
-  font-size: 50rpx;
+  font-size:44rpx;
   font-weight:bold;
   text-align: center;
+  margin: 10rpx;
+
 }
+
+.home-content{
+  width:100%;
+  height: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;  
+
+}
+
+.mid-contentA{
+  width:600rpx;
+  height: 180rpx;
+  border-radius: 30rpx;
+  box-shadow: 0px 0px 40rpx 10rpx #888888;
+  border-style: dashed;
+  border-color: #FFFFFF;
+  border-width: 5rpx;
+  position: relative;
+  margin:5rpx;
+
+  display: flex;
+  flex-direction: row;
+}
+.bgcolor-g{
+  background-color:#A8D08C ;
+}
+.bgcolor-b{
+  background-color:#B3D0EB ;
+}
+.bgcolor-o{
+  background-color:#FFCC66 ;
+}
+
+
+
+
+.contentAText{
+width: 70%;
+display: flex;
+align-items: left;
+flex-direction:column;
+}
+ .small-text{
+ 
+  color: #FFFFFF;
+  font-size:33rpx;
+  font-weight: 	normal;
+  text-align: left;
+  margin: 30rpx;
+  /* margin-top: 30rpx; */
+}
+.mid-text{
+  text-align: left;
+  color: #FFFFFF;
+  font-size:44rpx;
+  font-weight:bold;
+  margin:10rpx;
+  margin-left: 30rpx;
+
+}
+.button{
+  width:30%;
+  height: 99%;
+  background-color: #FF9966;
+  border-radius:  30rpx;  
+  align-items: center;
+  display: flex;
+}
+.buttonNo{
+
+  background-color: #FF996600 !important;
+
+}
+.icon{  
+  width: 100%;
+  height:90%;
+}
+
 
 #main_container{
   transition: 1s;
@@ -201,20 +303,18 @@ page .return2Home{
   flex-direction: column;
   justify-content: space-around;  
 } */
-.home-content{
-  width:100%;
-  height: 100%;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;  
-}
+
 
 
 
 .toFullCard{
   animation: open 1s forwards ;
 }
+.toGoalCard{
+  animation: open_goal 1s forwards ;
+}
+
+
 .return2Home{
   animation: close 1s forwards;
 }
@@ -234,8 +334,8 @@ page .return2Home{
 @keyframes open{
   from{
     opacity: 0;
-    width: 500rpx;
-    height: 600rpx;
+    /* width: 500rpx;
+    height: 600rpx; */
     background-color: var(--main-color);
   }
   to{
@@ -245,10 +345,30 @@ page .return2Home{
     background-color: #FFFFFF;
   }
 }
+@keyframes open_goal{
+  from{
+    opacity: 0;
+    /* width:500rpx;
+    height: 600rpx;
+    background-color: var(--main-color); */
+
+
+  }
+  to{
+    opacity: 1; 
+    /* width: 670rpx;
+    height: 70vh;
+    border-radius: 50rpx 50rpx 50rpx 50rpx;
+    align-items: center;
+    display: flex;
+    flex-direction: column; */
+
+  }
+}
 @keyframes close{
   to{
     opacity: 1;
-    width: 500rpx;
+    width: 600rpx;
     height: 600rpx;
     background-color: var(--main-color);
   }
@@ -263,8 +383,8 @@ page .return2Home{
 @keyframes closePad{
   to{
     opacity: 1;
-    width: 450rpx;
-    height: 300rpx;
+    width: 600rpx;
+    height: 600rpx;
     background-color: var(--main-color);
   }
   from{
@@ -277,15 +397,23 @@ page .return2Home{
 
 /* 新建打卡按钮 */
 .new_aim_card{
-  width: 300rpx;
-  height: 150rpx;
+  width: 20% ;
+  /* height: 80rpx; */
   background:rgb(255,153,102);
-  border-radius: 45rpx;
+  border-radius: 25rpx;
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  margin: 0;
+  border-width:5rpx;
+  border-style: dashed;
+  border-color:rgb(255,153,102);
 }
+.NACunable{
+  background:var(--main-color) !important;
+}
+
 
 /* 新建打卡界面css如下 类：newaim*/
 

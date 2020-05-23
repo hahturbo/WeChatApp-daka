@@ -1,13 +1,13 @@
 //index.js
-// data-to:0=主页面 1=新建页面 2=设置页面
+// data-to:0=主页面 1=新建页面 2=设置页面 3=目标页面 4= 5=接受邀请页面
 
 const app = getApp()
 
 Page({
   data: {
     //主页面数据
-    isLogin: false,
-    // isLogin:true,
+    // isLogin: false,
+    isLogin: true,
     apiUrl: 'http://58.218.198.18:9998',
     avatarUrl: './user-unlogin.png',
     userInfo: {},
@@ -16,12 +16,17 @@ Page({
     requestResult: '',
     login_key: '',
 
+    error_code: "请允许小程序获取你的信息",
+
 
     // open_animation:'open 1s forwards',
     nowPage: 0,
     changedPageCounts: 0,
 
     ConsoleText: '200',
+
+    //新建打卡数据：邀请次数，不重复post
+    invite_time:0,
 
     //弹窗数据
     dialogTitle: '',
@@ -39,12 +44,20 @@ Page({
       "step": 0,
     }, ],
 
-    goals:[],
-    card_num:0,
+    goals: [],
+    card_num: 0,
     //新建打卡页面数据
-    
+
   },
+<<<<<<< HEAD
   onLoad: function () {
+=======
+
+  onLoad: function (options) {
+    console.log('options1', options);
+    console.log('options1', options.id);
+    let invite_id=options.id;
+>>>>>>> 打卡
     if (!this.data.isLogin) {
       wx.login({
         success: function (res) {
@@ -54,23 +67,25 @@ Page({
             data: res.code,
             success: function (res) {
               res = res.data;
-              if(res.status == "success"){
-                this.setState({login_key: res.data.login_key})
-              }else{
+              if (res.status == "success") {
+                this.setState({
+                  login_key: res.data.login_key
+                })
+              } else {
                 console.log("登陆失败");
-                
+
               }
-              
+
             }
           })
         }
       })
     }
-      // // 新建界面的日期
-      // var DATE = new Date().get
-      // this.setData({
-      //   date_start: DATE,
-      // });    
+    // // 新建界面的日期
+    // var DATE = new Date().get
+    // this.setData({
+    //   date_start: DATE,
+    // });    
 
     // 获取用户信息
     wx.getSetting({
@@ -89,59 +104,131 @@ Page({
       }
     })
 
-    
+    if(invite_id){
+
+
+    }
   },
+//分享
+
+  onShareAppMessage: function (e) {
+    console.log("sharing");   
+    if(true){
+    console.log("T");
+      console.log('分享成功');
+    }else{      
+      console.log("F");
+    }   
+    return {
+      title: '弹出分享时显示的分享标题',
+      desc: '分享页面的内容',
+      path: 'pages/index/index?id='+this.$state.aimCardDatas[0].groupData.invite_id ,
+      // 路径，传递参数到指定页面。
+    }
+  
+},
+
 
   //获取打卡信息
-  GetCardData: function(e){   
+  GetCardData: function (e) {
     wx.request({
       method: 'POST',
       url: this.data.apiUrl + '/user/goal/get',
-      data:{
-        from:0,
-        amount:5,
-        login_key:this.data.login_key,
+      data: {
+        from: 0,
+        amount: 5,
+        login_key: this.$state.login_key,
       },
       success: (res) => {
         console.log("拉取post成功");
         console.log(res.data);
-        //this.ClearNewAimData();
-        this.setData({
 
+        this.ClearNewAimData();
+        this.setState({
+          aimCardDatas: res.data.data,
         })
+        console.log((this.$state.aimCardDatas[1].canBeSignedNow == 1) && (this.$state.aimCardDatas[1].frequency_type[2] == 1));
+        if ((this.$state.aimCardDatas[1].canBeSignedNow == 1) && (this.$state.aimCardDatas[1].frequency_type[2] == 1)) {} else {
+          this.setData({
+            error_code: "无法获取打卡信息",
+          })
+        }
+        this.setData({
+          card_num: this.$state.aimCardDatas.length,
+        })
+//自动打卡微信运动
+        for(let i=0;i<this.data.card_num;i++){
+            if(this.$state.aimCardDatas[i].canBeSignedNow == 1&&this.$state.aimCardDatas[i].goal_type == 2){
+              wx.request({
+                method: 'POST',
+                url: this.$state.apiURL + '/user/goal/sign',
+                data: {
+                  goal_id: this.$state.aimCardDatas[i].goal_id,
+                  login_key: this.$state.login_key,
+                },
+                success: (res) => {
+                  console.log("自动打卡上传成功");
+                  console.log(res.data);
+                  this.setData({})
+                  setTimeout(() => {
+                    if(i==this.data.card_num-1)
+                    {
+                      this.GetCardData();
+                    }
+                  }, 500);
+                }
+              })
+            }
+        }
+
+
+
+
       }
     })
 
   },
 
+
   //微信运动
   GetWeRunData: function () {
-    if (this.data.login_key) {
-      wx.getWeRunData({
-        success:(res) => {
-          console.log();
-          wx.request({
-            method: 'POST',
-            url: this.data.apiUrl + '/user/getWeRunData',
-            data:{
-              encryptedData: res.encryptedData,
-              iv: res.iv,
-              login_key: this.data.login_key,
-            },
-            success: (res) => {
-              // console.log("22");
-              // console.log(res.data.stepInfoList);
-              this.setData({
-                "stepInfoList": res.data.stepInfoList,
-              })
-            }
-          })
-            // console.log("11");
-            // console.log(this.data.stepInfoList);
-        }
-      })
-    } else {
-      console.log("nokey" + this.data.login_key);
+    setTimeout(() => {
+      run()
+    }, 1000)
+
+    let run = () => {
+      if (this.$state.login_key) {
+        wx.getWeRunData({
+          success: (res) => {
+            console.log("this.$state.", res.encryptedData);
+            console.log("this.$state.api", this.$state.apiURL);
+            wx.request({
+              method: 'POST',
+              url: this.$state.apiURL + '/user/getWeRunData',
+              data: {
+                encryptedData: res.encryptedData,
+                iv: res.iv,
+                login_key: this.$state.login_key,
+              },
+              success: (res) => {
+                console.log("22");
+                console.log(res.data.stepInfoList);
+                this.setData({
+                  stepInfoList: res.data.stepInfoList,
+                })
+                console.log("12");
+                console.log(this.data.stepInfoList);
+              }
+            })
+
+          },
+          fail: res => {
+            console.log("微信步数获取失败： " + res);
+          }
+        })
+      } else {
+        console.log("nokey" + this.data.login_key);
+      }
     }
   },
 
@@ -182,24 +269,44 @@ Page({
                           code: code
                         },
                         success: (res) => {
-                          res=res.data;
+                          res = res.data;
                           console.log("this:" + JSON.stringify(res));
                           if (res.status = "success") {
                             this.setState({
                               isLogin: true,
                               login_key: res.data['login_key']
                             })
-                            // this.setData({
-                            //   login_key: res.data['login_key'],
-                            //   isLogin: true,
+                          } else {
+                            // this.setState({
+                            //   isLogin: false,
                             // })
+                            this.setData({
+                              error_code: res.code,
+                            })
                           }
-                          // console.log(JSON.stringify(res));
-                          // this.setData({
-                          //   ConsoleText: this.data.isLogin,
-                          // })
+
+
                           console.log("this.setData:" + res.data);
-                        }
+                          this.GetCardData();
+                          setTimeout(() => {
+                            this.GetBoard();
+                          }, 500);
+
+                        },
+
+                        fail: () => {
+                          console.log("失败");
+                          this.setData({
+                            error_code: "请重试",
+                          })
+                        },
+                        complete: () => {
+                          console.log("完成");
+                          this.setData({
+                            error_code: "请重试",
+                          })
+                        },
+
                       })
                       // this.GetCardData();
                     }
@@ -208,6 +315,7 @@ Page({
               }
             })
           }
+          this.GetWeRunData();
         }
       })
       console.log(e.detail.userInfo);
@@ -215,13 +323,40 @@ Page({
       // this.setData({
       //   ConsoleText:this.data.isLogin,
       // })
+
+      // 获取用户信息。计算使用天数
+      setTimeout(() => {
+        wx.request({
+          method: 'POST',
+          url: this.data.apiUrl + '/user/info',
+          data: {
+            login_key: this.$state.login_key,
+          },
+          success: (res) => {
+            console.log("info", res.data);
+            let DATE = new Date();
+            let DATESU = new Date(res.data.data.signed_up);
+            DATE = parseInt((DATE - DATESU) / (24 * 60 * 60 * 1000));
+            console.log("11", DATE);
+            this.setState({
+              signed_up: res.data.data.signed_up,
+              using_day: DATE,
+            })
+          }
+        })
+      }, 1500);
+
+
+
+
     } else {
       console.log('用户拒绝了授权');
       this.setData({
         ConsoleText: '用户拒绝了授权',
       })
     }
-    // this.GetCardData();
+
+
   },
 
 
@@ -256,15 +391,14 @@ Page({
     this.setData({
       changedPageCounts: this.data.changedPageCounts + 1,
       nowPage: e.currentTarget.dataset.to,
-
     })
   },
 
   ClearNewAimData: function () {
+
     this.setData({
       team: 0,
       type: 1,
-
       title: null,
       date_start: '请选择',
       date_end: '请先选择开始日期',
@@ -285,14 +419,25 @@ Page({
 
   //弹窗
   changePage_Finish: function (e) {
-    console.log(this.$state.aimCardData);    
+    console.log("e",e);
+    console.log(this.$state.aimCardData);
     console.log(this.$state.aimCardData['title'] != null);
-    if (this.$state.aimCardData['title'] != null && (this.$state.aimCardData['goal_type'] == 0) || (this.$state.aimCardData['end_time'] != null && this.$state.aimCardData['needed_be_signed_deadline'] != null)) {
-      this.PostCardData();
-      this.setData({
-        changedPageCounts: this.data.changedPageCounts + 1,
-        nowPage: e.currentTarget.dataset.to,
-      })
+    if (this.$state.aimCardData['title'] != null && (this.$state.aimCardData['goal_type'] != 1) || (this.$state.aimCardData['end_time'] != null && this.$state.aimCardData['needed_be_signed_deadline'] != null)) {
+      //data.invite_time
+      if(this.$state.can_share==false){
+        this.PostCardData();
+      }else{
+        this.setState({
+          can_share: false,
+        })
+      }  
+      if(e.from!='button'){
+        setTimeout(() => {
+          this.GetCardData();
+          this.changePage(e);       
+        }, 500);
+      }
+        return true;
     } else {
       this.setData({
         dialogTitle: "打卡信息未填完哦~",
@@ -305,55 +450,220 @@ Page({
         }],
         dialogShow: true,
       })
+      return false;
     }
   },
 
-  PostCardData: function(e){
-    let goal_type, team, num;
-    !this.$state.aimCardData['goal_type'] ? goal_type = 1 : goal_type = this.$state.aimCardData['goal_type']
-    !this.$state.aimCardData['team'] ? team = 0 : team = this.$state.aimCardData['team']
-    
-    if (!this.$state.aimCardData['frequency']) {
-      f = [0, 0, 0, 0];
-      num = 1 ;
-    } else {
-      f = this.$state.aimCardData['frequency'];
-      num = this.$state.aimCardData['frequencynum'];
-    }
-    let fre;
-    if(f[2]==2){
-        fre=f[3]+'|'+1;
-    }else{
-      fre=f[3]+'|'+0;
-    }
+  ChangePageGetBoard: function (e) {
+    this.GetBoard();
+    //this.changePage(e);
+    setTimeout(() => {
+      this.changePage(e);
+    }, 300);
+
+    // this.setData({
+    //   changedPageCounts: this.data.changedPageCounts + 1,
+    //   nowPage: e.currentTarget.dataset.to,
+    // })
+  },
+
+  ChangePagePostBoard: function (e) {
     wx.request({
       method: 'POST',
-      url: this.$state.apiURL + '/user/goal/add',
-      data:{
-        goal_name:this.$state.aimCardData['title'],
-        goal_type:goal_type,
-        started_at:this.$state.aimCardData['start_time'],
-        ended_in:this.$state.aimCardData['end_time'],
-        frequency:num, 
-        frequency_type:fre,
-        goal_is_a_group:team,
-
-        reminder_at:-30,
-        needed_be_signed_at:this.$state.aimCardData['needed_be_signed_at'],
-        needed_be_signed_deadline:this.$state.aimCardData['needed_be_signed_deadline'],
-        signed_type:1,
-        signed_day:0,
-        login_key:this.$state.login_key,
+      url: this.$state.apiURL + '/user/board/change',
+      data: {
+        login_key: this.$state.login_key,
+        data: this.$state.goalsBoardData,
       },
       success: (res) => {
-        console.log("提交成功");
+        console.log("上传目标板成功");
         console.log(res.data);
-        //this.ClearNewAimData();
-        this.setData({
+        this.setData({})
+      }
+    })
+    // 换页部分
+    this.changePage(e);
+    // this.setData({
+    //   changedPageCounts: this.data.changedPageCounts + 1,
+    //   nowPage: e.currentTarget.dataset.to,
+    // })
+
+  },
+
+  PostCardData: function (e) {
+    console.log(e);
+    let goal_type, team, num, reminder_at;
+    !this.$state.aimCardData['goal_type'] ? goal_type = 1 : goal_type = parseInt(this.$state.aimCardData['goal_type']);
+    console.log(this.$state.aimCardData);
+    !this.$state.aimCardData['team'] ? team = 0 : team = this.$state.aimCardData['team'];
+    !this.$state.aimCardData['reminder_at'] ? reminder_at = 0 : reminder_at = this.$state.aimCardData['reminder_at'];
+    console.log("team", team);
+
+    if (goal_type == 1) {
+      // 普通打卡提交  
+      if (!this.$state.aimCardData['frequency']) {
+        f = [0, 0, 0, 0];
+        num = 1;
+      } else {
+        f = this.$state.aimCardData['frequency'];
+        num = this.$state.aimCardData['frequencynum'];
+      }
+      let fre;
+      if (f[2] == 2) {
+        fre = f[3] + '|' + 1;
+      } else {
+        fre = f[3] + '|' + 0;
+      }
+      console.log(this.$state.aimCardData['reminder_at']);
+      wx.request({
+        method: 'POST',
+        url: this.$state.apiURL + '/user/goal/add',
+        data: {
+          goal_name: this.$state.aimCardData['title'],
+          goal_type: 1,
+          started_at: this.$state.aimCardData['start_time'],
+          ended_in: this.$state.aimCardData['end_time'],
+          frequency: num,
+          frequency_type: fre,
+          goal_is_a_group: team,
+          reminder_at: reminder_at,
+          needed_be_signed_at: this.$state.aimCardData['needed_be_signed_at'],
+          needed_be_signed_deadline: this.$state.aimCardData['needed_be_signed_deadline'],
+          signed_type: 1,
+          signed_day: 0,
+          login_key: this.$state.login_key,
+        },
+        success: (res) => {
+          console.log("提交成功");
+          console.log(res.data);
+          if (res.status != "success") {
+            this.setData({
+              error_code: res.status + res.code,
+            })
+          }
+
+        }
+
+      })
+    } else if (goal_type == 2) {
+      let num = this.$state.aimCardData['title'].replace(/[^0-9]/ig, "");
+      console.log("步数", num);
+      // 微信运动
+      wx.request({
+        method: 'POST',
+        url: this.$state.apiURL + '/user/goal/add',
+        data: {
+          goal_name: this.$state.aimCardData['title'],
+          goal_type: goal_type, //2
+          goal_is_a_group: team,
+          frequency: num,
+          login_key: this.$state.login_key,
+        },
+        success: (res) => {
+          console.log("提交运动成功");
+          console.log(res.data);
+          this.setData({})
+        }
+      })
+    } else if (goal_type == 0) {
+      wx.request({
+        method: 'POST',
+        url: this.$state.apiURL + '/user/goal/add',
+        data: {
+          goal_name: this.$state.aimCardData['title'],
+          goal_type: goal_type,
+          goal_is_a_group: team,
+          login_key: this.$state.login_key,
+        },
+        success: (res) => {
+          console.log("提交极简成功");
+          console.log(res.data);
+          this.setData({})
+        }
+      })
+    }
+    // 提交至目标板
+    let data, board_num;
+    board_num = this.$state.board_num;
+    board_num++;
+    console.log(board_num);
+    data = [{
+      id: board_num,
+      icon: 2,
+      name: this.$state.aimCardData['title'],
+    }]
+    wx.request({
+      method: 'POST',
+      url: this.$state.apiURL + '/user/board/change',
+      data: {
+        login_key: this.$state.login_key,
+        data: data,
+      },
+      success: (res) => {
+        console.log("上传目标板成功");
+        console.log(res.data);
+        this.setState({
+          board_num: board_num,
         })
       }
     })
 
+
+
+
+    this.ClearNewAimData(); //测试可注释
+    //this.GetCardData();
+  },
+
+
+
+  GetBoard: function () {
+    // 获取目标板
+    wx.request({
+      method: 'POST',
+      url: this.data.apiUrl + '/user/board/get',
+      data: {
+        login_key: this.$state.login_key,
+      },
+      success: (res) => {
+        let length = 0;
+        let title, back = 15;
+        console.log("拉取目标板成功");
+        console.log(res.data);
+        console.log('a', res.data.data[length].title);
+        title = res.data.data[length].title;
+
+        while (title) {
+          length++;
+          title = res.data.data[length].title;
+        }
+        this.setState({
+          goalsBoardData: res.data.data,
+          board_num: length,
+        })
+        console.log("this.$state.goalsBoardData", this.$state.goalsBoardData);
+      }
+    })
+  },
+
+  sign_btn: function (e) {
+    let goal_id = e.currentTarget.dataset.id;
+    wx.request({
+      method: 'POST',
+      url: this.$state.apiURL + '/user/goal/sign',
+      data: {
+        goal_id: goal_id,
+        login_key: this.$state.login_key,
+      },
+      success: (res) => {
+        console.log("打卡上传成功");
+        console.log(res.data);
+        this.setData({})
+        setTimeout(() => {
+          this.GetCardData();
+        }, 500);
+      }
+    })
   },
 
   changePage_Back: function (e) {
