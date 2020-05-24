@@ -20,7 +20,7 @@ Component({
     console.log("in5");
     setTimeout(()=>{
       this.GetInviteData();
-    },200);
+    },500);
 
   },
 

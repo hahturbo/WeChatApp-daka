@@ -132,7 +132,7 @@ Page({
 
   },
   AcceptInvite:function (e){
-    console.log( "invite_id:,",this.$state.invite_id,
+    console.log( "invite_id:,",this.$state.invite_goal_id,
       "login_key: ",this.$state.login_key,);
     wx.request({
       method: 'POST',
@@ -146,6 +146,7 @@ Page({
         console.log(res.data);
       }
     })
+    this.GetCardData();
         this.changePage(e);
   },
 
