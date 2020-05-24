@@ -108,12 +108,12 @@ Component({
       icon: 0,
     }, ]
   },
+
   attached: function () {
     console.log("onload");
     this.FreshAtoB();
-    this.FinshInput();
+    //this.FinshInput();//A2B已有
   },
-
 
   /**
    * 组件的方法列表
@@ -323,7 +323,7 @@ Component({
           let title = goalsBoardData[i].title;
           let icon = goalsBoardData[i].type;
           //this.CheckIfisAim(title);
-          if (title&&(icon!=2|| this.CheckIfisAim(title))) {
+          if (title && (icon != 2 || this.CheckIfisAim(title))) {
             goalsBoard[i - x].name = goalsBoardData[i].title;
             // id  
             goalsBoard[i - x].icon = goalsBoardData[i].type;
@@ -345,20 +345,22 @@ Component({
           goalsBoard: goalsBoard,
           board_num: i - x,
         })
+        console.log("A2B1:", this.data.goalsBoard);
         this.FinshInput();
-        console.log("this:", this.data.goalsBoard);
+        console.log("A2B2:", this.data.goalsBoard);
       }
+      console.log("A2B3", this.$state.goalsBoardData);
     },
 
-    CheckIfisAim(title){
+    CheckIfisAim(title) {
       let title_card;
-      for(let i=0;i<this.$state.aimCardDatas.length;i++){
-        title_card=this.$state.aimCardDatas[i].goal_name;
-        console.log( title_card,":",title_card)
-          if(title==title_card){
-            console.log("true");
-            return true;
-          }
+      for (let i = 0; i < this.$state.aimCardDatas.length; i++) {
+        title_card = this.$state.aimCardDatas[i].goal_name;
+        console.log(title_card, ":", title_card)
+        if (title == title_card) {
+          console.log("AIMtrue");
+          return true;
+        }
       }
       return false;
     },

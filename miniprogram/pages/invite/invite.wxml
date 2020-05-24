@@ -1,0 +1,35 @@
+<!--pages/beinvited/invoted.wxml-->
+<view class=' containerB'>
+	<!--账户信息区 -->
+	<view class="user">
+		<!-- <open-data class='user_img' type="userAvatarUrl"></open-data> -->
+		<image class='user_img' src='{{invite_data.group.groupMembers[0].img}}'> </image>
+		<view class="userzonetext">
+			<!-- <open-data class='user_name' type="userNickName"></open-data> -->
+			<text  class='user_name'>{{invite_data.group.groupMembers[0].nickname}} </text>
+			<text style="text-align: right; font-size:35rpx;margin-right:40rpx">邀请您加入打卡小组</text>
+		</view>
+
+	</view>
+	<!-- end -->
+	<scroll-view class='invite_data' scroll-y='true'>
+		<view class='detail'>打卡标题：{{invite_data.goal.goal_name}}</view>
+		<view class='detail'>打卡类型：小组 {{$state.GoalType[invite_data.goal.goal_type]}}</view>
+		<view wx:if="{{invite_data.goal.goal_type==1}}">
+			<view class='detail'>开始日期：{{invite_data.goal.started_at}}</view>
+			<view class='detail'>结束日期：{{invite_data.goal.end_in}}</view>
+			<view class='detail'>打卡频率：每{{invite_data.goal.frequency}} {{invite_data.goal.frequency_type[2]==0?"天":"月"}} {{invite_data.goal.frequency_type[0]==0?"中一天":"仅当天"}}</view>
+			<view class='detail'>打卡时间：</view>
+			<view class='detail'>提醒时间：{{invite_data.goal.reminder_at==0?"不提醒":invite_data.goal.reminder_at+"分钟前"}}</view>
+		</view>
+		<view class='detail'>小组人数：{{invite_data.group.groupMembers.length}}</view>
+		<view class='detail'>小组成员：
+			<view>
+				<view class='members' wx:for="{{invite_data.group.groupMembers}}">
+					<image class='user_img' src='{{item.img}}'> </image>
+					<text  class='user_name'>{{item.nickname}} </text>
+				</view>
+			</view>
+		</view>
+	</scroll-view>
+</view>

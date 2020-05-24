@@ -1,0 +1,38 @@
+<!--components/cardDetails/Details/Common.wxml-->
+<scroll-view class="scroll" scroll-y="true" style="height: 480rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" wx:if="{{commonhidden}}">
+	<view class="card_otherdetails">
+		<view class="card_type">
+			<text>打卡类型:{{$state.aimCardDatadetail[item].goal_is_a_group?'小组 ':''}}{{$state.aimCardDatadetail[item].goal_type==1?'普通':''}}</text>
+		</view>
+		<view class="begin_time">
+			<text>开始时间:{{$state.aimCardDatadetail[item].started_at}}</text>
+		</view>
+		<view class="end_time">
+			<text>结束时间:{{$state.aimCardDatadetail[item].ended_in}}</text>
+		</view>
+		<view class="frequency_type">
+			<text>打卡频率:{{$state.aimCardDatadetail[item].frequency_type[0]==='0'?'任意一':'（仅当）每'}}{{$state.aimCardDatadetail[item].frequency_type[2]==='0'?'天':'月'}}</text>
+		</view>
+		<view class="time_interval">
+			<text>打卡时间:{{'needed_be_signed_at'}}-{{'needed_be_signed_deadline'}}</text>
+		</view>
+		<view class="notice_time">
+			<text>提醒时间:{{$state.aimCardDatadetail[item].reminder_at}}</text>
+		</view>
+		<view class="group_members" wx:if="{{$state.aimCardDatadetail[item].goal_is_a_group?true:false}}">
+			<view class="group_type">小组成员：</view>
+			<view class="group_users" wx:for="{{$state.aimCardDatadetail[item].groupData.groupMembers}}" wx:key="item">
+				<view class="group_user">
+					<image class="members_img" src="{{item.img}}"></image>
+					<text class="members_text">{{item.nickname}}</text>
+				</view>
+			</view>
+		</view>
+		<button class="todaydaka" bindtap="todaydaka" style="background-color:{{todaydaka_bgc}};color:{{todaydaka_c}};font-size=50rpx;border-radius: 20rpx;">{{todaydaka}}</button>
+		<button class="deletedaka" bindtap="deletedaka">删除打卡</button>
+		<mp-dialog title="{{dialogtitle}}" show="{{dialogshow}}" bindbuttontap="buttontap" buttons="{{dialogbutton}}">
+			<!-- <view>{{dialogTitle}}</view> -->
+		</mp-dialog>
+
+	</view>
+</scroll-view>

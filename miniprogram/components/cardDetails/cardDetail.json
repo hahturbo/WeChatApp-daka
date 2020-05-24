@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "Common":"./Details/Common",
+    "Minimalism":"./Details/Minimalism",
+    "Group":"./Details/Group"
+  }
+}

@@ -1,0 +1,41 @@
+/* components/cardDetails/Details/Minimalism.wxss */
+.card_otherdetails {
+
+  /* font-size: 40rpx; */
+  padding: 4% 0 11vh 4%;
+  margin: auto;
+}
+.deletedaka {
+  background-color: transparent;
+  border-style: none;
+  color: red;
+  /* font-size: 35rpx; */
+  padding: 5% 0;
+}
+.group_members {
+  display: flex;
+}
+
+/* .group_type{
+  flex: 1;
+} */
+.group_user {
+  /* flex: 3; */
+  display: flex;
+  margin: 10rpx;
+}
+
+.members_img {
+  /* flex: 1; */
+  margin: 0 5rpx;
+  border: solid rgb(255, 204, 102) 3.5rpx;
+  border-radius: 15rpx;
+  height: 70rpx;
+  width: 70rpx;
+  background-color:rgb(242, 242, 242) ;
+}
+
+.members_text {
+  /* flex: 1; */
+  padding-left: 10rpx;
+}
