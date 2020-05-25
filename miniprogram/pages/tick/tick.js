@@ -326,7 +326,7 @@ Component({
           let icon = goalsBoardData[i].type;
           //this.CheckIfisAim(title);
           console.log("tittle",title);
-          if (title && (icon = 2 || this.CheckIfisAim(title))) {
+          if (title && (icon != 2 || this.CheckIfisAim(title))) {
             goalsBoard[i - x].name = goalsBoardData[i].title;
             // id  
             goalsBoard[i - x].icon = goalsBoardData[i].type;
@@ -357,7 +357,11 @@ Component({
 
     CheckIfisAim(title) {
       console.log("CheckIfisAim");
+      console.log(this.$state.aimCardDatas);
       let title_card;
+      if(this.$state.aimCardDatas.length==0){
+        console.log("暂未拉取打卡项");
+        return true;}
       for (let i = 0; i < this.$state.aimCardDatas.length; i++) {
         title_card = this.$state.aimCardDatas[i].goal_name;
         console.log(title, ":", title_card)
@@ -366,6 +370,7 @@ Component({
           return true;
         }
       }
+      console.log("AIMfalse");
       return false;
     },
 
