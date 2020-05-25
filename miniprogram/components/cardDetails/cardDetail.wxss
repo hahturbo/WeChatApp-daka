@@ -12,13 +12,17 @@
 }
 
 .calander {
+  /* background-color: aqua;
+  height: 30vh; */
   width: 100%;
+  
   text-align: center;
   /* font-size: 35rpx; */
   box-sizing: border-box;
   border: #7b7575 4rpx solid;
   border-left: 0;
   border-right: 0;
+  margin-bottom:20rpx;
   padding: 2% 0;
 }
 
@@ -78,6 +82,7 @@
 .grid {
   display: inline-block;
   width: 13.69999%;
+  line-height: 40rpx;
   position: relative;
   margin: 2rpx;
   /* padding: 3rpx 0; */
@@ -119,7 +124,7 @@
 
 .wrap.select {
   /* background: rgb(49, 120, 228); */
-  border-radius: 18rpx;
+  border-radius: 22rpx;
   /* border-color: yellow; */
   border: solid 5rpx rgb(70, 225, 96);
   /* color: #fff; */

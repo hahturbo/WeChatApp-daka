@@ -45,10 +45,7 @@ Component({
   lifetimes: {
     ready: function () {
       this.getcarddetail();
-      setTimeout(() => {
-        this.today();
-      }, 500)
-
+      this.today();
     },
   },
   /**

@@ -3,7 +3,7 @@
 	<!-- 打卡标题 -->
 	<view class="card_title">{{$state.aimCardDatadetail[carditem].goal_name}}</view>
 	<!-- 日历 -->
-	<view class="calander">
+	<view class="calander" >
 		<!-- 年月 -->
 		<view class="calander_top">
 			<view class="lastmonth" bindtap="lastmonth">◀</view>
@@ -30,10 +30,6 @@
 					<view class="group {{select === year+'-'+item.monthFormat+'-'+item.dateFormat ? 'select' :''}}" wx:if="{{ (select === year+'-'+item.monthFormat+'-'+item.dateFormat)&(secondselect==2)&($state.aimCardDatadetail[carditem].goal_is_a_group)? true :false}}" style="right:{{item.week>3?0:auto}};">
 						<view class="userimgs" wx:for="{{$state.aimCardDatadetail[carditem].groupData.groupMembers}}" wx:key='item'>
 								<image class="user_img" src="{{item.img}}"></image>
-								<!-- 以下多余 -->
-								<image class="user_img" src="{{item.img}}"></image>
-								<image class="user_img" src="{{item.img}}"></image>
-								<!-- 以上删除 -->
 						</view>
 					</view>
 				</view>
@@ -44,7 +40,9 @@
 	</view>
 	<!-- 打卡详情 -->
 	<!-- <view>{{$state.aimCardDatadetail[carditem].goal_type==0?'true':'false'}}</view> -->
+	<view style="padding-bottom:100rpx;">
 	<Common class="common" commonhidden="{{$state.aimCardDatadetail[carditem].goal_type===1?true:false}}" item="{{item}}" bindsign='sonsign'></Common>
 	<Group class="Group" grouphidden="{{$state.aimCardDatadetail[carditem].goal_type===2?true:false}}" item="{{item}}" bindsign='sonsign'></Group>
 	<Minimalism class="Minimalism" minimalismhidden="{{$state.aimCardDatadetail[carditem].goal_type===0?true:false}}" item="{{item}}" bindsign='sonsign'></Minimalism>
+	</view>
 </view>

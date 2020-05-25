@@ -26,16 +26,6 @@
 					<image class="members_img" src="{{item.img}}"></image>
 					<text class="members_text">{{item.nickname}}</text>
 				</view>
-				<!-- 以下删除 -->
-				<view class="group_user">
-					<image class="members_img" src="{{item.img}}"></image>
-					<text class="members_text">{{item.nickname}}</text>
-				</view>
-				<view class="group_user">
-					<image class="members_img" src=""></image>
-					<text class="members_text">item.nickname</text>
-				</view>
-				<!-- 以上删除 -->
 			</view>
 		</view>
 		<button class="todaydaka" bindtap="todaydaka" style="background-color:{{todaydaka_bgc}};color:{{todaydaka_c}};font-size=50rpx;border-radius: 20rpx;">{{todaydaka}}</button>

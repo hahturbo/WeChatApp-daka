@@ -74,7 +74,7 @@ observers:{
         success: (res) => {
           console.log('get succsess');
           this.setState({
-            aimCardDatadetail: res.data.data,
+            aimCardDatadetail: res.data.data.data,
           })
         },
         fail: () => {

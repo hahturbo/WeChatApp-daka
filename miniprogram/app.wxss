@@ -232,6 +232,7 @@ right:100rpx;
 
 /* 背景图片定义 */
 .background {
+  background-color:  var(--main-color);
   text-align: center;
   width: 100vw;
   height: 100vh;

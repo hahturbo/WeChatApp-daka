@@ -49,9 +49,9 @@ Component({
     time_call: '请选择',
     normal_card_display: 0,
     fre_diy_display: 'none',
-    reminder_Array:['打卡时','提前5分钟','提前10分钟','提前15分钟','提前30分钟','提前一小时'],
-    reminder:0,
-    reminder_num:[0,5,10,15,30,60],
+    reminder_Array: ['打卡时', '提前5分钟', '提前10分钟', '提前15分钟', '提前30分钟', '提前一小时'],
+    reminder: 0,
+    reminder_num: [0, 5, 10, 15, 30, 60],
 
   },
 
@@ -64,28 +64,44 @@ Component({
       this.setData({
         team: 0,
         type: 1,
-  
+
         title: null,
         date_start: '请选择',
         date_end: '请先选择开始日期',
-  
+
         frequencytype: 0,
         frequencytype2: 0,
         frequency: [0, 0, 0, 0],
         frequencynum: 1,
         frequencyout: '每天',
-  
         time_aim1: '请选择',
         time_aim2: '请选择',
         time_call: '请选择',
         normal_card_display: 0,
+        reminder: 0,
 
-        reminder:0,
-
-  
       })
+
     },
-    
+    // 分享
+
+    //   onShareAppMessage: function () {
+    //     console.log("share");
+    //     return {
+    //       title: '弹出分享时显示的分享标题',
+    //       desc: '分享页面的内容',
+    //       path: 'pages/index/index?id=123' ,
+    //       // 路径，传递参数到指定页面。
+    //     }
+    //     console.log('成功')
+
+    // },
+
+    onLoad: function (options) {
+      console.log('options2', options);
+    },
+
+
     bindPickerTypeChange: function (e) {
       console.log('picker发送选择改变，携带值为', e.detail.value)
       if (e.detail.value == 0) {
@@ -105,26 +121,26 @@ Component({
 
     //select
     click_single_btn: function (e) {
-      let data =this.$state.aimCardData;
+      let data = this.$state.aimCardData;
       if (this.data.team != 0) {
-        data["team"]=0;
+        data["team"] = 0;
         this.setData({
           "team": '0'
         });
         this.setState({
-          aimCardData:data,
+          aimCardData: data,
         })
       } else {}
     },
     click_team_btn: function (e) {
-      let data =this.$state.aimCardData;      
+      let data = this.$state.aimCardData;
       if (this.data.team != 1) {
-        data["team"]=1;
+        data["team"] = 1;
         this.setData({
           "team": '1'
         });
         this.setState({
-          aimCardData:data,
+          aimCardData: data,
         })
       } else {}
     },
@@ -177,7 +193,7 @@ Component({
           }
           break;
         case "frequency":
-          var f=e.detail.value;
+          var f = e.detail.value;
           let d = 1;
 
           console.log(f);
@@ -236,10 +252,10 @@ Component({
           break;
         case "reminder_at":
           this.setData({
-            reminder:  e.detail.value,
+            reminder: e.detail.value,
           })
           let data2 = this.$state.aimCardData;
-          data2["reminder_at"] =this.data.reminder_num[e.detail.value];
+          data2["reminder_at"] = this.data.reminder_num[e.detail.value];
           this.setState({
             aimCardData: data2
           })
@@ -247,7 +263,7 @@ Component({
         default:
           break;
       }
-      if (e.target.dataset.name != "frequency"&&e.target.dataset.name != "reminder_at") {
+      if (e.target.dataset.name != "frequency" && e.target.dataset.name != "reminder_at") {
         var data_name = e.target.dataset.name
         let data = this.$state.aimCardData;
         if (e.target.dataset.name == "title" && this.data.type == 2) {
@@ -474,10 +490,14 @@ Component({
 
     //分享
     btn_share: function (e) {
+
+      this.setData({
+        share_text: ["(共可邀请4人)", "请等待"],
+      })
       //!can_share
       if (!this.data.can_share) {
         // console.log("ii");
-        if (this.$state.aimCardData['title'] != null && (this.$state.aimCardData['goal_type'] != 1) || (this.$state.aimCardData['end_time'] != null && this.$state.aimCardData['needed_be_signed_deadline'] != null)) {
+        if (this.$state.aimCardData['title'] != null &&((this.$state.aimCardData['goal_type'] != 1&&this.$state.aimCardData['goal_type'] != null) || (this.$state.aimCardData['end_time'] != null && this.$state.aimCardData['needed_be_signed_deadline'] != null))) {
           {
             console.log(e);
             let goal_type, team, num, reminder_at;
@@ -486,6 +506,7 @@ Component({
             !this.$state.aimCardData['team'] ? team = 0 : team = this.$state.aimCardData['team'];
             !this.$state.aimCardData['reminder_at'] ? reminder_at = 0 : reminder_at = this.$state.aimCardData['reminder_at'];
             console.log("team", team);
+            console.log("goal_type",goal_type);
             if (goal_type == 1) {
               // 普通打卡提交  
               if (!this.$state.aimCardData['frequency']) {
@@ -593,33 +614,50 @@ Component({
               }
             })
             //end
+            //清理全局变量
+            // this.setState({
+            //   aimCardData: [],
+            // })
             //index页面.GetCardData()阉割版;
-            wx.request({
-              method: 'POST',
-              url: this.$state.apiURL + '/user/goal/get',
-              data: {
-                from: 0,
-                amount: 5,
-                login_key: this.$state.login_key,
-              },
-              success: (res) => {
-                console.log("拉取邀请码成功");
-                console.log(res.data);
-                this.setState({
-                  aimCardDatas: res.data.data,
-                })
-                console.log(this.$state.aimCardDatas[0].groupData.invite_id);
-              }
-            })
 
-            //index页面.GetCardData()end
+
+            setTimeout(()=>{
+              wx.request({
+                method: 'POST',
+                url: this.$state.apiURL + '/user/goal/get',
+                data: {
+                  from: 0,
+                  amount: 5,
+                  login_key: this.$state.login_key,
+                },
+                success: (res) => {
+                  console.log("拉取邀请码成功");
+                  console.log(res.data);
+                  this.setState({
+                    aimCardDatas: res.data.data.data,
+                  })
+                  console.log(this.$state.aimCardDatas[0]);
+                }
+              })
+              this.setState({
+                can_share: true,
+              })
+                  //index页面.GetCardData()end
             this.setData({
               can_share: true,
               share_text: ["(共可邀请4人)", "发送邀请"],
             })
-            this.setState({
-              can_share: true,
-            })
+            },50);    
+            
+            setTimeout(()=>{
+              this.setData({
+                can_share: true,
+                share_text: ["(共可邀请4人)", "发送邀请"],
+              }) 
+            },1000);
+       
+        
+   
 
           }
         } else {
@@ -639,6 +677,12 @@ Component({
 
         }
       }
+      setTimeout(()=>{
+        this.setData({
+          can_share: true,
+          share_text: ["(共可邀请4人)", "发送邀请"],
+        }) 
+      },800);
     },
 
 

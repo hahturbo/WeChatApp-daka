@@ -5,6 +5,8 @@
     "mp-dialog": "/miniprogram_npm/weui-miniprogram/dialog/dialog",
     "newaimcard":"../newaimcard/newaimcard",
     "setting":"../setting/setting",
-    "tick":"../tick/tick"
+    "tick":"../tick/tick",
+    "invite":"../invite/invite"
+
   }
 }
