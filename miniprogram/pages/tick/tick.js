@@ -286,7 +286,7 @@ Component({
         } else if (i > null_flag) {
           ExgoalsBoard[i].disabled = true;
           if (ExgoalsBoard[i].icon != 2) {
-            ExgoalsBoard[i].icon = 0;
+           // ExgoalsBoard[i].icon = 0;
           }
         }
       }
@@ -298,6 +298,7 @@ Component({
       })
       this.FreshBtoA();
     },
+
     ImgTap: function (e) {
       // console.log("TAP");
       // console.log(JSON.stringify(e));
@@ -314,7 +315,8 @@ Component({
       console.log(this.$state.goalsBoardData);
       let goalsBoardData = this.$state.goalsBoardData;
       let goalsBoard = this.data.goalsBoard;
-      let length = goalsBoardData.length;
+      let length = goalsBoardData.length>15?15:goalsBoardData.length;
+      console.log("length",length);
       let x = 0; //差
       let title;
       for (let i = 0; i < 15; i++) {
@@ -323,7 +325,8 @@ Component({
           let title = goalsBoardData[i].title;
           let icon = goalsBoardData[i].type;
           //this.CheckIfisAim(title);
-          if (title && (icon != 2 || this.CheckIfisAim(title))) {
+          console.log("tittle",title);
+          if (title && (icon = 2 || this.CheckIfisAim(title))) {
             goalsBoard[i - x].name = goalsBoardData[i].title;
             // id  
             goalsBoard[i - x].icon = goalsBoardData[i].type;
@@ -353,10 +356,11 @@ Component({
     },
 
     CheckIfisAim(title) {
+      console.log("CheckIfisAim");
       let title_card;
       for (let i = 0; i < this.$state.aimCardDatas.length; i++) {
         title_card = this.$state.aimCardDatas[i].goal_name;
-        console.log(title_card, ":", title_card)
+        console.log(title, ":", title_card)
         if (title == title_card) {
           console.log("AIMtrue");
           return true;

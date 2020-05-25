@@ -6,11 +6,9 @@
 <scroll-view class='account_data' scroll-y='true'>
 	<view class='detail'>使用时间：{{invite_data.goal.goal_name}}</view>
 	<view class='detail'>创建打卡： 个</view>
-	<view wx:if="{{invite_data.goal.goal_type==1}}">
 		<view class='detail'>现有打卡：个</view>
 		<view class='detail'>完成打卡：个</view>
 		<view class='detail'>目标板现有目标：个</view>
 		<view class='detail'>提醒时间：</view>
-	</view>
 
 </scroll-view>

@@ -12,7 +12,7 @@ Component({
    */
   data: {
     invite_data:"",
-    i:"1",
+   error_code:502,
 
   },
 
@@ -32,8 +32,9 @@ Component({
 GetInviteData: function(){
   console.log(  "id",this.$state.invite_goal_id, " login_key:",this.$state.login_key,);
   //测试用
-  // let cache="RVtKDNuwNICvaKgU";
-  // let cacheke="8ecdcd3e340d0bfbf3d6035a6c53acbb";
+  // let cache="ZmyDvLBaikLzcoRQ";
+  // let cacheke="fd5645134d50cc3ba1cdb504943bbdaa";
+  // console.log(  "id",cache, " login_key:",cacheke);
   console.log("正在拉取邀请信息");
   wx.request({
     method: 'POST',
@@ -43,17 +44,23 @@ GetInviteData: function(){
       t:1,
       p:this.$state.invite_goal_id,
       login_key:this.$state.login_key,
+      // p:cache,
+      // login_key:cacheke,
     },
-     //tmdblCLxDAJlqqbw
+     //view.py 1260
     success: (res)=> {
       console.log("获取邀请信息成功",res);
 this.setData({
   invite_data:res.data,
-  i:2,
+  error_code:200,
 })
       console.log(this.data.invite_data);
       } ,
     fail: function(res){
+      this.setData({
+        error_code:502,
+
+      })
         console.log("获取邀请失败");
       }
   })

@@ -584,7 +584,9 @@ Component({
                 success: (res) => {
                   console.log("提交极简成功");
                   console.log(res.data);
-                  this.setData({})
+                  this.setData({
+                    
+                  })
                 }
               })
             }
