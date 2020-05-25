@@ -17,7 +17,7 @@ let store = {
   board_num:0,
   goalsBoardData:[],
   CardDetail:'',
-
+  CardGroupData:'',
   GoalType:['极简', '普通', '微信运动'],
 
 
