@@ -13,7 +13,7 @@
 	</view>
 	<!-- 选项 -->
 	<view class="card">
-		<navigator>
+		<navigator url="../setting/account/account">
 			<text >账户管理</text><text class="right_text">》</text>
 		</navigator>
 	</view>
@@ -31,7 +31,7 @@
 	</view>
 
 	<view class="card">
-		<navigator>
+		<navigator url="../setting/about/about" open-type="navigate">
 			<text >关于打卡卡</text><text class="right_text">》</text>
 		</navigator>
 	</view>

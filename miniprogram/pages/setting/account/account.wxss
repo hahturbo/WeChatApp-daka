@@ -1,0 +1,59 @@
+/* miniprogram/pages/setting/account/account.wxss */
+/* 设置css */
+
+.user {
+  /* margin-top: 30rpx; */
+  height: 350rpx;
+  width: 100%;
+  background: #fff;
+  /* border-radius: 50rpx 50rpx 0rpx 0rpx; */
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: space-between;
+}
+.user_img{
+  margin-left: 40%;
+  margin-right: 40%;
+  margin-top: 10%;
+  width:150rpx;
+  height: 150rpx;
+  border-radius:35rpx;
+  border-style: solid;
+  border-color: var(--main-color);
+  display: flex;
+  flex-direction: row;
+  border-width: 8rpx; 
+  overflow:hidden;
+  text-align: center;
+}
+
+.userzonetext{
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  /* justify-content: ; */
+}
+
+.user_name{
+font-size: 40rpx;
+text-align: center;
+}
+
+.accout_data{
+  height:70vh; 
+  margin-top: 5rpx;
+  padding: 10rpx;
+  margin-bottom: 10vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.detail{
+margin:15rpx;
+margin-left:50rpx;
+font-size: 35rpx;
+}
