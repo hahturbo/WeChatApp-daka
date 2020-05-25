@@ -33,6 +33,9 @@ Component({
     DATE: 0,
     secondselect: 0,
     todaysigned: true,
+    todaydaka: '',
+    todaydaka_bgc: '',
+    todaydaka_c: '',
   },
 
   observers: {
@@ -87,6 +90,9 @@ Component({
     select: function (e) {
       let second = this.data.secondselect;
       if (second == 1 && this.data.date == e.currentTarget.dataset.date) {
+        if (!this.$state.CardGroupData) {
+          this.getGroupdata();
+        }
         second = 2;
       } else {
         second = 1;
@@ -181,6 +187,54 @@ Component({
           console.log(this.$state.CardDetail);
         }
       });
+      wx.request({
+        method: "POST",
+        url: this.$state.apiURL + '/user/goal/get',
+        data: {
+          from: 0,
+          amount: 10,
+          login_key: this.$state.login_key,
+        },
+        success: (res) => {
+          console.log('get succsess');
+          this.setState({
+            aimCardDatadetail: res.data.data.data,
+          })
+          console.log(this.$state.aimCardDatadetail);
+        },
+        fail: () => {
+          console.log('get aimcarddetail fail');
+        },
+        complete: () => {
+          // console.log(this.$state.aimCardDatadetail);
+          this.setData({
+            todaydaka: (1 & this.$state.aimCardDatadetail[this.data.item].canBeSignedNow) ? "今日打卡" : "今日完成",
+            todaydaka_bgc: (this.$state.aimCardDatadetail[this.data.item].canBeSignedNow & 1) ? 'rgb(255, 153, 102)' : 'transparent',
+            todaydaka_c: (this.$state.aimCardDatadetail[this.data.item].canBeSignedNow & 1) ? '#fff;' : 'rgb(255,153,102)',
+          })
+          // console.log('get finish maybe succsee or fail');
+        }
+      })
+    },
+    getGroupdata: function () {
+      wx.request({
+        url: this.$state.apiURL + '/user/group/get/data',
+        method: 'POST',
+        data: {
+          t: 0,
+          p: this.$state.aimCardDatadetail[this.data.item].goal_id,
+          login_key: this.$state.login_key,
+        },
+        success: (res) => {
+          this.setState({
+            CardGroupData: res.data,
+          })
+          console.log(this.$state.CardGroupData);
+        },
+        fail: (res) => {
+          console.log(res.code);
+        }
+      })
     },
     // this.log.data => this.$state.CardDetail[this.properties.carditem]
     // 获取时间戳
@@ -204,14 +258,63 @@ Component({
       }
       return false;
     },
-    sonsign: function (e) {
-      if (e.detail === 'sign') {
-        console.log('get sign');
-        this.getcarddetail();
-        this.today();
+    todaydaka: function (e) {
+      if (this.$state.aimCardDatadetail[this.data.item].canBeSignedNow & 1) {
+        wx.request({
+          method: 'POST',
+          url: this.$state.apiURL + '/user/goal/sign',
+          data: {
+            goal_id: this.$state.aimCardDatadetail[this.data.carditem].goal_id,
+            login_key: this.$state.login_key,
+          },
+          success: (res) => {
+            this.getcarddetail();
+            console.log('sign succsee!');
+          },
+          fail: () => {
+            console.log('sign fail');
+          },
+        })
       } else {
-        console.log('get sign fail');
+        console.log('signed');
       }
     },
+    deletedaka: function () {
+      this.setData({
+        dialogshow: true,
+        dialogtitle: '确定要删除此打卡吗？',
+        dialogbutton: [{
+            text: "删除",
+            extClass: "btn_go_on"
+          },
+          {
+            text: "取消",
+            extClass: "btn_cancel"
+          },
+        ]
+      })
+      console.log('shanchudaka')
+    },
+    // dialog-buttontap
+    buttontap: function (e) {
+      console.log('button tap');
+      if (e.detail.item.text == "删除") {
+        console.log('删除');
+        // 服务器删除
+      } else {
+        this.setData({
+          dialogshow: false,
+        })
+      }
+    },
+    // sonsign: function (e) {
+    //   if (e.detail === 'sign') {
+    //     console.log('get sign');
+    //     this.getcarddetail();
+    //     this.today();
+    //   } else {
+    //     console.log('get sign fail');
+    //   }
+    // },
   }
 })

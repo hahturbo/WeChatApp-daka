@@ -1,8 +1,6 @@
 {
   "component": true,
   "usingComponents": {
-    "Common":"./Details/Common",
-    "Minimalism":"./Details/Minimalism",
-    "Group":"./Details/Group"
+    "mp-dialog": "/miniprogram_npm/weui-miniprogram/dialog/dialog"
   }
 }
