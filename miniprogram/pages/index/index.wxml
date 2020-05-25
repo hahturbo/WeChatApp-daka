@@ -59,7 +59,7 @@
 					<!-- <text>isLogin:{{ConsoleText}}</text> -->
 					<view class='home-content {{card_num!=0?"":"displayNone"}}'>
 						<text bindtap="gotodetails" data-to="{{0}}">{{$state.aimCardDatas[0].goal_name}}</text>
-						<image  bindtap="gotodetails" class='' style=" width:70%;height:40%" src="../../images/mainnew2.png"></image>
+						<image  bindtap="gotodetails" data-to="{{0}}" class='' style=" width:70%;height:40%" src="../../images/mainnew2.png"></image>
 
 						<text class='{{$state.aimCardDatas[0].goal_is_a_group==0?"":"displayNone"}}	' style='color:#FF9966; font-size:30rpx;'>已连续{{$state.aimCardDatas[0].constantly
 }}次</text>
