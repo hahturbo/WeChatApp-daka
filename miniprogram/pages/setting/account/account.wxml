@@ -1,4 +1,7 @@
 <!--miniprogram/pages/setting/account/account.wxml-->
+	<mp-dialog title="{{dialogTitle}}" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{dialogsButton}}">
+		<!-- <view>{{dialogTitle}}</view> -->
+	</mp-dialog>
 <view class="user">
 	<open-data class='user_img' type="userAvatarUrl"></open-data>
 	<open-data class='user_name' type="userNickName"></open-data>
@@ -13,7 +16,7 @@
 		<view class='detail'></view>
 		</view>
 		<view class='account_data'>
-		<view class='clean'>——清除记录——</view>
-		<button class='logoff'>注销用户</button>
+		<view class='clean' data-tap="btn_clean" bindtap="btn">——清除记录——</view>
+		<button class='logoff' data-tap='btn_logoff' bindtap="btn">注销用户</button>
 		</view>
 </scroll-view>

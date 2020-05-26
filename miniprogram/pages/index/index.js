@@ -132,7 +132,7 @@ Page({
 
   },
   AcceptInvite:function (e){
-    console.log( "invite_id:,",this.$state.invite_goal_id,
+    console.log( "acpeting invite_id:,",this.$state.invite_goal_id,
       "login_key: ",this.$state.login_key,);
     wx.request({
       method: 'POST',
@@ -146,8 +146,9 @@ Page({
         console.log(res.data);
       }
     })
-    this.GetCardData();
-        this.changePage(e);
+      this.GetCardData();
+      this.changePage(e); 
+ 
   },
 
   //获取打卡信息
@@ -347,6 +348,7 @@ Page({
 
       // 获取用户信息。计算使用天数
       setTimeout(() => {
+        console.log("isLogin2",this.data.isLogin,"key2",this.$state.login_key);
         wx.request({
           method: 'POST',
           url: this.data.apiUrl + '/user/info',
@@ -723,7 +725,6 @@ Page({
         nowPage: 0,
         dialogShow: false,
       })
-      8
     } else {
       this.setData({
         dialogShow: false,
