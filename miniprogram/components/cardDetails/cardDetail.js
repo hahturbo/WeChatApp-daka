@@ -52,19 +52,19 @@ Component({
       {
         id: 497,
         user_id: 2,
-        goal_id: 306,
+        goal_id: 165,
         signed_at: "2020-05-26 01:19:19"
       },
       {
         id: 496,
         user_id: 4,
-        goal_id: 306,
+        goal_id: 165,
         signed_at: "2020-05-26 00:03:24"
       },
       {
         id: 494,
         user_id: 4,
-        goal_id: 306,
+        goal_id: 165,
         signed_at: "2020-05-25 21:59:16"
       },
       {
@@ -357,17 +357,17 @@ Component({
     },
     // groupData[i].signed_data -> testlog
     todaysignedmembers: function (year, month, date) {
-      if (!this.$state.CardGroupData) return null;
+      if (!this.$state.CardGroupData || this.$state.CardGroupData == -11) return null;
       let members = [],
         groupData = this.$state.CardGroupData.groupMembers,
         goal_id = this.$state.CardGroupData.goal_id;
-      let user_id, img;
+      let user_id, img, i, j;
       let testlog = this.data.testlog;
-      for (let i = 0; i < groupData.length; i++) {
+      for (i = 0; i < groupData.length; i++) {
         user_id = groupData[i].id;
-        let j;
-        for (j = 0; j < testlog.length; j++) {
-          if (testlog[j].goal_id == goal_id) {
+        img = '';
+        for (j = testlog.length - 1; j > 0; j--) {
+          if (testlog[j].goal_id == goal_id && user_id == testlog[j].user_id) {
             if (this.getTimestamp(testlog[j]).getFullYear() == year &&
               this.getTimestamp(testlog[j]).getMonth() + 1 == month &&
               this.getTimestamp(testlog[j]).getDate() == date) {
@@ -376,15 +376,13 @@ Component({
             }
           }
         }
-        if (j < testlog.length) {
+        if (1 && img.length) {
           console.log(img);
           members.push({
             user_id: user_id,
             img: img,
           })
         }
-        img = '';
-        console.log(img);
       }
       this.setData({
         membersnum: members.length,
