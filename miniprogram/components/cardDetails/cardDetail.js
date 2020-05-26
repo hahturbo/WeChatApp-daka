@@ -7,6 +7,10 @@ Component({
     carditem: {
       type: Number,
       value: ''
+    },
+    endtime: {
+      type: String,
+      value: ''
     }
   },
 
@@ -31,11 +35,69 @@ Component({
     YEAR: 0,
     MONTH: 0,
     DATE: 0,
-    secondselect: 0,
+    secondselect: 1,
     todaysigned: true,
     todaydaka: '',
     todaydaka_bgc: '',
     todaydaka_c: '',
+    cardend: false,
+    membersnum: 0,
+
+    testlog: [{
+        id: 498,
+        user_id: 4,
+        goal_id: 302,
+        signed_at: "2020-05-26 01:21:20"
+      },
+      {
+        id: 497,
+        user_id: 2,
+        goal_id: 306,
+        signed_at: "2020-05-26 01:19:19"
+      },
+      {
+        id: 496,
+        user_id: 4,
+        goal_id: 306,
+        signed_at: "2020-05-26 00:03:24"
+      },
+      {
+        id: 494,
+        user_id: 4,
+        goal_id: 306,
+        signed_at: "2020-05-25 21:59:16"
+      },
+      {
+        id: 493,
+        user_id: 4,
+        goal_id: 300,
+        signed_at: "2020-05-25 20:42:01"
+      },
+      {
+        id: 488,
+        user_id: 4,
+        goal_id: 271,
+        signed_at: "2020-05-25 16:59:48"
+      },
+      {
+        id: 486,
+        user_id: 4,
+        goal_id: 265,
+        signed_at: "2020-05-25 02:40:46"
+      },
+      {
+        id: 485,
+        user_id: 4,
+        goal_id: 268,
+        signed_at: "2020-05-25 02:32:01"
+      },
+      {
+        id: 484,
+        user_id: 4,
+        goal_id: 211,
+        signed_at: "2020-05-25 00:35:48"
+      }
+    ]
   },
 
   observers: {
@@ -47,8 +109,8 @@ Component({
   },
   lifetimes: {
     ready: function () {
+      // this.today();
       this.getcarddetail();
-      this.today();
     },
   },
   /**
@@ -64,6 +126,27 @@ Component({
       })
       this.createday(year, month);
       this.createmptygrid(year, month);
+    },
+    // 比较当天和结束时间选择
+    comparedate: function () {
+      let end = new Date(this.$state.aimCardDatadetail[this.data.item].ended_in);
+      // let end = new Date('2020-03-10');
+      let today = new Date(this.data.select);
+      if (end < today) {
+        today = end;
+      } else {
+        return false; // false代表还没结束
+      }
+      this.setData({
+        select: this.$state.aimCardDatadetail[this.data.item].ended_in,
+        // select:'2020-03-10',
+        year: today.getFullYear(),
+        month: today.getMonth() + 1,
+        date: today.getDate(),
+        datetitle: today.getFullYear() + '年' + this.zero(today.getMonth() + 1) + '月',
+      })
+      this.display(today.getFullYear(), today.getMonth() + 1, today.getDate());
+      return true;
     },
     // 默认选中当天
     today: function () {
@@ -81,7 +164,6 @@ Component({
         DATE: date,
         YEAR: year,
         MONTH: month,
-
       })
       this.display(year, month, date);
       // this.triggerEvent('select', select);
@@ -90,9 +172,6 @@ Component({
     select: function (e) {
       let second = this.data.secondselect;
       if (second == 1 && this.data.date == e.currentTarget.dataset.date) {
-        if (!this.$state.CardGroupData) {
-          this.getGroupdata();
-        }
         second = 2;
       } else {
         second = 1;
@@ -139,9 +218,11 @@ Component({
           monthFormat: this.zero(month),
           week: new Date(Date.UTC(year, month - 1, i)).getDay(),
           signed: this.todaysigned(year, month, i),
+          signedmembers: this.todaysignedmembers(year, month, i),
+          othersigned: this.data.membersnum > 0 ? true : false,
         });
       }
-      // console.log(thismonthday);
+      console.log(thismonthday);
       this.setData({
         thismonthday
       })
@@ -169,12 +250,13 @@ Component({
 
     },
     getcarddetail: function () {
+      // 获取打卡记录
       wx.request({
         method: "POST",
         url: this.$state.apiURL + '/user/getSignedRecord',
         data: {
           from: 0,
-          amount: 50,
+          amount: 1000,
           login_key: this.$state.login_key,
         },
         success: (res) => {
@@ -187,12 +269,13 @@ Component({
           console.log(this.$state.CardDetail);
         }
       });
+      // 获取打卡详情
       wx.request({
         method: "POST",
         url: this.$state.apiURL + '/user/goal/get',
         data: {
           from: 0,
-          amount: 10,
+          amount: 5,
           login_key: this.$state.login_key,
         },
         success: (res) => {
@@ -213,6 +296,20 @@ Component({
             todaydaka_c: (this.$state.aimCardDatadetail[this.data.item].canBeSignedNow & 1) ? '#fff;' : 'rgb(255,153,102)',
           })
           // console.log('get finish maybe succsee or fail');
+          if (this.$state.aimCardDatadetail[this.data.item].goal_is_a_group) {
+            this.setState({
+              CardGroupData: this.$state.aimCardDatadetail[this.data.item].groupData,
+            })
+          }
+          console.log(this.$state.CardGroupData);
+          this.today();
+          let endflag = this.comparedate();
+          if (endflag) {
+            this.setData({
+              cardend: endflag,
+            })
+          }
+
         }
       })
     },
@@ -258,7 +355,51 @@ Component({
       }
       return false;
     },
+    // groupData[i].signed_data -> testlog
+    todaysignedmembers: function (year, month, date) {
+      if (!this.$state.CardGroupData) return null;
+      let members = [],
+        groupData = this.$state.CardGroupData.groupMembers,
+        goal_id = this.$state.CardGroupData.goal_id;
+      let user_id, img;
+      let testlog = this.data.testlog;
+      for (let i = 0; i < groupData.length; i++) {
+        user_id = groupData[i].id;
+        let j;
+        for (j = 0; j < testlog.length; j++) {
+          if (testlog[j].goal_id == goal_id) {
+            if (this.getTimestamp(testlog[j]).getFullYear() == year &&
+              this.getTimestamp(testlog[j]).getMonth() + 1 == month &&
+              this.getTimestamp(testlog[j]).getDate() == date) {
+              img = groupData[i].img;
+              break;
+            }
+          }
+        }
+        if (j < testlog.length) {
+          console.log(img);
+          members.push({
+            user_id: user_id,
+            img: img,
+          })
+        }
+        img = '';
+        console.log(img);
+      }
+      this.setData({
+        membersnum: members.length,
+      })
+      return members;
+    },
     todaydaka: function (e) {
+      if (this.$state.aimCardDatadetail[this.data.item].goal_type == 2) {
+        wx.showToast({
+          title: '您的步数不够哦！',
+          image: '../../images/Step.png',
+          duration: 2000
+        })
+        return;
+      }
       if (this.$state.aimCardDatadetail[this.data.item].canBeSignedNow & 1) {
         wx.request({
           method: 'POST',
@@ -271,7 +412,8 @@ Component({
             this.getcarddetail();
             console.log('sign succsee!');
           },
-          fail: () => {
+          fail: (res) => {
+            console.log(res.code);
             console.log('sign fail');
           },
         })

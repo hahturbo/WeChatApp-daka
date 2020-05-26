@@ -2,6 +2,7 @@
 <scroll-view class="cardDetail" scroll-y="true">
 	<!-- 打卡标题 -->
 	<view class="card_title">{{$state.aimCardDatadetail[item].goal_name}}</view>
+
 	<!-- 日历 -->
 	<view class="calander">
 		<!-- 年月 -->
@@ -25,11 +26,11 @@
 					<!-- 是否今天 -->
 					<view class='self' wx:if="{{ format === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat }}"></view>
 					<!-- date -->
-					<view class="wrap {{$state.aimCardDatadetail[item].how_many_members_signed_today>1?'othersigned':''}} {{thismonthday.signed?'signed':''}} {{ select === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat ? 'select' :''}}" bindtap='select' data-date='{{thismonthday.date}}'>{{thismonthday.date}}</view>
+					<view class="wrap {{thismonthday.othersigned?'othersigned':''}} {{thismonthday.signed?'signed':''}} {{ select === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat ? 'select' :''}}" bindtap='select' data-date='{{thismonthday.date}}'>{{thismonthday.date}}</view>
 					<!-- 小组打卡用户头像框 -->
 					<view class="group {{select === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat ? 'select' :''}}" wx:if="{{ (select === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat)&(secondselect==2)&($state.aimCardDatadetail[item].goal_is_a_group)? true :false}}" style="right:{{thismonthday.week>3?0:auto}};">
-						<view class="userimgs" wx:for="{{$state.aimCardDatadetail[item].groupData.groupMembers}}" wx:key='item' wx:for-item="GroupMembers">
-							<image class="user_img" src="{{GroupMembers.img}}"></image>
+						<view class="userimgs">
+							<image class="user_img" wx:for="{{thismonthday.signedmembers}}" wx:key='item' wx:for-item="GroupMembers" src="{{GroupMembers.img}}"></image>
 						</view>
 					</view>
 				</view>
@@ -38,34 +39,36 @@
 			</view>
 		</view>
 	</view>
+
 	<!-- 打卡详情 -->
 	<view class="detaildata">
-		<view class="type">打卡类型：{{$state.GoalType[$state.aimCardDatadetail[item].goal_type]}}</view>
+		<view class="type">打卡类型：{{$state.aimCardDatadetail[item].goal_is_a_group?'小组':''}} {{$state.GoalType[$state.aimCardDatadetail[item].goal_type]}}</view>
 		<view wx:if="{{$state.aimCardDatadetail[item].goal_type==1}}">
 			<view class="type">开始时间：{{$state.aimCardDatadetail[item].started_at}}</view>
 			<view class="type">结束时间：{{$state.aimCardDatadetail[item].ended_in}}</view>
-			<view class="type">打卡频率：{{$state.aimCardDatadetail[item].frequency_type[0]==='0'?'任意一':'（仅当）每'}}{{$state.aimCardDatadetail[item].frequency_type[2]==='0'?'天':'月'}}</view>
+			<view class="type">打卡频率：每{{$state.aimCardDatadetail[item].frequency}}{{$state.aimCardDatadetail[item].frequency_type[2]==0?"天":"月"}} {{$state.aimCardDatadetail[item].frequency_type[0]==0?"任意一天":"仅当天"}}</view>
 			<view class="type">打卡时间：{{'needed_be_signed_at'}}-{{'needed_be_signed_deadline'}}</view>
 			<!-- 缺api -->
 			<view class="type">提醒时间：{{$state.aimCardDatadetail[item].reminder_at==0?'打卡时':'提前'+$state.aimCardDatadetail[item].reminder_at+'分钟'}}</view>
 		</view>
 		<view class="group_members" wx:if="{{$state.aimCardDatadetail[item].goal_is_a_group?true:false}}">
 			<view class="type">小组成员：</view>
-			<view class="group_users" wx:for="{{$state.aimCardDatadetail[item].groupData.groupMembers}}" wx:key="item" wx:for-item="GroupData">
-				<view class="group_user">
+			<view class="group_users">
+				<view class="group_user" wx:for="{{$state.aimCardDatadetail[item].groupData.groupMembers}}" wx:key="item" wx:for-item="GroupData">
 					<image class="members_img" src="{{GroupData.img}}"></image>
 					<view class="type members_text">{{GroupData.nickname}}</view>
 				</view>
 			</view>
 		</view>
-		<view class="buttongroup">
+		<image class="card_ended" src="../../images/cardend.png" wx:if="{{cardend}}"></image>
+		<view class="buttongroup" wx:if="{{!cardend}}">
 			<button class="todaydaka" bindtap="todaydaka" style="background-color:{{todaydaka_bgc}};color:{{todaydaka_c}};font-size=50rpx;border-radius: 20rpx;">{{todaydaka}}</button>
 			<view class="deletedaka" bindtap="deletedaka">删除打卡</view>
-			<view class="block line" style="height:12vh;"></view>
 		</view>
+		<view class="block line" style="height:12vh;"></view>
 		<mp-dialog title="{{dialogtitle}}" show="{{dialogshow}}" bindbuttontap="buttontap" buttons="{{dialogbutton}}">
 			<view>删除后不可恢复，确定吗？</view>
 		</mp-dialog>
-
+		
 	</view>
 </scroll-view>
