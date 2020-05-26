@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    user_info:"",
 
   },
 
@@ -12,6 +13,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+this.GetUserInfo();
+  },
+
+  GetUserInfo: function(){
+    wx.request({
+      method: 'POST',
+      url: this.$state.apiURL+ '/user/info',
+      data: {
+        login_key: this.$state.login_key,
+      },
+      success: (res) => {
+        console.log("info-p", res.data);
+this.setData({
+  user_info:res.data.data,
+})
+      }
+    })
 
   },
 
@@ -63,4 +81,8 @@ Page({
   onShareAppMessage: function () {
 
   }
+
+
+
+
 })

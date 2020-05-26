@@ -340,7 +340,7 @@ Page({
         }
       })
       console.log(e.detail.userInfo);
-      console.log(this.data.isLogin);
+      console.log("isLogin",this.data.isLogin,"key",this.$state.login_key);
       // this.setData({
       //   ConsoleText:this.data.isLogin,
       // })
