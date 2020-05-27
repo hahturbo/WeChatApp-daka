@@ -1,0 +1,12 @@
+<!--miniprogram/pages/cardrecord/cardrecord.wxml-->
+	<scroll-view class='scrollY'scroll-y="true" >
+
+			<view class='mid-contentD' wx:for='{{carddatas}}'>
+      <mp-slideview class='slide' data-gid='item.goal_id' buttons="{{[{ type: 'warn',  text: '删除', extClass: 'img_delete', src:'../../../images/delete.png',  data:item.goal_id  }]}}" icon="{{false}}" bindbuttontap="slideButtonTap">
+      <view class="contentDText">
+			<text class="mid-text" >{{item.goal_name}}</text>	
+			<text class='small-text'>{{item.goal_is_a_group==1?'小组':"个人"}}打卡</text>
+      </view>
+			</mp-slideview>
+      </view>
+	</scroll-view>

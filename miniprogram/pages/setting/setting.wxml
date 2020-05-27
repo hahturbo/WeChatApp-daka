@@ -19,7 +19,7 @@
 	</view>
 
 	<view class="card">
-		<navigator>
+		<navigator url="../setting/cardrecord/cardrecord">
 			<text >打卡记录</text><text class="right_text">》</text>
 		</navigator>
 	</view>

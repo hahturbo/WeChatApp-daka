@@ -1,0 +1,55 @@
+/* miniprogram/pages/cardrecord/cardrecord.wxss */
+.scrollY {
+  background-color: #E7E6E6;
+}
+
+.mid-contentD {
+  background-color: white;
+  height: 100%;
+  width: 720rpx;
+  align-items: left;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 10rpx;
+  margin-top: 10rpx;
+}
+
+page .img_delete{
+  align-items: center;
+  background-color: red;
+  height: 160rpx;
+  width: 180rpx;
+}
+.contentDText {
+  margin-left: 40rpx;
+  width: 100%;
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+}
+.slide{
+  width: 720rpx;
+  height: 160rpx;
+}
+/* class="weui-slideview__btn" */
+.img_delete{
+  height: 160rpx;
+}
+
+.small-text {
+  color: orange;
+  font-size: 33rpx;
+  font-weight: normal;
+  text-align: left;
+  margin: 5rpx;
+  margin-top: 10rpx;
+}
+
+.mid-text {
+  text-align: left;
+  color: black;
+  font-size: 40rpx;
+  margin: 10rpx;
+  /* margin-left: 30rpx; */
+}
