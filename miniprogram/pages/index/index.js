@@ -107,38 +107,34 @@ Page({
         nowPage: 5,
       })
       this.setState({
-        invite_goal_id:invite_goal_id,
+        invite_goal_id: invite_goal_id,
       })
     } else {
       console.log("notgo");
     }
   },
   //分享
-
+  // e.target.dataset.index为传过来的下标（第几个打卡）
   onShareAppMessage: function (e) {
-    console.log("sharing",this.$state.aimCardDatas[0].groupData.invite_id);
-    if (true) {
-      console.log("T");
-      console.log('分享成功');
-    } else {
-      console.log("F");
-    }
+    console.log(e.target.dataset.index);
+    console.log("sharing", this.$state.aimCardDatas[e.target.dataset.index].groupData.invite_id);
+    console.log('分享成功');
     return {
-      title: '弹出分享时显示的分享标题',
+      title: this.$state.aimCardDatas[e.target.dataset.index].groupData.groupMembers[0].nickname+'邀请您一起和TA打卡',
       desc: '分享页面的内容',
-      path: 'pages/index/index?id=' + this.$state.aimCardDatas[0].groupData.invite_id,
+      path: 'pages/index/index?id=' + this.$state.aimCardDatas[e.target.dataset.index].groupData.invite_id,
       // 路径，传递参数到指定页面。
     }
 
   },
-  AcceptInvite:function (e){
-    console.log( "acpeting invite_id:,",this.$state.invite_goal_id,
-      "login_key: ",this.$state.login_key,);
+  AcceptInvite: function (e) {
+    console.log("invite_id:,", this.$state.invite_goal_id,
+      "login_key: ", this.$state.login_key, );
     wx.request({
       method: 'POST',
       url: this.$state.apiURL + '/user/group/join',
       data: {
-        invite_id:this.$state.invite_goal_id,
+        invite_id: this.$state.invite_goal_id,
         login_key: this.$state.login_key,
       },
       success: (res) => {
@@ -146,9 +142,8 @@ Page({
         console.log(res.data);
       }
     })
-      this.GetCardData();
-      this.changePage(e); 
- 
+    this.GetCardData();
+    this.changePage(e);
   },
 
   //获取打卡信息
@@ -341,7 +336,7 @@ Page({
         }
       })
       console.log(e.detail.userInfo);
-      console.log("isLogin",this.data.isLogin,"key",this.$state.login_key);
+      console.log("isLogin", this.data.isLogin, "key", this.$state.login_key);
       // this.setData({
       //   ConsoleText:this.data.isLogin,
       // })
@@ -418,10 +413,10 @@ Page({
   },
 
   ClearNewAimData: function () {
-        //清理全局变量impoant！
-        this.setState({
-          aimCardData: [],
-        })    
+    //清理全局变量impoant！
+    this.setState({
+      aimCardData: [],
+    })
 
     this.setData({
       team: 0,
@@ -663,11 +658,11 @@ Page({
 
         while (title) {
           length++;
-          if(res.data.data[length]){
+          if (res.data.data[length]) {
             title = res.data.data[length].title;
-          }else{
+          } else {
             break;
-          } 
+          }
         }
         console.log("length", length);
         this.setState({
@@ -738,8 +733,13 @@ Page({
       nowPage: 4,
       carditem: e.currentTarget.dataset.to,
     })
-    // console.log(this.data.nowPage);
-    // console.log(e.currentTarget.dataset.to);
+  },
+  getsondelete: function (e) {
+    console.log('getsondelete');
+    this.setData({
+      nowPage: e.detail === 'delete' ? 0 : 4,
+      changedPageCounts: this.data.changedPageCounts + 1,
+    })
   }
   //以上为公共
   // //新建界面

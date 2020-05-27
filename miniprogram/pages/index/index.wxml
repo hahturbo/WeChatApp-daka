@@ -118,8 +118,8 @@
 		<invite></invite>
 		</view>
 		<!-- nowpage==4 -->
-		<view class='containerB toFucard' wx:if="{{nowPage==4}}">
-			<carddetail carditem="{{carditem}}"></carddetail>
+		<view class='containerB toFucard carddetail' wx:if="{{nowPage==4}}">
+			<carddetail carditem="{{carditem}}" bind:deleteEvent='getsondelete'></carddetail>
 		</view>
 	</view>
 	<!-- nowpage3 start -->

@@ -413,7 +413,9 @@ flex-direction:column;
 .NACunable{
   background:var(--main-color) !important;
 }
-
+.containerB.toFucard.carddetail{
+  background-color: white;
+}
 
 /* 新建打卡界面css如下 类：newaim*/
 
