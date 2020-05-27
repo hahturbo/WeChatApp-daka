@@ -122,6 +122,12 @@
   width: 85%;
   margin: 0 auto;
 }
+.wrap.allsigned{
+  background-color: rgba(182, 255, 182, 0.46);
+  /* color: rgb(242, 188, 71); */
+  border-color: transparent;
+  border-radius: 8rpx;
+}
 
 .wrap.select {
   /* background: rgb(49, 120, 228); */
