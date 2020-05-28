@@ -19,7 +19,7 @@ let store = {
   CardGroupData:'',
   GoalType:['极简', '普通', '微信运动'],
 
-
+  tick_title:'',
 }
 // 所有已加载的页面和组件
 let pcList = []

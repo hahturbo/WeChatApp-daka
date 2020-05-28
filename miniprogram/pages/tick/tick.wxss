@@ -127,14 +127,13 @@ page {
   width: 100%;
 }
 
-.cav{
-width:300px;
-height:400px;
-border: 1px solid;
-position: absolute;
-
-
-}
+.cavout{
+  width:300px;
+  height:400px;
+  border: 1px solid;
+  position: absolute;  
+  background-color: white;
+  }
 
 .cavAll{
   width: 100%;

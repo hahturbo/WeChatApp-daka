@@ -2,7 +2,7 @@
 <view class="containerCin">
 
 <view class="cavAll" wx:if='{{cav}}'>
-    <canvas canvas-id="share" class="cav"></canvas>
+    <cav class='cavout' ></cav>
 		<mp-icon class="close_icon" icon="close" color="black" size="{{25}}" bindtap="cav_close"></mp-icon>
 </view>
 

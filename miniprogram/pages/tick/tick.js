@@ -6,10 +6,7 @@ Component({
   properties: {
 
   },
-  // onLoad: ()=>{
-  //   console.log(123);
-    
-  // },
+
   /**
    * 组件的初始数据
    */
@@ -112,10 +109,7 @@ Component({
       icon: 0,
     }, ]
   },
-  onLoad(){
-    console.log('isajd9iqwjd89iqjd09uf901jf09jf092jf2k90i90');
-    
-  },
+
 
 
   attached: function () {
@@ -125,13 +119,7 @@ Component({
     //this.FinshInput();//A2B已有
    // this.Drawshare();
   },
-  onUnload: function () {
-    clearInterval(this.interval)
-  },
 
-  // onLoad: function(){
-  //   this.Drawshare();
-  // },
 
   /**
    * 组件的方法列表
@@ -332,7 +320,10 @@ Component({
           cav: true,
           name:ExgoalsBoard[e.currentTarget.dataset.index].name,
         })
-        this.Drawshare(ExgoalsBoard[e.currentTarget.dataset.index].name);
+        this.setState({
+          tick_title:ExgoalsBoard[e.currentTarget.dataset.index].name,
+        })
+      
       }
       this.FreshBtoA();
     },
@@ -346,14 +337,15 @@ Component({
       console.log("length", length);
       let x = 0; //差
       let title;
+      console.log("A2goalsBoardData:",goalsBoardData);
       for (let i = 0; i < 15; i++) {
         if (i < length) {
           //去除空行,不存在的打卡
           let title = goalsBoardData[i].title;
           let icon = goalsBoardData[i].type;
           //this.CheckIfisAim(title);
-          console.log("tittle", title);
-          if (title && (icon != 2 || this.CheckIfisAim(title))) {
+          console.log("tittle", title);//这里已经无法获取title
+          if (title && (icon == 0 || this.CheckIfisAim(title))) {
             goalsBoard[i - x].name = goalsBoardData[i].title;
             // id  
             goalsBoard[i - x].icon = goalsBoardData[i].type;
@@ -412,27 +404,7 @@ Component({
       })
     },
 
-    Drawshare: function (name) {
-      //let name=this.data.name
-      console.log("draw",name)
-      // res.path='../../images/tick-YES.png'
-        const ctx = wx.createCanvasContext("share",this)
-      //var ctx = wx.createContext()
-      console.log(wx);
-      ctx.setFillStyle('white');
-      ctx.fillRect(0, 0, 300, 400);    
-      ctx.setTextAlign('center')    // 文字居中
-      ctx.setFillStyle('#000000')  // 文字颜色：黑色
-      ctx.setFontSize(33)         // 文字字号：
-      ctx.fillText("[达成目标]", 150, 70);
-      ctx.fillText(name,150, 130);
-      ctx.setFontSize(20) 
-      ctx.fillText("我做到了！",120, 230);         
-      ctx.drawImage('../../images/tick-YES.png', 15, 200, 250, 200)
-      ctx.draw()
-           
 
-    },
 
     cav_close:function(e){
       this.setData({
