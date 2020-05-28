@@ -7,7 +7,7 @@
 	<view class="calander">
 		<!-- 年月 -->
 		<view class="calander_top">
-			<text class="switchmonth" bindtap="lastmonth" decode='teue'>&lt;</text>
+			<text class="switchmonth" bindtap="lastmonth" decode='true'>&lt;</text>
 			<text class="date_title">{{datetitle}}</text>
 			<text class="switchmonth" bindtap="nextmonth" decode='true'>&gt;</text>
 		</view>
@@ -49,10 +49,9 @@
 		<view wx:if="{{$state.aimCardDatas[item].goal_type==1}}">
 			<view class="type">开始时间：{{$state.aimCardDatas[item].started_at}}</view>
 			<view class="type">结束时间：{{$state.aimCardDatas[item].ended_in}}</view>
-			<view class="type">打卡频率：每{{$state.aimCardDatas[item].frequency}}{{$state.aimCardDatas[item].frequency_type[2]==0?"天":"月"}} {{$state.aimCardDatas[item].frequency_type[0]==0?"任意一天":"仅当天"}}</view>
+			<view class="type">打卡频率：每{{$state.aimCardDatas[item].frequency_type[2]==1?$state.aimCardDatas[item].frequency+'月':($state.aimCardDatas[item].frequency%7==0?$state.aimCardDatas[item].frequency/7+'周':$state.aimCardDatas[item].frequency+'天')}} {{$state.aimCardDatas[item].frequency_type[0]==0?"任意一天":"仅当天"}}</view>
 			<view class="type">打卡时间：{{$state.aimCardDatas[item].needed_be_signed_at}}-{{$state.aimCardDatas[item].needed_be_signed_deadline}}</view>
-			<!-- 缺api -->
-			<view class="type">提醒时间：{{$state.aimCardDatas[item].reminder_at==0?'打卡时':'提前'+$state.aimCardDatas[item].reminder_at+'分钟'}}</view>
+			<view class="type">提醒时间：{{reminder_Array[$state.aimCardDatas[item].reminder_at >= 30 ? $state.aimCardDatas[item].reminder_at / 30 + 3 : $state.aimCardDatas[item].reminder_at / 5]}}</view>
 		</view>
 		<view class="group_members" wx:if="{{$state.aimCardDatas[item].goal_is_a_group?true:false}}">
 			<view class="type">小组成员：</view>
@@ -62,22 +61,22 @@
 					<view class="type members_text">{{GroupData.nickname}}</view>
 				</view>
 				<view class="group_user invite" wx:if="{{$state.aimCardDatas[item].groupData.groupMembers.length<5}}">
-					<button class="button_invite"  open-type='share' data-index="{{item}}" style="background-color: transparent;text-align:left;position:absolute;color:rgba(0,0,0,0)">分享</button>
+					<button class="button_invite" open-type='share' data-index="{{item}}" style="background-color: transparent;text-align:left;position:absolute;color:rgba(0,0,0,0)">分享</button>
 					<image class="members_img" src="../../images/invite_add.png"></image>
 					<view class="type members_text invite">邀请好友加入</view>
 				</view>
-				
+
 			</view>
 		</view>
 		<image class="card_ended" src="../../images/cardend.png" wx:if="{{cardend}}"></image>
 		<view class="buttongroup" wx:if="{{!cardend}}">
-			<button class="todaydaka" bindtap="todaydaka" style="background-color:{{todaydaka_bgc}};color:{{todaydaka_c}};font-size=50rpx;border-radius: 20rpx;">{{todaydaka}}</button>
+			<button class="todaydaka {{$state.aimCardDatas[item].canBeSignedNow&1?'':'signed'}}" bindtap="todaydaka">{{$state.aimCardDatas[item].canBeSignedNow&1?'今日打卡':'今日完成'}}</button>
 			<view class="deletedaka" bindtap="deletedaka">删除打卡</view>
 		</view>
 		<view class="block line" style="height:12vh;"></view>
 		<mp-dialog title="{{dialogtitle}}" show="{{dialogshow}}" bindbuttontap="buttontap" buttons="{{dialogbutton}}">
 			<view>删除后不可恢复，确定吗？</view>
 		</mp-dialog>
-		
+
 	</view>
 </scroll-view>

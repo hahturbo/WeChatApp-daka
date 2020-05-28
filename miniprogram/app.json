@@ -5,7 +5,6 @@
     "pages/openapi/serverapi/serverapi",
     "pages/openapi/callback/callback",
     "pages/openapi/cloudid/cloudid",
-    "pages/carddetails/carddetails",
     "pages/setting/account/account",
     "pages/setting/about/about",
     "pages/setting/about/serverdetail/serverdetail",

@@ -1,0 +1,96 @@
+/* pages/modifycard/modifycard.wxss */
+.modifycard {
+  width: 100vw;
+  border-radius: 50rpx 50rpx 0rpx 0rpx;
+  background: rgb(231, 230, 230);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.bg {
+  background: white;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50rpx 50rpx 0rpx 0rpx;
+}
+
+.title {
+  margin: 25rpx 0;
+  height: 70rpx;
+  width: 50%;
+  background: rgb(255, 204, 102);
+  border-radius: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1rpx solid black;
+}
+
+.right_text {
+  margin-right: 30rpx;
+  /* display: inline-block;
+  position: absolute; */
+  float: right;
+}
+
+.right_text.picker {
+  display: inline-block;
+}
+
+.name_input {
+  width: 250rpx;
+  height: 60rpx;
+  line-height: 100rpx;
+  font-size: 40rpx;
+  text-align: right;
+  margin: 20rpx;
+  margin-right: 30rpx;
+  position: absolute;
+  right: 30rpx;
+}
+
+.btn_invite {
+  text-align: center;
+  background-color: var(--main-color);
+  padding: 10rpx 0rpx;
+  width: 25%;
+  height: 70rpx;
+  float: right;
+}
+
+.btn_invite.full {
+  background-color: rgb(242, 242, 242);
+  color: rgb(127, 127, 127);
+}
+
+.displayNone {
+  display: none !important;
+}
+
+.card {
+  margin-top: 20rpx;
+  height: 100rpx;
+  width: 100%;
+  background: #fff;
+  /* border: 5rpx solid #eee; */
+  border-left: none;
+  border-right: none;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: left;
+  transition: all 300ms ease;
+  box-sizing: border-box;
+}
+
+.card.date {
+  margin-top: 5rpx;
+}
+
+.picker {
+  align-items: center;
+  width: 720rpx;
+}

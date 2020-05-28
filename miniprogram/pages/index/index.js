@@ -1,5 +1,5 @@
 //index.js
-// data-to:0=主页面 1=新建页面 2=设置页面 3=目标页面 4= 5=接受邀请页面
+// data-to:0=主页面 1=新建页面 2=设置页面 3=目标页面 4=打卡详情页面 5=接受邀请页面 6=修改打卡页面
 
 const app = getApp()
 
@@ -120,7 +120,7 @@ Page({
     console.log("sharing", this.$state.aimCardDatas[e.target.dataset.index].groupData.invite_id);
     console.log('分享成功');
     return {
-      title: this.$state.aimCardDatas[e.target.dataset.index].groupData.groupMembers[0].nickname+'邀请您一起和TA打卡',
+      title: this.$state.aimCardDatas[e.target.dataset.index].groupData.groupMembers[0].nickname + '邀请您一起和TA打卡',
       desc: '分享页面的内容',
       path: 'pages/index/index?id=' + this.$state.aimCardDatas[e.target.dataset.index].groupData.invite_id,
       // 路径，传递参数到指定页面。
@@ -343,7 +343,7 @@ Page({
 
       // 获取用户信息。计算使用天数
       setTimeout(() => {
-        console.log("isLogin2",this.data.isLogin,"key2",this.$state.login_key);
+        console.log("isLogin2", this.data.isLogin, "key2", this.$state.login_key);
         wx.request({
           method: 'POST',
           url: this.data.apiUrl + '/user/info',
@@ -411,7 +411,15 @@ Page({
       nowPage: e.currentTarget.dataset.to,
     })
   },
-
+  modifycard:function(e){
+    if(e.currentTarget.dataset.to==4){
+      this.selectComponent('#modifycard').modify();
+      this.setData({
+        changedPageCounts: this.data.changedPageCounts + 1,
+        nowPage: e.currentTarget.dataset.to,
+      })
+    }
+  },
   ClearNewAimData: function () {
     //清理全局变量impoant！
     this.setState({
@@ -696,19 +704,31 @@ Page({
 
   changePage_Back: function (e) {
     console.log(this.data.title != null);
-
-    this.setData({
-      dialogTitle: "打卡未保存，确认退出？",
-      dialogsButton: [{
-        text: '退出编辑',
-        extClass: "btn_go_on"
-      }, {
-        text: '取消',
-        extClass: "btn_cancel"
-      }],
-      dialogShow: true,
-    })
-
+    if (e.currentTarget.dataset.to == 0) {
+      this.setData({
+        dialogTitle: "打卡未保存，确认退出？",
+        dialogsButton: [{
+          text: '退出编辑',
+          extClass: "btn_go_on"
+        }, {
+          text: '取消',
+          extClass: "btn_cancel"
+        }],
+        dialogShow: true,
+      })
+    } else if (e.currentTarget.dataset.to == 4) {
+      this.setData({
+        dialogTitle: "修改未保存，确认退出？",
+        dialogsButton: [{
+          text: '退出修改',
+          extClass: "btn_go_on"
+        }, {
+          text: '取消',
+          extClass: "btn_cancel"
+        }],
+        dialogShow: true,
+      })
+    }
   },
 
   tapDialogButton: function (e) {
@@ -718,6 +738,12 @@ Page({
       this.setData({
         changedPageCounts: this.data.changedPageCounts + 1,
         nowPage: 0,
+        dialogShow: false,
+      })
+    } else if (e.detail.item.text === '退出修改') {
+      this.setData({
+        changedPageCounts: this.data.changedPageCounts + 1,
+        nowPage: 4,
         dialogShow: false,
       })
     } else {

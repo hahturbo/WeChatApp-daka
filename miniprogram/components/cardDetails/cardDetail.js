@@ -19,6 +19,7 @@ Component({
    */
   data: {
     item: 0,
+    reminder_Array: ['打卡时', '提前5分钟', '提前10分钟', '提前15分钟', '提前30分钟', '提前一小时'],
     // 星期
     weektext: ['日', '一', '二', '三', '四', '五', '六'],
     // 上月格子
@@ -37,12 +38,9 @@ Component({
     DATE: 0,
     secondselect: 1,
     todaysigned: true,
-    todaydaka: '',
-    todaydaka_bgc: '',
-    todaydaka_c: '',
     cardend: false,
     membersnum: 0,
-    share:false,
+    share: false,
     //微信运动
     stepInfoList: '',
   },
@@ -56,7 +54,6 @@ Component({
   },
   lifetimes: {
     ready: function () {
-      // this.today();
       this.getcarddetail();
     },
   },
@@ -232,17 +229,13 @@ Component({
           })
           console.log(this.$state.aimCardDatas);
         },
-        fail: () => {
-          console.log('get aimcarddetail fail');
+        fail: (res) => {
+          console.log('get aimcarddetail fail', res);
         },
         complete: () => {
-          // console.log(this.$state.aimCardDatas);
-          this.setData({
-            todaydaka: (1 & this.$state.aimCardDatas[this.data.item].canBeSignedNow) ? "今日打卡" : "今日完成",
-            todaydaka_bgc: (this.$state.aimCardDatas[this.data.item].canBeSignedNow & 1) ? 'rgb(255, 153, 102)' : 'transparent',
-            todaydaka_c: (this.$state.aimCardDatas[this.data.item].canBeSignedNow & 1) ? '#fff;' : 'rgb(255,153,102)',
-          })
-          // console.log('get finish maybe succsee or fail');
+          if (this.$state.aimCardDatas[this.data.item].goal_type == 2) {
+            this.getWeRundata();
+          }
           if (this.$state.aimCardDatas[this.data.item].goal_is_a_group) {
             this.setState({
               CardGroupData: this.$state.aimCardDatas[this.data.item].groupData,
@@ -260,9 +253,11 @@ Component({
               cardend: endflag,
             })
           }
-
         }
       });
+    },
+
+    getWeRundata: function () {
       // 获取微信运动
       wx.getWeRunData({
         success: (res) => {
@@ -285,26 +280,6 @@ Component({
         fail: res => {
           console.log("微信步数获取失败： " + res);
         },
-      })
-    },
-    getGroupdata: function () {
-      wx.request({
-        url: this.$state.apiURL + '/user/group/get/data',
-        method: 'POST',
-        data: {
-          t: 0,
-          p: this.$state.aimCardDatas[this.data.item].goal_id,
-          login_key: this.$state.login_key,
-        },
-        success: (res) => {
-          this.setState({
-            CardGroupData: res.data,
-          })
-          console.log(this.$state.CardGroupData);
-        },
-        fail: (res) => {
-          console.log(res.code);
-        }
       })
     },
     // this.log.data => this.$state.CardDetail[this.properties.carditem]

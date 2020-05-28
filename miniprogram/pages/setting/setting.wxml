@@ -14,31 +14,31 @@
 	<!-- 选项 -->
 	<view class="card">
 		<navigator url="../setting/account/account">
-			<text >账户管理</text><text class="right_text">》</text>
+			<text >账户管理</text><text class="right_text" decode='true'>&gt;</text>
 		</navigator>
 	</view>
 
 	<view class="card">
 		<navigator url="../setting/cardrecord/cardrecord">
-			<text >打卡记录</text><text class="right_text">》</text>
+			<text >打卡记录</text><text class="right_text" decode='true'>&gt;</text>
 		</navigator>
 	</view>
 
 	<view class="card">
 		<view class="uploader-text" bindtap="doUpload">
-			<text >外观设置</text><text class="right_text">》</text>
+			<text >外观设置</text><text class="right_text" decode='true'>&gt;</text>
 		</view>
 	</view>
 
 	<view class="card">
 		<navigator url="../setting/about/about" open-type="navigate">
-			<text >关于打卡卡</text><text class="right_text">》</text>
+			<text >关于打卡卡</text><text class="right_text" decode='true'>&gt;</text>
 		</navigator>
 	</view>
 
 	<view class="card">
 		<view class="uploader-text" bindtap="doUpload">
-			<text >使用提示</text><text class="right_text">》</text>
+			<text >使用提示</text><text class="right_text" decode='true'>&gt;</text>
 		</view>
 	</view>
 </view>

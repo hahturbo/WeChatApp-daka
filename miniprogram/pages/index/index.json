@@ -6,7 +6,8 @@
     "newaimcard":"../newaimcard/newaimcard",
     "setting":"../setting/setting",
     "tick":"../tick/tick",
-    "invite":"../invite/invite"
+    "invite":"../invite/invite",
+    "modifycard":"../modifycard/modifycard"
 
   }
 }
