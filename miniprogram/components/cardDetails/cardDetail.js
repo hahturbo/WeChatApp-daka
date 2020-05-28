@@ -42,62 +42,9 @@ Component({
     todaydaka_c: '',
     cardend: false,
     membersnum: 0,
-
-    testlog: [{
-        id: 498,
-        user_id: 4,
-        goal_id: 302,
-        signed_at: "2020-05-26 01:21:20"
-      },
-      {
-        id: 497,
-        user_id: 2,
-        goal_id: 165,
-        signed_at: "2020-05-26 01:19:19"
-      },
-      {
-        id: 496,
-        user_id: 4,
-        goal_id: 165,
-        signed_at: "2020-05-26 00:03:24"
-      },
-      {
-        id: 494,
-        user_id: 4,
-        goal_id: 165,
-        signed_at: "2020-05-25 21:59:16"
-      },
-      {
-        id: 493,
-        user_id: 4,
-        goal_id: 300,
-        signed_at: "2020-05-25 20:42:01"
-      },
-      {
-        id: 488,
-        user_id: 4,
-        goal_id: 271,
-        signed_at: "2020-05-25 16:59:48"
-      },
-      {
-        id: 486,
-        user_id: 4,
-        goal_id: 265,
-        signed_at: "2020-05-25 02:40:46"
-      },
-      {
-        id: 485,
-        user_id: 4,
-        goal_id: 268,
-        signed_at: "2020-05-25 02:32:01"
-      },
-      {
-        id: 484,
-        user_id: 4,
-        goal_id: 211,
-        signed_at: "2020-05-25 00:35:48"
-      }
-    ]
+    share:false,
+    //微信运动
+    stepInfoList: '',
   },
 
   observers: {
@@ -129,7 +76,7 @@ Component({
     },
     // 比较当天和结束时间选择
     comparedate: function () {
-      let end = new Date(this.$state.aimCardDatadetail[this.data.item].ended_in);
+      let end = new Date(this.$state.aimCardDatas[this.data.item].ended_in);
       // let end = new Date('2020-03-10');
       let today = new Date(this.data.select);
       if (end < today) {
@@ -138,7 +85,7 @@ Component({
         return false; // false代表还没结束
       }
       this.setData({
-        select: this.$state.aimCardDatadetail[this.data.item].ended_in,
+        select: this.$state.aimCardDatas[this.data.item].ended_in,
         // select:'2020-03-10',
         year: today.getFullYear(),
         month: today.getMonth() + 1,
@@ -222,7 +169,7 @@ Component({
           othersigned: this.data.membersnum > 0 ? true : false,
         });
       }
-      console.log(thismonthday);
+      // console.log(thismonthday);
       this.setData({
         thismonthday
       })
@@ -281,24 +228,28 @@ Component({
         success: (res) => {
           console.log('get succsess');
           this.setState({
-            aimCardDatadetail: res.data.data.data,
+            aimCardDatas: res.data.data.data,
           })
-          console.log(this.$state.aimCardDatadetail);
+          console.log(this.$state.aimCardDatas);
         },
         fail: () => {
           console.log('get aimcarddetail fail');
         },
         complete: () => {
-          // console.log(this.$state.aimCardDatadetail);
+          // console.log(this.$state.aimCardDatas);
           this.setData({
-            todaydaka: (1 & this.$state.aimCardDatadetail[this.data.item].canBeSignedNow) ? "今日打卡" : "今日完成",
-            todaydaka_bgc: (this.$state.aimCardDatadetail[this.data.item].canBeSignedNow & 1) ? 'rgb(255, 153, 102)' : 'transparent',
-            todaydaka_c: (this.$state.aimCardDatadetail[this.data.item].canBeSignedNow & 1) ? '#fff;' : 'rgb(255,153,102)',
+            todaydaka: (1 & this.$state.aimCardDatas[this.data.item].canBeSignedNow) ? "今日打卡" : "今日完成",
+            todaydaka_bgc: (this.$state.aimCardDatas[this.data.item].canBeSignedNow & 1) ? 'rgb(255, 153, 102)' : 'transparent',
+            todaydaka_c: (this.$state.aimCardDatas[this.data.item].canBeSignedNow & 1) ? '#fff;' : 'rgb(255,153,102)',
           })
           // console.log('get finish maybe succsee or fail');
-          if (this.$state.aimCardDatadetail[this.data.item].goal_is_a_group) {
+          if (this.$state.aimCardDatas[this.data.item].goal_is_a_group) {
             this.setState({
-              CardGroupData: this.$state.aimCardDatadetail[this.data.item].groupData,
+              CardGroupData: this.$state.aimCardDatas[this.data.item].groupData,
+            })
+          } else {
+            this.setState({
+              CardGroupData: '',
             })
           }
           console.log(this.$state.CardGroupData);
@@ -311,6 +262,29 @@ Component({
           }
 
         }
+      });
+      // 获取微信运动
+      wx.getWeRunData({
+        success: (res) => {
+          wx.request({
+            method: 'POST',
+            url: this.$state.apiURL + '/user/getWeRunData',
+            data: {
+              encryptedData: res.encryptedData,
+              iv: res.iv,
+              login_key: this.$state.login_key,
+            },
+            success: (res) => {
+              this.setData({
+                stepInfoList: res.data.stepInfoList,
+              })
+              console.log(this.data.stepInfoList);
+            }
+          })
+        },
+        fail: res => {
+          console.log("微信步数获取失败： " + res);
+        },
       })
     },
     getGroupdata: function () {
@@ -319,7 +293,7 @@ Component({
         method: 'POST',
         data: {
           t: 0,
-          p: this.$state.aimCardDatadetail[this.data.item].goal_id,
+          p: this.$state.aimCardDatas[this.data.item].goal_id,
           login_key: this.$state.login_key,
         },
         success: (res) => {
@@ -345,7 +319,7 @@ Component({
     todaysigned: function (year, month, date) {
       // console.log(this.$state.CardDetail);
       for (let i = 0; i < this.$state.CardDetail.length; i++) {
-        if (this.$state.aimCardDatadetail[this.data.item].goal_id == this.$state.CardDetail[i].goal_id) {
+        if (this.$state.aimCardDatas[this.data.item].goal_id == this.$state.CardDetail[i].goal_id) {
           if (this.getTimestamp(this.$state.CardDetail[i]).getFullYear() == year &&
             this.getTimestamp(this.$state.CardDetail[i]).getMonth() + 1 == month &&
             this.getTimestamp(this.$state.CardDetail[i]).getDate() == date) {
@@ -355,29 +329,29 @@ Component({
       }
       return false;
     },
-    // groupData[i].signed_data -> testlog
+    // groupData[i].signed_data -> singned_data
     todaysignedmembers: function (year, month, date) {
       if (!this.$state.CardGroupData || this.$state.CardGroupData == -11) return null;
       let members = [],
         groupData = this.$state.CardGroupData.groupMembers,
         goal_id = this.$state.CardGroupData.goal_id;
       let user_id, img, i, j;
-      let testlog = this.data.testlog;
       for (i = 0; i < groupData.length; i++) {
+        let singned_data = groupData[i].signed_data;
         user_id = groupData[i].id;
         img = '';
-        for (j = testlog.length - 1; j > 0; j--) {
-          if (testlog[j].goal_id == goal_id && user_id == testlog[j].user_id) {
-            if (this.getTimestamp(testlog[j]).getFullYear() == year &&
-              this.getTimestamp(testlog[j]).getMonth() + 1 == month &&
-              this.getTimestamp(testlog[j]).getDate() == date) {
+        for (j = 0; j < singned_data.length; j++) {
+          if (singned_data[j].goal_id == goal_id && user_id == singned_data[j].user_id) {
+            if (this.getTimestamp(singned_data[j]).getFullYear() == year &&
+              this.getTimestamp(singned_data[j]).getMonth() + 1 == month &&
+              this.getTimestamp(singned_data[j]).getDate() == date) {
               img = groupData[i].img;
               break;
             }
           }
         }
         if (1 && img.length) {
-          console.log(img);
+          // console.log(img);
           members.push({
             user_id: user_id,
             img: img,
@@ -390,7 +364,7 @@ Component({
       return members;
     },
     todaydaka: function (e) {
-      if (this.$state.aimCardDatadetail[this.data.item].goal_type == 2) {
+      if (this.$state.aimCardDatas[this.data.item].goal_type == 2) {
         wx.showToast({
           title: '您的步数不够哦！',
           image: '../../images/Step.png',
@@ -398,12 +372,12 @@ Component({
         })
         return;
       }
-      if (this.$state.aimCardDatadetail[this.data.item].canBeSignedNow & 1) {
+      if (this.$state.aimCardDatas[this.data.item].canBeSignedNow & 1) {
         wx.request({
           method: 'POST',
           url: this.$state.apiURL + '/user/goal/sign',
           data: {
-            goal_id: this.$state.aimCardDatadetail[this.data.carditem].goal_id,
+            goal_id: this.$state.aimCardDatas[this.data.carditem].goal_id,
             login_key: this.$state.login_key,
           },
           success: (res) => {
@@ -440,7 +414,26 @@ Component({
       console.log('button tap');
       if (e.detail.item.text == "删除") {
         console.log('删除');
-        // 服务器删除
+        wx.request({
+          url: this.$state.apiURL + '/user/goal/delete',
+          method: "POST",
+          data: {
+            login_key: this.$state.login_key,
+            goal_id: this.$state.aimCardDatas[this.data.item].goal_id,
+          },
+          success: (res) => {
+            console.log('delete success');
+            console.log(res);
+            this.setData({
+              dialogshow: false,
+            })
+            this.getcarddetail();
+            this.triggerEvent('deleteEvent', 'delete');
+          },
+          fail: (res) => {
+            console.log(res.code);
+          }
+        })
       } else {
         this.setData({
           dialogshow: false,

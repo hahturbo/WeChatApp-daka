@@ -13,7 +13,6 @@ let store = {
   login_key: null,
   aimCardData: [],
   aimCardDatas: [],
-  aimCardDatadetail: '',
   board_num:0,
   goalsBoardData:[],
   CardDetail:'',
