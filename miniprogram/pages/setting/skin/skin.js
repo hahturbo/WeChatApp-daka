@@ -1,4 +1,4 @@
-// miniprogram/pages/setting/about/serverdetail/serverdetail.js
+// miniprogram/pages/setting/skin/skin.js
 Page({
 
   /**
@@ -12,6 +12,25 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+    wx.setNavigationBarTitle({
+      title: "外观设置"   
+
+    })
+    wx.setNavigationBarColor({
+      backgroundColor:"#ffffff",
+      frontColor: '#000000'
+    })
+
+  },
+
+  btn:function(e){
+    console.log(e)
+    let skin=e.currentTarget.dataset.skin;
+    console.log(skin);
+    this.setState({
+      skin:skin,
+    })
 
   },
 
@@ -40,14 +59,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    wx.setNavigationBarTitle({
-      title: "服务协议"   
-
-    })
-    wx.setNavigationBarColor({
-      backgroundColor:"#ffffff",
-      frontColor: '#000000'
-    })
 
   },
 

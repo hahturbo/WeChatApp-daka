@@ -56,23 +56,24 @@
 
 	<scroll-view scroll-y="true" class='AllMainCard {{nowPage== 0?"":"displayNone"}} '>
 		<view class="LetAMCCenter">
-			<view id="main_container" class='aim_card   {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}}' animation="{{open_animation}}">
+			<view id="main_container" class='aim_card  {{$state.skin==1?"color_skin1":""}} {{$state.skin==2?"color_skin2":""}} {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}}' animation="{{open_animation}}">
 				<!-- <view id="main_container" class='aim_card  displayNone' animation="{{open_animation}}"> -->
 				<!-- {{card_num<3 && nowPage== 0?"":"displayNone"}} -->
 				<!-- 调试用 -->
 				<!-- <view> -->
-				<view class='home-content {{nowPage!=0 ? "displayNone" : ""}}' >
+				<view class='home-content {{nowPage!=0 ? "displayNone" : ""}} ' >
 					<image class='{{card_num==0?"":"displayNone"}}' style=" width:100%;height:100%" src="../../images/mainnew.png"></image>
 					<!-- <text>isLogin:{{ConsoleText}}</text> -->
 					<view class='home-content {{card_num!=0?"":"displayNone"}}'>
-						<text bindtap="gotodetails" data-to="{{0}}">{{$state.aimCardDatas[0].goal_name}}</text>
+						<text class='{{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2" : ""}}' bindtap="gotodetails" data-to="{{0}}">{{$state.aimCardDatas[0].goal_name}}</text>
 						<image  bindtap="gotodetails" data-to="{{0}}" class='' style=" width:70%;height:40%" src="../../images/mainnew2.png"></image>
 
 						<text class='{{$state.aimCardDatas[0].goal_is_a_group==0?"":"displayNone"}}	' style='color:#FF9966; font-size:30rpx;'>已连续{{$state.aimCardDatas[0].constantly
 }}次</text>
-			<text class='{{$state.aimCardDatas[0].goal_is_a_group==1?"":"displayNone"}}	' style='color:#FF9966; font-size:30rpx;'>今日小组已有{{$state.aimCardDatas[0].groupData.how_many_members_signed_today}}人打卡</text>
-						<button class='new_aim_card {{$state.aimCardDatas[0].canBeSignedNow==1?"":"NACunable"}}' data-id='{{$state.aimCardDatas[0].goal_id}}' bindtap='{{$state.aimCardDatas[0].canBeSignedNow==1?"sign_btn":""}}'><text class=' {{$state.aimCardDatas[0].canBeSignedNow==1?"":"displayNone"}}'>今日打卡</text>
-						<text class=' {{$state.aimCardDatas[0].canBeSignedNow==-121?"":"displayNone"}}'>今日未完成</text>
+			<text  class='{{$state.aimCardDatas[0].goal_is_a_group==1?"":"displayNone"}}	' style='color:#FF9966; font-size:30rpx;'>今日小组已有{{$state.aimCardDatas[0].groupData.how_many_members_signed_today}}人打卡</text>
+						<button class='new_aim_card {{$state.aimCardDatas[0].canBeSignedNow==1?"":"NACunable"}}' data-id='{{$state.aimCardDatas[0].goal_id}}' bindtap='{{$state.aimCardDatas[0].canBeSignedNow==1?"sign_btn":""}}'>
+						<text style='color:#FFFFFF;' class=' {{$state.aimCardDatas[0].canBeSignedNow==1?"":"displayNone"}}'>今日打卡</text>
+						<text style='color:#FFFFFF;' class=' {{$state.aimCardDatas[0].canBeSignedNow==-121?"":"displayNone"}}'>今日未完成</text>
 						<image class='{{($state.aimCardDatas[0].canBeSignedNow==-118)||($state.aimCardDatas[0].canBeSignedNow==-520)?"":"displayNone"}}' src='../../images/tickB_finish.png' style="width:100%; height:90rpx"></image>
 						
 						</button>
@@ -82,12 +83,12 @@
 		</view>
 
 		<view class="LetAMCCenter" wx:for='{{$state.aimCardDatas}}'>
-			<view class='mid-contentA  {{index%3==0?".bgcolor-g":""}} {{index%3==1?".bgcolor-b":""}} {{index%3==2?".bgcolor-o":""}} {{$state.aimCardDatas[index+1]?"":"displayNone"}} '>
+			<view class='mid-contentA {{$state.skin==2?"color_skin2":""}} {{(index%3==0&&$state.skin==1)?"bgcolor-g":""}} {{(index%3==1&&$state.skin==1)?"bgcolor-b":""}} {{(index%3&&$state.skin==1==2)?"bgcolor-o":""}} {{$state.aimCardDatas[index+1]?"":"displayNone"}} '>
 			<view class='contentAText'>
-			<text  bindtap="gotodetails" class="mid-text" data-to="{{index+1}}">{{$state.aimCardDatas[index+1].goal_name}}</text>
-			<text class='small-text {{$state.aimCardDatas[index+1].goal_is_a_group==0?"":"displayNone"}}'>已连续{{$state.aimCardDatas[index+1].constantly
+			<text  bindtap="gotodetails" class='mid-text {{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2" : ""}}' data-to="{{index+1}}">{{$state.aimCardDatas[index+1].goal_name}}</text>
+			<text class='small-text {{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2_2" : ""}} {{$state.aimCardDatas[index+1].goal_is_a_group==0?"":"displayNone"}}'>已连续{{$state.aimCardDatas[index+1].constantly
 }}次</text>		
-			<text class='small-text {{$state.aimCardDatas[index+1].goal_is_a_group==1?"":"displayNone"}}'>本次小组已有{{$state.aimCardDatas[index+1].groupData.how_many_members_signed_today}}人打卡</text>									
+			<text class='small-text {{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2_2" : ""}} {{$state.aimCardDatas[index+1].goal_is_a_group==1?"":"displayNone"}}'>本次小组已有{{$state.aimCardDatas[index+1].groupData.how_many_members_signed_today}}人打卡</text>									
 			</view>
 			<view class='button {{$state.aimCardDatas[index+1].canBeSignedNow==1?"":"buttonNo"}}' data-id='{{$state.aimCardDatas[index+1].goal_id}}' bindtap='{{$state.aimCardDatas[index+1].canBeSignedNow==1?"sign_btn":""}}' >
 		<image class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==-118)||($state.aimCardDatas[index+1].canBeSignedNow==-520)?"":"displayNone"}}' src="../../images/tick_finish.png" ></image>
@@ -132,7 +133,8 @@
 	<!-- nowpage3 start -->
 	<!-- <view class='{{nowPage==3 ? "toGoalCard" : "displayNone"}}'> -->
 	<view wx:if="{{nowPage==3}}" class="toGoalCard" >
-		<image id="clicp" src="../../images/clicp.png"></image>
+		<image wx:if='{{$state.skin==1}}' id="clicp" src="../../images/clicp.png"></image>
+		<image wx:if='{{$state.skin==2}}' id="clicp2" src="../../images/clicp2.png"></image>
 		<view class='containerC '>
 			<tick></tick>
 		</view>

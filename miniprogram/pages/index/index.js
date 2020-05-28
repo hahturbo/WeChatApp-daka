@@ -50,7 +50,30 @@ Page({
     carditem: '',
   },
 
+  onShow:function(e){
+    switch (this.$state.skin){
+      case 2 :
+        console.log("skin2")
+      wx.setNavigationBarColor({
+        frontColor: '#000000',
+        backgroundColor: '#ffffff',
+    })
+    break;
+    default:
+      console.log("skin1")
+      wx.setNavigationBarColor({
+        frontColor: '#000000',
+        backgroundColor: '#FFCC66',
+    })
+      break;
+    }
+  },
+
+
+
   onLoad: function (options) {
+   
+
     console.log('options1', options);
     console.log('options2', options.id);
     let invite_goal_id = options.id;

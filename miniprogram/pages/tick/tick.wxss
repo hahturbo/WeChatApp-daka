@@ -50,11 +50,17 @@ movable-area {
   flex-direction: column;
   align-items: center;
   box-sizing: border-box; */
+
+  border-width: 3rpx;
+  border-color: black;
+  border-style: solid;
+
   width: 670rpx;
   height: 70vh;
   /* position:fixed;  */
-  margin-top:20rpx ;
+  padding-top:20rpx ;
   border-radius: 50rpx 50rpx 50rpx 50rpx;
+
   background: rgb(255, 255, 255);
   align-items: center;
   display: flex;

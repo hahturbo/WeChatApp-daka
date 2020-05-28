@@ -22,6 +22,6 @@
 
 <view  class="box4">
      <text style="font-size:12px">版本号：</text>
-     <text style="font-size:10px">00.01</text>     
+     <text style="font-size:10px">{{this.$state.version}}</text>     
 </view>
 

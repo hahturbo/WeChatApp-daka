@@ -1,7 +1,8 @@
 
 // 全局变量
 let store = {
-  skin:2,
+  skin:1, //1初始橙 2网格白
+  version:"0.1.0",
 
 
   can_share:false,
