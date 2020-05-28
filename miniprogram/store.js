@@ -1,6 +1,9 @@
 
 // 全局变量
 let store = {
+  skin:2,
+
+
   can_share:false,
   invite_goal_id:'',
   msg: 'xxxxx',

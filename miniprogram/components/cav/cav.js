@@ -94,8 +94,8 @@ Component({
         }).then(() => {
           wx.showToast({
             icon: 'none',
-            title: '分享图片已保存至相册',
-            duration: 2000,
+            title: '分享图片已保存至相册,本目标将删除',
+            duration: 2500,
           })
         })
       }

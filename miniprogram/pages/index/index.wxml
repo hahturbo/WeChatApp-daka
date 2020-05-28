@@ -1,13 +1,16 @@
 <!--index.wxml-->
 <view class="container">
 	<view class="auth {{$state.isLogin ? 'displayNone' : ''}}">
-		<!-- <view class="auth "> -->
-
+	<view class="auth_in">
+	<h1>登陆授权</h1>
+	<open-data class='user_img' type="userAvatarUrl"></open-data>
 		<h1>{{error_code}}</h1>
 		<button open-type='getUserInfo' bindgetuserinfo='checkPermission' id='bn_login'>使用微信登录</button>
-		<!-- <text>{{ConsoleText}}</text> -->
 	</view>
-	<image class='background' src="../../images/background.png" mode="aspectFill">
+	</view>
+	<image wx:if='{{$state.skin==1}}'class='background' src="../../images/background.png" mode="aspectFill">
+	</image>
+	<image wx:if='{{$state.skin==2}}'class='background' src="../../images/background2.png" mode="aspectFill">
 	</image>
 	<mp-dialog title="{{dialogTitle}}" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{dialogsButton}}">
 		<!-- <view>{{dialogTitle}}</view> -->
@@ -23,6 +26,10 @@
 		</view>
 		<view class='downmidshadow '></view>
 		<view class='downmidbg '></view>
+			<view class='downfirst {{nowPage==0&&card_num==0 ? "" : "displayNone"}}'>
+			<text style="color:gray">现在，给自己制定一个打卡计划</text>
+				<text style="color:gray">⬇</text>			
+			</view>
 		<view class='downmid {{nowPage==1||nowPage==3||nowPage==4||nowPage==5 ? "downmiddisable" : ""}}'>
 			<image class='downmidimg {{nowPage!=0&&nowPage!=1 ? "displayNone" : ""}}' src="../../images/newaim3.png" data-to="1" bindtap="changePage"></image>
 			<image class='downmidimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="0" bindtap="changePage"></image>

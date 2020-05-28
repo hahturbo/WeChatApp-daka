@@ -13,6 +13,13 @@ Page({
    */
   onLoad: function(){
     this.GetCardData();
+    wx.setNavigationBarTitle({
+      title: "打卡记录"      
+    })
+    // wx.setNavigationBarColor({
+    //   backgroundColor:"#ffffff"
+    // })
+    //不行
 },
 slideButtonTap(e) {
     console.log('slide button tap', e.detail)
