@@ -1,13 +1,16 @@
 <!--pages/tick/tick.wxml-->
 <view class="containerCin">
+
+<view class="cavAll" wx:if='{{cav}}'>
+    <canvas canvas-id="share" class="cav"></canvas>
+		<mp-icon class="close_icon" icon="close" color="black" size="{{25}}" bindtap="cav_close"></mp-icon>
+</view>
+
 	<view><text class="title">我的目标板</text></view>
 	<!-- <movable-area id="movable_area"> -->
 	<!-- wx:for="(single, index) in goalsBoard" -->
 	<!-- <movable-view wx:for="{{goalsBoard}}" wx:for-index="index" wx:for-item="single" wx:key="index" class='line' direction="vertical" bindchange='LineTap' data-number='{{index}}' y='{{ MoveableViewY[0]}}'>{{single.id}}.....<input></input><image src="../../images/tick_ok.png"></image></movable-view> -->
 	<!-- <movable-view class='line' direction="vertical" bindchange='LineTap' data-number='1' y='{{ MoveableViewY[1]}}'>{{MoveableViewID[1]}}<input></input><image src="../../images/tick_ok.png"></image></movable-view> -->
-
-
-
 	<!-- </movable-area> -->
 
 	<movable-area class='movable-area' style='display:{{movableViewInfo.showClass}}; height:{{pageInfo.scrollHeight}}%;'>

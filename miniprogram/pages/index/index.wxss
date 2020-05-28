@@ -160,7 +160,7 @@ page .return2Home{
   height: 100%;
   position: fixed;
   background-color: #FFF;
-  z-index: 999;
+  z-index: 99;
   padding-top: 100px; 
   text-align: center;
 }

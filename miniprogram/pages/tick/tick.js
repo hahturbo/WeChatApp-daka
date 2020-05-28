@@ -6,13 +6,17 @@ Component({
   properties: {
 
   },
-
+  // onLoad: ()=>{
+  //   console.log(123);
+    
+  // },
   /**
    * 组件的初始数据
    */
   data: {
     //null_flag: 1, //目标数转全局变量board_num了
-
+    cav: false,
+    name:1,
     movableViewInfo: {
       y: 0,
       showClass: 'none',
@@ -108,18 +112,34 @@ Component({
       icon: 0,
     }, ]
   },
+  onLoad(){
+    console.log('isajd9iqwjd89iqjd09uf901jf09jf092jf2k90i90');
+    
+  },
+
 
   attached: function () {
     console.log("onload");
     this.FreshAtoB();
+   
     //this.FinshInput();//A2B已有
+   // this.Drawshare();
   },
+  onUnload: function () {
+    clearInterval(this.interval)
+  },
+
+  // onLoad: function(){
+  //   this.Drawshare();
+  // },
 
   /**
    * 组件的方法列表
    */
+   // 属性定义（详情参见下文）
+  
   methods: {
-
+    
     dragStart: function (event) {
       var pageInfo = this.data.pageInfo;
       let h = 80;
@@ -286,7 +306,7 @@ Component({
         } else if (i > null_flag) {
           ExgoalsBoard[i].disabled = true;
           if (ExgoalsBoard[i].icon != 2) {
-           // ExgoalsBoard[i].icon = 0;
+            // ExgoalsBoard[i].icon = 0;
           }
         }
       }
@@ -307,6 +327,13 @@ Component({
       this.setData({
         goalsBoard: ExgoalsBoard,
       })
+      if(ExgoalsBoard[e.currentTarget.dataset.index].icon==1&&ExgoalsBoard[e.currentTarget.dataset.index].name!=''){
+        this.setData({
+          cav: true,
+          name:ExgoalsBoard[e.currentTarget.dataset.index].name,
+        })
+        this.Drawshare(ExgoalsBoard[e.currentTarget.dataset.index].name);
+      }
       this.FreshBtoA();
     },
 
@@ -315,8 +342,8 @@ Component({
       console.log(this.$state.goalsBoardData);
       let goalsBoardData = this.$state.goalsBoardData;
       let goalsBoard = this.data.goalsBoard;
-      let length = goalsBoardData.length>15?15:goalsBoardData.length;
-      console.log("length",length);
+      let length = goalsBoardData.length > 15 ? 15 : goalsBoardData.length;
+      console.log("length", length);
       let x = 0; //差
       let title;
       for (let i = 0; i < 15; i++) {
@@ -325,7 +352,7 @@ Component({
           let title = goalsBoardData[i].title;
           let icon = goalsBoardData[i].type;
           //this.CheckIfisAim(title);
-          console.log("tittle",title);
+          console.log("tittle", title);
           if (title && (icon != 2 || this.CheckIfisAim(title))) {
             goalsBoard[i - x].name = goalsBoardData[i].title;
             // id  
@@ -359,9 +386,10 @@ Component({
       console.log("CheckIfisAim");
       console.log(this.$state.aimCardDatas);
       let title_card;
-      if(this.$state.aimCardDatas.length==0){
+      if (this.$state.aimCardDatas.length == 0) {
         console.log("暂未拉取打卡项");
-        return true;}
+        return true;
+      }
       for (let i = 0; i < this.$state.aimCardDatas.length; i++) {
         title_card = this.$state.aimCardDatas[i].goal_name;
         console.log(title, ":", title_card)
@@ -383,6 +411,36 @@ Component({
         goalsBoardData: goalsBoard,
       })
     },
+
+    Drawshare: function (name) {
+      //let name=this.data.name
+      console.log("draw",name)
+      // res.path='../../images/tick-YES.png'
+        const ctx = wx.createCanvasContext("share",this)
+      //var ctx = wx.createContext()
+      console.log(wx);
+      ctx.setFillStyle('white');
+      ctx.fillRect(0, 0, 300, 400);    
+      ctx.setTextAlign('center')    // 文字居中
+      ctx.setFillStyle('#000000')  // 文字颜色：黑色
+      ctx.setFontSize(33)         // 文字字号：
+      ctx.fillText("[达成目标]", 150, 70);
+      ctx.fillText(name,150, 130);
+      ctx.setFontSize(20) 
+      ctx.fillText("我做到了！",120, 230);         
+      ctx.drawImage('../../images/tick-YES.png', 15, 200, 250, 200)
+      ctx.draw()
+           
+
+    },
+
+    cav_close:function(e){
+      this.setData({
+        cav:false,
+      })
+      
+    }
+
 
   },
 })
