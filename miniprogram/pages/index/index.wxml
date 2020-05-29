@@ -15,7 +15,7 @@
 	<mp-dialog title="{{dialogTitle}}" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{dialogsButton}}">
 		<!-- <view>{{dialogTitle}}</view> -->
 	</mp-dialog>
-	<view class='down'>
+	<view class='down {{$state.skin==1?"d_shadow":""}} {{$state.skin==2?"d_black_line":""}}'>
 		<!-- <image class='downmainimg' src="../../images/down.png" mode="aspectFill"></image> -->
 		<view class="downleft">
 			<image class='downimg {{nowPage!=0 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="3" bindtap="ChangePageGetBoard"></image>
@@ -25,7 +25,7 @@
 			<image class='downimg {{nowPage!=2&&nowPage!=3 ? "displayNone" : ""}}' src="../../images/tick.png" data-to="0" bindtap="ChangePagePostBoard"></image>
 			<image class='downimg {{nowPage!=5 ? "displayNone" : ""}}' src="../../images/refuse.png" bindtap="changePage" data-to="0"></image>
 		</view>
-		<view class='downmidshadow '></view>
+		<view wx:if='{{$state.skin==1}}' class='downmidshadow '></view>
 		<view class='downmidbg '></view>
 			<view class='downfirst {{nowPage==0&&card_num==0 ? "" : "displayNone"}}'>
 			<text style="color:gray">现在，给自己制定一个打卡计划</text>
@@ -58,7 +58,7 @@
 
 	<scroll-view scroll-y="true" class='AllMainCard {{nowPage== 0?"":"displayNone"}} '>
 		<view class="LetAMCCenter">
-			<view id="main_container" class='aim_card  {{$state.skin==1?"color_skin1":""}} {{$state.skin==2?"color_skin2":""}} {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}}' animation="{{open_animation}}">
+			<view id="main_container" class='aim_card  {{$state.skin==1? "bgcolor-o":""}} {{$state.skin==2? "bgcolor-skin2":""}} {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}}' animation="{{open_animation}}">
 				<!-- <view id="main_container" class='aim_card  displayNone' animation="{{open_animation}}"> -->
 				<!-- {{card_num<3 && nowPage== 0?"":"displayNone"}} -->
 				<!-- 调试用 -->
@@ -85,7 +85,7 @@
 		</view>
 
 		<view class="LetAMCCenter" wx:for='{{$state.aimCardDatas}}'>
-			<view class='mid-contentA {{$state.skin==2?"color_skin2":""}} {{(index%3==0&&$state.skin==1)?"bgcolor-g":""}} {{(index%3==1&&$state.skin==1)?"bgcolor-b":""}} {{(index%3&&$state.skin==1==2)?"bgcolor-o":""}} {{$state.aimCardDatas[index+1]?"":"displayNone"}} '>
+			<view class='mid-contentA {{$state.skin==2?"bgcolor-skin2":""}} {{(index%3==0&&$state.skin==1)?"bgcolor-g":""}} {{(index%3==1&&$state.skin==1)?"bgcolor-b":""}} {{(index%3&&$state.skin==1==2)?"bgcolor-o":""}} {{$state.aimCardDatas[index+1]?"":"displayNone"}} '>
 			<view class='contentAText'>
 			<text  bindtap="gotodetails" class='mid-text {{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2" : ""}}' data-to="{{index+1}}">{{$state.aimCardDatas[index+1].goal_name}}</text>
 			<text class='small-text {{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2_2" : ""}} {{$state.aimCardDatas[index+1].goal_is_a_group==0?"":"displayNone"}}'>已连续{{$state.aimCardDatas[index+1].constantly
@@ -112,7 +112,7 @@
 
 	<!-- class='AllMainCard'end -->
 
-	<view class='FullScreenCard aim_card {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}} {{nowPage==1||nowPage==2||nowPage==4||nowPage==5? "" : "displayNone"}}'>
+	<view class='FullScreenCard aim_card  {{$state.skin==1? "bgcolor-o":""}} {{$state.skin==2? "bgcolor-skin2":""}} {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}} {{nowPage==1||nowPage==2||nowPage==4||nowPage==5? "" : "displayNone"}}'>
 		<!-- animation="{{open_animation}}" -->
 		<!-- <view class=' containerB {{nowPage==1 ? "displayBlock" : "displayNone"}}'> -->
 		<!-- <view class=' containerB {{wx:if="{{view == 'WEBVIEW'}}" ? "" : "displayNone"}}'> -->

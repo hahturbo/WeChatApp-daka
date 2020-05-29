@@ -265,7 +265,7 @@ page .return2Home{
   width:600rpx;
   height: 180rpx;
   border-radius: 30rpx;
-  box-shadow: 0px 0px 40rpx 10rpx #888888;
+
   border-style: dashed;
   border-color: #FFFFFF;
   border-width: 5rpx;
@@ -276,15 +276,24 @@ page .return2Home{
   flex-direction: row;
 }
 .bgcolor-g{
+  box-shadow: 0px 0px 40rpx 10rpx #888888;
   background-color:#A8D08C ;
 }
 .bgcolor-b{
+  box-shadow: 0px 0px 40rpx 10rpx #888888;
   background-color:#B3D0EB ;
 }
 .bgcolor-o{
+  box-shadow: 0px 0px 40rpx 10rpx #888888;
   background-color:#FFCC66 ;
 }
 
+.bgcolor-skin2{
+ border-style: dotted;
+ border-width: 5px;
+ border-color: black;
+  background-color:var(--main-color2) ;
+}
 
 
 

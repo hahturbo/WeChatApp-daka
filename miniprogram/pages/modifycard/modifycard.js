@@ -162,7 +162,7 @@ Component({
           break;
       }
     },
-    // mofify-父组件调用
+    // modify-父组件调用
     modify: function () {
       console.log(this.data.goal_type);
       if (this.data.goal_type == 0) {

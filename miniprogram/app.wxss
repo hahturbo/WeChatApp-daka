@@ -2,7 +2,10 @@
 page {
 
   --main-color: #FFCC66;
+  --second-color: #FF9966;
   --main-color2:rgb(255, 255, 255);
+  --linebg-color:#F2F2F2;
+  --second-text-color:#888888;
 }
 /* {{skin==1 ? "text_skin1" : ""}} {{skin==2 ? "text_skin2" : ""}} */
 .text_skin1{
@@ -132,8 +135,8 @@ page {
 
   /* 导航栏图片统一定义 */
   page .downimg {
-    width: 60rpx;
-    height: 60rpx;
+    width: 50rpx;
+    height: 50rpx;
     /* text-align: center; */
     top: 1vw;
     /* left: 3vw; */
@@ -141,8 +144,8 @@ page {
   }
 
   page .downmidimg {
-    width: 60rpx;
-    height: 60rpx;
+    width: 50rpx;
+    height: 50rpx;
     top: 0rpx;
     position: relative;
   }
@@ -288,7 +291,7 @@ page .btn_go_on {
   width: 600rpx;
   height: 600rpx;
   border-radius: 45rpx;
-  box-shadow: 0px 0px 40rpx 10rpx #888888;
+  /* box-shadow: 0px 0px 40rpx 10rpx #888888; */
   border-style: dashed;
   border-color: #FFFFFF;
   border-width: 5rpx;
@@ -314,8 +317,19 @@ page .btn_go_on {
   position: fixed;
   z-index: 10;
   flex-direction: row;
+
+}
+
+.d_shadow{
   box-shadow: 0rpx 0rpx 30rpx 10rpx #888888;
 }
+.d_black_line{
+ border-color: black;
+ border-width: 2px;
+ border-style: solid;
+}
+
+
 
 .downmainimg {
   width: 100vw;
@@ -388,6 +402,8 @@ page .btn_go_on {
   box-shadow: 0rpx 0rpx 30rpx 15rpx #888888;
 }
 
+
+
 .downmidbg {
   width: 34vw;
   height: 8vh;
@@ -405,17 +421,17 @@ page .btn_go_on {
 
 /* 导航栏图片统一定义 */
 .downimg {
-  width: 130rpx;
-  height: 140rpx;
+  width: 100rpx;
+  height: 100rpx;
   /* text-align: center; */
-  top: 1vw;
+  top: 0vw;
   /* left: 3vw; */
   position: relative;
 }
 
 .downmidimg {
-  width: 170rpx;
-  height: 170rpx;
+  width: 150rpx;
+  height: 150rpx;
   top: 0rpx;
   position: relative;
 }
