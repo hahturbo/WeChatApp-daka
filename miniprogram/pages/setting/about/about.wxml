@@ -11,17 +11,19 @@
 </view>
 
 <view class="box3">   
-     <text>---</text>
-     <navigator url="./serverdetail/serverdetail">
+     <view class="box3in">
+     <text >---</text>
+     <navigator   url="./serverdetail/serverdetail">
      <text >服务协议</text>
      </navigator>
      <text>-----</text>
      <navigator>联系方式</navigator>
      <text>---</text>
+     </view>
 </view>
 
 <view  class="box4">
-     <text style="font-size:12px">版本号：</text>
-     <text style="font-size:10px">{{this.$state.version}}</text>     
+     <text style="font-size:32rpx">版本号：</text>
+     <text style="font-size:32rpx">{{$state.version}}</text>     
 </view>
 
