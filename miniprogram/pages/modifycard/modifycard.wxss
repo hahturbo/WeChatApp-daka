@@ -36,7 +36,7 @@
   float: right;
 }
 
-.right_text.picker {
+.right_text picker {
   display: inline-block;
 }
 
