@@ -10,8 +10,8 @@
 <view class="skin_in">
 <image src="../../../images/skin1.png"></image>
 <text>柠檬黄</text>
-<image class='icon {{$state.skin!=1?"icon_cirle":""}}' src='{{$state.skin==1?"../../../images/cardend.png":""}}'  bindtap="btn" data-skin='1'></image>
-	<!-- <mp-icon class='icon {{$state.skin!=1?"icon_cirle":""}}' icon='{{$state.skin==1?"done":""}}' color="green" size="{{35}}" bindtap="btn" data-skin='1'></mp-icon> -->
+<view class='icon icon_cirle' wx:if='{{$state.skin!=1}}' bindtap="btn" data-skin='1'></view>
+<image class='icon ' src='../../../images/cardend.png'  wx:if='{{$state.skin==1}}'></image>
 </view>
 </view>
 
@@ -19,7 +19,8 @@
 <view class="skin_in">
 <image src="../../../images/skin2.png"></image>
 <text>方格纸</text>
-<image class='icon {{$state.skin!=2?"icon_cirle":""}}' src='{{$state.skin==2?"../../../images/cardend.png":""}}'  bindtap="btn" data-skin='2'></image>
+<view class='icon icon_cirle' wx:if='{{$state.skin!=2}}' bindtap="btn" data-skin='2'></view>
+<image class='icon ' src='../../../images/cardend.png'  wx:if='{{$state.skin==2}}'></image>
 	<!-- <mp-icon class='icon {{$state.skin!=2?"icon_cirle":""}}' icon='{{$state.skin==2?"done":""}}' color="green" size="{{35}}" bindtap="btn" data-skin='2'></mp-icon> -->
 </view>
 </view>

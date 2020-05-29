@@ -31,6 +31,10 @@ Page({
     this.setState({
       skin:skin,
     })
+    wx.setStorage({
+      key:"skin",
+      data:skin,
+    })
 
   },
 
