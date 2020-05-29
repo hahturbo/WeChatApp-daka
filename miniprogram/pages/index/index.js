@@ -50,8 +50,71 @@ Page({
     carditem: '',
   },
 
+  onShow: function (e) {
+
+  this.ShowSkin();
+  },
+
+  ShowSkin: function(){
+    console.log("skin", this.$state.skin, "TT", typeof (this.$state.skin));
+    switch (this.$state.skin) {
+      case "1":
+      case  1:
+        console.log("skin1")
+        wx.setNavigationBarColor({
+          frontColor: '#000000',
+          backgroundColor: '#FFCC66',
+          complete: () => {
+            console.log("换1完成")
+          }
+        })
+        break;
+      case "2":
+      case 2:
+        console.log("skin2")
+        wx.setNavigationBarColor({
+          frontColor: '#000000',
+          backgroundColor: '#ffffff',
+          complete: () => {
+            console.log("换2 完成")
+          }
+        })
+        break;
+      default:
+        console.log("skin1")
+        wx.setNavigationBarColor({
+          frontColor: '#000000',
+          backgroundColor: '#FFCC66',
+          complete: () => {
+            console.log("换d 完成")
+          }
+        })
+        break;
+    }
+
+  },
+
+
+
   onLoad: function (options) {
-    console.log('options1', options);
+    try {
+      var skin = wx.getStorageSync('skin')
+      if (skin) {
+        // Do something with return value
+        console.logkey,("sout:", skin)
+        this.setState({
+          skin:skin
+         })
+         this.ShowSkin();
+      }
+    } catch (e) {
+      console.log(e)
+      this.setState({
+        skin:0
+       })
+      // Do something when catch error
+    }
+      console.log('options1', options);
     console.log('options2', options.id);
     let invite_goal_id = options.id;
     if (!this.data.isLogin) {
@@ -261,6 +324,7 @@ Page({
   },
   //
   checkPermission: function (e) {
+
     if (e.detail.userInfo) {
       // 有授权的操作
       wx.getSetting({
@@ -363,10 +427,6 @@ Page({
           }
         })
       }, 1500);
-
-
-
-
     } else {
       console.log('用户拒绝了授权');
       this.setData({
@@ -766,7 +826,26 @@ Page({
       nowPage: e.detail === 'delete' ? 0 : 4,
       changedPageCounts: this.data.changedPageCounts + 1,
     })
+  },
+
+  get_storage: function(key){
+    console.log("keyin",key)
+    wx.getStorage({
+      key: key,
+      success (res) {
+        console.logkey,(key,"sout:", res.data)
+        return res.data;
+      },
+      complete (res) {
+        console.logkey,(key,"out:", res.data)
+        return res.data;
+      }
+    })
   }
+
+
+
+
   //以上为公共
   // //新建界面
   // bindPickerTypeChange: function (e) {

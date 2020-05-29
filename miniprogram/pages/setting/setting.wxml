@@ -25,9 +25,9 @@
 	</view>
 
 	<view class="card">
-		<view class="uploader-text" bindtap="doUpload">
-			<text >外观设置</text><text class="right_text" decode='true'>&gt;</text>
-		</view>
+		<navigator url="../setting/skin/skin">
+			<text >外观设置</text><text class="right_text"  decode='true'>&gt;</text>
+		</navigator>
 	</view>
 
 	<view class="card">

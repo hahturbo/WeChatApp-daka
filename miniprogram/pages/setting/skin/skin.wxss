@@ -1,0 +1,66 @@
+/* miniprogram/pages/setting/skin/skin.wxss */
+.skin_card{
+  display: inline-block;
+  /* border-style: solid; */
+  width: 100vw;
+  height:90vh ;
+align-items: center;
+
+}
+
+.skin_in{
+  display: flex;
+  width: 100vw;
+  height:90vh ;
+  flex-direction: column;
+  justify-content: space-between;
+align-items: center;
+}
+
+image{
+  width:65vw ;
+  height: 60vh;
+margin: 45rpx;
+}
+text{
+  margin: 30rpx;
+  font-size: 45rpx;
+}
+.icon{
+  margin: 50rpx;
+  width: 70rpx;
+  height: 70rpx;
+}
+.icon_cirle{
+  border-color: gray;
+  border-width: 5rpx;
+  border-radius: 50%;
+  border-style: solid;
+}
+
+.skin_zone{
+  z-index: 10;
+  white-space: nowrap;
+  width:100%;
+padding-top: 1vh;
+/* box-shadow: 0px 0px 15px #888888; */
+}
+
+.beautyL{
+  z-index:99;
+  width: 20%;
+  height: 100%;
+  /* z-index: 99; */
+position: fixed;
+background-image: linear-gradient(to right, #ffffffff ,#ffffff00);
+}
+
+.beautyR{
+  right: 0;
+  z-index:99;
+  width: 20%;
+  height: 100%;
+  /* z-index: 99; */
+position: fixed;
+background-image: linear-gradient(to left, #ffffffff , #ffffff00);
+}

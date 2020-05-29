@@ -1,6 +1,10 @@
 
 // 全局变量
 let store = {
+  skin:1, //1初始橙 2网格白
+  version:"0.1.0",
+
+
   can_share:false,
   invite_goal_id:'',
   msg: 'xxxxx',
@@ -19,7 +23,7 @@ let store = {
   CardGroupData:'',
   GoalType:['极简', '普通', '微信运动'],
 
-
+  tick_title:'',
 }
 // 所有已加载的页面和组件
 let pcList = []

@@ -23,6 +23,21 @@ image{
   height: 50rpx;
   float: right;
 }
+
+.tick_circle{
+  margin-right: 20rpx;
+  border-radius: 50%;
+  border-width: 5rpx;
+  border-style: solid;
+  border-color: gray;
+  width: 30rpx;
+  height:30rpx;
+  
+  }
+
+
+
+
 input{
   width: 90%;
 }
@@ -50,11 +65,17 @@ movable-area {
   flex-direction: column;
   align-items: center;
   box-sizing: border-box; */
+
+  border-width: 3rpx;
+  border-color: black;
+  border-style: solid;
+
   width: 670rpx;
   height: 70vh;
   /* position:fixed;  */
-  margin-top:20rpx ;
+  padding-top:20rpx ;
   border-radius: 50rpx 50rpx 50rpx 50rpx;
+
   background: rgb(255, 255, 255);
   align-items: center;
   display: flex;
@@ -127,14 +148,13 @@ page {
   width: 100%;
 }
 
-.cav{
-width:300px;
-height:400px;
-border: 1px solid;
-position: absolute;
-
-
-}
+.cavout{
+  width:300px;
+  height:400px;
+  border: 1px solid;
+  position: absolute;  
+  background-color: white;
+  }
 
 .cavAll{
   width: 100%;

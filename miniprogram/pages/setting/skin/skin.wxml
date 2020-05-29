@@ -1,0 +1,29 @@
+<!--miniprogram/pages/setting/skin/skin.wxml-->
+<view>
+
+<view class="beautyL">
+</view>
+<view class="beautyR">
+</view>
+<scroll-view scroll-x="true" scroll-y="false" class="skin_zone">
+<view class="skin_card">
+<view class="skin_in">
+<image src="../../../images/skin1.png"></image>
+<text>柠檬黄</text>
+<view class='icon icon_cirle' wx:if='{{$state.skin!=1}}' bindtap="btn" data-skin='1'></view>
+<image class='icon ' src='../../../images/cardend.png'  wx:if='{{$state.skin==1}}'></image>
+</view>
+</view>
+
+<view class="skin_card">
+<view class="skin_in">
+<image src="../../../images/skin2.png"></image>
+<text>方格纸</text>
+<view class='icon icon_cirle' wx:if='{{$state.skin!=2}}' bindtap="btn" data-skin='2'></view>
+<image class='icon ' src='../../../images/cardend.png'  wx:if='{{$state.skin==2}}'></image>
+	<!-- <mp-icon class='icon {{$state.skin!=2?"icon_cirle":""}}' icon='{{$state.skin==2?"done":""}}' color="green" size="{{35}}" bindtap="btn" data-skin='2'></mp-icon> -->
+</view>
+</view>
+
+</scroll-view>
+</view>

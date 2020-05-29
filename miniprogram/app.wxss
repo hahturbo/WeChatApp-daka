@@ -2,6 +2,15 @@
 page {
 
   --main-color: #FFCC66;
+  --main-color2:rgb(255, 255, 255);
+}
+/* {{skin==1 ? "text_skin1" : ""}} {{skin==2 ? "text_skin2" : ""}} */
+.text_skin1{
+  color: #FFFFFF;
+}
+
+.text_skin2{
+  color: rgb(0, 0, 0);
 }
 
 /* @media screen and (min-width: 500px) {
@@ -204,6 +213,13 @@ position: fixed;
 right:100rpx;
 }
 
+#clicp2{
+  width: 80rpx;
+  height: 150rpx;
+  position: fixed;
+  right:100rpx;
+  }
+
 .right_text {
   right: 30rpx;
   display: inline-block;
@@ -257,13 +273,20 @@ page .btn_go_on {
 
 
 /* 选项卡定义 */
+/* {{$state.skin==1?"color_skin1":""}}{{$state.skin==2?"color_skin2":""}} */
+.color_skin1{
+  background: var(--main-color);
+}
+
+.color_skin2{
+  background: var(--main-color2);
+}
+
+
 .aim_card {
-
   /*滚动条*/
-
   width: 600rpx;
   height: 600rpx;
-  background: var(--main-color);
   border-radius: 45rpx;
   box-shadow: 0px 0px 40rpx 10rpx #888888;
   border-style: dashed;

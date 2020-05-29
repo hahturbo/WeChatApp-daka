@@ -7,6 +7,7 @@
     "setting":"../setting/setting",
     "tick":"../tick/tick",
     "invite":"../invite/invite",
+    "mp-icon": "/miniprogram_npm/weui-miniprogram/icon/icon",
     "modifycard":"../modifycard/modifycard"
 
   }

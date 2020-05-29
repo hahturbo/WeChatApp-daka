@@ -156,20 +156,61 @@ page .return2Home{
 } 
 
 .auth{
-  width: 100%;
-  height: 100%;
+  width: 100vh;
+  height: 100vh;
   position: fixed;
-  background-color: #FFF;
+  background-color: #aeadaddd;
   z-index: 99;
-  padding-top: 100px; 
+   padding-top: 100px;  
   text-align: center;
+  align-items: center;
+}
+.auth_in{
+  left: 50%;
+   transform: translateX(-50%);
+  width:540rpx;
+  height: 400rpx;
+  position: absolute;
+  background-color: #fff;
+  z-index: 99;
+  padding-top:20px; 
+  border-radius: 50rpx;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.user_img{
+  margin: 10rpx;
+  width: 70rpx;
+  height: 70rpx;
+  border-radius:20rpx;
+  border-width: 6rpx; 
+  border-style: solid;
+  border-color: var(--main-color);
+  overflow:hidden;
+  text-align: center;
+
 }
 .auth button{
-  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 
 /* 主新建卡类定义 类：home-content */
+.downfirst {
+  width:500rpx;
+  height: 10vw;
+  top:-230rpx;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+
+
 .LetAMCCenter{
   width: 100%;
   align-items: center;
@@ -189,14 +230,25 @@ page .return2Home{
   align-items: center;  
 }
 
+/* {{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2" : ""}}*/
+.text_skin1{
+  color: #FFFFFF;
+}
+
+.text_skin2{
+  color: rgb(0, 0, 0);
+}
+.text_skin2_2{
+  color: gray
+}
+
 
 .home-content text {
-  color: #FFFFFF;
+ 
   font-size:44rpx;
   font-weight:bold;
   text-align: center;
   margin: 10rpx;
-
 }
 
 .home-content{
@@ -243,8 +295,6 @@ align-items: left;
 flex-direction:column;
 }
  .small-text{
- 
-  color: #FFFFFF;
   font-size:33rpx;
   font-weight: 	normal;
   text-align: left;
@@ -253,7 +303,6 @@ flex-direction:column;
 }
 .mid-text{
   text-align: left;
-  color: #FFFFFF;
   font-size:44rpx;
   font-weight:bold;
   margin:10rpx;
@@ -279,10 +328,7 @@ flex-direction:column;
 }
 
 
-#main_container{
-  transition: 1s;
-  /* 好的 不行 */
-}
+
 /* daka选项卡定义 */
 /* .aim_card{
   overflow-y: scroll; 
@@ -336,7 +382,7 @@ flex-direction:column;
     opacity: 0;
     /* width: 500rpx;
     height: 600rpx; */
-    background-color: var(--main-color);
+    /* background-color: var(--main-color); */
   }
   to{
     opacity: 1; 
@@ -370,7 +416,7 @@ flex-direction:column;
     opacity: 1;
     width: 600rpx;
     height: 600rpx;
-    background-color: var(--main-color);
+    /* background-color: var(--main-color); */
   }
   from{
     opacity: 0;
@@ -410,6 +456,9 @@ flex-direction:column;
   border-style: dashed;
   border-color:rgb(255,153,102);
 }
+
+
+
 .NACunable{
   background:var(--main-color) !important;
 }
