@@ -357,6 +357,33 @@ Page({
                               isLogin: true,
                               login_key: res.data['login_key']
                             })
+
+                                 // 获取用户信息。计算使用天数
+      setTimeout(() => {
+        console.log("isLogin2", this.data.isLogin, "key2", this.$state.login_key);
+        wx.request({
+          method: 'POST',
+          url: this.data.apiUrl + '/user/info',
+          data: {
+            login_key: this.$state.login_key,
+          },
+          success: (res) => {
+            console.log("info", res.data);
+            let DATE = new Date();
+            let DATESU = new Date(res.data.data.signed_up);
+            DATE = parseInt((DATE - DATESU) / (24 * 60 * 60 * 1000));
+            console.log("11", DATE);
+            this.setState({
+              signed_up: res.data.data.signed_up,
+              using_day: DATE,
+            })
+          }
+        })
+      }, 500);
+
+
+
+
                           } else {
                             // this.setState({
                             //   isLogin: false,
@@ -405,28 +432,28 @@ Page({
       //   ConsoleText:this.data.isLogin,
       // })
 
-      // 获取用户信息。计算使用天数
-      setTimeout(() => {
-        console.log("isLogin2", this.data.isLogin, "key2", this.$state.login_key);
-        wx.request({
-          method: 'POST',
-          url: this.data.apiUrl + '/user/info',
-          data: {
-            login_key: this.$state.login_key,
-          },
-          success: (res) => {
-            console.log("info", res.data);
-            let DATE = new Date();
-            let DATESU = new Date(res.data.data.signed_up);
-            DATE = parseInt((DATE - DATESU) / (24 * 60 * 60 * 1000));
-            console.log("11", DATE);
-            this.setState({
-              signed_up: res.data.data.signed_up,
-              using_day: DATE,
-            })
-          }
-        })
-      }, 1500);
+      // // 获取用户信息。计算使用天数 上移
+      // setTimeout(() => {
+      //   console.log("isLogin2", this.data.isLogin, "key2", this.$state.login_key);
+      //   wx.request({
+      //     method: 'POST',
+      //     url: this.data.apiUrl + '/user/info',
+      //     data: {
+      //       login_key: this.$state.login_key,
+      //     },
+      //     success: (res) => {
+      //       console.log("info", res.data);
+      //       let DATE = new Date();
+      //       let DATESU = new Date(res.data.data.signed_up);
+      //       DATE = parseInt((DATE - DATESU) / (24 * 60 * 60 * 1000));
+      //       console.log("11", DATE);
+      //       this.setState({
+      //         signed_up: res.data.data.signed_up,
+      //         using_day: DATE,
+      //       })
+      //     }
+      //   })
+      // }, 3500);
     } else {
       console.log('用户拒绝了授权');
       this.setData({
