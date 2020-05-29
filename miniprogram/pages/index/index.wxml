@@ -20,7 +20,8 @@
 		<view class="downleft">
 			<image class='downimg {{nowPage!=0 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="3" bindtap="ChangePageGetBoard"></image>
 			<image class='downimg {{nowPage!=1? "displayNone" : ""}}' src="../../images/back.png" data-to="0" bindtap="changePage_Back"></image>
-						<image class='downimg {{nowPage!=4 ? "displayNone" : ""}}' src="../../images/back.png" data-to="0" bindtap="changePage"></image>
+			<image class='downimg {{nowPage!=6? "displayNone" : ""}}' src="../../images/notmodify.png" data-to="4" bindtap="changePage_Back"></image>
+			<image class='downimg {{nowPage!=4 ? "displayNone" : ""}}' src="../../images/back.png" data-to="0" bindtap="changePage"></image>
 			<image class='downimg {{nowPage!=2&&nowPage!=3 ? "displayNone" : ""}}' src="../../images/tick.png" data-to="0" bindtap="ChangePagePostBoard"></image>
 			<image class='downimg {{nowPage!=5 ? "displayNone" : ""}}' src="../../images/refuse.png" bindtap="changePage" data-to="0"></image>
 		</view>
@@ -30,21 +31,22 @@
 			<text style="color:gray">现在，给自己制定一个打卡计划</text>
 				<text style="color:gray">⬇</text>			
 			</view>
-		<view class='downmid {{nowPage==1||nowPage==3||nowPage==4||nowPage==5 ? "downmiddisable" : ""}}'>
+		<view class='downmid {{nowPage==1||nowPage==3||nowPage==4||nowPage==5||nowPage==6? "downmiddisable" : ""}}'>
 			<image class='downmidimg {{nowPage!=0&&nowPage!=1 ? "displayNone" : ""}}' src="../../images/newaim3.png" data-to="1" bindtap="changePage"></image>
 			<image class='downmidimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="0" bindtap="changePage"></image>
 			<image class='downmidimg {{nowPage!=3 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="0" bindtap=""></image>
 			<image class='downmidimg {{nowPage!=4 ? "displayNone" : ""}}' src="../../images/carddetail.png" data-to="0" bindtap="" ></image>
-					<image class='downmidimg {{nowPage!=5 ? "displayNone" : ""}}' src="../../images/join_group.png" data-to="0" bindtap="" ></image>
+			<image class='downmidimg {{nowPage!=5 ? "displayNone" : ""}}' src="../../images/join_group.png" data-to="0" bindtap="" ></image>
+			<image class='downmidimg {{nowPage==6 ? "" : "displayNone"}}' src="../../images/modifycard.png" ></image>
 		</view>
 
 		<view class="downright">
 			<image class='downimg {{nowPage!=0&&nowPage!=3 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="2" bindtap="ChangePagePostBoard"></image>
 			<image class='downimg {{nowPage!=1 ? "displayNone" : ""}}' src="../../images/finish.png" data-to="0" bindtap="changePage_Finish"></image>
 			<image class='downimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="3" bindtap="ChangePageGetBoard"></image>
-			<image class='downimg {{nowPage==4 ? "" : "displayNone"}}' src="../../images/modify.png" data-to="0" bindtap="changePage" ></image>
-			<!-- 4datato6修改打卡 -->
 			<image class='downimg {{nowPage!=5 ? "displayNone" : ""}}' src="../../images/accept.png" data-to="0" bindtap="AcceptInvite" ></image>
+			<image class='downimg {{nowPage==4 ? "" : "displayNone"}}' src="../../images/modify.png" data-to="6" bindtap="changePage" ></image>
+			<image class='downimg {{nowPage==6 ? "" : "displayNone"}}' src="../../images/savemodify.png" data-to="4" bindtap="modifycard" ></image>
 
 		</view>
 	</view>
@@ -109,7 +111,7 @@
 
 	<!-- class='AllMainCard'end -->
 
-	<view class='FullScreenCard aim_card {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}} {{nowPage==1||nowPage==2||nowPage==4||nowPage==5 ? "" : "displayNone"}}'>
+	<view class='FullScreenCard aim_card {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}} {{nowPage==1||nowPage==2||nowPage==4||nowPage==5? "" : "displayNone"}}'>
 		<!-- animation="{{open_animation}}" -->
 		<!-- <view class=' containerB {{nowPage==1 ? "displayBlock" : "displayNone"}}'> -->
 		<!-- <view class=' containerB {{wx:if="{{view == 'WEBVIEW'}}" ? "" : "displayNone"}}'> -->
@@ -126,8 +128,15 @@
 		<invite></invite>
 		</view>
 		<!-- nowpage==4 -->
-		<view class='containerB toFucard carddetail' wx:if="{{nowPage==4}}">
+		<view class='containerB toFullCard carddetail' wx:if="{{nowPage==4}}">
 			<carddetail carditem="{{carditem}}" bind:deleteEvent='getsondelete'></carddetail>
+		</view>
+	</view>
+	<!-- 再来一个，实现进出背景和内容动画都有 -->
+	<view class='FullScreenCard aim_card toFullCard {{nowPage==6 ? "" : "displayNone"}}'>
+		<!-- nowpage==6 -->
+		<view class='containerB toFullCard modifycard' wx:if="{{nowPage==6}}">
+			<modifycard carditem = "{{carditem}}" id ='modifycard'></modifycard>
 		</view>
 	</view>
 	<!-- nowpage3 start -->

@@ -462,7 +462,7 @@ flex-direction:column;
 .NACunable{
   background:var(--main-color) !important;
 }
-.containerB.toFucard.carddetail{
+.containerB.toFullCard.carddetail{
   background-color: white;
 }
 

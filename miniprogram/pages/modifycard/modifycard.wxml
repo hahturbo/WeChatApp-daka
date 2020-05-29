@@ -1,0 +1,89 @@
+<!--pages/modifycard/modifycard.wxml-->
+<view class='modifycard'>
+	<!-- title -->
+	<view class="bg">
+		<view class="title">
+			<text>{{$state.aimCardDatas[item].goal_is_a_group?'小组':'个人'}}打卡</text>
+		</view>
+	</view>
+	<!-- 选项 -->
+	<scroll-view scroll-y='true' style='height:77.8vh; margin-bottom: 9vh;'>
+		<!-- type -->
+		<view class="card">
+			<view class="picker">
+				<text>打卡类型：</text><text class="right_text">{{type_array[goal_type]}}</text>
+			</view>
+		</view>
+		<!-- name -->
+		<view class="card">
+			<text>{{goal_type==2?'每日步数目标：':'打卡标题：'}}</text>
+			<input class='right_text name_input {{goal_type==2 ? "displayNone" : ""}}' maxlength="10" placeholder="点此输入" data-name="goal_name" bindinput="valueChanged" value="{{goal_name}}" />
+			<input class='right_text name_input {{goal_type!=2 ? "displayNone" : ""}}' maxlength="5" placeholder="点此输入步数" data-name="goal_name" bindinput="valueChanged" value="{{goal_name}}" type='number' />
+		</view>
+		<!--  -->
+		<view class="normal" wx:if="{{goal_type==1}}">
+
+			<view class='card'>
+				<picker mode="date" value="{{started_at}}" start="2019-09-01" end="2099-09-01" data-name="started_at" bindchange="valueChanged">
+					<view class="picker">
+						<text>开始日期: </text><text class='right_text'>{{started_at}}</text>
+					</view>
+				</picker>
+			</view>
+
+			<view class='card date'>
+				<picker mode="date" value="{{ended_in}}" start="2019-09-01" end="2099-09-01" data-name="ended_in" bindchange="valueChanged">
+					<view class="picker">
+						<text>结束日期: </text><text class='right_text'>{{ended_in}}</text>
+					</view>
+				</picker>
+			</view>
+
+			<view class='card date'>
+				<picker mode="multiSelector" data-name="frequency" bindchange="valueChanged" value="{{frequency_typeformat}}" range="{{frequencyArray}}">
+					<view class="picker">
+						<text>打卡频率: </text>
+						<text class="right_text">
+							<text wx:for="{{frequencyArray}}" wx:key='item'>{{frequencyArray[index][frequency_typeformat[index]]}}</text>
+						</text>
+					</view>
+				</picker>
+			</view>
+
+			<view class='card'>
+				<view class="picker">
+					<text>打卡时间:  </text>
+					<view class='right_text'>
+						<picker mode="time" value="{{needed_be_signed_at}}" start="00:00" end="23:59" data-name="needed_be_signed_at" bindchange="valueChanged">
+							<text>{{needed_be_signed_at}}</text></picker>
+						<text>—</text>
+						<picker mode="time" value="{{needed_be_signed_deadline}}" start="00:00" end="23:59" data-name="needed_be_signed_deadline" bindchange="valueChanged">
+							<text>{{needed_be_signed_deadline}}</text>
+						</picker>
+					</view>
+				</view>
+			</view>
+
+			<view class='card'>
+				<picker value="{{reminder_atindex}}" range="{{reminder_Array}}" data-name="reminder_at" bindchange="valueChanged">
+					<view class="picker">
+						<text>提醒时间: </text><text class="right_text">{{reminder_Array[reminder_atindex]}}</text>
+					</view>
+				</picker>
+			</view>
+
+		</view>
+		<!-- invite -->
+		<view class="invite" wx:if="{{$state.aimCardDatas[item].goal_is_a_group}}">
+			<view class='card'>
+				<view class="picker" style=" display: flex;flex-direction: row;">
+					<text style="flex:1;text-align:left;">邀请好友:  </text>
+					<text style='font-size:30rpx;color:gray;text-align:left;margin-left:0;margin-right:80rpx;'>(还可邀请{{5-$state.aimCardDatas[item].groupData.groupMembers.length}}位好友)</text>
+					<!-- 新建打卡默认0，详情传对应下标 -->
+					<button class="btn_invite {{$state.aimCardDatas[item].groupData.groupMembers.length==5?'full':''}}" open-type="{{$state.aimCardDatas[item].groupData.groupMembers.length==5?'':'share'}}" data-index='item' style="flex:1;">邀请好友</button>
+				</view>
+			</view>
+		</view>
+		<view style="height:15vh"></view>
+	</scroll-view>
+</view>
