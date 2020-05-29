@@ -59,7 +59,7 @@ Component({
       })
       setTimeout(() => { this.handleSave();
         
-      }, 100);
+      }, 200);
     },
 //https://www.jianshu.com/p/7d47e52de73c
     canvasToTempFilePath: function (option, context) {
