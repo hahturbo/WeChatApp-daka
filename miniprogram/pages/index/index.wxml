@@ -93,7 +93,8 @@
 			<text class='small-text {{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2_2" : ""}} {{$state.aimCardDatas[index+1].goal_is_a_group==1?"":"displayNone"}}'>本次小组已有{{$state.aimCardDatas[index+1].groupData.how_many_members_signed_today}}人打卡</text>									
 			</view>
 			<view class='button {{$state.aimCardDatas[index+1].canBeSignedNow==1?"":"buttonNo"}}' data-id='{{$state.aimCardDatas[index+1].goal_id}}' bindtap='{{$state.aimCardDatas[index+1].canBeSignedNow==1?"sign_btn":""}}' >
-		<image class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==-118)||($state.aimCardDatas[index+1].canBeSignedNow==-520)?"":"displayNone"}}' src="../../images/tick_finish.png" ></image>
+		<image wx:if='{{$state.skin==1}}' class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==-118)||($state.aimCardDatas[index+1].canBeSignedNow==-520)?"":"displayNone"}}' src="../../images/tick_finish.png" ></image>
+		<image wx:if='{{$state.skin==2}}'  class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==-118)||($state.aimCardDatas[index+1].canBeSignedNow==-520)?"":"displayNone"}}' src="../../images/tick_finish2.png" ></image>
 				<image class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==1)&&($state.aimCardDatas[index+1].frequency_type[0]==0)?"":"displayNone"}}' src="../../images/tick_able.png" ></image>
 						<image class='icon {{(($state.aimCardDatas[index+1].canBeSignedNow==1)&&(($state.aimCardDatas[index+1].frequency_type[0]==1)||($state.aimCardDatas[index+1].frequency_type=="")))?"":"displayNone"}}' src="../../images/tick_today.png" ></image>
 						<image class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==-121)?"":"displayNone"}}' src="../../images/tick_unfinish.png" ></image>
