@@ -18,6 +18,7 @@ Component({
    * 组件的初始数据
    */
   data: {
+    user_info: '',
     item: 0,
     reminder_Array: ['打卡时', '提前5分钟', '提前10分钟', '提前15分钟', '提前30分钟', '提前一小时'],
     // 星期
@@ -54,13 +55,91 @@ Component({
   },
   lifetimes: {
     ready: function () {
-      this.getcarddetail();
+      this.GetUserInfo();
     },
   },
   /**
    * 组件的方法列表
    */
   methods: {
+    GetUserInfo: function () {
+      wx.request({
+        method: 'POST',
+        url: this.$state.apiURL + '/user/info',
+        data: {
+          login_key: this.$state.login_key,
+        },
+        success: (res) => {
+          console.log("info-p", res.data);
+          this.setData({
+            user_info: res.data.data,
+          })
+          this.getSignedCord();
+          if (this.data.item > 4) {
+            this.getcarddetail()
+          } else {
+            this.initCardDetail();
+          }
+        }
+      })
+    },
+    // 获取打卡记录
+    getSignedCord: function () {
+      wx.request({
+        method: "POST",
+        url: this.$state.apiURL + '/user/getSignedRecord',
+        data: {
+          from: 0,
+          amount: this.data.user_info.tick_times,
+          login_key: this.$state.login_key,
+        },
+        success: (res) => {
+          console.log('get succsess');
+          this.setState({
+            CardDetail: res.data.data,
+          })
+        },
+        complete: () => {
+          console.log(this.$state.CardDetail);
+        }
+      });
+    },
+    initCardDetail: function () {
+      if (this.$state.aimCardDatas[this.data.item].goal_type == 2) {
+        this.getWeRundata();
+        if (this.$state.aimCardDatas[this.data.item].canBeSignedNow == 1 && this.$state.aimCardDatas[this.data.item].goal_type == 2) {
+          wx.request({
+            method: 'POST',
+            url: this.$state.apiURL + '/user/goal/sign',
+            data: {
+              goal_id: this.$state.aimCardDatas[i].goal_id,
+              login_key: this.$state.login_key,
+            },
+            success: (res) => {
+              console.log("自动打卡上传成功");
+              console.log(res.data);
+            }
+          })
+        }
+      }
+      if (this.$state.aimCardDatas[this.data.item].goal_is_a_group) {
+        this.setState({
+          CardGroupData: this.$state.aimCardDatas[this.data.item].groupData,
+        })
+      } else {
+        this.setState({
+          CardGroupData: '',
+        })
+      }
+      console.log(this.$state.CardGroupData);
+      this.today();
+      let endflag = this.comparedate();
+      if (endflag) {
+        this.setData({
+          cardend: endflag,
+        })
+      }
+    },
     display: function (year, month, date) {
       this.setData({
         year,
@@ -194,32 +273,14 @@ Component({
 
     },
     getcarddetail: function () {
-      // 获取打卡记录
-      wx.request({
-        method: "POST",
-        url: this.$state.apiURL + '/user/getSignedRecord',
-        data: {
-          from: 0,
-          amount: 1000,
-          login_key: this.$state.login_key,
-        },
-        success: (res) => {
-          console.log('get succsess');
-          this.setState({
-            CardDetail: res.data.data,
-          })
-        },
-        complete: () => {
-          console.log(this.$state.CardDetail);
-        }
-      });
+      this.getSignedCord();
       // 获取打卡详情
       wx.request({
         method: "POST",
         url: this.$state.apiURL + '/user/goal/get',
         data: {
           from: 0,
-          amount: 5,
+          amount: this.data.item > 4 ? this.data.user_info.goal_num : 5,
           login_key: this.$state.login_key,
         },
         success: (res) => {
@@ -233,41 +294,7 @@ Component({
           console.log('get aimcarddetail fail', res);
         },
         complete: () => {
-          if (this.$state.aimCardDatas[this.data.item].goal_type == 2) {
-            this.getWeRundata();
-            if (this.$state.aimCardDatas[this.data.item].canBeSignedNow == 1 && this.$state.aimCardDatas[this.data.item].goal_type == 2) {
-              wx.request({
-                method: 'POST',
-                url: this.$state.apiURL + '/user/goal/sign',
-                data: {
-                  goal_id: this.$state.aimCardDatas[i].goal_id,
-                  login_key: this.$state.login_key,
-                },
-                success: (res) => {
-                  console.log("自动打卡上传成功");
-                  console.log(res.data);
-                }
-              })
-            }
-          }
-          
-          if (this.$state.aimCardDatas[this.data.item].goal_is_a_group) {
-            this.setState({
-              CardGroupData: this.$state.aimCardDatas[this.data.item].groupData,
-            })
-          } else {
-            this.setState({
-              CardGroupData: '',
-            })
-          }
-          console.log(this.$state.CardGroupData);
-          this.today();
-          let endflag = this.comparedate();
-          if (endflag) {
-            this.setData({
-              cardend: endflag,
-            })
-          }
+          this.initCardDetail();
         }
       });
     },

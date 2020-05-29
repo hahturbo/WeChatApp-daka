@@ -1,0 +1,4 @@
+<!--miniprogram/pages/setting/cardrecord/detail/detail.wxml-->
+<view class="containerB">
+  <carddetail carditem="{{item}}"></carddetail>
+</view>

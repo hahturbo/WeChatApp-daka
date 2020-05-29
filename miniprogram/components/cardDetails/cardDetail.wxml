@@ -60,7 +60,7 @@
 					<image class="members_img" src="{{GroupData.img}}"></image>
 					<view class="type members_text">{{GroupData.nickname}}</view>
 				</view>
-				<view class="group_user invite" wx:if="{{$state.aimCardDatas[item].groupData.groupMembers.length<5}}">
+				<view class="group_user invite" wx:if="{{$state.aimCardDatas[item].groupData.groupMembers.length<5&&!cardend}}">
 					<button class="button_invite" open-type='share' data-index="{{item}}" style="background-color: transparent;text-align:left;position:absolute;color:rgba(0,0,0,0)">分享</button>
 					<image class="members_img" src="../../images/invite_add.png"></image>
 					<view class="type members_text invite">邀请好友加入</view>
