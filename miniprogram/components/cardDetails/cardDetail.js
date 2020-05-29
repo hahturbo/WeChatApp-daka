@@ -36,7 +36,7 @@ Component({
     YEAR: 0,
     MONTH: 0,
     DATE: 0,
-    secondselect: 1,
+    secondselect: 0,
     todaysigned: true,
     cardend: false,
     membersnum: 0,
@@ -115,10 +115,10 @@ Component({
     // 选择对应方法
     select: function (e) {
       let second = this.data.secondselect;
-      if (second == 1 && this.data.date == e.currentTarget.dataset.date) {
-        second = 2;
-      } else {
+      if (second == 0 && this.data.date == e.currentTarget.dataset.date) {
         second = 1;
+      } else if (second == 1) {
+        second = 0;
       }
       let date = e.currentTarget.dataset.date,
         select = this.data.year + "-" + this.zero(this.data.month) + "-" + this.zero(date);
@@ -235,7 +235,22 @@ Component({
         complete: () => {
           if (this.$state.aimCardDatas[this.data.item].goal_type == 2) {
             this.getWeRundata();
+            if (this.$state.aimCardDatas[this.data.item].canBeSignedNow == 1 && this.$state.aimCardDatas[this.data.item].goal_type == 2) {
+              wx.request({
+                method: 'POST',
+                url: this.$state.apiURL + '/user/goal/sign',
+                data: {
+                  goal_id: this.$state.aimCardDatas[i].goal_id,
+                  login_key: this.$state.login_key,
+                },
+                success: (res) => {
+                  console.log("自动打卡上传成功");
+                  console.log(res.data);
+                }
+              })
+            }
           }
+          
           if (this.$state.aimCardDatas[this.data.item].goal_is_a_group) {
             this.setState({
               CardGroupData: this.$state.aimCardDatas[this.data.item].groupData,
@@ -339,7 +354,7 @@ Component({
       return members;
     },
     todaydaka: function (e) {
-      if (this.$state.aimCardDatas[this.data.item].goal_type == 2) {
+      if (this.$state.aimCardDatas[this.data.item].goal_type == 2 && this.$state.aimCardDatas[this.data.item].canBeSignedNow != 1) {
         wx.showToast({
           title: '您的步数不够哦！',
           image: '../../images/Step.png',

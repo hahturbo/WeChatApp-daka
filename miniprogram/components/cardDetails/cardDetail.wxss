@@ -7,8 +7,8 @@
   margin-bottom: 50rpx;
 }
 
-.cardDetail.text {
-  line-height: 30rpx;
+.cardDetail text {
+  line-height: 50rpx;
 }
 
 .card_title {
@@ -98,8 +98,8 @@
   width: 15rpx;
   height: 15rpx;
   border-radius: 50%;
-  background: rgb(255, 102, 102);
-  border: 5rpx solid rgb(255, 102, 102);
+  background: rgb(255, 204, 102);
+  border: 5rpx solid rgb(255, 204, 102);
 }
 
 .gray {
@@ -122,12 +122,14 @@
   width: 85%;
   margin: 0 auto;
 }
-
+.wrap.mysigned {
+  font-weight: 550;
+}
 .wrap.allsigned {
-  background-color: rgba(182, 255, 182, 0.46);
+  background: rgb(255, 204, 102);
   /* color: rgb(242, 188, 71); */
-  border-color: transparent;
-  border-radius: 8rpx;
+  border-color: rgb(255, 204, 102);
+  /* border-radius: 8rpx; */
 }
 
 .wrap.select {
@@ -210,7 +212,7 @@
 
 .deletedaka {
   background-color: transparent;
-  color: red;
+  color: rgb(230, 67, 64);
   padding: 10rpx 0;
   font-weight: bold;
   font-size: 30rpx;

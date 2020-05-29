@@ -180,12 +180,16 @@ Component({
           success: (res) => {
             console.log("modify success");
             console.log(res);
+            this.uploadboard();
           },
           fail: (res) => {
             console.log(res);
           }
         })
       } else if (this.data.goal_type == 2) {
+        this.setData({
+          goal_name: '每天走' + this.data.goal_name + '步',
+        })
         // 运动
         wx.request({
           url: this.$state.apiURL + '/user/goal/edit',
@@ -195,12 +199,13 @@ Component({
             login_key: this.$state.login_key,
             now_type: this.data.goal_type,
             goal_type: this.data.goal_type,
-            goal_name: '每天走' + this.data.goal_name + '步',
-            frequency: parseInt(this.data.goal_name),
+            goal_name: this.data.goal_name,
+            frequency: parseInt(this.data.goal_name.replace(/[^0-9]/ig, '')),
           },
           success: (res) => {
             console.log("modify success");
             console.log(res);
+            this.uploadboard();
           },
           fail: (res) => {
             console.log(res);
@@ -228,12 +233,43 @@ Component({
           success: (res) => {
             console.log("modify success");
             console.log(res);
+            this.uploadboard();
           },
           fail: (res) => {
             console.log(res);
           }
         })
       }
+    },
+    uploadboard: function () {
+      let board_num = this.$state.board_num;
+      for (let i = 0; i < this.$state.goalsBoardData.length; i++) {
+        if (this.$state.aimCardDatas[this.data.item].goal_name === this.$state.goalsBoardData[i].title) {
+          console.log(this.$state.goalsBoardData[i].id);
+          board_num = this.$state.goalsBoardData[i].id - 1;
+          break;
+        }
+      }
+      let boarddata = [{
+        id: board_num + 1,
+        icon: this.$state.aimCardDatas[this.data.item].canBeSignedNow & 1 ? 2 : 1,
+        name: this.data.goal_name,
+      }]
+      wx.request({
+        method: 'POST',
+        url: this.$state.apiURL + '/user/board/change',
+        data: {
+          login_key: this.$state.login_key,
+          data: boarddata,
+        },
+        success: (res) => {
+          console.log("上传目标板成功",board_num);
+          console.log(res.data);
+          this.setState({
+            board_num: board_num + 1,
+          })
+        }
+      })
     },
   }
 })

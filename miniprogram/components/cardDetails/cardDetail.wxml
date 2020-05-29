@@ -24,11 +24,11 @@
 				<!-- 当月 -->
 				<view class="grid" wx:for="{{thismonthday}}" wx:key='thismonth' wx:for-item="thismonthday">
 					<!-- 是否今天 -->
-					<view class='self' wx:if="{{ format === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat }}"></view>
+					<view class='self' wx:if="{{ format === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat && !cardend }}"></view>
 					<!-- date -->
-					<view class="wrap {{thismonthday.othersigned?'othersigned':''}} {{thismonthday.signed?'signed':''}} {{ select === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat ? 'select' :''}} {{thismonthday.signedmembers.length==$state.CardGroupData.groupMembers.length&&$state.CardGroupData.groupMembers.length>0?'allsigned':''}}" bindtap='select' data-date='{{thismonthday.date}}'>{{thismonthday.date}}</view>
+					<view class="wrap {{thismonthday.othersigned?'othersigned':''}} {{!$state.aimCardDatas[item].goal_is_a_group&&thismonthday.signed?'signed':''}} {{$state.aimCardDatas[item].goal_is_a_group&&thismonthday.signed?'mysigned':''}} {{thismonthday.signedmembers.length==$state.CardGroupData.groupMembers.length&&$state.CardGroupData.groupMembers.length>0?'allsigned':''}}" bindtap='select' data-date='{{thismonthday.date}}'>{{thismonthday.date}}</view>
 					<!-- 小组打卡用户头像框 -->
-					<view class="group {{select === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat ? 'select' :''}}" wx:if="{{ (select === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat)&(secondselect==2)&($state.aimCardDatas[item].goal_is_a_group)? true :false}}" style="right:{{thismonthday.week>3?0:auto}};">
+					<view class="group {{select === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat ? 'select' :''}}" wx:if="{{ (select === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat)&(secondselect==1)&($state.aimCardDatas[item].goal_is_a_group)? true :false}}" style="right:{{thismonthday.week>3?0:auto}};">
 						<view class="userimgs">
 							<image class="user_img" wx:for="{{thismonthday.signedmembers}}" wx:key='item' wx:for-item="GroupMembers" src="{{GroupMembers.img}}"></image>
 						</view>
