@@ -85,7 +85,7 @@
 		</view>
 
 		<view class="LetAMCCenter" wx:for='{{$state.aimCardDatas}}'>
-			<view class='mid-contentA {{$state.skin==2?"bgcolor-skin2":""}} {{(index%3==0&&$state.skin==1)?"bgcolor-g":""}} {{(index%3==1&&$state.skin==1)?"bgcolor-b":""}} {{(index%3&&$state.skin==1==2)?"bgcolor-o":""}} {{$state.aimCardDatas[index+1]?"":"displayNone"}} '>
+			<view class='mid-contentA {{$state.skin==2?"bgcolor-skin2":""}} {{(index%3==0&&$state.skin==1)?"bgcolor-g":""}} {{(index%3==1&&$state.skin==1)?"bgcolor-b":""}} {{(index%3==2&&$state.skin==1)?"bgcolor-o":""}} {{$state.aimCardDatas[index+1]?"":"displayNone"}} '>
 			<view class='contentAText'>
 			<text  bindtap="gotodetails" class='mid-text {{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2" : ""}}' data-to="{{index+1}}">{{$state.aimCardDatas[index+1].goal_name}}</text>
 			<text class='small-text {{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2_2" : ""}} {{$state.aimCardDatas[index+1].goal_is_a_group==0?"":"displayNone"}}'>已连续{{$state.aimCardDatas[index+1].constantly
