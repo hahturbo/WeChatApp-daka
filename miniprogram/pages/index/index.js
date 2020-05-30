@@ -337,7 +337,7 @@ Page({
               wx.openSetting({
                 success(res) {
                   // 不管是否开启授权，都执行success
-                  // 应该根据 res['scope.address'] 是 true 或 false 来确定用户是否同意授权
+                  // 应该根据 res['scope.XXx'] 是 true 或 false 来确定用户是否同意授权
                   console.log('设置success：', res.authSetting)
                   if (res.authSetting['scope.werun'] === true) {
                     // 套娃获取步数
@@ -736,17 +736,7 @@ Page({
       success: (res) => {
         console.log("上传目标板成功");
         console.log(res.data);
-        //打卡项加一
-        let L = this.$state.card_num;
-        L++;
-        console.log("邀请长度：",L);
-        this.setState({
-          card_num: L,
-        })
-        wx.setStorage({
-          key: "card_num",
-          data: L,
-        })
+       
       }
     })
     // 换页部分
@@ -759,6 +749,23 @@ Page({
   },
 
   PostCardData: function (e) {
+
+    function CNplus (){
+       //打卡项加一
+       let L = this.$state.card_num;
+       L++;
+       console.log("新建长度：",L);
+       this.setState({
+         card_num: L,
+       })
+       wx.setStorage({
+         key: "card_num",
+         data: L,
+       })
+    };
+
+
+
     console.log(e);
     let goal_type, team, num, reminder_at;
     !this.$state.aimCardData['goal_type'] ? goal_type = 1 : goal_type = parseInt(this.$state.aimCardData['goal_type']);
@@ -808,6 +815,8 @@ Page({
             this.setData({
               error_code: res.status + res.code,
             })
+          }else{
+            this.CNplus();
           }
 
         }
@@ -831,6 +840,9 @@ Page({
           console.log("提交运动成功");
           console.log(res.data);
           this.setData({})
+        
+            this.CNplus();
+          
         }
       })
     } else if (goal_type == 0) {
@@ -847,6 +859,9 @@ Page({
           console.log("提交极简成功");
           console.log(res.data);
           this.setData({})
+        
+            this.CNplus();
+          
         }
       })
     }
