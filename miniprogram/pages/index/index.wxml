@@ -1,11 +1,11 @@
 <!--index.wxml-->
 <view class="container">
 	<view class="auth {{$state.isLogin ? 'displayNone' : ''}}">
-	<view class="auth_in">
+	<view class="auth_in ">
 	<h1>登陆授权</h1>
 	<open-data class='user_img' type="userAvatarUrl"></open-data>
 		<h1>{{error_code}}</h1>
-		<button open-type='getUserInfo' bindgetuserinfo='checkPermission' id='bn_login'>使用微信登录</button>
+		<button open-type='getUserInfo' bindgetuserinfo='checkPermission' id='bn_login'>请使用微信登陆</button>
 	</view>
 	</view>
 	<image wx:if='{{$state.skin==1}}'class='background' src="../../images/background.png" mode="aspectFill">
@@ -18,11 +18,12 @@
 	<view class='down {{$state.skin==1?"d_shadow":""}} {{$state.skin==2?"d_black_line":""}}'>
 		<!-- <image class='downmainimg' src="../../images/down.png" mode="aspectFill"></image> -->
 		<view class="downleft">
+		<image class='downimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="3" bindtap="ChangePageGetBoard"></image>
 			<image class='downimg {{nowPage!=0 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="3" bindtap="ChangePageGetBoard"></image>
 			<image class='downimg {{nowPage!=1? "displayNone" : ""}}' src="../../images/back.png" data-to="0" bindtap="changePage_Back"></image>
 			<image class='downimg {{nowPage!=6? "displayNone" : ""}}' src="../../images/notmodify.png" data-to="4" bindtap="changePage_Back"></image>
 			<image class='downimg {{nowPage!=4 ? "displayNone" : ""}}' src="../../images/back.png" data-to="0" bindtap="changePage"></image>
-			<image class='downimg {{nowPage!=2&&nowPage!=3 ? "displayNone" : ""}}' src="../../images/tick.png" data-to="0" bindtap="ChangePagePostBoard"></image>
+			<image class='downimg {{nowPage!=3 ? "displayNone" : ""}}' src="../../images/tick.png" data-to="0" bindtap="ChangePagePostBoard"></image>
 			<image class='downimg {{nowPage!=5 ? "displayNone" : ""}}' src="../../images/refuse.png" bindtap="changePage" data-to="0"></image>
 		</view>
 		<view wx:if='{{$state.skin==1}}' class='downmidshadow '></view>
@@ -31,9 +32,9 @@
 			<text style="color:gray">现在，给自己制定一个打卡计划</text>
 				<text style="color:gray">⬇</text>			
 			</view>
-		<view class='downmid {{nowPage==1||nowPage==3||nowPage==4||nowPage==5||nowPage==6? "downmiddisable" : ""}}'>
-			<image class='downmidimg {{nowPage!=0&&nowPage!=1 ? "displayNone" : ""}}' src="../../images/newaim3.png" data-to="1" bindtap="changePage"></image>
-			<image class='downmidimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="0" bindtap="changePage"></image>
+		<view class='downmid {{nowPage==1||nowPage==2||nowPage==3||nowPage==4||nowPage==5||nowPage==6? "downmiddisable" : ""}}'>
+			<image class='downmidimg {{nowPage!=0&&nowPage!=1 ? "displayNone" : ""}}' src="../../images/newaim3.png" data-to="1" bindtap="changeNewAimPage"></image>
+			<image class='downmidimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="0" bindtap=""></image>
 			<image class='downmidimg {{nowPage!=3 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="0" bindtap=""></image>
 			<image class='downmidimg {{nowPage!=4 ? "displayNone" : ""}}' src="../../images/carddetail.png" data-to="0" bindtap="" ></image>
 			<image class='downmidimg {{nowPage!=5 ? "displayNone" : ""}}' src="../../images/join_group.png" data-to="0" bindtap="" ></image>
@@ -43,7 +44,7 @@
 		<view class="downright">
 			<image class='downimg {{nowPage!=0&&nowPage!=3 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="2" bindtap="ChangePagePostBoard"></image>
 			<image class='downimg {{nowPage!=1 ? "displayNone" : ""}}' src="../../images/finish.png" data-to="0" bindtap="changePage_Finish"></image>
-			<image class='downimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="3" bindtap="ChangePageGetBoard"></image>
+						<image class='downimg {{nowPage!=2? "displayNone" : ""}}' src="../../images/tick.png" data-to="0" bindtap="ChangePagePostBoard"></image>
 			<image class='downimg {{nowPage!=5 ? "displayNone" : ""}}' src="../../images/accept.png" data-to="0" bindtap="AcceptInvite" ></image>
 			<image class='downimg {{nowPage==4 ? "" : "displayNone"}}' src="../../images/modify.png" data-to="6" bindtap="changePage" ></image>
 			<image class='downimg {{nowPage==6 ? "" : "displayNone"}}' src="../../images/savemodify.png" data-to="4" bindtap="modifycard" ></image>
@@ -66,7 +67,7 @@
 				<view class='home-content {{nowPage!=0 ? "displayNone" : ""}} ' >
 					<image class='{{card_num==0?"":"displayNone"}}' style=" width:100%;height:100%" src="../../images/mainnew.png"></image>
 					<!-- <text>isLogin:{{ConsoleText}}</text> -->
-					<view class='home-content {{card_num!=0?"":"displayNone"}}'>
+					<view class='home-content  {{card_num!=0?"":"displayNone"}}'>
 						<text class='{{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2" : ""}}' bindtap="gotodetails" data-to="{{0}}">{{$state.aimCardDatas[0].goal_name}}</text>
 						<image  bindtap="gotodetails" data-to="{{0}}" class='' style=" width:70%;height:40%" src="../../images/mainnew2.png"></image>
 
@@ -74,8 +75,8 @@
 }}次</text>
 			<text  class='{{$state.aimCardDatas[0].goal_is_a_group==1?"":"displayNone"}}	' style='color:#FF9966; font-size:30rpx;'>今日小组已有{{$state.aimCardDatas[0].groupData.how_many_members_signed_today}}人打卡</text>
 						<button class='new_aim_card {{$state.aimCardDatas[0].canBeSignedNow==1?"":"NACunable"}}' data-id='{{$state.aimCardDatas[0].goal_id}}' bindtap='{{$state.aimCardDatas[0].canBeSignedNow==1?"sign_btn":""}}'>
-						<text style='color:#FFFFFF;' class=' {{$state.aimCardDatas[0].canBeSignedNow==1?"":"displayNone"}}'>今日打卡</text>
-						<text style='color:#FFFFFF;' class=' {{$state.aimCardDatas[0].canBeSignedNow==-121?"":"displayNone"}}'>今日未完成</text>
+						<text style='{{$state.skin==1?"color:#FFFFFF;":"color:#000000"}}' class='  {{$state.aimCardDatas[0].canBeSignedNow==1?"":"displayNone"}}'>今日打卡</text>
+						<text style='{{$state.skin==1?"color:#FFFFFF;":"color:#000000"}}' class='{{$state.aimCardDatas[0].canBeSignedNow==-121?"":"displayNone"}}'>今日未完成</text>
 						<image class='{{($state.aimCardDatas[0].canBeSignedNow==-118)||($state.aimCardDatas[0].canBeSignedNow==-520)?"":"displayNone"}}' src='../../images/tickB_finish.png' style="width:100%; height:90rpx"></image>
 						
 						</button>
@@ -97,7 +98,8 @@
 		<image wx:if='{{$state.skin==2}}'  class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==-118)||($state.aimCardDatas[index+1].canBeSignedNow==-520)?"":"displayNone"}}' src="../../images/tick_finish2.png" ></image>
 				<image class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==1)&&($state.aimCardDatas[index+1].frequency_type[0]==0)?"":"displayNone"}}' src="../../images/tick_able.png" ></image>
 						<image class='icon {{(($state.aimCardDatas[index+1].canBeSignedNow==1)&&(($state.aimCardDatas[index+1].frequency_type[0]==1)||($state.aimCardDatas[index+1].frequency_type=="")))?"":"displayNone"}}' src="../../images/tick_today.png" ></image>
-						<image class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==-121)?"":"displayNone"}}' src="../../images/tick_unfinish.png" ></image>
+						<image wx:if='{{$state.skin==1}}'  class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==-121)?"":"displayNone"}}' src="../../images/tick_unfinish.png" ></image>
+							<image  wx:if='{{$state.skin==2}}'  class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==-121)?"":"displayNone"}}' src="../../images/tick_unfinish2.png" ></image>
 		<!-- <image class='icon' src="../../images/tick_able.png"></image> -->
 			</view>			
 			</view>

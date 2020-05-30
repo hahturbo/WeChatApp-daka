@@ -5,9 +5,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    text0:'\n',
-    text1:'\n\n',
-    text2:'\n\n\n\n\n',
 
   },
 

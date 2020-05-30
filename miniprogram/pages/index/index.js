@@ -16,7 +16,7 @@ Page({
     requestResult: '',
     login_key: '',
 
-    error_code: "请允许小程序获取你的信息",
+    error_code: "(。・∀・)ノ",
 
 
     // open_animation:'open 1s forwards',
@@ -45,7 +45,7 @@ Page({
     }, ],
 
     goals: [],
-    card_num: 0,
+
     //新建打卡页面数据
     carditem: '',
   },
@@ -99,11 +99,16 @@ Page({
   onLoad: function (options) {
     try {
       var skin = wx.getStorageSync('skin')
+      var card_num = wx.getStorageSync('card_num')
+      console.log("s card_num out:", card_num)
+      this.setState({
+        card_num: card_num,
+      })
       if (skin) {
         // Do something with return value
-        console.logkey, ("sout:", skin)
+        console.log("s skin out:", skin)
         this.setState({
-          skin: skin
+          skin: skin,
         })
         this.ShowSkin();
       }
@@ -176,6 +181,8 @@ Page({
     } else {
       console.log("notgo");
     }
+
+
   },
   //分享
   // e.target.dataset.index为传过来的下标（第几个打卡）
@@ -204,6 +211,17 @@ Page({
       success: (res) => {
         console.log("加入请求成功");
         console.log(res.data);
+        //打卡项加一
+        let L = this.$state.card_num;
+        L++;
+        this.setState({
+          card_num: L,
+        })
+        wx.setStorage({
+          key: "card_num",
+          data: L,
+        })
+
       }
     })
     this.GetCardData();
@@ -212,26 +230,47 @@ Page({
 
   //获取打卡信息
   GetCardData: function (e) {
+    let L = this.$state.card_num;
+    if (!L) {
+      L = 5;
+    }
+    console.log(this.$state.card_num, ">>", L);
+
     wx.request({
       method: 'POST',
       url: this.$state.apiURL + '/user/goal/get',
       data: {
         from: 0,
-        amount: 5,
+        amount: L,
         login_key: this.$state.login_key,
       },
       success: (res) => {
         console.log("拉取post成功");
         console.log(res.data);
-
         this.ClearNewAimData();
+        //剔除过期数组项
+        let array0 = res.data.data.data;
+        let array1 = [];
+        for (let i = 0; i < array0.length; i++) {
+          if (array0[i].goal_type >= 3) {
+            break;
+          } else {
+            array1.push(array0[i]);
+          }
+        }
         this.setState({
-          aimCardDatas: res.data.data.data,
+          // aimCardDatas: res.data.data.data,
+          aimCardDatas: array1,
         })
-        console.log("L2:", this.$state.aimCardDatas);
-        this.setData({
+        console.log("L2:", array0, ">>", this.$state.aimCardDatas, );
+        this.setState({
           card_num: this.$state.aimCardDatas.length,
         })
+        wx.setStorage({
+          key: "card_num",
+          data: this.$state.card_num,
+        })
+
         console.log((this.$state.aimCardDatas[1].canBeSignedNow == 1) && (this.$state.aimCardDatas[1].frequency_type[2] == 1));
         if ((this.$state.aimCardDatas[1].canBeSignedNow == 1) && (this.$state.aimCardDatas[1].frequency_type[2] == 1)) {
 
@@ -243,7 +282,7 @@ Page({
 
         //自动打卡微信运动
         setTimeout(() => {
-          for (let i = 0; i < this.data.card_num; i++) {
+          for (let i = 0; i < this.$state.card_num; i++) {
             if (this.$state.aimCardDatas[i].canBeSignedNow == 1 && this.$state.aimCardDatas[i].goal_type == 2) {
               wx.request({
                 method: 'POST',
@@ -406,8 +445,9 @@ Page({
   },
   //
   checkPermission: function (e) {
-
+    console.log(e);
     if (e.detail.userInfo) {
+
       // 有授权的操作
       wx.getSetting({
         success: (res) => {
@@ -463,9 +503,6 @@ Page({
                               })
                             }, 500);
 
-
-
-
                           } else {
                             // this.setState({
                             //   isLogin: false,
@@ -474,8 +511,6 @@ Page({
                               error_code: res.code,
                             })
                           }
-
-
                           console.log("this.setData:" + res.data);
                           this.GetCardData();
                           setTimeout(() => {
@@ -505,7 +540,6 @@ Page({
               }
             })
           }
-
           this.GetWeRunData();
         }
       })
@@ -541,13 +575,11 @@ Page({
       console.log('用户拒绝了授权');
       wx.showToast({
         icon: 'none',
-        title: '您拒绝了授权',
+        title: '请您允许授权',
         duration: 2500,
       })
-
-
       this.setData({
-        ConsoleText: '用户拒绝了授权',
+        error_code: '(○´･д･)ﾉ',
       })
     }
 
@@ -588,6 +620,25 @@ Page({
       nowPage: e.currentTarget.dataset.to,
     })
   },
+
+  changeNewAimPage: function (e) {
+    console.log(this.$state.card_num);
+    if (this.$state.card_num >= 5) {
+      wx.showToast({
+        icon: 'none',
+        title: '不能创建超过五个打卡哦|･ω･｀)',
+        duration: 2500,
+      })
+    } else {
+      this.changePage(e);
+    }
+
+
+  },
+
+
+
+
   modifycard: function (e) {
     if (e.currentTarget.dataset.to == 4) {
       this.selectComponent('#modifycard').modify();
@@ -685,7 +736,17 @@ Page({
       success: (res) => {
         console.log("上传目标板成功");
         console.log(res.data);
-        this.setData({})
+        //打卡项加一
+        let L = this.$state.card_num;
+        L++;
+        console.log("邀请长度：",L);
+        this.setState({
+          card_num: L,
+        })
+        wx.setStorage({
+          key: "card_num",
+          data: L,
+        })
       }
     })
     // 换页部分

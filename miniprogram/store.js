@@ -3,6 +3,7 @@
 let store = {
   skin:1, //1初始橙 2网格白
   version:"0.1.0",
+  card_num: 0,
 
 
   can_share:false,

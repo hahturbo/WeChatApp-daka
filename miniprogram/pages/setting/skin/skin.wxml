@@ -6,6 +6,8 @@
 <view class="beautyR">
 </view>
 <scroll-view scroll-x="true" scroll-y="false" class="skin_zone">
+<view class="cardL">
+</view>
 <view class="skin_card">
 <view class="skin_in">
 <image src="../../../images/skin1.png"></image>
