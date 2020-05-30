@@ -5,76 +5,114 @@ Page({
    * 页面的初始数据
    */
   data: {
-    carddatas:[],
+    carddatas: [],
+    user_info: '',
+    cardend: '',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(){
-    this.GetCardData();
+  onLoad: function () {
+    this.GetUserInfo();
     wx.setNavigationBarTitle({
-      title: "打卡记录"   
+      title: "打卡记录"
 
     })
     wx.setNavigationBarColor({
-      backgroundColor:"#ffffff",
+      backgroundColor: "#ffffff",
       frontColor: '#000000'
     })
-},
-slideButtonTap(e) {
-    console.log('slide button tap', e.detail)
-},
-
-GetCardData: function (e) {
-  wx.request({
-    method: 'POST',
-    url: this.$state.apiURL + '/user/goal/get',
-    data: {
-      from: 0,
-      amount: 20,
-      login_key: this.$state.login_key,
-    },
-    success: (res) => {
-      console.log("拉取30打卡成功");
-      console.log(res.data);
-      this.setData({
-        carddatas: res.data.data.data,
-      }) 
-      console.log("L30:", this.data.carddatas);      
-    },
-    fail: (res) => {
-      console.log("获取失败： " + res);
-    },
-    finish:()=>{
-      console.log("获取完成： ");
+  },
+  endjudge: function (item) {
+    let date = new Date();
+    date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    date = new Date(date);
+    let end = new Date(this.data.carddatas[item].ended_in);
+    if (date > end) {
+      return true;
     }
-  })
-},
-slideButtonTap: function(e){
-console.log(e);
-let gid=e.detail.data;
-wx.request({
-  method: 'POST',
-  url: this.$state.apiURL + '/user/goal/delete',
-  data: {
-    login_key: this.$state.login_key,
-    goal_id:gid,
+    return false;
   },
-  success: (res) => {
-    console.log("删除操作成功");
-    console.log(res);
-    this.onLoad();   
+  gotocarddetail: function (e) {
+    let item = e.currentTarget.dataset.item;
+    wx.navigateTo({ //保留当前页面，跳转到应用内的某个页面（最多打开5个页面，之后按钮就没有响应的）
+      url: './detail/detail?id=' + e.currentTarget.dataset.item,
+    })
   },
-  fail: (res) => {
-    console.log("删除失败： " + res);
+  GetUserInfo: function () {
+    wx.request({
+      method: 'POST',
+      url: this.$state.apiURL + '/user/info',
+      data: {
+        login_key: this.$state.login_key,
+      },
+      success: (res) => {
+        console.log("info-p", res.data);
+        this.setData({
+          user_info: res.data.data,
+        })
+        this.GetCardData();
+      }
+    })
   },
-  finish:()=>{
-    console.log("删除完成： ");
-  }
-})
-    
-},
+  GetCardData: function (e) {
+    wx.request({
+      method: 'POST',
+      url: this.$state.apiURL + '/user/goal/get',
+      data: {
+        from: 0,
+        amount: this.data.user_info.goal_num,
+        login_key: this.$state.login_key,
+      },
+      success: (res) => {
+        console.log("拉取30打卡成功");
+        console.log(res.data);
+        this.setData({
+          carddatas: res.data.data.data,
+        })
+        console.log("L30:", this.data.carddatas);
+        let cardend = [];
+        for (let i = 0; i < this.data.user_info.goal_num; i++) {
+          cardend[i] = this.endjudge(i)
+        }
+        console.log(cardend);
+        this.setData({
+          cardend: cardend
+        })
+      },
+      fail: (res) => {
+        console.log("获取失败： " + res);
+      },
+      finish: () => {
+        console.log("获取完成： ");
+      }
+    })
+  },
+  slideButtonTap: function (e) {
+    console.log(e);
+    let gid = e.detail.data;
+    wx.request({
+      method: 'POST',
+      url: this.$state.apiURL + '/user/goal/delete',
+      data: {
+        login_key: this.$state.login_key,
+        goal_id: gid,
+      },
+      success: (res) => {
+        console.log("删除操作成功");
+        console.log(res);
+        this.onLoad();
+      },
+      fail: (res) => {
+        console.log("删除失败： " + res);
+      },
+      finish: () => {
+        console.log("删除完成： ");
+      }
+    })
+
+  },
 
 
 

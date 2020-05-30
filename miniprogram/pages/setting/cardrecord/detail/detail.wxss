@@ -1,0 +1,4 @@
+/* miniprogram/pages/setting/cardrecord/detail/detail.wxss */
+.containerB{
+  background-color: white;
+}
