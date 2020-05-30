@@ -6,7 +6,7 @@
 <view class="beautyR">
 </view>
 <scroll-view scroll-x="true" scroll-y="false" class="skin_zone">
-<view class="cardL">
+<view class="card_border">
 </view>
 <view class="skin_card">
 <view class="skin_in">
@@ -26,6 +26,7 @@
 	<!-- <mp-icon class='icon {{$state.skin!=2?"icon_cirle":""}}' icon='{{$state.skin==2?"done":""}}' color="green" size="{{35}}" bindtap="btn" data-skin='2'></mp-icon> -->
 </view>
 </view>
-
+<view class="card_border">
+</view>
 </scroll-view>
 </view>
