@@ -52,14 +52,14 @@ Page({
 
   onShow: function (e) {
 
-  this.ShowSkin();
+    this.ShowSkin();
   },
 
-  ShowSkin: function(){
+  ShowSkin: function () {
     console.log("skin", this.$state.skin, "TT", typeof (this.$state.skin));
     switch (this.$state.skin) {
       case "1":
-      case  1:
+      case 1:
         console.log("skin1")
         wx.setNavigationBarColor({
           frontColor: '#000000',
@@ -101,22 +101,23 @@ Page({
       var skin = wx.getStorageSync('skin')
       if (skin) {
         // Do something with return value
-        console.logkey,("sout:", skin)
+        console.logkey, ("sout:", skin)
         this.setState({
-          skin:skin
-         })
-         this.ShowSkin();
+          skin: skin
+        })
+        this.ShowSkin();
       }
     } catch (e) {
       console.log(e)
       this.setState({
-        skin:0
-       })
+        skin: 0
+      })
       // Do something when catch error
     }
-      console.log('options1', options);
+    console.log('options1', options);
     console.log('options2', options.id);
     let invite_goal_id = options.id;
+
     if (!this.data.isLogin) {
       wx.login({
         success: function (res) {
@@ -269,12 +270,88 @@ Page({
 
   },
 
+  //申请微信运动授权
+  NeedWerun: function (e) {
+    wx.authorize({
+      scope: 'scope.werun',
+      success() {
+        console.log("微信步数已经授权同意 ");
+        // 用户已经同意小程序使用微信运动，后续调用  接口不会弹窗询问
+        setTimeout(() => {
+          run()
+        }, 200)
+      },
+      fail: res => {
+        console.log("微信步数授权失败： " + JSON.stringify(res));
+        wx.showToast({
+          icon: 'none',
+          title: '不要拒绝人家微信运动授权嘛qwq',
+          duration: 2500,
+        })
+        wx.showModal({
+          title: '温馨提示',
+          content: '您需要授权后，才能使用微信运动打卡功能，是否重新授权？',
+          confirmColor: '#ff2d4a',
+          success(res) {
+            if (res.confirm) {
+              // 如果用户点了确定，就打开 设置 界面
+              wx.openSetting({
+                success(res) {
+                  // 不管是否开启授权，都执行success
+                  // 应该根据 res['scope.address'] 是 true 或 false 来确定用户是否同意授权
+                  console.log('设置success：', res.authSetting)
+                  if (res.authSetting['scope.werun'] === true) {
+                    // 套娃获取步数
+                    this.GetWeRunData();
+                  }
+                },
+                fail(err) {
+                  console.log('授权微信运动失败:', err)
+                  wx.showToast({
+                    icon: 'none',
+                    title: '您终究还是拒绝微信运动授权',
+                    duration: 2500,
+                  })
+                }
+              })
+              console.log('用户点击确定前往授权')
+            } else if (res.cancel) {
+              wx.showToast({
+                icon: 'none',
+                title: '您还是拒绝微信运动授权',
+                duration: 1500,
+              })
+            }
+          }
+        })
+      }
+    })
+  },
+
 
   //微信运动
   GetWeRunData: function () {
-    setTimeout(() => {
-      run()
-    }, 1000)
+    console.log("微信步数授权 ");
+    wx.authorize({
+      scope: 'scope.werun',
+      success() {
+        console.log("微信步数授权同意 ");
+        // 用户已经同意小程序使用微信运动，后续调用  接口不会弹窗询问
+        setTimeout(() => {
+          run()
+        }, 200)
+      },
+      fail: res => {
+        console.log("微信步数授权失败： " + JSON.stringify(res));
+        this.NeedWerun()
+        // wx.showToast({
+        //   icon: 'none',
+        //   title: '您拒绝了微信运动授权',
+        //   duration: 2500,
+        // })
+      },
+    })
+
 
     let run = () => {
       if (this.$state.login_key) {
@@ -304,6 +381,11 @@ Page({
           },
           fail: res => {
             console.log("微信步数获取失败： " + res);
+            wx.showToast({
+              icon: 'none',
+              title: '微信运动步数获取失败',
+              duration: 1500,
+            })
           }
         })
       } else {
@@ -358,28 +440,28 @@ Page({
                               login_key: res.data['login_key']
                             })
 
-                                 // 获取用户信息。计算使用天数
-      setTimeout(() => {
-        console.log("isLogin2", this.data.isLogin, "key2", this.$state.login_key);
-        wx.request({
-          method: 'POST',
-          url: this.data.apiUrl + '/user/info',
-          data: {
-            login_key: this.$state.login_key,
-          },
-          success: (res) => {
-            console.log("info", res.data);
-            let DATE = new Date();
-            let DATESU = new Date(res.data.data.signed_up);
-            DATE = parseInt((DATE - DATESU) / (24 * 60 * 60 * 1000));
-            console.log("11", DATE);
-            this.setState({
-              signed_up: res.data.data.signed_up,
-              using_day: DATE,
-            })
-          }
-        })
-      }, 500);
+                            // 获取用户信息。计算使用天数
+                            setTimeout(() => {
+                              console.log("isLogin2", this.data.isLogin, "key2", this.$state.login_key);
+                              wx.request({
+                                method: 'POST',
+                                url: this.data.apiUrl + '/user/info',
+                                data: {
+                                  login_key: this.$state.login_key,
+                                },
+                                success: (res) => {
+                                  console.log("info", res.data);
+                                  let DATE = new Date();
+                                  let DATESU = new Date(res.data.data.signed_up);
+                                  DATE = parseInt((DATE - DATESU) / (24 * 60 * 60 * 1000));
+                                  console.log("11", DATE);
+                                  this.setState({
+                                    signed_up: res.data.data.signed_up,
+                                    using_day: DATE,
+                                  })
+                                }
+                              })
+                            }, 500);
 
 
 
@@ -423,6 +505,7 @@ Page({
               }
             })
           }
+
           this.GetWeRunData();
         }
       })
@@ -456,6 +539,13 @@ Page({
       // }, 3500);
     } else {
       console.log('用户拒绝了授权');
+      wx.showToast({
+        icon: 'none',
+        title: '您拒绝了授权',
+        duration: 2500,
+      })
+
+
       this.setData({
         ConsoleText: '用户拒绝了授权',
       })
@@ -498,8 +588,8 @@ Page({
       nowPage: e.currentTarget.dataset.to,
     })
   },
-  modifycard:function(e){
-    if(e.currentTarget.dataset.to==4){
+  modifycard: function (e) {
+    if (e.currentTarget.dataset.to == 4) {
       this.selectComponent('#modifycard').modify();
       this.setData({
         changedPageCounts: this.data.changedPageCounts + 1,
@@ -855,16 +945,16 @@ Page({
     })
   },
 
-  get_storage: function(key){
-    console.log("keyin",key)
+  get_storage: function (key) {
+    console.log("keyin", key)
     wx.getStorage({
       key: key,
-      success (res) {
-        console.logkey,(key,"sout:", res.data)
+      success(res) {
+        console.logkey, (key, "sout:", res.data)
         return res.data;
       },
-      complete (res) {
-        console.logkey,(key,"out:", res.data)
+      complete(res) {
+        console.logkey, (key, "out:", res.data)
         return res.data;
       }
     })
