@@ -243,7 +243,7 @@ Page({
 
     wx.request({
       method: 'POST',
-      url: this.$state.apiURL + '/user/goal/get',
+      url: this.$state.apiURL + '/user/goal/Bget',
       data: {
         from: 0,
         amount: L,

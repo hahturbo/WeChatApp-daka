@@ -65,7 +65,8 @@
 				<!-- 调试用 -->
 				<!-- <view> -->
 				<view class='home-content {{nowPage!=0 ? "displayNone" : ""}} ' >
-					<image class='{{$state.card_num==0?"":"displayNone"}}' style=" width:100%;height:100%" src="../../images/mainnew.png"></image>
+					<image  wx:if='{{$state.skin==1}} ' class='{{$state.card_num==0?"":"displayNone"}}' style=" width:100%;height:100%" src="../../images/mainnew.png"></image>
+					<image wx:if='{{$state.skin==2}} '  class='{{$state.card_num==0?"":"displayNone"}}' style=" width:100%;height:100%" src="../../images/mainnew3.png"></image>
 					<!-- <text>isLogin:{{ConsoleText}}</text> -->
 					<view class='home-content  {{$state.card_num!=0?"":"displayNone"}}'>
 						<text class='{{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2" : ""}}' bindtap="gotodetails" data-to="{{0}}">{{$state.aimCardDatas[0].goal_name}}</text>
