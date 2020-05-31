@@ -28,7 +28,7 @@
 		</view>
 		<view wx:if='{{$state.skin==1}}' class='downmidshadow '></view>
 		<view class='downmidbg '></view>
-			<view class='downfirst {{nowPage==0&&card_num==0 ? "" : "displayNone"}}'>
+			<view class='downfirst {{nowPage==0&&$state.card_num==0 ? "" : "displayNone"}}'>
 			<text style="color:gray">现在，给自己制定一个打卡计划</text>
 				<text style="color:gray">⬇</text>			
 			</view>
@@ -65,9 +65,9 @@
 				<!-- 调试用 -->
 				<!-- <view> -->
 				<view class='home-content {{nowPage!=0 ? "displayNone" : ""}} ' >
-					<image class='{{card_num==0?"":"displayNone"}}' style=" width:100%;height:100%" src="../../images/mainnew.png"></image>
+					<image class='{{$state.card_num==0?"":"displayNone"}}' style=" width:100%;height:100%" src="../../images/mainnew.png"></image>
 					<!-- <text>isLogin:{{ConsoleText}}</text> -->
-					<view class='home-content  {{card_num!=0?"":"displayNone"}}'>
+					<view class='home-content  {{$state.card_num!=0?"":"displayNone"}}'>
 						<text class='{{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2" : ""}}' bindtap="gotodetails" data-to="{{0}}">{{$state.aimCardDatas[0].goal_name}}</text>
 						<image  bindtap="gotodetails" data-to="{{0}}" class='' style=" width:70%;height:40%" src="../../images/mainnew2.png"></image>
 

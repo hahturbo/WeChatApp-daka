@@ -325,6 +325,8 @@ Component({
         },
       })
     },
+
+    
     // this.log.data => this.$state.CardDetail[this.properties.carditem]
     // 获取时间戳
     getTimestamp: function (e) {
