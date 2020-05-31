@@ -242,6 +242,23 @@ Component({
       }
     },
     uploadboard: function () {
+      // 获取打卡详情
+      wx.request({
+        method: "POST",
+        url: this.$state.apiURL + '/user/goal/get',
+        data: {
+          from: 0,
+          amount: 5,
+          login_key: this.$state.login_key,
+        },
+        success: (res) => {
+          console.log('get succsess');
+          this.setState({
+            aimCardDatas: res.data.data.data,
+          })
+          console.log(this.$state.aimCardDatas);
+        },
+      });
       let board_num = this.$state.board_num;
       for (let i = 0; i < this.$state.goalsBoardData.length; i++) {
         if (this.$state.aimCardDatas[this.data.item].goal_name === this.$state.goalsBoardData[i].title) {

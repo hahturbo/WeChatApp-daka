@@ -49,9 +49,19 @@ Page({
     //新建打卡页面数据
     carditem: '',
   },
+  onResize:function(){
+    console.log("RS0",this.$state.isLogin)
+    if(this.$state.isLogin){
+      this.GetCardData();
+    }
+  },
 
   onShow: function (e) {
-
+    console.log("show0",this.$state.isLogin)
+    if(this.$state.isLogin){
+      this.GetCardData();
+    }
+  
     this.ShowSkin();
   },
 
@@ -253,7 +263,7 @@ Page({
         let array1 = [];
         for (let i = 0; i < array0.length; i++) {
           if (array0[i].goal_type >= 3) {
-            break;
+            continue;
           } else {
             array1.push(array0[i]);
           }
@@ -266,19 +276,20 @@ Page({
         this.setState({
           card_num: this.$state.aimCardDatas.length,
         })
+        console.log(" this.$state.aimCardDatas.length", this.$state.aimCardDatas.length)
         wx.setStorage({
           key: "card_num",
           data: this.$state.card_num,
         })
+//貌似无用
+        // console.log((this.$state.aimCardDatas[0].canBeSignedNow == 1) && (this.$state.aimCardDatas[0].frequency_type[2] == 1));
+        // if ((this.$state.aimCardDatas[0].canBeSignedNow == 1) && (this.$state.aimCardDatas[0].frequency_type[2] == 1)) {
 
-        console.log((this.$state.aimCardDatas[1].canBeSignedNow == 1) && (this.$state.aimCardDatas[1].frequency_type[2] == 1));
-        if ((this.$state.aimCardDatas[1].canBeSignedNow == 1) && (this.$state.aimCardDatas[1].frequency_type[2] == 1)) {
-
-        } else {
-          this.setData({
-            error_code: "无法获取打卡信息",
-          })
-        }
+        // } else {
+        //   this.setData({
+        //     error_code: "无法获取或没有打卡信息",
+        //   })
+        // }
 
         //自动打卡微信运动
         setTimeout(() => {
@@ -750,9 +761,9 @@ Page({
 
   PostCardData: function (e) {
 
-    function CNplus (){
-       //打卡项加一
-       let L = this.$state.card_num;
+   let  CNplus= ()=>{
+    var L = this.$state.card_num;
+       //打卡项加一      
        L++;
        console.log("新建长度：",L);
        this.setState({
@@ -816,7 +827,7 @@ Page({
               error_code: res.status + res.code,
             })
           }else{
-            this.CNplus();
+            CNplus();
           }
 
         }
@@ -841,7 +852,7 @@ Page({
           console.log(res.data);
           this.setData({})
         
-            this.CNplus();
+            CNplus();
           
         }
       })
@@ -860,7 +871,7 @@ Page({
           console.log(res.data);
           this.setData({})
         
-            this.CNplus();
+            CNplus();
           
         }
       })

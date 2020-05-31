@@ -1,4 +1,7 @@
 <!--miniprogram/pages/setting/cardrecord/detail/detail.wxml-->
 <view class="containerB">
-  <carddetail carditem="{{item}}"></carddetail>
+	<carddetail carditem="{{item}}" id="carddetail2"></carddetail>
+	<view class="ad">
+		<view class="ad_t">广告位招租</view>
+	</view>
 </view>

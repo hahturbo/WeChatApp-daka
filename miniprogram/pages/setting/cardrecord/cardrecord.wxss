@@ -53,3 +53,6 @@ page .img_delete{
   margin: 10rpx;
   /* margin-left: 30rpx; */
 }
+.delete_text{
+  color: red;
+}

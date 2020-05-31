@@ -136,7 +136,7 @@
 		</view>
 	</view>
 	<!-- 再来一个，实现进出背景和内容动画都有 -->
-	<view class='FullScreenCard aim_card toFullCard {{nowPage==6 ? "" : "displayNone"}}'>
+	<view class='FullScreenCard aim_card toFullCard {{$state.skin==1? "bgcolor-o":""}} {{$state.skin==2? "bgcolor-skin2":""}} {{nowPage==6 ? "" : "displayNone"}}'>
 		<!-- nowpage==6 -->
 		<view class='containerB toFullCard modifycard' wx:if="{{nowPage==6}}">
 			<modifycard carditem = "{{carditem}}" id ='modifycard'></modifycard>
