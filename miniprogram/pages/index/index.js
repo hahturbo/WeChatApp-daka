@@ -736,17 +736,7 @@ Page({
       success: (res) => {
         console.log("上传目标板成功");
         console.log(res.data);
-        //打卡项加一
-        let L = this.$state.card_num;
-        L++;
-        console.log("邀请长度：", L);
-        this.setState({
-          card_num: L,
-        })
-        wx.setStorage({
-          key: "card_num",
-          data: L,
-        })
+       
       }
     })
     // 换页部分
@@ -875,6 +865,7 @@ Page({
         })
       }
     })
+
 
     //清理全局变量
     this.setState({
