@@ -49,12 +49,6 @@ Page({
     //新建打卡页面数据
     carditem: '',
   },
-  onResize:function(){
-    console.log("RS0",this.$state.isLogin)
-    if(this.$state.isLogin){
-      this.GetCardData();
-    }
-  },
 
   onShow: function (e) {
     console.log("show0",this.$state.isLogin)
