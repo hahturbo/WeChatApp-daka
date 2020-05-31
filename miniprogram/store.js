@@ -20,6 +20,7 @@ let store = {
   aimCardDatas: [],
   board_num:0,
   goalsBoardData:[],
+  CardData:'',
   CardDetail:'',
   CardGroupData:'',
   GoalType:['极简', '普通', '微信运动'],

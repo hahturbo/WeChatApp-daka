@@ -3,7 +3,7 @@
 	<!-- title -->
 	<view class="bg">
 		<view class="title">
-			<text>{{$state.aimCardDatas[item].goal_is_a_group?'小组':'个人'}}打卡</text>
+			<text>{{$state.CardData[item].goal_is_a_group?'小组':'个人'}}打卡</text>
 		</view>
 	</view>
 	<!-- 选项 -->
@@ -74,13 +74,13 @@
 
 		</view>
 		<!-- invite -->
-		<view class="invite" wx:if="{{$state.aimCardDatas[item].goal_is_a_group}}">
+		<view class="invite" wx:if="{{$state.CardData[item].goal_is_a_group}}">
 			<view class='card'>
 				<view class="picker" style=" display: flex;flex-direction: row;">
 					<text style="flex:1;text-align:left;">邀请好友:  </text>
-					<text style='font-size:30rpx;color:gray;text-align:left;margin-left:0;margin-right:80rpx;'>(还可邀请{{5-$state.aimCardDatas[item].groupData.groupMembers.length}}位好友)</text>
+					<text style='font-size:30rpx;color:gray;text-align:left;margin-left:0;margin-right:80rpx;'>(还可邀请{{5-$state.CardData[item].groupData.groupMembers.length}}位好友)</text>
 					<!-- 新建打卡默认0，详情传对应下标 -->
-					<button class="btn_invite {{$state.aimCardDatas[item].groupData.groupMembers.length==5?'full':''}}" open-type="{{$state.aimCardDatas[item].groupData.groupMembers.length==5?'':'share'}}" data-index='item' style="flex:1;">邀请好友</button>
+					<button class="btn_invite {{$state.CardData[item].groupData.groupMembers.length==5?'full':''}}" open-type="{{$state.CardData[item].groupData.groupMembers.length==5?'':'share'}}" data-index='item' style="flex:1;">邀请好友</button>
 				</view>
 			</view>
 		</view>

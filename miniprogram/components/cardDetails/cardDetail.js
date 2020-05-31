@@ -75,7 +75,7 @@ Component({
             user_info: res.data.data,
           })
           this.getSignedCord();
-          if (this.data.item > 4) {
+          if (this.data.item >= this.$state.card_num) {
             this.getcarddetail()
           } else {
             this.initCardDetail();
@@ -106,14 +106,14 @@ Component({
       });
     },
     initCardDetail: function () {
-      if (this.$state.aimCardDatas[this.data.item].goal_type == 2) {
+      if (this.$state.CardData[this.data.item].goal_type == 2) {
         this.getWeRundata();
-        if (this.$state.aimCardDatas[this.data.item].canBeSignedNow == 1 && this.$state.aimCardDatas[this.data.item].goal_type == 2) {
+        if (this.$state.CardData[this.data.item].canBeSignedNow == 1 && this.$state.CardData[this.data.item].goal_type == 2) {
           wx.request({
             method: 'POST',
             url: this.$state.apiURL + '/user/goal/sign',
             data: {
-              goal_id: this.$state.aimCardDatas[i].goal_id,
+              goal_id: this.$state.CardData[i].goal_id,
               login_key: this.$state.login_key,
             },
             success: (res) => {
@@ -123,9 +123,9 @@ Component({
           })
         }
       }
-      if (this.$state.aimCardDatas[this.data.item].goal_is_a_group) {
+      if (this.$state.CardData[this.data.item].goal_is_a_group) {
         this.setState({
-          CardGroupData: this.$state.aimCardDatas[this.data.item].groupData,
+          CardGroupData: this.$state.CardData[this.data.item].groupData,
         })
       } else {
         this.setState({
@@ -153,16 +153,16 @@ Component({
     },
     // 比较当天和结束时间选择
     comparedate: function () {
-      let end = new Date(this.$state.aimCardDatas[this.data.item].ended_in);
+      let end = new Date(this.$state.CardData[this.data.item].ended_in);
       // let end = new Date('2020-03-10');
       let today = new Date(this.data.select);
-      if (end < today || this.$state.aimCardDatas[this.data.item].goal_type >= 3) {
+      if (end < today || this.$state.CardData[this.data.item].goal_type == 4) {
         today = end;
-      } else {
+      } else if (this.$state.CardData[this.data.item].goal_type != 3 && this.$state.CardData[this.data.item].goal_type != 5) {
         return false; // false代表还没结束
       }
       this.setData({
-        select: this.$state.aimCardDatas[this.data.item].ended_in,
+        select: this.$state.CardData[this.data.item].ended_in,
         // select:'2020-03-10',
         year: today.getFullYear(),
         month: today.getMonth() + 1,
@@ -281,15 +281,15 @@ Component({
         url: this.$state.apiURL + '/user/goal/get',
         data: {
           from: 0,
-          amount: this.data.item > 4 ? this.data.user_info.goal_num : 5,
+          amount: this.data.item >= this.$state.card_num ? this.data.user_info.goal_num : this.$state.card_num,
           login_key: this.$state.login_key,
         },
         success: (res) => {
           console.log('get succsess');
           this.setState({
-            aimCardDatas: res.data.data.data,
+            CardData: res.data.data.data,
           })
-          console.log(this.$state.aimCardDatas);
+          console.log(this.$state.CardData);
         },
         fail: (res) => {
           console.log('get aimcarddetail fail', res);
@@ -326,7 +326,7 @@ Component({
       })
     },
 
-    
+
     // this.log.data => this.$state.CardDetail[this.properties.carditem]
     // 获取时间戳
     getTimestamp: function (e) {
@@ -339,7 +339,7 @@ Component({
     todaysigned: function (year, month, date) {
       // console.log(this.$state.CardDetail);
       for (let i = 0; i < this.$state.CardDetail.length; i++) {
-        if (this.$state.aimCardDatas[this.data.item].goal_id == this.$state.CardDetail[i].goal_id) {
+        if (this.$state.CardData[this.data.item].goal_id == this.$state.CardDetail[i].goal_id) {
           if (this.getTimestamp(this.$state.CardDetail[i]).getFullYear() == year &&
             this.getTimestamp(this.$state.CardDetail[i]).getMonth() + 1 == month &&
             this.getTimestamp(this.$state.CardDetail[i]).getDate() == date) {
@@ -384,7 +384,7 @@ Component({
       return members;
     },
     todaydaka: function (e) {
-      if (this.$state.aimCardDatas[this.data.item].goal_type == 2 && this.$state.aimCardDatas[this.data.item].canBeSignedNow != 1) {
+      if (this.$state.CardData[this.data.item].goal_type == 2 && this.$state.CardData[this.data.item].canBeSignedNow != 1) {
         wx.showToast({
           title: '您的步数不够哦！',
           image: '../../images/Step.png',
@@ -392,12 +392,12 @@ Component({
         })
         return;
       }
-      if (this.$state.aimCardDatas[this.data.item].canBeSignedNow & 1) {
+      if (this.$state.CardData[this.data.item].canBeSignedNow & 1) {
         wx.request({
           method: 'POST',
           url: this.$state.apiURL + '/user/goal/sign',
           data: {
-            goal_id: this.$state.aimCardDatas[this.data.carditem].goal_id,
+            goal_id: this.$state.CardData[this.data.carditem].goal_id,
             login_key: this.$state.login_key,
           },
           success: (res) => {
@@ -433,17 +433,17 @@ Component({
     buttontap: function (e) {
       console.log('button tap');
       if (e.detail.item.text == "删除") {
-        if (this.$state.aimCardDatas[this.data.item].goal_type == 0) {
+        if (this.$state.CardData[this.data.item].goal_type == 0) {
           // 极简
           wx.request({
             url: this.$state.apiURL + '/user/goal/edit',
             method: 'POST',
             data: {
-              goal_id: this.$state.aimCardDatas[this.data.item].goal_id,
+              goal_id: this.$state.CardData[this.data.item].goal_id,
               login_key: this.$state.login_key,
               now_type: 0,
               goal_type: 3,
-              goal_name: this.$state.aimCardDatas[this.data.item].goal_name,
+              goal_name: this.$state.CardData[this.data.item].goal_name,
             },
             success: (res) => {
               console.log("modify delete success");
@@ -452,21 +452,20 @@ Component({
                 dialogshow: false,
               })
               this.triggerEvent('deleteEvent', 'delete');
-              this.getcarddetail();
             },
           })
-        } else if (this.$state.aimCardDatas[this.data.item].goal_type == 2) {
+        } else if (this.$state.CardData[this.data.item].goal_type == 2) {
           // 运动
           wx.request({
             url: this.$state.apiURL + '/user/goal/edit',
             method: 'POST',
             data: {
-              goal_id: this.$state.aimCardDatas[this.data.item].goal_id,
+              goal_id: this.$state.CardData[this.data.item].goal_id,
               login_key: this.$state.login_key,
               now_type: 2,
               goal_type: 5,
-              goal_name: this.$state.aimCardDatas[this.data.item].goal_name,
-              frequency: this.$state.aimCardDatas[this.data.item].frequency,
+              goal_name: this.$state.CardData[this.data.item].goal_name,
+              frequency: this.$state.CardData[this.data.item].frequency,
             },
             success: (res) => {
               console.log("modify delete success");
@@ -475,27 +474,26 @@ Component({
                 dialogshow: false,
               })
               this.triggerEvent('deleteEvent', 'delete');
-              this.getcarddetail();
             },
           })
-        } else if (this.$state.aimCardDatas[this.data.item].goal_type == 1){
+        } else if (this.$state.CardData[this.data.item].goal_type == 1) {
           // 普通
           wx.request({
             url: this.$state.apiURL + '/user/goal/edit',
             method: 'POST',
             data: {
-              goal_id: this.$state.aimCardDatas[this.data.item].goal_id,
+              goal_id: this.$state.CardData[this.data.item].goal_id,
               login_key: this.$state.login_key,
               now_type: 1,
               goal_type: 4,
-              goal_name: this.$state.aimCardDatas[this.data.item].goal_name,
-              started_at: this.$state.aimCardDatas[this.data.item].started_at,
-              ended_in: this.$state.aimCardDatas[this.data.item].ended_in,
-              frequency: this.$state.aimCardDatas[this.data.item].frequency,
-              frequency_type: this.$state.aimCardDatas[this.data.item].frequency_type,
-              reminder_at: this.$state.aimCardDatas[this.data.item].reminder_at,
-              needed_be_signed_at: this.$state.aimCardDatas[this.data.item].needed_be_signed_at,
-              needed_be_signed_deadline: this.$state.aimCardDatas[this.data.item].needed_be_signed_deadline,
+              goal_name: this.$state.CardData[this.data.item].goal_name,
+              started_at: this.$state.CardData[this.data.item].started_at,
+              ended_in: this.$state.CardData[this.data.item].ended_in,
+              frequency: this.$state.CardData[this.data.item].frequency,
+              frequency_type: this.$state.CardData[this.data.item].frequency_type,
+              reminder_at: this.$state.CardData[this.data.item].reminder_at,
+              needed_be_signed_at: this.$state.CardData[this.data.item].needed_be_signed_at,
+              needed_be_signed_deadline: this.$state.CardData[this.data.item].needed_be_signed_deadline,
             },
             success: (res) => {
               console.log("modify delete success");
@@ -504,7 +502,6 @@ Component({
                 dialogshow: false,
               })
               this.triggerEvent('deleteEvent', 'delete');
-              this.getcarddetail();
             },
 
           })

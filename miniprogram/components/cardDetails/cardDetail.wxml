@@ -1,7 +1,7 @@
 <!--components/cardDetails/cardDetail.wxml-->
 <scroll-view class="cardDetail" scroll-y="true">
 	<!-- 打卡标题 -->
-	<view class="card_title">{{$state.aimCardDatas[item].goal_name}}</view>
+	<view class="card_title">{{$state.CardData[item].goal_name}}</view>
 
 	<!-- 日历 -->
 	<view class="calander">
@@ -26,9 +26,9 @@
 					<!-- 是否今天 -->
 					<view class='self' wx:if="{{ format === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat && !cardend }}"></view>
 					<!-- date -->
-					<view class="wrap {{thismonthday.othersigned?'othersigned':''}} {{!$state.aimCardDatas[item].goal_is_a_group&&thismonthday.signed?'signed':''}} {{$state.aimCardDatas[item].goal_is_a_group&&thismonthday.signed?'mysigned':''}} {{thismonthday.signedmembers.length==$state.CardGroupData.groupMembers.length&&$state.CardGroupData.groupMembers.length>0?'allsigned':''}}" bindtap='select' data-date='{{thismonthday.date}}'>{{thismonthday.date}}</view>
+					<view class="wrap {{thismonthday.othersigned?'othersigned':''}} {{!$state.CardData[item].goal_is_a_group&&thismonthday.signed?'signed':''}} {{$state.CardData[item].goal_is_a_group&&thismonthday.signed?'mysigned':''}} {{thismonthday.signedmembers.length==$state.CardGroupData.groupMembers.length&&$state.CardGroupData.groupMembers.length>0?'allsigned':''}}" bindtap='select' data-date='{{thismonthday.date}}'>{{thismonthday.date}}</view>
 					<!-- 小组打卡用户头像框 -->
-					<view class="group {{select === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat ? 'select' :''}}" wx:if="{{ (select === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat)&(secondselect==1)&($state.aimCardDatas[item].goal_is_a_group)? true :false}}" style="right:{{thismonthday.week>3?0:auto}};">
+					<view class="group {{select === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat ? 'select' :''}}" wx:if="{{ (select === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat)&(secondselect==1)&($state.CardData[item].goal_is_a_group)? true :false}}" style="right:{{thismonthday.week>3?0:auto}};">
 						<view class="userimgs">
 							<image class="user_img" wx:for="{{thismonthday.signedmembers}}" wx:key='item' wx:for-item="GroupMembers" src="{{GroupMembers.img}}"></image>
 						</view>
@@ -42,25 +42,25 @@
 
 	<!-- 打卡详情 -->
 	<view class="detaildata">
-		<view class="type">打卡类型：{{$state.aimCardDatas[item].goal_is_a_group?'小组 ':''}}{{$state.GoalType[$state.aimCardDatas[item].goal_type%3]}} {{$state.aimCardDatas[item].goal_type>3?'已删除':''}}</view>
-		<view wx:if="{{$state.aimCardDatas[item].goal_type%3==2}}">
+		<view class="type">打卡类型：{{$state.CardData[item].goal_is_a_group?'小组 ':''}}{{$state.GoalType[$state.CardData[item].goal_type%3]}} {{$state.CardData[item].goal_type>3?'已删除':''}}</view>
+		<view wx:if="{{$state.CardData[item].goal_type%3==2}}">
 			<view class="type">今日步数：{{stepInfoList[stepInfoList.length-1].step}}</view>
 		</view>
-		<view wx:if="{{$state.aimCardDatas[item].goal_type%3==1}}">
-			<view class="type">开始时间：{{$state.aimCardDatas[item].started_at}}</view>
-			<view class="type">结束时间：{{$state.aimCardDatas[item].ended_in}}</view>
-			<view class="type">打卡频率：每{{$state.aimCardDatas[item].frequency_type[2]==1?$state.aimCardDatas[item].frequency+'月':($state.aimCardDatas[item].frequency%7==0?$state.aimCardDatas[item].frequency/7+'周':$state.aimCardDatas[item].frequency+'天')}} {{$state.aimCardDatas[item].frequency_type[0]==0?"任意一天":"仅当天"}}</view>
-			<view class="type">打卡时间：{{$state.aimCardDatas[item].needed_be_signed_at}}-{{$state.aimCardDatas[item].needed_be_signed_deadline}}</view>
-			<view class="type">提醒时间：{{reminder_Array[$state.aimCardDatas[item].reminder_at >= 30 ? $state.aimCardDatas[item].reminder_at / 30 + 3 : $state.aimCardDatas[item].reminder_at / 5]}}</view>
+		<view wx:if="{{$state.CardData[item].goal_type%3==1}}">
+			<view class="type">开始时间：{{$state.CardData[item].started_at}}</view>
+			<view class="type">结束时间：{{$state.CardData[item].ended_in}}</view>
+			<view class="type">打卡频率：每{{$state.CardData[item].frequency_type[2]==1?$state.CardData[item].frequency+'月':($state.CardData[item].frequency%7==0?$state.CardData[item].frequency/7+'周':$state.CardData[item].frequency+'天')}} {{$state.CardData[item].frequency_type[0]==0?"任意一天":"仅当天"}}</view>
+			<view class="type">打卡时间：{{$state.CardData[item].needed_be_signed_at}}-{{$state.CardData[item].needed_be_signed_deadline}}</view>
+			<view class="type">提醒时间：{{reminder_Array[$state.CardData[item].reminder_at >= 30 ? $state.CardData[item].reminder_at / 30 + 3 : $state.CardData[item].reminder_at / 5]}}</view>
 		</view>
-		<view class="group_members" wx:if="{{$state.aimCardDatas[item].goal_is_a_group?true:false}}">
+		<view class="group_members" wx:if="{{$state.CardData[item].goal_is_a_group?true:false}}">
 			<view class="type">小组成员：</view>
 			<view class="group_users">
-				<view class="group_user" wx:for="{{$state.aimCardDatas[item].groupData.groupMembers}}" wx:key="item" wx:for-item="GroupData">
+				<view class="group_user" wx:for="{{$state.CardData[item].groupData.groupMembers}}" wx:key="item" wx:for-item="GroupData">
 					<image class="members_img" src="{{GroupData.img}}"></image>
 					<view class="type members_text">{{GroupData.nickname}}</view>
 				</view>
-				<view class="group_user invite" wx:if="{{$state.aimCardDatas[item].groupData.groupMembers.length<5&&!cardend}}">
+				<view class="group_user invite" wx:if="{{$state.CardData[item].groupData.groupMembers.length<5&&!cardend}}">
 					<button class="button_invite" open-type='share' data-index="{{item}}" style="background-color: transparent;text-align:left;position:absolute;color:rgba(0,0,0,0)">分享</button>
 					<image class="members_img" src="../../images/invite_add.png"></image>
 					<view class="type members_text invite">邀请好友加入</view>
@@ -70,7 +70,7 @@
 		</view>
 		<image class="card_ended" src="../../images/cardend.png" wx:if="{{cardend}}"></image>
 		<view class="buttongroup" wx:if="{{!cardend}}">
-			<button class="todaydaka {{$state.aimCardDatas[item].canBeSignedNow&1?'':'signed'}}" bindtap="todaydaka">{{$state.aimCardDatas[item].canBeSignedNow&1?'今日打卡':'今日完成'}}</button>
+			<button class="todaydaka {{$state.CardData[item].canBeSignedNow&1?'':'signed'}}" bindtap="todaydaka">{{$state.CardData[item].canBeSignedNow&1?'今日打卡':'今日完成'}}</button>
 			<view class="deletedaka" bindtap="deletedaka">删除打卡</view>
 		</view>
 		<view class="block line" style="height:12vh;"></view>

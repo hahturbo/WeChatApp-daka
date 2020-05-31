@@ -48,14 +48,15 @@ Page({
 
     //新建打卡页面数据
     carditem: '',
+    card_index: '',
   },
 
   onShow: function (e) {
-    console.log("show0",this.$state.isLogin)
-    if(this.$state.isLogin){
+    console.log("show0", this.$state.isLogin)
+    if (this.$state.isLogin) {
       this.GetCardData();
     }
-  
+
     this.ShowSkin();
   },
 
@@ -255,16 +256,22 @@ Page({
         //剔除过期数组项
         let array0 = res.data.data.data;
         let array1 = [];
+        let card_index = [];
         for (let i = 0; i < array0.length; i++) {
           if (array0[i].goal_type >= 3) {
             continue;
           } else {
             array1.push(array0[i]);
+            card_index.push(i);
           }
         }
+        this.setData({
+          card_index: card_index
+        })
         this.setState({
           // aimCardDatas: res.data.data.data,
           aimCardDatas: array1,
+          CardData: array0,
         })
         console.log("L2:", array0, ">>", this.$state.aimCardDatas, );
         this.setState({
@@ -275,7 +282,7 @@ Page({
           key: "card_num",
           data: this.$state.card_num,
         })
-//貌似无用
+        //貌似无用
         // console.log((this.$state.aimCardDatas[0].canBeSignedNow == 1) && (this.$state.aimCardDatas[0].frequency_type[2] == 1));
         // if ((this.$state.aimCardDatas[0].canBeSignedNow == 1) && (this.$state.aimCardDatas[0].frequency_type[2] == 1)) {
 
@@ -741,7 +748,7 @@ Page({
       success: (res) => {
         console.log("上传目标板成功");
         console.log(res.data);
-       
+
       }
     })
     // 换页部分
@@ -755,18 +762,18 @@ Page({
 
   PostCardData: function (e) {
 
-   let  CNplus= ()=>{
-    var L = this.$state.card_num;
-       //打卡项加一      
-       L++;
-       console.log("新建长度：",L);
-       this.setState({
-         card_num: L,
-       })
-       wx.setStorage({
-         key: "card_num",
-         data: L,
-       })
+    let CNplus = () => {
+      var L = this.$state.card_num;
+      //打卡项加一      
+      L++;
+      console.log("新建长度：", L);
+      this.setState({
+        card_num: L,
+      })
+      wx.setStorage({
+        key: "card_num",
+        data: L,
+      })
     };
 
 
@@ -820,7 +827,7 @@ Page({
             this.setData({
               error_code: res.status + res.code,
             })
-          }else{
+          } else {
             CNplus();
           }
 
@@ -845,9 +852,9 @@ Page({
           console.log("提交运动成功");
           console.log(res.data);
           this.setData({})
-        
-            CNplus();
-          
+
+          CNplus();
+
         }
       })
     } else if (goal_type == 0) {
@@ -864,9 +871,9 @@ Page({
           console.log("提交极简成功");
           console.log(res.data);
           this.setData({})
-        
-            CNplus();
-          
+
+          CNplus();
+
         }
       })
     }
@@ -1016,15 +1023,22 @@ Page({
     // wx.navigateTo({url:'../carddetails/carddetails',})
     this.setData({
       nowPage: 4,
-      carditem: e.currentTarget.dataset.to,
+      carditem: this.data.card_index[e.currentTarget.dataset.to],
     })
   },
   getsondelete: function (e) {
     console.log('getsondelete');
+    let page;
+    if (e.detail === 'delete') {
+      page = 0;
+    } else if (e.detail === 'modify') {
+      page = 4;
+    }
     this.setData({
-      nowPage: e.detail === 'delete' ? 0 : 4,
+      nowPage: page,
       changedPageCounts: this.data.changedPageCounts + 1,
     })
+    this.GetCardData();
   },
 
   get_storage: function (key) {

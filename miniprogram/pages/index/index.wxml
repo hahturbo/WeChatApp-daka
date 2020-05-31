@@ -139,7 +139,7 @@
 	<view class='FullScreenCard aim_card toFullCard {{$state.skin==1? "bgcolor-o":""}} {{$state.skin==2? "bgcolor-skin2":""}} {{nowPage==6 ? "" : "displayNone"}}'>
 		<!-- nowpage==6 -->
 		<view class='containerB toFullCard modifycard' wx:if="{{nowPage==6}}">
-			<modifycard carditem = "{{carditem}}" id ='modifycard'></modifycard>
+			<modifycard carditem = "{{carditem}}" id ='modifycard' bind:deleteEvent='getsondelete'></modifycard>
 		</view>
 	</view>
 	<!-- nowpage3 start -->

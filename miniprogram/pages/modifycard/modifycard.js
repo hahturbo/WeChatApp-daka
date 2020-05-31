@@ -57,18 +57,18 @@ Component({
     // initialization
     initdata: function () {
       this.setData({
-        goal_type: this.$state.aimCardDatas[this.data.item].goal_type,
-        goal_name: this.$state.aimCardDatas[this.data.item].goal_type == 2 ? parseInt(this.$state.aimCardDatas[this.data.item].goal_name.replace(/[^0-9]/ig, '')) : this.$state.aimCardDatas[this.data.item].goal_name,
-        started_at: this.$state.aimCardDatas[this.data.item].started_at,
-        ended_in: this.$state.aimCardDatas[this.data.item].ended_in,
-        frequency: this.$state.aimCardDatas[this.data.item].frequency,
-        frequency_type: this.$state.aimCardDatas[this.data.item].frequency_type,
-        frequency_typeformat: this.frequency_typeformat(this.$state.aimCardDatas[this.data.item].frequency, this.$state.aimCardDatas[this.data.item].frequency_type),
-        // frequency_typeindex: parseInt(this.$state.aimCardDatas[this.data.item].frequency_type.replace(/[^0-9]/ig, ''), 2),
-        reminder_at: this.$state.aimCardDatas[this.data.item].reminder_at,
-        reminder_atindex: this.reminderformat(this.$state.aimCardDatas[this.data.item].reminder_at),
-        needed_be_signed_at: this.$state.aimCardDatas[this.data.item].needed_be_signed_at,
-        needed_be_signed_deadline: this.$state.aimCardDatas[this.data.item].needed_be_signed_deadline,
+        goal_type: this.$state.CardData[this.data.item].goal_type,
+        goal_name: this.$state.CardData[this.data.item].goal_type == 2 ? parseInt(this.$state.CardData[this.data.item].goal_name.replace(/[^0-9]/ig, '')) : this.$state.CardData[this.data.item].goal_name,
+        started_at: this.$state.CardData[this.data.item].started_at,
+        ended_in: this.$state.CardData[this.data.item].ended_in,
+        frequency: this.$state.CardData[this.data.item].frequency,
+        frequency_type: this.$state.CardData[this.data.item].frequency_type,
+        frequency_typeformat: this.frequency_typeformat(this.$state.CardData[this.data.item].frequency, this.$state.CardData[this.data.item].frequency_type),
+        // frequency_typeindex: parseInt(this.$state.CardData[this.data.item].frequency_type.replace(/[^0-9]/ig, ''), 2),
+        reminder_at: this.$state.CardData[this.data.item].reminder_at,
+        reminder_atindex: this.reminderformat(this.$state.CardData[this.data.item].reminder_at),
+        needed_be_signed_at: this.$state.CardData[this.data.item].needed_be_signed_at,
+        needed_be_signed_deadline: this.$state.CardData[this.data.item].needed_be_signed_deadline,
       })
     },
     reminderformat: function (reminder_at) {
@@ -171,7 +171,7 @@ Component({
           url: this.$state.apiURL + '/user/goal/edit',
           method: 'POST',
           data: {
-            goal_id: this.$state.aimCardDatas[this.data.item].goal_id,
+            goal_id: this.$state.CardData[this.data.item].goal_id,
             login_key: this.$state.login_key,
             now_type: this.data.goal_type,
             goal_type: this.data.goal_type,
@@ -180,6 +180,7 @@ Component({
           success: (res) => {
             console.log("modify success");
             console.log(res);
+            this.triggerEvent('deleteEvent', 'modify');
             this.uploadboard();
           },
           fail: (res) => {
@@ -195,7 +196,7 @@ Component({
           url: this.$state.apiURL + '/user/goal/edit',
           method: 'POST',
           data: {
-            goal_id: this.$state.aimCardDatas[this.data.item].goal_id,
+            goal_id: this.$state.CardData[this.data.item].goal_id,
             login_key: this.$state.login_key,
             now_type: this.data.goal_type,
             goal_type: this.data.goal_type,
@@ -205,6 +206,7 @@ Component({
           success: (res) => {
             console.log("modify success");
             console.log(res);
+            this.triggerEvent('deleteEvent', 'modify');
             this.uploadboard();
           },
           fail: (res) => {
@@ -217,7 +219,7 @@ Component({
           url: this.$state.apiURL + '/user/goal/edit',
           method: 'POST',
           data: {
-            goal_id: this.$state.aimCardDatas[this.data.item].goal_id,
+            goal_id: this.$state.CardData[this.data.item].goal_id,
             login_key: this.$state.login_key,
             now_type: this.data.goal_type,
             goal_type: this.data.goal_type,
@@ -233,6 +235,7 @@ Component({
           success: (res) => {
             console.log("modify success");
             console.log(res);
+            this.triggerEvent('deleteEvent', 'modify');
             this.uploadboard();
           },
           fail: (res) => {
@@ -254,14 +257,14 @@ Component({
         success: (res) => {
           console.log('get succsess');
           this.setState({
-            aimCardDatas: res.data.data.data,
+            CardData: res.data.data.data,
           })
-          console.log(this.$state.aimCardDatas);
+          console.log(this.$state.CardData);
         },
       });
       let board_num = this.$state.board_num;
       for (let i = 0; i < this.$state.goalsBoardData.length; i++) {
-        if (this.$state.aimCardDatas[this.data.item].goal_name === this.$state.goalsBoardData[i].title) {
+        if (this.$state.CardData[this.data.item].goal_name === this.$state.goalsBoardData[i].title) {
           console.log(this.$state.goalsBoardData[i].id);
           board_num = this.$state.goalsBoardData[i].id - 1;
           break;
@@ -269,7 +272,7 @@ Component({
       }
       let boarddata = [{
         id: board_num + 1,
-        icon: this.$state.aimCardDatas[this.data.item].canBeSignedNow & 1 ? 2 : 1,
+        icon: this.$state.CardData[this.data.item].canBeSignedNow & 1 ? 2 : 1,
         name: this.data.goal_name,
       }]
       wx.request({
