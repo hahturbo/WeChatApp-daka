@@ -253,7 +253,7 @@ Page({
         let array1 = [];
         for (let i = 0; i < array0.length; i++) {
           if (array0[i].goal_type >= 3) {
-            break;
+            continue;
           } else {
             array1.push(array0[i]);
           }
@@ -739,7 +739,7 @@ Page({
         //打卡项加一
         let L = this.$state.card_num;
         L++;
-        console.log("邀请长度：",L);
+        console.log("邀请长度：", L);
         this.setState({
           card_num: L,
         })

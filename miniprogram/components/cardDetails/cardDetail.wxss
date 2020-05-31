@@ -4,7 +4,6 @@
   border-radius: 50rpx 50rpx 0rpx 0rpx;
   /* background: #fff;   */
   width: 98vw;
-  margin-bottom: 50rpx;
 }
 
 .cardDetail text {

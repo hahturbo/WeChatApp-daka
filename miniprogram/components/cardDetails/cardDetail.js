@@ -98,6 +98,7 @@ Component({
           this.setState({
             CardDetail: res.data.data,
           })
+          this.today();
         },
         complete: () => {
           console.log(this.$state.CardDetail);
@@ -155,7 +156,7 @@ Component({
       let end = new Date(this.$state.aimCardDatas[this.data.item].ended_in);
       // let end = new Date('2020-03-10');
       let today = new Date(this.data.select);
-      if (end < today) {
+      if (end < today || this.$state.aimCardDatas[this.data.item].goal_type >= 3) {
         today = end;
       } else {
         return false; // false代表还没结束
@@ -430,27 +431,82 @@ Component({
     buttontap: function (e) {
       console.log('button tap');
       if (e.detail.item.text == "删除") {
-        console.log('删除');
-        wx.request({
-          url: this.$state.apiURL + '/user/goal/delete',
-          method: "POST",
-          data: {
-            login_key: this.$state.login_key,
-            goal_id: this.$state.aimCardDatas[this.data.item].goal_id,
-          },
-          success: (res) => {
-            console.log('delete success');
-            console.log(res);
-            this.setData({
-              dialogshow: false,
-            })
-            this.getcarddetail();
-            this.triggerEvent('deleteEvent', 'delete');
-          },
-          fail: (res) => {
-            console.log(res.code);
-          }
-        })
+        if (this.$state.aimCardDatas[this.data.item].goal_type == 0) {
+          // 极简
+          wx.request({
+            url: this.$state.apiURL + '/user/goal/edit',
+            method: 'POST',
+            data: {
+              goal_id: this.$state.aimCardDatas[this.data.item].goal_id,
+              login_key: this.$state.login_key,
+              now_type: 0,
+              goal_type: 3,
+              goal_name: this.$state.aimCardDatas[this.data.item].goal_name,
+            },
+            success: (res) => {
+              console.log("modify delete success");
+              console.log(res);
+              this.setData({
+                dialogshow: false,
+              })
+              this.triggerEvent('deleteEvent', 'delete');
+              this.getcarddetail();
+            },
+          })
+        } else if (this.$state.aimCardDatas[this.data.item].goal_type == 2) {
+          // 运动
+          wx.request({
+            url: this.$state.apiURL + '/user/goal/edit',
+            method: 'POST',
+            data: {
+              goal_id: this.$state.aimCardDatas[this.data.item].goal_id,
+              login_key: this.$state.login_key,
+              now_type: 2,
+              goal_type: 5,
+              goal_name: this.$state.aimCardDatas[this.data.item].goal_name,
+              frequency: this.$state.aimCardDatas[this.data.item].frequency,
+            },
+            success: (res) => {
+              console.log("modify delete success");
+              console.log(res);
+              this.setData({
+                dialogshow: false,
+              })
+              this.triggerEvent('deleteEvent', 'delete');
+              this.getcarddetail();
+            },
+          })
+        } else if (this.$state.aimCardDatas[this.data.item].goal_type == 1){
+          // 普通
+          wx.request({
+            url: this.$state.apiURL + '/user/goal/edit',
+            method: 'POST',
+            data: {
+              goal_id: this.$state.aimCardDatas[this.data.item].goal_id,
+              login_key: this.$state.login_key,
+              now_type: 1,
+              goal_type: 4,
+              goal_name: this.$state.aimCardDatas[this.data.item].goal_name,
+              started_at: this.$state.aimCardDatas[this.data.item].started_at,
+              ended_in: this.$state.aimCardDatas[this.data.item].ended_in,
+              frequency: this.$state.aimCardDatas[this.data.item].frequency,
+              frequency_type: this.$state.aimCardDatas[this.data.item].frequency_type,
+              reminder_at: this.$state.aimCardDatas[this.data.item].reminder_at,
+              needed_be_signed_at: this.$state.aimCardDatas[this.data.item].needed_be_signed_at,
+              needed_be_signed_deadline: this.$state.aimCardDatas[this.data.item].needed_be_signed_deadline,
+            },
+            success: (res) => {
+              console.log("modify delete success");
+              console.log(res);
+              this.setData({
+                dialogshow: false,
+              })
+              this.triggerEvent('deleteEvent', 'delete');
+              this.getcarddetail();
+            },
+
+          })
+        }
       } else {
         this.setData({
           dialogshow: false,

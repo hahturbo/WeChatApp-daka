@@ -25,14 +25,17 @@ Page({
     })
   },
   endjudge: function (item) {
+    if (this.data.carddatas[item].goal_type >= 3) {
+      return 2;
+    }
     let date = new Date();
     date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     date = new Date(date);
     let end = new Date(this.data.carddatas[item].ended_in);
     if (date > end) {
-      return true;
+      return 1;
     }
-    return false;
+    return 0;
   },
   gotocarddetail: function (e) {
     let item = e.currentTarget.dataset.item;
