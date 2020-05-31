@@ -3,13 +3,15 @@
 
 	<view class='mid-contentD' wx:for='{{carddatas}}' wx:if="{{cardend[index]}}">
 		<mp-slideview class='slide' data-gid='item.goal_id' buttons="{{[{ type: 'warn',  text: '删除', extClass: 'img_delete', src:'../../../images/corddelete.png',  data:item.goal_id  }]}}" icon="{{false}}" bindbuttontap="slideButtonTap">
+		<navigator url="{{'./detail/detail?id='+index}}">
 			<view class="contentDText">
-				<text class="mid-text" bindtap="gotocarddetail" data-item="{{index}}">{{item.goal_name}}</text>
+				<text class="mid-text" data-item="{{index}}">{{item.goal_name}}</text>
 				<view class='small-text'>
 					<text>{{item.goal_is_a_group==1?'小组':"个人"}}打卡</text>
 					<text class="delete_text" wx:if="{{cardend[index]==2}}">---已删除</text>
 				</view>
 			</view>
+			</navigator>
 		</mp-slideview>
 	</view>
 </scroll-view>

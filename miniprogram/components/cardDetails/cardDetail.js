@@ -18,7 +18,6 @@ Component({
    * 组件的初始数据
    */
   data: {
-    user_info: '',
     item: 0,
     reminder_Array: ['打卡时', '提前5分钟', '提前10分钟', '提前15分钟', '提前30分钟', '提前一小时'],
     // 星期
@@ -55,42 +54,21 @@ Component({
   },
   lifetimes: {
     ready: function () {
-      this.GetUserInfo();
+      this.initCardDetail();
     },
   },
   /**
    * 组件的方法列表
    */
   methods: {
-    GetUserInfo: function () {
-      wx.request({
-        method: 'POST',
-        url: this.$state.apiURL + '/user/info',
-        data: {
-          login_key: this.$state.login_key,
-        },
-        success: (res) => {
-          console.log("info-p", res.data);
-          this.setData({
-            user_info: res.data.data,
-          })
-          this.getSignedCord();
-          if (this.data.item >= this.$state.card_num) {
-            this.getcarddetail()
-          } else {
-            this.initCardDetail();
-          }
-        }
-      })
-    },
-    // 获取打卡记录
-    getSignedCord: function () {
+    initCardDetail: function () {
+      // 获取打卡记录
       wx.request({
         method: "POST",
         url: this.$state.apiURL + '/user/getSignedRecord',
         data: {
           from: 0,
-          amount: this.data.user_info.tick_times,
+          amount: this.$state.user_Info.tick_times,
           login_key: this.$state.login_key,
         },
         success: (res) => {
@@ -98,14 +76,11 @@ Component({
           this.setState({
             CardDetail: res.data.data,
           })
-          this.today();
         },
         complete: () => {
           console.log(this.$state.CardDetail);
         }
       });
-    },
-    initCardDetail: function () {
       if (this.$state.CardData[this.data.item].goal_type == 2) {
         this.getWeRundata();
         if (this.$state.CardData[this.data.item].canBeSignedNow == 1 && this.$state.CardData[this.data.item].goal_type == 2) {
@@ -281,7 +256,7 @@ Component({
         url: this.$state.apiURL + '/user/goal/get',
         data: {
           from: 0,
-          amount: this.data.item >= this.$state.card_num ? this.data.user_info.goal_num : this.$state.card_num,
+          amount: this.data.item >= this.$state.card_num ? this.$state.user_Info.goal_num : this.$state.card_num,
           login_key: this.$state.login_key,
         },
         success: (res) => {

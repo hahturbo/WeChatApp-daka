@@ -193,12 +193,12 @@ Page({
   // e.target.dataset.index为传过来的下标（第几个打卡）
   onShareAppMessage: function (e) {
     console.log(e.target.dataset.index);
-    console.log("sharing", this.$state.aimCardDatas[e.target.dataset.index].groupData.invite_id);
+    console.log("sharing", this.$state.CardData[e.target.dataset.index].groupData.invite_id);
     console.log('分享成功');
     return {
-      title: this.$state.aimCardDatas[e.target.dataset.index].groupData.groupMembers[0].nickname + '邀请您一起和TA打卡',
+      title: this.$state.CardData[e.target.dataset.index].groupData.groupMembers[0].nickname + '邀请您一起和TA打卡',
       desc: '分享页面的内容',
-      path: 'pages/index/index?id=' + this.$state.aimCardDatas[e.target.dataset.index].groupData.invite_id,
+      path: 'pages/index/index?id=' + this.$state.CardData[e.target.dataset.index].groupData.invite_id,
       // 路径，传递参数到指定页面。
     }
 
@@ -232,7 +232,48 @@ Page({
     this.GetCardData();
     this.changePage(e);
   },
+  getindex: function (show) {
+    let cardindex = [];
+    wx.request({
+      method: 'POST',
+      url: this.$state.apiURL + '/user/info',
+      data: {
+        login_key: this.$state.login_key,
+      },
+      success: (res) => {
+        this.setState({
+          user_Info: res.data.data,
+        })
+        wx.request({
+          method: 'POST',
+          url: this.$state.apiURL + '/user/goal/get',
+          data: {
+            from: 0,
+            amount: this.$state.user_Info.goal_num,
+            login_key: this.$state.login_key,
+          },
+          success: (res) => {
+            console.log(res);
+            this.setState({
+              CardData: res.data.data.data,
+            })
+            for (let i = 0; i < show.length; i++) {
+              for (let j = 0; j < this.$state.CardData.length; j++) {
+                if (show[i].goal_id == this.$state.CardData[j].goal_id) {
+                  cardindex.push(j);
+                  break;
+                }
+              }
+            }
+            this.setData({
+              card_index: cardindex,
+            })
+          }
+        })
+      }
+    })
 
+  },
   //获取打卡信息
   GetCardData: function (e) {
     let L = this.$state.card_num;
@@ -256,23 +297,18 @@ Page({
         //剔除过期数组项
         let array0 = res.data.data.data;
         let array1 = [];
-        let card_index = [];
         for (let i = 0; i < array0.length; i++) {
           if (array0[i].goal_type >= 3) {
             continue;
           } else {
             array1.push(array0[i]);
-            card_index.push(i);
           }
         }
-        this.setData({
-          card_index: card_index
-        })
         this.setState({
           // aimCardDatas: res.data.data.data,
           aimCardDatas: array1,
-          CardData: array0,
         })
+        this.getindex(this.$state.aimCardDatas);
         console.log("L2:", array0, ">>", this.$state.aimCardDatas, );
         this.setState({
           card_num: this.$state.aimCardDatas.length,

@@ -15,6 +15,14 @@ Page({
     this.setData({
       item:options.id,
     })
+    wx.setNavigationBarTitle({
+      title: "打卡详情"   
+
+    })
+    wx.setNavigationBarColor({
+      backgroundColor:this.$state.skin==1?"#FFCC66":"#ffffff",
+      frontColor: '#000000'
+    })
   },
 
   /**

@@ -14,13 +14,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    this.GetUserInfo();
+    this.GetCardData();
     wx.setNavigationBarTitle({
       title: "打卡记录"
 
     })
     wx.setNavigationBarColor({
-      backgroundColor: "#ffffff",
+      backgroundColor: this.$state.skin == 1 ? "#FFCC66" : "#ffffff",
       frontColor: '#000000'
     })
   },
@@ -37,59 +37,17 @@ Page({
     }
     return 0;
   },
-  gotocarddetail: function (e) {
-    let item = e.currentTarget.dataset.item;
-    wx.navigateTo({ //保留当前页面，跳转到应用内的某个页面（最多打开5个页面，之后按钮就没有响应的）
-      url: './detail/detail?id=' + e.currentTarget.dataset.item,
-    })
-  },
-  GetUserInfo: function () {
-    wx.request({
-      method: 'POST',
-      url: this.$state.apiURL + '/user/info',
-      data: {
-        login_key: this.$state.login_key,
-      },
-      success: (res) => {
-        console.log("info-p", res.data);
-        this.setData({
-          user_info: res.data.data,
-        })
-        this.GetCardData();
-      }
-    })
-  },
   GetCardData: function (e) {
-    wx.request({
-      method: 'POST',
-      url: this.$state.apiURL + '/user/goal/get',
-      data: {
-        from: 0,
-        amount: this.data.user_info.goal_num,
-        login_key: this.$state.login_key,
-      },
-      success: (res) => {
-        console.log("拉取30打卡成功");
-        console.log(res.data);
-        this.setData({
-          carddatas: res.data.data.data,
-        })
-        console.log("L30:", this.data.carddatas);
-        let cardend = [];
-        for (let i = 0; i < this.data.user_info.goal_num; i++) {
-          cardend[i] = this.endjudge(i)
-        }
-        console.log(cardend);
-        this.setData({
-          cardend: cardend
-        })
-      },
-      fail: (res) => {
-        console.log("获取失败： " + res);
-      },
-      finish: () => {
-        console.log("获取完成： ");
-      }
+    this.setData({
+      carddatas: this.$state.CardData,
+    })
+    let cardend = [];
+    for (let i = 0; i < this.$state.user_Info.goal_num; i++) {
+      cardend[i] = this.endjudge(i)
+    }
+    console.log(cardend);
+    this.setData({
+      cardend: cardend
     })
   },
   slideButtonTap: function (e) {

@@ -5,7 +5,7 @@ let store = {
   version:"0.1.0",
   card_num: 0,
 
-
+  user_Info:'',
   can_share:false,
   invite_goal_id:'',
   msg: 'xxxxx',
