@@ -281,7 +281,7 @@ Page({
 
         // } else {
         //   this.setData({
-        //     error_code: "无法获取或没有打卡信息",
+        //     error_code: "无法获取打卡信息",
         //   })
         // }
 
