@@ -16,7 +16,7 @@
     "backgroundColor": "#FFC864",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#FFC864",
-    "navigationBarTitleText": "小小打卡",
+    "navigationBarTitleText": "极简打卡",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",

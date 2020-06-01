@@ -5,9 +5,11 @@
 </view>
  
 <view class="box2">
-      <view>打卡卡，一款极简打卡小程序</view>
-      <view>自己打自己的卡，不需要圈子那些奇奇怪怪的功能。</view>
-      <view>巴拉巴拉巴拉巴啦啦能量.......</view>
+      <view>极简打卡，一款极简的打卡小程序</view>
+      <view>没有圈子等复杂的功能，只为专心打卡</view>
+      <text>\n安安静静的</text>
+      <view>完成自己设定的小目标</view>
+       <text>\n从此刻开始</text>
 </view>
 
 <view class="box3">   

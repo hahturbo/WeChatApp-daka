@@ -32,7 +32,7 @@
 
 	<view class="card">
 		<navigator url="../setting/about/about" open-type="navigate">
-			<text >关于打卡卡</text><text class="right_text" decode='true'>&gt;</text>
+			<text >关于极简打卡</text><text class="right_text" decode='true'>&gt;</text>
 		</navigator>
 	</view>
 

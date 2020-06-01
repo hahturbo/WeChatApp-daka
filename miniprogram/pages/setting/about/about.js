@@ -13,7 +13,7 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({
-      title: "关于打卡卡"   
+      title: "关于极简打卡"   
 
     })
     wx.setNavigationBarColor({
