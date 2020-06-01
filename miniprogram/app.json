@@ -10,7 +10,8 @@
     "pages/setting/about/serverdetail/serverdetail",
     "pages/setting/cardrecord/cardrecord",
     "pages/setting/skin/skin",
-    "pages/setting/cardrecord/detail/detail"
+    "pages/setting/cardrecord/detail/detail",
+    "pages/setting/UsingHelp/UsingHelp"
   ],
   "window": {
     "backgroundColor": "#FFC864",

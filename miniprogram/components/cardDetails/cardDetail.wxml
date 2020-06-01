@@ -42,7 +42,7 @@
 
 	<!-- 打卡详情 -->
 	<view class="detaildata">
-		<view class="type">打卡类型：{{$state.CardData[item].goal_is_a_group?'小组 ':''}}{{$state.GoalType[$state.CardData[item].goal_type%3]}} {{$state.CardData[item].goal_type>3?'已删除':''}}</view>
+		<view class="type">打卡类型：{{$state.CardData[item].goal_is_a_group?'小组 ':''}}{{$state.GoalType[$state.CardData[item].goal_type%3]}} {{$state.CardData[item].goal_type>=3?'已删除':''}}</view>
 		<view wx:if="{{$state.CardData[item].goal_type%3==2}}">
 			<view class="type">今日步数：{{stepInfoList[stepInfoList.length-1].step}}</view>
 		</view>

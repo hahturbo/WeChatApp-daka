@@ -37,8 +37,8 @@
 	</view>
 
 	<view class="card">
-		<view class="uploader-text" bindtap="doUpload">
+		<navigator url="../setting/UsingHelp/UsingHelp" open-type="navigate">
 			<text >使用提示</text><text class="right_text" decode='true'>&gt;</text>
-		</view>
+		</navigator>
 	</view>
 </view>

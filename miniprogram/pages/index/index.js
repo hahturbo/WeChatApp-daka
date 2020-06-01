@@ -257,6 +257,7 @@ Page({
             this.setState({
               CardData: res.data.data.data,
             })
+            console.log(this.$state.CardData,show.length);
             for (let i = 0; i < show.length; i++) {
               for (let j = 0; j < this.$state.CardData.length; j++) {
                 if (show[i].goal_id == this.$state.CardData[j].goal_id) {

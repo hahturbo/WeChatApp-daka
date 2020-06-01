@@ -249,7 +249,6 @@ Component({
 
     },
     getcarddetail: function () {
-      this.getSignedCord();
       // 获取打卡详情
       wx.request({
         method: "POST",
@@ -487,14 +486,5 @@ Component({
         })
       }
     },
-    // sonsign: function (e) {
-    //   if (e.detail === 'sign') {
-    //     console.log('get sign');
-    //     this.getcarddetail();
-    //     this.today();
-    //   } else {
-    //     console.log('get sign fail');
-    //   }
-    // },
   }
 })
