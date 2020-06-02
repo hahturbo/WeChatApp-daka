@@ -11,7 +11,8 @@
     "pages/setting/cardrecord/cardrecord",
     "pages/setting/skin/skin",
     "pages/setting/cardrecord/detail/detail",
-    "pages/setting/UsingHelp/UsingHelp"
+    "pages/setting/UsingHelp/UsingHelp",
+    "pages/setting/about/contact/contact"
   ],
   "window": {
     "backgroundColor": "#FFC864",

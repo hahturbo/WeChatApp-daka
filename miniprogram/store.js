@@ -2,7 +2,7 @@
 // 全局变量
 let store = {
   skin:1, //1初始橙 2网格白
-  version:"0.1.0",
+  version:"0.9.0",
   card_num: 0,
 
   user_Info:'',
@@ -10,8 +10,8 @@ let store = {
   invite_goal_id:'',
   msg: 'xxxxx',
   user: {},
-   apiURL: "http://58.218.198.18:9998",
-  // apiURL: "http://text.rookie-zheng.top:9998",
+   //apiURL: "http://58.218.198.18:9998",
+   apiURL: "http://test.rookie-zheng.top",
   isLogin: false,
   signed_up:"" ,
   using_day:0,

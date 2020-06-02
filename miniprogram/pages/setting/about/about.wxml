@@ -19,7 +19,7 @@
      <text >服务协议</text>
      </navigator>
      <text>-----</text>
-     <navigator>联系方式</navigator>
+     <navigator url="./contact/contact">联系方式</navigator>
      <text>---</text>
      </view>
 </view>
