@@ -1,9 +1,11 @@
 <!--miniprogram/pages/setting/UsingHelp/UsingHelp.wxml-->
 <scroll-view class='UsingHelp' scroll-y='true'>
-	<view class="tip">
+
+<image src='../../../images/help.png' style="height:7005rpx;width:720rpx" ></image>
+	<!-- <view class="tip">
 		<view class="text">欢迎使用极简打卡小程序！</view>
 		<view class="text">了解以下使用提示，您将会更加高效的使用本程序</view>
-		<view class="text">让我们开始吧！颜文字</view>
+		<view class="text">让我们开始吧！ヽ(´▽｀)ノ</view>
 	</view>
 	<view class="tip">
 		<image class='image' src="../../../images/Tips1.png"></image>
@@ -47,6 +49,6 @@
 	</view>
 	<view class="tip">
 		<view class="text">还有一些有趣的地方，等着您发现，如果有什么建议，也可联系我们。</view>
-		<view class="text">颜文字</view>
-	</view>
+		<view class="text">ヽ(^0^)ノ</view>
+	</view> -->
 </scroll-view>

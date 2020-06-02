@@ -8,8 +8,8 @@ Page({
     //主页面数据
     // isLogin: false,
     isLogin: true,
-    // apiUrl: 'http://58.218.198.18:9998',
-    apiUrl: "http://test.rookie-zheng.top",
+    apiUrl: 'http://58.218.198.18:9998',
+    // apiUrl: "http://test.rookie-zheng.top",
     avatarUrl: './user-unlogin.png',
     userInfo: {},
     logged: false,
