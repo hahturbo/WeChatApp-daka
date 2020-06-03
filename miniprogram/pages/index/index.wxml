@@ -1,11 +1,25 @@
 <!--index.wxml-->
 <view class="container">
-	<view class="auth {{$state.isLogin ? 'displayNone' : ''}}">
-	<view class="auth_in ">
+
+	<view class="auth {{$state.isLogin||$state.isTry? 'displayNone' : ''}}">
+
+		<view class="auth_in2 {{$state.ifFirstTime? '' : 'displayNone'}}">
+	<h1>关于我们
+极简打卡是一款把巴拉巴拉的小程序，我们可以巴拉巴拉，23%#$%，在观看我们详情之后如要正常使用本小程序，请你点击下面登录授权登录
+取消  登录</h1>
+		<h1>{{error_code}}</h1>
+		<button open-type='getUserInfo' bindgetuserinfo='checkPermission' id='bn_login'>请使用微信登陆</button>
+		<button bindtap="btn_nologin">暂不登陆</button>
+	</view>
+
+
+
+	<view class="auth_in {{$state.ifFirstTime? 'displayNone' : ''}}">
 	<h1>登陆授权</h1>
 	<open-data class='user_img' type="userAvatarUrl"></open-data>
 		<h1>{{error_code}}</h1>
 		<button open-type='getUserInfo' bindgetuserinfo='checkPermission' id='bn_login'>请使用微信登陆</button>
+		<button bindtap="btn_nologin">暂不登陆</button>
 	</view>
 	</view>
 	<image wx:if='{{$state.skin==1}}'class='background' src="../../images/background.png" mode="aspectFill">
@@ -33,7 +47,7 @@
 				<text style="color:gray">⬇</text>			
 			</view>
 		<view class='downmid {{nowPage==1||nowPage==2||nowPage==3||nowPage==4||nowPage==5||nowPage==6? "downmiddisable" : ""}}'>
-			<image class='downmidimg {{nowPage!=0&&nowPage!=1 ? "displayNone" : ""}}' src="../../images/newaim3.png" data-to="1" bindtap="changeNewAimPage"></image>
+			<image class='downmidimg {{nowPage!=0&&nowPage!=1 ? "displayNone" : ""}}' src="../../images/newaim3.png" data-to="1" bindtap="{{$state.isLogin?'changeNewAimPage':'ToLogin'}}"></image>
 			<image class='downmidimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="0" bindtap=""></image>
 			<image class='downmidimg {{nowPage!=3 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="0" bindtap=""></image>
 			<image class='downmidimg {{nowPage!=4 ? "displayNone" : ""}}' src="../../images/carddetail.png" data-to="0" bindtap="" ></image>

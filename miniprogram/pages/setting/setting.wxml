@@ -6,7 +6,8 @@
 		<open-data class='user_img' type="userAvatarUrl"></open-data>
 
 		<view class="userzonetext">
-			<open-data class='user_name' type="userNickName"></open-data>
+			<open-data class="user_name {{$state.isLogin?'':'displayNone'}}" type='userNickName'></open-data>
+			<view class="user_name {{$state.isLogin?'displayNone':''}}" bindtap="ToLogin_setting"> 请登录</view>
 			<text style="font-size:30rpx;text-align: left;">使用天数:{{$state.using_day}}</text>
 		</view>
 

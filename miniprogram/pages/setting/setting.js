@@ -20,6 +20,11 @@ Component({
    */
 
   methods: {
+    ToLogin_setting:function(e){
+      this.setState({
+        isTry:false,
+      })
+        },
 
   }
 })

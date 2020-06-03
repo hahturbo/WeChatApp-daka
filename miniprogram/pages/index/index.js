@@ -8,8 +8,8 @@ Page({
     //主页面数据
     // isLogin: false,
     isLogin: true,
-    apiUrl: 'http://58.218.198.18:9998',
-    // apiUrl: "http://test.rookie-zheng.top",
+    // apiUrl: 'http://58.218.198.18:9998',
+    apiUrl: "https://test.rookie-zheng.top",
     avatarUrl: './user-unlogin.png',
     userInfo: {},
     logged: false,
@@ -106,7 +106,12 @@ Page({
     try {
       var skin = wx.getStorageSync('skin')
       var card_num = wx.getStorageSync('card_num')
-      console.log("s card_num out:", card_num)
+      var IFT = wx.getStorageSync('IFT')
+      console.log("s card_num out:", card_num)      
+      if(!IFT){
+        IFT=true;
+      }
+      console.log("s IFT:", IFT,IFT==false)
       this.setState({
         card_num: card_num,
       })
@@ -115,6 +120,7 @@ Page({
         console.log("s skin out:", skin)
         this.setState({
           skin: skin,
+          ifFirstTime:IFT,
         })
         this.ShowSkin();
       }
@@ -258,7 +264,7 @@ Page({
             this.setState({
               CardData: res.data.data.data,
             })
-            console.log(this.$state.CardData,show.length);
+            console.log(this.$state.CardData, show.length);
             for (let i = 0; i < show.length; i++) {
               for (let j = 0; j < this.$state.CardData.length; j++) {
                 if (show[i].goal_id == this.$state.CardData[j].goal_id) {
@@ -493,6 +499,17 @@ Page({
       })
     }
   },
+  btn_nologin: function (e) {
+    this.setState({
+      isTry: true,
+    })
+  },
+  ToLogin: function (e) {
+    this.setState({
+      isTry: false,
+    })
+  },
+
   //
   checkPermission: function (e) {
     console.log(e);
@@ -507,6 +524,11 @@ Page({
               success: (res) => {
                 var code = res.code;
                 if (code) {
+                  //缓存设置为不是第一次登陆了
+                  wx.setStorage({
+                    key: "IFT",
+                    data: false,
+                  })
                   wx.getUserInfo({
                     success: (res) => {
                       console.log(JSON.stringify(res));
