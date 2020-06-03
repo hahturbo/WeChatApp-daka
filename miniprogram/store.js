@@ -13,8 +13,8 @@ let store = {
   //  apiURL: "http://58.218.198.18:9998",
    apiURL: "https://test.rookie-zheng.top",
   isLogin: false,
-  isTry: false,
-  ifFirstTime:true,
+  isTry: false,//尝试登陆变量
+  ifFirstTime:true,//是否第一次登陆（缓存）
   signed_up:"" ,
   using_day:0,
   // isLogin: true,
