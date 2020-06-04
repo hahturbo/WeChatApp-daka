@@ -1,4 +1,5 @@
 <!--miniprogram/pages/cardrecord/cardrecord.wxml-->
+<view class="null" wx:if="{{!carddatas.length&&$state.aimCardDatas.length==carddatas.length}}">您没有任何已结束或已删除的打卡！</view>
 <scroll-view class='scrollY' scroll-y="true">
 	<view class='mid-contentD' wx:for='{{carddatas}}' wx:if="{{cardend[index]}}">
 		<mp-slideview class='slide' data-gid='item.goal_id' buttons="{{[{ type: 'warn',  text: '删除', extClass: 'img_delete', src:'../../../images/corddelete.png',  data:item.goal_id  }]}}" icon="{{false}}" bindbuttontap="slideButtonTap">

@@ -3,6 +3,12 @@
   background-color: #E7E6E6;
 }
 
+.null{
+  font-size: 40rpx;
+  background-color:transparent;
+  padding: 50rpx;
+
+}
 .mid-contentD {
   background-color: white;
   height: 100%;
