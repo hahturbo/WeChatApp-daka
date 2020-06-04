@@ -127,6 +127,11 @@ Component({
    // 属性定义（详情参见下文）
   
   methods: {
+    ToLogin: function (e) {
+      this.setState({
+        isTry: false,
+      })
+    },
     
     dragStart: function (event) {
       var pageInfo = this.data.pageInfo;

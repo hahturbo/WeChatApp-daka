@@ -18,10 +18,14 @@ Component({
 
   attached: function(){
     console.log("in5");
-    setTimeout(()=>{
+    // setTimeout(()=>{
+    //   this.GetInviteData();
+    // },500);
+    this.GetInviteData();
+    setInterval(()=>{
       this.GetInviteData();
-    },500);
-
+    },2500);
+   
   },
 
   /**
@@ -31,6 +35,13 @@ Component({
 //受邀时获取信息
 GetInviteData: function(){
   console.log(  "id",this.$state.invite_goal_id, " login_key:",this.$state.login_key,);
+ if(this.$state.login_key==null){
+  console.log("无登陆无邀请");
+  this.setData({
+    error_code:404,
+  })
+return 404;
+ }
   //测试用
   // let cache="ZmyDvLBaikLzcoRQ";
   // let cacheke="fd5645134d50cc3ba1cdb504943bbdaa";
@@ -59,12 +70,13 @@ this.setData({
     fail: function(res){
       this.setData({
         error_code:502,
-
       })
         console.log("获取邀请失败");
       }
   })
 },
+
+
 
   }
 })

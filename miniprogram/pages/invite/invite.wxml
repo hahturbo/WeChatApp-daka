@@ -6,8 +6,8 @@
 		<image class='user_img' src='{{invite_data.group.groupMembers[0].img}}'> </image>
 		<view class="userzonetext">
 			<!-- <open-data class='user_name' type="userNickName"></open-data> -->
-			<text  class='user_name'>{{error_code==502?"获取邀请失败":invite_data.group.groupMembers[0].nickname}} </text>
-			<text style="text-align: right; font-size:35rpx;margin-right:40rpx">邀请您加入打卡小组</text>
+			<text  class='user_name'>{{error_code==502?"获取邀请失败":error_code==404?"未授权登陆无法获取邀请信息":invite_data.group.groupMembers[0].nickname}} </text>
+			<text style="text-align: right; font-size:35rpx;margin-right:40rpx">{{error_code==404?"同意授权登陆后可查看":"邀请您加入打卡小组"}}</text>
 		</view>
 
 	</view>

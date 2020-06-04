@@ -108,7 +108,7 @@ Page({
       var card_num = wx.getStorageSync('card_num')
       var IFT = wx.getStorageSync('IFT')
       console.log("s card_num out:", card_num)      
-      if(!IFT){
+      if(IFT==null){
         IFT=true;
       }
       console.log("s IFT:", IFT,IFT==false)
@@ -193,6 +193,7 @@ Page({
     } else {
       console.log("notgo");
     }
+   this.AutoCheckP();//自动登陆授权
 
 
   },
@@ -509,12 +510,31 @@ Page({
       isTry: false,
     })
   },
+//自动登陆
+AutoCheckP: function(e){
+  if(this.$state.IFT!=true){
+    
+    wx.getUserInfo({
+      complete:function(res){
+ console.log(res);
+      },
+      success:(res)=>{
+        this.checkPermission(res)
+      }
+    })
+  }
+},
 
-  //
+  //手动登陆
+BtnCheckP:function(e){
+  console.log(e);
+ this.checkPermission(e.detail)
+},
+
+  //总登陆
   checkPermission: function (e) {
     console.log(e);
-    if (e.detail.userInfo) {
-
+    if (e.userInfo) {
       // 有授权的操作
       wx.getSetting({
         success: (res) => {
