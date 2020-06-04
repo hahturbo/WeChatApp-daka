@@ -1,10 +1,6 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/openapi/openapi",
-    "pages/openapi/serverapi/serverapi",
-    "pages/openapi/callback/callback",
-    "pages/openapi/cloudid/cloudid",
     "pages/setting/account/account",
     "pages/setting/about/about",
     "pages/setting/about/serverdetail/serverdetail",
@@ -14,6 +10,7 @@
     "pages/setting/UsingHelp/UsingHelp",
     "pages/setting/about/contact/contact"
   ],
+
   "window": {
     "backgroundColor": "#FFC864",
     "backgroundTextStyle": "light",

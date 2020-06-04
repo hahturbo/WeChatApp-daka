@@ -197,6 +197,11 @@ Page({
 
 
   },
+
+  imageError: function(e) {
+    console.log('image发生error事件，携带值为', e.detail.errMsg)
+  },
+
   //分享
   // e.target.dataset.index为传过来的下标（第几个打卡）
   onShareAppMessage: function (e) {

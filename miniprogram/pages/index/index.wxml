@@ -20,23 +20,31 @@
 		<button bindtap="btn_nologin">暂不登陆</button>
 	</view>
 	</view>
-	<image wx:if='{{$state.skin==1}}'class='background' src="../../images/background.png" mode="aspectFill">
+	<image wx:if='{{$state.skin==1}}' class='background' src="../../images/background.png" mode="aspectFill">
 	</image>
-	<image wx:if='{{$state.skin==2}}'class='background' src="../../images/background2.png" mode="aspectFill">
+	<image wx:if='{{$state.skin==2}}' class='background' src="../../images/background2.png" mode="aspectFill">
 	</image>
 	<mp-dialog title="{{dialogTitle}}" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{dialogsButton}}">
 		<!-- <view>{{dialogTitle}}</view> -->
 	</mp-dialog>
 	<view class='down {{$state.skin==1?"d_shadow":""}} {{$state.skin==2?"d_black_line":""}}'>
 		<!-- <image class='downmainimg' src="../../images/down.png" mode="aspectFill"></image> -->
-		<view class="downleft">
-		<image class='downimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="3" bindtap="ChangePageGetBoard"></image>
-			<image class='downimg {{nowPage!=0 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="3" bindtap="ChangePageGetBoard"></image>
-			<image class='downimg {{nowPage!=1? "displayNone" : ""}}' src="../../images/back.png" data-to="0" bindtap="changePage_Back"></image>
-			<image class='downimg {{nowPage!=6? "displayNone" : ""}}' src="../../images/notmodify.png" data-to="4" bindtap="changePage_Back"></image>
-			<image class='downimg {{nowPage!=4 ? "displayNone" : ""}}' src="../../images/back.png" data-to="0" bindtap="changePage"></image>
-			<image class='downimg {{nowPage!=3 ? "displayNone" : ""}}' src="../../images/tick.png" data-to="0" bindtap="ChangePagePostBoard"></image>
-			<image class='downimg {{nowPage!=5 ? "displayNone" : ""}}' src="../../images/refuse.png" bindtap="changePage" data-to="0"></image>
+		<view class="downleft"> 
+				<!-- <image binderror=" imageError"  class='downimg' wx:if='{{nowPage==2}}' src="../../images/aim3.png" data-to="3" bindtap="ChangePageGetBoard"></image> 
+			<image  binderror=" imageError" class='downimg ' wx:if='{{nowPage==0}}'  src="../../images/aim3.png" data-to="3" bindtap="ChangePageGetBoard"></image>
+			<image  binderror=" imageError" class='downimg ' wx:if='{{nowPage==1}}'  src="../../images/back.png" data-to="0" bindtap="changePage_Back"></image>
+			<image  binderror=" imageError" class='downimg' wx:if='{{nowPage==6}}' src="../../images/notmodify.png" data-to="4" bindtap="changePage_Back"></image>
+			<image  binderror=" imageError" class='downimg ' wx:if='{{nowPage==4}}' src="../../images/back.png" data-to="0" bindtap="changePage"></image>
+			<image  binderror=" imageError" class='downimg' wx:if='{{nowPage==3}}' src="../../images/tick.png" data-to="0" bindtap="ChangePagePostBoard"></image>
+			<image  binderror=" imageError" class='downimg '  wx:if='{{nowPage==5}}' src="../../images/refuse.png" bindtap="changePage" data-to="0"></image> -->
+		<!-- 旧版渲染下 好像更好 -->
+		<image binderror=" imageError"  class='downimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="3" bindtap="ChangePageGetBoard"></image>
+			<image  binderror=" imageError" class='downimg {{nowPage!=0 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="3" bindtap="ChangePageGetBoard"></image>
+			<image  binderror=" imageError" class='downimg {{nowPage!=1? "displayNone" : ""}}' src="../../images/back.png" data-to="0" bindtap="changePage_Back"></image>
+			<image  binderror=" imageError" class='downimg {{nowPage!=6? "displayNone" : ""}}' src="../../images/notmodify.png" data-to="4" bindtap="changePage_Back"></image>
+			<image  binderror=" imageError" class='downimg {{nowPage!=4 ? "displayNone" : ""}}' src="../../images/back.png" data-to="0" bindtap="changePage"></image>
+			<image  binderror=" imageError" class='downimg {{nowPage!=3 ? "displayNone" : ""}}' src="../../images/tick.png" data-to="0" bindtap="ChangePagePostBoard"></image>
+			<image  binderror=" imageError" class='downimg {{nowPage!=5 ? "displayNone" : ""}}' src="../../images/refuse.png" bindtap="changePage" data-to="0"></image>
 		</view>
 		<view wx:if='{{$state.skin==1}}' class='downmidshadow '></view>
 		<view class='downmidbg '></view>
@@ -45,21 +53,21 @@
 				<text style="color:gray">⬇</text>			
 			</view>
 		<view class='downmid {{nowPage==1||nowPage==2||nowPage==3||nowPage==4||nowPage==5||nowPage==6? "downmiddisable" : ""}}'>
-			<image class='downmidimg {{nowPage!=0&&nowPage!=1 ? "displayNone" : ""}}' src="../../images/newaim3.png" data-to="1" bindtap="{{$state.isLogin?'changeNewAimPage':'ToLogin'}}"></image>
-			<image class='downmidimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="0" bindtap=""></image>
-			<image class='downmidimg {{nowPage!=3 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="0" bindtap=""></image>
-			<image class='downmidimg {{nowPage!=4 ? "displayNone" : ""}}' src="../../images/carddetail.png" data-to="0" bindtap="" ></image>
-			<image class='downmidimg {{nowPage!=5 ? "displayNone" : ""}}' src="../../images/join_group.png" data-to="0" bindtap="" ></image>
-			<image class='downmidimg {{nowPage==6 ? "" : "displayNone"}}' src="../../images/modifycard.png" ></image>
+			<image binderror=" imageError"   class='downmidimg {{nowPage!=0&&nowPage!=1 ? "displayNone" : ""}}' src="../../images/newaim3.png" data-to="1" bindtap="{{$state.isLogin?'changeNewAimPage':'ToLogin'}}"></image>
+			<image binderror=" imageError" class='downmidimg {{nowPage!=2 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="0" bindtap=""></image>
+			<image binderror=" imageError" class='downmidimg {{nowPage!=3 ? "displayNone" : ""}}' src="../../images/aim3.png" data-to="0" bindtap=""></image>
+			<image binderror=" imageError" class='downmidimg {{nowPage!=4 ? "displayNone" : ""}}' src="../../images/carddetail.png" data-to="0" bindtap="" ></image>
+			<image binderror=" imageError" class='downmidimg {{nowPage!=5 ? "displayNone" : ""}}' src="../../images/join_group.png" data-to="0" bindtap="" ></image>
+			<image binderror=" imageError" class='downmidimg {{nowPage==6 ? "" : "displayNone"}}' src="../../images/modifycard.png" ></image>
 		</view>
 
 		<view class="downright">
-			<image class='downimg {{nowPage!=0&&nowPage!=3 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="2" bindtap="ChangePagePostBoard"></image>
-			<image class='downimg {{nowPage!=1 ? "displayNone" : ""}}' src="../../images/finish.png" data-to="0" bindtap="changePage_Finish"></image>
-						<image class='downimg {{nowPage!=2? "displayNone" : ""}}' src="../../images/tick.png" data-to="0" bindtap="ChangePagePostBoard"></image>
-			<image class='downimg {{nowPage!=5 ? "displayNone" : ""}}' src="../../images/accept.png" data-to="0" bindtap="{{$state.isLogin?'AcceptInvite':'ToLogin'}}" ></image>
-			<image class='downimg {{nowPage==4 ? "" : "displayNone"}}' src="../../images/modify.png" data-to="6" bindtap="changePage" ></image>
-			<image class='downimg {{nowPage==6 ? "" : "displayNone"}}' src="../../images/savemodify.png" data-to="4" bindtap="modifycard" ></image>
+			<image  binderror=" imageError" class='downimg {{nowPage!=0&&nowPage!=3 ? "displayNone" : ""}}' src="../../images/setting3.png" data-to="2" bindtap="ChangePagePostBoard"></image>
+			<image  binderror=" imageError" class='downimg {{nowPage!=1 ? "displayNone" : ""}}' src="../../images/finish.png" data-to="0" bindtap="changePage_Finish"></image>
+						<image  binderror=" imageError" class='downimg {{nowPage!=2? "displayNone" : ""}}' src="../../images/tick.png" data-to="0" bindtap="ChangePagePostBoard"></image>
+			<image  binderror=" imageError" class='downimg {{nowPage!=5 ? "displayNone" : ""}}' src="../../images/accept.png" data-to="0" bindtap="{{$state.isLogin?'AcceptInvite':'ToLogin'}}" ></image>
+			<image binderror=" imageError"  class='downimg {{nowPage==4 ? "" : "displayNone"}}' src="../../images/modify.png" data-to="6" bindtap="changePage" ></image>
+			<image binderror=" imageError"  class='downimg {{nowPage==6 ? "" : "displayNone"}}' src="../../images/savemodify.png" data-to="4" bindtap="modifycard" ></image>
 
 		</view>
 	</view>
