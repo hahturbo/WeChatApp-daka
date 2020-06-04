@@ -107,11 +107,11 @@ Page({
       var skin = wx.getStorageSync('skin')
       var card_num = wx.getStorageSync('card_num')
       var IFT = wx.getStorageSync('IFT')
-      console.log("s card_num out:", card_num)      
-      if(IFT==null){
-        IFT=true;
+      console.log("s card_num out:", card_num)
+      if (IFT == null) {
+        IFT = true;
       }
-      console.log("s IFT:", IFT,IFT==false)
+      console.log("s IFT:", IFT, IFT == false)
       this.setState({
         card_num: card_num,
       })
@@ -120,7 +120,7 @@ Page({
         console.log("s skin out:", skin)
         this.setState({
           skin: skin,
-          ifFirstTime:IFT,
+          ifFirstTime: IFT,
         })
         this.ShowSkin();
       }
@@ -193,7 +193,7 @@ Page({
     } else {
       console.log("notgo");
     }
-   this.AutoCheckP();//自动登陆授权
+    this.AutoCheckP(); //自动登陆授权
 
 
   },
@@ -510,26 +510,26 @@ Page({
       isTry: false,
     })
   },
-//自动登陆
-AutoCheckP: function(e){
-  if(this.$state.IFT!=true){
-    
-    wx.getUserInfo({
-      complete:function(res){
- console.log(res);
-      },
-      success:(res)=>{
-        this.checkPermission(res)
-      }
-    })
-  }
-},
+  //自动登陆
+  AutoCheckP: function (e) {
+    if (this.$state.IFT != true) {
+
+      wx.getUserInfo({
+        complete: function (res) {
+          console.log(res);
+        },
+        success: (res) => {
+          this.checkPermission(res)
+        }
+      })
+    }
+  },
 
   //手动登陆
-BtnCheckP:function(e){
-  console.log(e);
- this.checkPermission(e.detail)
-},
+  BtnCheckP: function (e) {
+    console.log(e);
+    this.checkPermission(e.detail)
+  },
 
   //总登陆
   checkPermission: function (e) {
@@ -586,7 +586,11 @@ BtnCheckP:function(e){
                                   let DATE = new Date();
                                   let DATESU = new Date(res.data.data.signed_up);
                                   DATE = parseInt((DATE - DATESU) / (24 * 60 * 60 * 1000));
-                                  console.log("11", DATE);
+                                  console.log("DATE1", DATE);
+                                  if(DATE==null){
+                                    DATE=0;
+                                  }
+                                  console.log("DATE2", DATE);
                                   this.setState({
                                     signed_up: res.data.data.signed_up,
                                     using_day: DATE,
@@ -614,13 +618,13 @@ BtnCheckP:function(e){
                         fail: () => {
                           console.log("失败");
                           this.setData({
-                            error_code: "请重试",
+                            error_code: "请重试,code:2",
                           })
                         },
                         complete: () => {
                           console.log("完成");
                           this.setData({
-                            error_code: "请重试",
+                            error_code: "请重试,code:3",
                           })
                         },
 
@@ -635,7 +639,7 @@ BtnCheckP:function(e){
           this.GetWeRunData();
         }
       })
-      console.log(e.detail.userInfo);
+      console.log(e.userInfo);
       console.log("isLogin", this.data.isLogin, "key", this.$state.login_key);
       // this.setData({
       //   ConsoleText:this.data.isLogin,
@@ -903,12 +907,13 @@ BtnCheckP:function(e){
         success: (res) => {
           console.log("提交成功");
           console.log(res.data);
+          CNplus();
           if (res.status != "success") {
             this.setData({
               error_code: res.status + res.code,
             })
           } else {
-            CNplus();
+            // CNplus();
           }
 
         }
@@ -1006,16 +1011,17 @@ BtnCheckP:function(e){
         let length = 0;
         let title, back = 15;
         console.log("拉取目标板成功");
-        console.log(res.data);
-        console.log('a', res.data.data[length].title);
-        title = res.data.data[0].title;
-
-        while (title) {
-          length++;
-          if (res.data.data[length]) {
-            title = res.data.data[length].title;
-          } else {
-            break;
+        console.log(res.data);              
+        if (res.data.data[length]) {
+          console.log('a', res.data.data[length].title);  
+          title = res.data.data[0].title;
+          while (title) {
+            length++;
+            if (res.data.data[length]) {
+              title = res.data.data[length].title;
+            } else {
+              break;
+            }
           }
         }
         console.log("length", length);

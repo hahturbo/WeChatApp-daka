@@ -181,7 +181,6 @@ Component({
             console.log("modify success");
             console.log(res);
             this.triggerEvent('deleteEvent', 'modify');
-            this.uploadboard();
           },
           fail: (res) => {
             console.log(res);
@@ -207,7 +206,6 @@ Component({
             console.log("modify success");
             console.log(res);
             this.triggerEvent('deleteEvent', 'modify');
-            this.uploadboard();
           },
           fail: (res) => {
             console.log(res);
@@ -236,60 +234,12 @@ Component({
             console.log("modify success");
             console.log(res);
             this.triggerEvent('deleteEvent', 'modify');
-            this.uploadboard();
           },
           fail: (res) => {
             console.log(res);
           }
         })
       }
-    },
-    uploadboard: function () {
-      // 获取打卡详情
-      wx.request({
-        method: "POST",
-        url: this.$state.apiURL + '/user/goal/get',
-        data: {
-          from: 0,
-          amount: 5,
-          login_key: this.$state.login_key,
-        },
-        success: (res) => {
-          console.log('get succsess');
-          this.setState({
-            CardData: res.data.data.data,
-          })
-          console.log(this.$state.CardData);
-        },
-      });
-      let board_num = this.$state.board_num;
-      for (let i = 0; i < this.$state.goalsBoardData.length; i++) {
-        if (this.$state.CardData[this.data.item].goal_name === this.$state.goalsBoardData[i].title) {
-          console.log(this.$state.goalsBoardData[i].id);
-          board_num = this.$state.goalsBoardData[i].id - 1;
-          break;
-        }
-      }
-      let boarddata = [{
-        id: board_num + 1,
-        icon: this.$state.CardData[this.data.item].canBeSignedNow & 1 ? 2 : 1,
-        name: this.data.goal_name,
-      }]
-      wx.request({
-        method: 'POST',
-        url: this.$state.apiURL + '/user/board/change',
-        data: {
-          login_key: this.$state.login_key,
-          data: boarddata,
-        },
-        success: (res) => {
-          console.log("上传目标板成功",board_num);
-          console.log(res.data);
-          this.setState({
-            board_num: board_num + 1,
-          })
-        }
-      })
     },
   }
 })
