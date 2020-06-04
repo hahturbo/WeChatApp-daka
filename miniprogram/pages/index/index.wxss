@@ -469,8 +469,8 @@ flex-direction:column;
 }
 
 /* 新建打卡按钮 */
-.new_aim_card{
-  width: 20% ;
+Page .new_aim_card{
+  width: 60% ;
   /* height: 80rpx; */
   background:rgb(255,153,102);
   border-radius: 25rpx;

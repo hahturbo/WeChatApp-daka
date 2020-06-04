@@ -40,7 +40,7 @@
 		</view>
 		<view wx:if='{{$state.skin==1}}' class='downmidshadow '></view>
 		<view class='downmidbg '></view>
-			<view class='downfirst {{nowPage==0&&$state.card_num==0 ? "" : "displayNone"}}'>
+			<view class='downfirst {{(nowPage==0&&$state.card_num==0)||(!$state.isLogin&&nowPage==0)? "" : "displayNone"}}'>
 			<text style="color:gray">现在，给自己制定一个打卡计划</text>
 				<text style="color:gray">⬇</text>			
 			</view>

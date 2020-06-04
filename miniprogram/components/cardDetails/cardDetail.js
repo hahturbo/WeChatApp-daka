@@ -62,25 +62,6 @@ Component({
    */
   methods: {
     initCardDetail: function () {
-      // 获取打卡记录
-      wx.request({
-        method: "POST",
-        url: this.$state.apiURL + '/user/getSignedRecord',
-        data: {
-          from: 0,
-          amount: this.$state.user_Info.tick_times,
-          login_key: this.$state.login_key,
-        },
-        success: (res) => {
-          console.log('get succsess');
-          this.setState({
-            CardDetail: res.data.data,
-          })
-        },
-        complete: () => {
-          console.log(this.$state.CardDetail);
-        }
-      });
       if (this.$state.CardData[this.data.item].goal_type == 2) {
         this.getWeRundata();
         if (this.$state.CardData[this.data.item].canBeSignedNow == 1 && this.$state.CardData[this.data.item].goal_type == 2) {
@@ -108,7 +89,26 @@ Component({
         })
       }
       console.log(this.$state.CardGroupData);
-      this.today();
+      // 获取打卡记录
+      wx.request({
+        method: "POST",
+        url: this.$state.apiURL + '/user/getSignedRecord',
+        data: {
+          from: 0,
+          amount: this.$state.user_Info.tick_times,
+          login_key: this.$state.login_key,
+        },
+        success: (res) => {
+          console.log('get succsess');
+          this.setState({
+            CardDetail: res.data.data,
+          })
+          this.today();
+        },
+        complete: () => {
+          console.log(this.$state.CardDetail);
+        }
+      });
       let endflag = this.comparedate();
       if (endflag) {
         this.setData({

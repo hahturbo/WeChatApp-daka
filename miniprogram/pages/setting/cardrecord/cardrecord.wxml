@@ -1,6 +1,5 @@
 <!--miniprogram/pages/cardrecord/cardrecord.wxml-->
 <scroll-view class='scrollY' scroll-y="true">
-
 	<view class='mid-contentD' wx:for='{{carddatas}}' wx:if="{{cardend[index]}}">
 		<mp-slideview class='slide' data-gid='item.goal_id' buttons="{{[{ type: 'warn',  text: '删除', extClass: 'img_delete', src:'../../../images/corddelete.png',  data:item.goal_id  }]}}" icon="{{false}}" bindbuttontap="slideButtonTap">
 		<navigator url="{{'./detail/detail?id='+index}}">

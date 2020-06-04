@@ -10,7 +10,7 @@
 <view class='account_data'>
 	<view class='detail'>使用时间：{{$state.using_day}}天</view>
 	<view class='detail'>创建打卡：{{user_info.goal_num}}个</view>
-		<view class='detail'>现有打卡：{{$state. aimCardDatas.length}}个</view>
+		<view class='detail'>现有打卡：{{user_info.goal_num?$state.aimCardDatas.length:0}}个</view>
 		<view class='detail'>打卡次数：{{user_info.tick_times}}个</view>
 		<!-- <view class='detail'>目标板现有目标：个</view> -->
 		<view class='detail'></view>
