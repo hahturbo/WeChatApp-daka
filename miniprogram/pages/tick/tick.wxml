@@ -9,8 +9,8 @@
 	<view><text class="title">我的目标板</text></view>
 	<!-- <movable-area id="movable_area"> -->
 	<!-- wx:for="(single, index) in goalsBoard" -->
-	<!-- <movable-view wx:for="{{goalsBoard}}" wx:for-index="index" wx:for-item="single" wx:key="index" class='line' direction="vertical" bindchange='LineTap' data-number='{{index}}' y='{{ MoveableViewY[0]}}'>{{single.id}}.....<input></input><image src="../../images/tick_ok.png"></image></movable-view> -->
-	<!-- <movable-view class='line' direction="vertical" bindchange='LineTap' data-number='1' y='{{ MoveableViewY[1]}}'>{{MoveableViewID[1]}}<input></input><image src="../../images/tick_ok.png"></image></movable-view> -->
+	<!-- <movable-view wx:for="{{goalsBoard}}" wx:for-index="index" wx:for-item="single" wx:key="index" class='line' direction="vertical" bindchange='LineTap' data-number='{{index}}' y='{{ MoveableViewY[0]}}'>{{single.id}}.....<input></input><image src="http://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick_ok.png"></image></movable-view> -->
+	<!-- <movable-view class='line' direction="vertical" bindchange='LineTap' data-number='1' y='{{ MoveableViewY[1]}}'>{{MoveableViewID[1]}}<input></input><image src="http://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick_ok.png"></image></movable-view> -->
 	<!-- </movable-area> -->
 
 	<movable-area class='movable-area' style='display:{{movableViewInfo.showClass}}; height:{{pageInfo.scrollHeight}}%;'>
@@ -19,8 +19,8 @@
 			<!-- <view class='' >{{item.name}}.</view>     -->
 			<input value="{{movableViewInfo.data.name}}"></input>
 			<view class="tick_circle"  wx:if="{{movableViewInfo.data.icon==0}}" bindtap="ImgTap" data-index='{{index}}'  ></view>
-				  <image src="../../images/tick_ok.png"  wx:if="{{movableViewInfo.data.icon==1}}" bindtap="ImgTap" data-index='{{index}}' ></image>
-          <image  src="../../images/tick_aim.png" wx:if="{{movableViewInfo.data.icon==2}}" data-index='{{index}}' ></image>
+				  <image src="http://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick_ok.png"  wx:if="{{movableViewInfo.data.icon==1}}" bindtap="ImgTap" data-index='{{index}}' ></image>
+          <image  src="http://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick_aim.png" wx:if="{{movableViewInfo.data.icon==2}}" data-index='{{index}}' ></image>
 
 		</movable-view>
 	</movable-area>
@@ -33,9 +33,9 @@
 				<input data-index='{{index}}' value="{{item.name}}" maxlength="20" bindinput="{{$state.isLogin?'bindKeyInput':'ToLogin'}}" bindblur="FinshInput" disabled="{{item.disabled}}"></input>
 				<!-- {{index}}>{{null_flag}}?true:false -->
 			<view class="tick_circle"  wx:if="{{item.icon==0}}" bindtap='{{item.disabled==false?"ImgTap":""}}' data-index='{{index}}'  ></view>
-				<!-- <image src="../../images/tick_circle.png"  wx:if="{{item.icon==0}}" bindtap='{{item.disabled==false?"ImgTap":""}}' data-index='{{index}}'  ></image> -->
-				  <image class='img_ok' src="../../images/tick_ok.png"  wx:if="{{item.icon==1}}" bindtap="ImgTap" data-index='{{index}}'  ></image>
-          <image  src="../../images/tick_aim.png" wx:if="{{item.icon==2}}" data-index='{{index}}'  ></image>  
+				<!-- <image src="http://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick_circle.png"  wx:if="{{item.icon==0}}" bindtap='{{item.disabled==false?"ImgTap":""}}' data-index='{{index}}'  ></image> -->
+				  <image class='img_ok' src="http://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick_ok.png"  wx:if="{{item.icon==1}}" bindtap="ImgTap" data-index='{{index}}'  ></image>
+          <image  src="http://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick_aim.png" wx:if="{{item.icon==2}}" data-index='{{index}}'  ></image>  
 			</view>
 		</block>
 	</scroll-view>

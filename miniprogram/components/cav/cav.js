@@ -33,7 +33,7 @@ Component({
     Drawshare: function () {
       let name = this.$state.tick_title;
       console.log("draw", name)
-      // res.path='../../images/tick-YES.png'
+      // res.path='http://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick-YES.png'
       const ctx = wx.createCanvasContext("share", this)
       //var ctx = wx.createContext()
       console.log(wx);
@@ -46,7 +46,8 @@ Component({
       ctx.fillText(name, 150, 130);
       ctx.setFontSize(20)
       ctx.fillText("我做到了！", 120, 230);
-      ctx.drawImage('../../images/tick-YES.png', 15, 200, 250, 200)
+      ctx.drawImage('http://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick-YES.png', 15, 200, 250, 200)
+      ctx.drawImage('http://haha1001.gitee.io/wechatapp-daka/miniprogram/images/code.jpg', 240, 340, 50, 50)
       //ctx.draw(true, this.SavePic)
       ctx.draw(true, () => {
         this.canvasToTempFilePath({

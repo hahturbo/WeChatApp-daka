@@ -1,14 +1,14 @@
 <!--miniprogram/pages/setting/UsingHelp/UsingHelp.wxml-->
 <scroll-view class='UsingHelp' scroll-y='true'>
 
-<image src='../../../images/help.jpg' style="height:7005rpx;width:720rpx" ></image>
+<image src='http://haha1001.gitee.io/wechatapp-daka/miniprogram/images/help.jpg' style="height:7005rpx;width:720rpx" ></image>
 	<!-- <view class="tip">
 		<view class="text">欢迎使用极简打卡小程序！</view>
 		<view class="text">了解以下使用提示，您将会更加高效的使用本程序</view>
 		<view class="text">让我们开始吧！ヽ(´▽｀)ノ</view>
 	</view>
 	<view class="tip">
-		<image class='image' src="../../../images/Tips1.png"></image>
+		<image class='image' src="http://haha1001.gitee.io/wechatapp-daka/miniprogram/images/Tips1.png"></image>
 		<view class='text'>这是打卡主页面</view>
 		<view class='text_column'>
 			<view>您可以通过点击新建打卡按钮新建一个打卡项目，您</view>
@@ -19,17 +19,17 @@
 		<view class='text'>您可以直接点击每一个打卡框查看打卡详情</view>
 	</view>
 	<view class="tip">
-		<image class='image' src="../../../images/Tips2.png"></image>
+		<image class='image' src="http://haha1001.gitee.io/wechatapp-daka/miniprogram/images/Tips2.png"></image>
 		<view class='text'>我们向您提供了三个可选打卡类型：极简、普通和微信运动，您可按需选择</view>
 	</view>
 	<view class="tip">
-		<image class='image' src="../../../images/Tips5.png"></image>
+		<image class='image' src="http://haha1001.gitee.io/wechatapp-daka/miniprogram/images/Tips5.png"></image>
 		<view class='text'>这是目标板，您可以记下一些您的目标，当他们被完成的时候，给它们打上勾吧！</view>
 		<view class='text'>您的打卡项目也会在这里显示。</view>
 		<view class='text'>只能写10个目标哦，不能太贪心 ~</view>
 	</view>
 	<view class="tip">
-		<image class='image' src="../../../images/Tips3.png"></image>
+		<image class='image' src="http://haha1001.gitee.io/wechatapp-daka/miniprogram/images/Tips3.png"></image>
 		<view class='text'>在小组打卡详情的日历中</view>
 		<view class='text'>
 			<view>被</view>
@@ -44,7 +44,7 @@
 		<view class='text'>不妨双击一下打卡的日期！</view>
 	</view>
 	<view class="tip">
-		<image class='image' src="../../../images/Tips4.png"></image>
+		<image class='image' src="http://haha1001.gitee.io/wechatapp-daka/miniprogram/images/Tips4.png"></image>
 		<view class="text">设置页的打卡记录里，有被您删除的打卡，在这里同样可以点击查看详情，希望能唤起一些美好的回忆</view>
 	</view>
 	<view class="tip">

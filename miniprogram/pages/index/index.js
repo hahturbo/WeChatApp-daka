@@ -343,7 +343,6 @@ Page({
         // }
 
         //自动打卡微信运动
-        setTimeout(() => {
           for (let i = 0; i < this.$state.card_num; i++) {
             if (this.$state.aimCardDatas[i].canBeSignedNow == 1 && this.$state.aimCardDatas[i].goal_type == 2) {
               wx.request({
@@ -357,14 +356,11 @@ Page({
                   console.log("自动打卡上传成功");
                   console.log(res.data);
                   this.setData({})
-                  setTimeout(() => {
                     this.GetCardData();
-                  }, 500);
                 }
               })
             }
           }
-        }, 500);
 
       }
     })
@@ -378,9 +374,7 @@ Page({
       success() {
         console.log("微信步数已经授权同意 ");
         // 用户已经同意小程序使用微信运动，后续调用  接口不会弹窗询问
-        setTimeout(() => {
           run()
-        }, 200)
       },
       fail: res => {
         console.log("微信步数授权失败： " + JSON.stringify(res));
@@ -438,9 +432,7 @@ Page({
       success() {
         console.log("微信步数授权同意 ");
         // 用户已经同意小程序使用微信运动，后续调用  接口不会弹窗询问
-        setTimeout(() => {
           run()
-        }, 200)
       },
       fail: res => {
         console.log("微信步数授权失败： " + JSON.stringify(res));
@@ -578,7 +570,6 @@ Page({
                             })
 
                             // 获取用户信息。计算使用天数
-                            setTimeout(() => {
                               console.log("isLogin2", this.data.isLogin, "key2", this.$state.login_key);
                               wx.request({
                                 method: 'POST',
@@ -602,7 +593,6 @@ Page({
                                   })
                                 }
                               })
-                            }, 500);
 
                           } else {
                             // this.setState({
@@ -614,9 +604,7 @@ Page({
                           }
                           console.log("this.setData:" + res.data);
                           this.GetCardData();
-                          setTimeout(() => {
                             this.GetBoard();
-                          }, 500);
 
                         },
 
@@ -791,10 +779,8 @@ Page({
         })
       }
       if (e.from != 'button') {
-        setTimeout(() => {
           this.GetCardData();
           this.changePage(e);
-        }, 500);
       }
       return true;
     } else {
@@ -816,9 +802,7 @@ Page({
   ChangePageGetBoard: function (e) {
     this.GetBoard();
     //this.changePage(e);
-    setTimeout(() => {
       this.changePage(e);
-    }, 300);
 
     // this.setData({
     //   changedPageCounts: this.data.changedPageCounts + 1,
@@ -1052,9 +1036,7 @@ Page({
         console.log("打卡上传成功");
         console.log(res.data);
         this.setData({})
-        setTimeout(() => {
           this.GetCardData();
-        }, 500);
       }
     })
   },
