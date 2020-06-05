@@ -12,18 +12,39 @@ Component({
    */
   data: {
     shareTempFilePath: '',
-    imageFile: ''
+    imageFile: '',
+    tickYES: '',
+    code: '',
   },
 
+  lifetimes: {
+    ready: function () {
+      wx.getImageInfo({
+        src: 'https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick-YES.png',
+        success: (res) => {
+          this.setData({
+            tickYES: res.path
+          })
+          if (this.data.code && this.data.tickYES) {
+            this.Drawshare();
+          }
+        }
+      })
+      wx.getImageInfo({
+        src: 'https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/code.jpg',
+        success: (res) => {
+          this.setData({
+            code: res.path
+          })
+          if (this.data.code && this.data.tickYES) {
+            this.Drawshare();
+          }
+        }
+      })
 
-  attached: function () {
-    console.log("onloadcav");
-    setTimeout(() => {
-      this.Drawshare();
-    }, 50);
 
+    },
   },
-
 
 
   /**
@@ -33,7 +54,7 @@ Component({
     Drawshare: function () {
       let name = this.$state.tick_title;
       console.log("draw", name)
-      // res.path='http://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick-YES.png'
+      // res.path='https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick-YES.png'
       const ctx = wx.createCanvasContext("share", this)
       //var ctx = wx.createContext()
       console.log(wx);
@@ -46,8 +67,8 @@ Component({
       ctx.fillText(name, 150, 130);
       ctx.setFontSize(20)
       ctx.fillText("我做到了！", 120, 230);
-      ctx.drawImage('http://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick-YES.png', 15, 200, 250, 200)
-      ctx.drawImage('http://haha1001.gitee.io/wechatapp-daka/miniprogram/images/code.jpg', 240, 340, 50, 50)
+      ctx.drawImage(this.data.tickYES, 15, 200, 250, 200)
+      ctx.drawImage(this.data.code, 240, 340, 50, 50)
       //ctx.draw(true, this.SavePic)
       ctx.draw(true, () => {
         this.canvasToTempFilePath({
@@ -58,11 +79,11 @@ Component({
           imageFile: tempFilePath
         }))
       })
-      setTimeout(() => { 
-        this.handleSave();        
+      setTimeout(() => {
+        this.handleSave();
       }, 200);
     },
-//https://www.jianshu.com/p/7d47e52de73c
+    //https://www.jianshu.com/p/7d47e52de73c
     canvasToTempFilePath: function (option, context) {
       console.log("CTTF");
       return new Promise((resolve, reject) => {
@@ -84,7 +105,7 @@ Component({
         })
       })
     },
-    longhandleSave(){
+    longhandleSave() {
       console.log("保存授权 ");
       wx.authorize({
         scope: 'scope.writePhotosAlbum',
@@ -132,8 +153,8 @@ Component({
                 })
               }
             }
-          })   
-          
+          })
+
         },
       })
     },
