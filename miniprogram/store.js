@@ -2,7 +2,7 @@
 // 全局变量
 let store = {
   skin:1, //1初始橙 2网格白
-  version:"0.9.902",
+  version:"0.9.903",
   card_num: 0,
 
   user_Info:'',

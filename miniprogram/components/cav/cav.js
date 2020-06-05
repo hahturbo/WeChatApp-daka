@@ -68,7 +68,7 @@ Component({
       ctx.setFontSize(20)
       ctx.fillText("我做到了！", 120, 230);
       ctx.drawImage(this.data.tickYES, 15, 200, 250, 200)
-      ctx.drawImage(this.data.code, 240, 340, 50, 50)
+      ctx.drawImage(this.data.code, 220, 320, 70, 70)
       //ctx.draw(true, this.SavePic)
       ctx.draw(true, () => {
         this.canvasToTempFilePath({

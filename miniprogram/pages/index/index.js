@@ -580,7 +580,7 @@ Page({
                                 success: (res) => {
                                   console.log("info", res.data);
                                   let DATE = new Date();
-                                  let DATESU = new Date(res.data.data.signed_up);
+                                  let DATESU = new Date(res.data.data.signed_up.replace(/-/g,'/'));
                                   DATE = parseInt((DATE - DATESU) / (24 * 60 * 60 * 1000));
                                   console.log("DATE1", DATE);
                                   if(DATE==null){

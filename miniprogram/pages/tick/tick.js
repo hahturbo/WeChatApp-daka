@@ -328,7 +328,11 @@ Component({
         this.setState({
           tick_title:ExgoalsBoard[e.currentTarget.dataset.index].name,
         })
-      
+        wx.showToast({
+          icon: 'none',
+          title: '长按保存分享图片至相册,本目标将删除',
+          duration: 2500,
+        })
       }
       this.FreshBtoA();
     },
