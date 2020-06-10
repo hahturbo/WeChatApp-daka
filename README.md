@@ -1,15 +1,12 @@
-# 云开发 quickstart
+# 极简打卡
 
-主程序入口在miniprogram/index
-除index、newaim、images为有效文件夹，其他为小程序自行创建，未删除而已
-
-这是云开发的快速启动指引，其中演示了如何上手使用云开发的三大基础能力：
-
-- 数据库：一个既可在小程序前端操作，也能在云函数中读写的 JSON 文档型数据库
-- 文件存储：在小程序前端直接上传/下载云端文件，在云开发控制台可视化管理
-- 云函数：在云端运行的代码，微信私有协议天然鉴权，开发者只需编写业务逻辑代码
+- 极简打卡，一款极简的打卡小程序
+- 没有圈子等复杂的功能，只为专心打卡
+- 安安静静的
+- 完成自己设定的小目标
+- 从此刻开始
 
 ## 参考文档
 
-- [云开发文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)
+- [微信开放文档](https://developers.weixin.qq.com/miniprogram/dev/framework/)
 

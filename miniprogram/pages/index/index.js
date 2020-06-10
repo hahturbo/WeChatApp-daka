@@ -198,7 +198,7 @@ Page({
 
   },
 
-  imageError: function(e) {
+  imageError: function (e) {
     console.log('image发生error事件，携带值为', e.detail.errMsg)
   },
 
@@ -291,7 +291,7 @@ Page({
   //获取打卡信息
   GetCardData: function (e) {
     let L = this.$state.card_num;
-    if (L<5) {
+    if (L < 5) {
       L = 5;
     }
     console.log(this.$state.card_num, ">>", L);
@@ -343,24 +343,24 @@ Page({
         // }
 
         //自动打卡微信运动
-          for (let i = 0; i < this.$state.card_num; i++) {
-            if (this.$state.aimCardDatas[i].canBeSignedNow == 1 && this.$state.aimCardDatas[i].goal_type == 2) {
-              wx.request({
-                method: 'POST',
-                url: this.$state.apiURL + '/user/goal/sign',
-                data: {
-                  goal_id: this.$state.aimCardDatas[i].goal_id,
-                  login_key: this.$state.login_key,
-                },
-                success: (res) => {
-                  console.log("自动打卡上传成功");
-                  console.log(res.data);
-                  this.setData({})
-                    this.GetCardData();
-                }
-              })
-            }
+        for (let i = 0; i < this.$state.card_num; i++) {
+          if (this.$state.aimCardDatas[i].canBeSignedNow == 1 && this.$state.aimCardDatas[i].goal_type == 2) {
+            wx.request({
+              method: 'POST',
+              url: this.$state.apiURL + '/user/goal/sign',
+              data: {
+                goal_id: this.$state.aimCardDatas[i].goal_id,
+                login_key: this.$state.login_key,
+              },
+              success: (res) => {
+                console.log("自动打卡上传成功");
+                console.log(res.data);
+                this.setData({})
+                this.GetCardData();
+              }
+            })
           }
+        }
 
       }
     })
@@ -374,7 +374,7 @@ Page({
       success() {
         console.log("微信步数已经授权同意 ");
         // 用户已经同意小程序使用微信运动，后续调用  接口不会弹窗询问
-          run()
+        run()
       },
       fail: res => {
         console.log("微信步数授权失败： " + JSON.stringify(res));
@@ -432,7 +432,7 @@ Page({
       success() {
         console.log("微信步数授权同意 ");
         // 用户已经同意小程序使用微信运动，后续调用  接口不会弹窗询问
-          run()
+        run()
       },
       fail: res => {
         console.log("微信步数授权失败： " + JSON.stringify(res));
@@ -570,29 +570,29 @@ Page({
                             })
 
                             // 获取用户信息。计算使用天数
-                              console.log("isLogin2", this.data.isLogin, "key2", this.$state.login_key);
-                              wx.request({
-                                method: 'POST',
-                                url: this.data.apiUrl + '/user/info',
-                                data: {
-                                  login_key: this.$state.login_key,
-                                },
-                                success: (res) => {
-                                  console.log("info", res.data);
-                                  let DATE = new Date();
-                                  let DATESU = new Date(res.data.data.signed_up.replace(/-/g,'/'));
-                                  DATE = parseInt((DATE - DATESU) / (24 * 60 * 60 * 1000));
-                                  console.log("DATE1", DATE);
-                                  if(DATE==null){
-                                    DATE=0;
-                                  }
-                                  console.log("DATE2", DATE);
-                                  this.setState({
-                                    signed_up: res.data.data.signed_up,
-                                    using_day: DATE,
-                                  })
+                            console.log("isLogin2", this.data.isLogin, "key2", this.$state.login_key);
+                            wx.request({
+                              method: 'POST',
+                              url: this.data.apiUrl + '/user/info',
+                              data: {
+                                login_key: this.$state.login_key,
+                              },
+                              success: (res) => {
+                                console.log("info", res.data);
+                                let DATE = new Date();
+                                let DATESU = new Date(res.data.data.signed_up.replace(/-/g, '/'));
+                                DATE = parseInt((DATE - DATESU) / (24 * 60 * 60 * 1000));
+                                console.log("DATE1", DATE);
+                                if (DATE == null) {
+                                  DATE = 0;
                                 }
-                              })
+                                console.log("DATE2", DATE);
+                                this.setState({
+                                  signed_up: res.data.data.signed_up,
+                                  using_day: DATE,
+                                })
+                              }
+                            })
 
                           } else {
                             // this.setState({
@@ -604,7 +604,7 @@ Page({
                           }
                           console.log("this.setData:" + res.data);
                           this.GetCardData();
-                            this.GetBoard();
+                          this.GetBoard();
 
                         },
 
@@ -709,6 +709,11 @@ Page({
       nowPage: e.currentTarget.dataset.to,
     })
   },
+  // 打卡详情返回
+  DetailEnd: function (e) {
+    this.GetCardData();
+    this.changePage(e);
+  },
 
   changeNewAimPage: function (e) {
     console.log(this.$state.card_num);
@@ -781,9 +786,9 @@ Page({
       if (e.from != 'button') {
         setTimeout(() => {
           this.GetCardData();
-          this.changePage(e);          
+          this.changePage(e);
         }, 500);
- 
+
       }
       return true;
     } else {
@@ -804,8 +809,8 @@ Page({
 
   ChangePageGetBoard: function (e) {
     this.GetBoard();
-    this.GetCardData();//多次获取，稳定数据，可能删除
-      this.changePage(e);
+    this.GetCardData(); //多次获取，稳定数据，可能删除
+    this.changePage(e);
 
     // this.setData({
     //   changedPageCounts: this.data.changedPageCounts + 1,
@@ -1003,9 +1008,9 @@ Page({
         let length = 0;
         let title, back = 15;
         console.log("拉取目标板成功");
-        console.log(res.data);              
+        console.log(res.data);
         if (res.data.data[length]) {
-          console.log('a', res.data.data[length].title);  
+          console.log('a', res.data.data[length].title);
           title = res.data.data[0].title;
           while (title) {
             length++;
@@ -1039,7 +1044,7 @@ Page({
         console.log("打卡上传成功");
         console.log(res.data);
         this.setData({})
-          this.GetCardData();
+        this.GetCardData();
       }
     })
   },

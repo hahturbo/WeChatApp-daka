@@ -317,7 +317,7 @@ page .btn_go_on {
   position: fixed;
   z-index: 10;
   flex-direction: row;
-
+  background-color: white;
 }
 
 .d_shadow{
@@ -347,7 +347,7 @@ page .btn_go_on {
 
 .downleft {
   margin: 0px;
-  width: 42vw;
+  width: 40vw;
   height: 10vh;
   align-items: center;
 
@@ -361,7 +361,7 @@ page .btn_go_on {
 
 .downright {
   margin: 0px;
-  width: 42vw;
+  width: 40vw;
   height: 10vh;
 
   align-items: center;
@@ -374,14 +374,14 @@ page .btn_go_on {
 
 /* 中圈 */
 .downmid {
-  width: 25vw;
-  height: 25vw;
+  width: 20vw;
+  height: 20vw;
   background: rgb(255, 255, 255);
   border-radius: 50%;
   border-style: solid;
   border-color: var(--main-color);
-  border-width: 2vw;
-  bottom: 5vh;
+  border-width: 10rpx;
+  bottom: 3.5vh;
   position: relative;
   /* box-shadow: 0rpx 0rpx 20rpx 10rpx #888888; */
   align-items: center;
@@ -390,14 +390,11 @@ page .btn_go_on {
 }
 
 .downmidshadow {
-  width: 20vw;
+  width: 18vw;
   height: 10vw;
-  top:-90rpx;
   border-radius:  20vw  20vw 0 0;
   border-style: solid;
-  border-color: var(--main-color);
-  border-width: 2vw;
-  bottom: 5vh;
+  bottom: 8vh;
   position: absolute;
   box-shadow: 0rpx 0rpx 30rpx 15rpx #888888;
 }
@@ -421,8 +418,8 @@ page .btn_go_on {
 
 /* 导航栏图片统一定义 */
 .downimg {
-  width: 100rpx;
-  height: 100rpx;
+  width: 80rpx;
+  height: 80rpx;
   /* text-align: center; */
   top: 0vw;
   /* left: 3vw; */
@@ -430,8 +427,8 @@ page .btn_go_on {
 }
 
 .downmidimg {
-  width: 150rpx;
-  height: 150rpx;
+  width: 115rpx;
+  height: 115rpx;
   top: 0rpx;
   position: relative;
 }
