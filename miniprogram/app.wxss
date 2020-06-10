@@ -309,7 +309,7 @@ page .btn_go_on {
 /* 整一个下部导航栏定义 */
 .down {
   width: 100vw;
-  height: 10vh;
+  height: 8vh;
   bottom: 0px;
   display: flex;
   justify-content: space-around;
@@ -375,7 +375,7 @@ page .btn_go_on {
   border-style: solid;
   border-color: var(--main-color);
   border-width: 10rpx;
-  bottom: 3.5vh;
+  bottom: 3vh;
   position: relative;
   /* box-shadow: 0rpx 0rpx 20rpx 10rpx #888888; */
   align-items: center;
@@ -384,11 +384,11 @@ page .btn_go_on {
 }
 
 .downmidshadow {
-  width: 18vw;
+  width: 16vw;
   height: 10vw;
   border-radius:  20vw  20vw 0 0;
   border-style: solid;
-  bottom: 8vh;
+  bottom: 6.5vh;
   position: absolute;
   box-shadow: 0rpx 0rpx 30rpx 15rpx #888888;
 }
@@ -397,7 +397,7 @@ page .btn_go_on {
 
 .downmidbg {
   width: 34vw;
-  height: 8vh;
+  height: 9vh;
   bottom:0rpx;
   background-color:  white;
   position: absolute;
@@ -428,5 +428,5 @@ page .btn_go_on {
 }
 .d_black_border{
   border-color: black;
-  border-width: 2rpx;
+  border-width: 3.5rpx;
 }
