@@ -426,3 +426,7 @@ page .btn_go_on {
   top: 0rpx;
   position: relative;
 }
+.d_black_border{
+  border-color: black;
+  border-width: 2rpx;
+}
