@@ -325,7 +325,7 @@ page .btn_go_on {
 }
 .d_black_line{
  border-color: black;
- border-width: 2px;
+ border-width: 3.5rpx 0 0 0;
  border-style: solid;
 }
 
@@ -354,9 +354,6 @@ page .btn_go_on {
   align-items: center;
   display: flex;
   justify-content: space-around;
-
-  background-color: white;
-  border-radius: 0rpx 45rpx 0rpx 0rpx;
 }
 
 .downright {
@@ -367,9 +364,6 @@ page .btn_go_on {
   align-items: center;
   display: flex;
   justify-content: space-around;
-
-  background-color: white;
-  border-radius: 45rpx 0rpx  0rpx 0rpx;
 }
 
 /* 中圈 */
