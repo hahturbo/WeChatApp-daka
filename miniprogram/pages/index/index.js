@@ -779,8 +779,11 @@ Page({
         })
       }
       if (e.from != 'button') {
+        setTimeout(() => {
           this.GetCardData();
-          this.changePage(e);
+          this.changePage(e);          
+        }, 500);
+ 
       }
       return true;
     } else {

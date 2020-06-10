@@ -20,7 +20,7 @@ let store = {
   // isLogin: true,
   login_key: null,
   aimCardData: [],
-  aimCardDatas: [],
+  aimCardDatas: [],//打卡显示数据
   board_num:0,
   goalsBoardData:[],
   CardData:'',

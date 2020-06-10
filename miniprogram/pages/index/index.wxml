@@ -110,7 +110,8 @@
 						<button class='new_aim_card {{$state.aimCardDatas[0].canBeSignedNow==1?"":"NACunable"}}' data-id='{{$state.aimCardDatas[0].goal_id}}' bindtap='{{$state.aimCardDatas[0].canBeSignedNow==1?"sign_btn":""}}'>
 							<text style='{{$state.skin==1?"color:#FFFFFF;":"color:#000000"}}' class='  {{$state.aimCardDatas[0].canBeSignedNow==1?"":"displayNone"}}'>今日打卡</text>
 							<text style='{{$state.skin==1?"color:#FFFFFF;":"color:#000000"}}' class='{{$state.aimCardDatas[0].canBeSignedNow==-121?"":"displayNone"}}'>今日未完成</text>
-							<image class='{{($state.aimCardDatas[0].canBeSignedNow==-118)||($state.aimCardDatas[0].canBeSignedNow==-520)?"":"displayNone"}}' src='https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tickB_finish.png' style="width:100%; height:90rpx"></image>
+							<image hidden='{{$state.skin!=1}}' class='{{($state.aimCardDatas[0].canBeSignedNow==-118)||($state.aimCardDatas[0].canBeSignedNow==-520)?"":"displayNone"}}' src='https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tickB_finish.png' style="width:100%; height:90rpx"></image>
+							<image hidden='{{$state.skin!=2}}' class='{{($state.aimCardDatas[0].canBeSignedNow==-118)||($state.aimCardDatas[0].canBeSignedNow==-520)?"":"displayNone"}}' src='https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tickB_finish2.png' style="width:100%; height:90rpx"></image>
 
 						</button>
 					</view>

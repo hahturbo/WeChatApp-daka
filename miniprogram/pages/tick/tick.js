@@ -388,8 +388,8 @@ Component({
       console.log(this.$state.aimCardDatas);
       let title_card;
       if (this.$state.aimCardDatas.length == 0) {
-        console.log("暂未拉取打卡项");
-        return true;
+        console.log("无打卡项");
+        return false;
       }
       for (let i = 0; i < this.$state.aimCardDatas.length; i++) {
         title_card = this.$state.aimCardDatas[i].goal_name;
