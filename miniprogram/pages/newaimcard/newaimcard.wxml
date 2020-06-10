@@ -79,13 +79,14 @@
 
 
 		</view>
-		<view class='card  {{normal_card_display==1 ? "displayNone" : ""}}'>
+		<!-- 目前去除打卡时间 -->
+		<!-- <view class='card  {{normal_card_display==1 ? "displayNone" : ""}}'>
 			<picker value="{{reminder}}" range="{{reminder_Array}}" data-name="reminder_at" bindchange="valueChanged">
 				<view class="picker">
 					<text>提醒时间:  </text><text class="right_text">{{reminder_Array[reminder]}}</text>
 				</view>
 			</picker>
-		</view>
+		</view> -->
 
 		<view class='card {{team==0 ? "displayNone" : ""}}'>
 			<view class="picker" style=" display: flex;flex-direction: row;">

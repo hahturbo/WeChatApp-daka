@@ -291,7 +291,7 @@ Page({
   //获取打卡信息
   GetCardData: function (e) {
     let L = this.$state.card_num;
-    if (!L) {
+    if (L<5) {
       L = 5;
     }
     console.log(this.$state.card_num, ">>", L);
@@ -801,7 +801,7 @@ Page({
 
   ChangePageGetBoard: function (e) {
     this.GetBoard();
-    //this.changePage(e);
+    this.GetCardData();//多次获取，稳定数据，可能删除
       this.changePage(e);
 
     // this.setData({

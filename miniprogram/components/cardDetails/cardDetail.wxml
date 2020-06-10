@@ -51,7 +51,7 @@
 			<view class="type">结束时间：{{$state.CardData[item].ended_in}}</view>
 			<view class="type">打卡频率：每{{$state.CardData[item].frequency_type[2]==1?$state.CardData[item].frequency+'月':($state.CardData[item].frequency%7==0?$state.CardData[item].frequency/7+'周':$state.CardData[item].frequency+'天')}} {{$state.CardData[item].frequency_type[0]==0?"任意一天":"仅当天"}}</view>
 			<view class="type">打卡时间：{{$state.CardData[item].needed_be_signed_at}}-{{$state.CardData[item].needed_be_signed_deadline}}</view>
-			<view class="type">提醒时间：{{reminder_Array[$state.CardData[item].reminder_at >= 30 ? $state.CardData[item].reminder_at / 30 + 3 : $state.CardData[item].reminder_at / 5]}}</view>
+			<!-- <view class="type">提醒时间：{{reminder_Array[$state.CardData[item].reminder_at >= 30 ? $state.CardData[item].reminder_at / 30 + 3 : $state.CardData[item].reminder_at / 5]}}</view> -->
 		</view>
 		<view class="group_members" wx:if="{{$state.CardData[item].goal_is_a_group?true:false}}">
 			<view class="type">小组成员：</view>
