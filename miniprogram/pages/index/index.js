@@ -804,8 +804,11 @@ Page({
 
   ChangePageGetBoard: function (e) {
     this.GetBoard();
-    this.GetCardData();//多次获取，稳定数据，可能删除
+ 
+    setTimeout(() => {
       this.changePage(e);
+    }, 500);
+     
 
     // this.setData({
     //   changedPageCounts: this.data.changedPageCounts + 1,
@@ -828,6 +831,7 @@ Page({
       }
     })
     // 换页部分
+    this.GetCardData();//多次获取，稳定数据，可能删除
     this.changePage(e);
     // this.setData({
     //   changedPageCounts: this.data.changedPageCounts + 1,
