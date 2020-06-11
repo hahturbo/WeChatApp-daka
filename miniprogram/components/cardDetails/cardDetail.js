@@ -104,17 +104,17 @@ Component({
             CardDetail: res.data.data,
           })
           this.today();
+          let endflag = this.comparedate();
+          if (endflag) {
+            this.setData({
+              cardend: endflag,
+            })
+          }
         },
         complete: () => {
           console.log(this.$state.CardDetail);
         }
       });
-      let endflag = this.comparedate();
-      if (endflag) {
-        this.setData({
-          cardend: endflag,
-        })
-      }
     },
     display: function (year, month, date) {
       this.setData({
@@ -131,6 +131,7 @@ Component({
       let end = new Date(this.$state.CardData[this.data.item].ended_in);
       // let end = new Date('2020-03-10');
       let today = new Date(this.data.select);
+      console.log(end, today);
       if (end < today || this.$state.CardData[this.data.item].goal_type == 4) {
         today = end;
       } else if (this.$state.CardData[this.data.item].goal_type != 3 && this.$state.CardData[this.data.item].goal_type != 5) {

@@ -109,7 +109,7 @@ Component({
           console.log('started_at', this.data.started_at);
           break;
         case 'ended_in':
-          if (parseInt(e.detail.value.replace(/[^0-9]/ig, '')) <= parseInt(this.data.started_at.replace(/[^0-9]/ig, ''))) {
+          if (parseInt(e.detail.value.replace(/[^0-9]/ig, '')) <= parseInt(this.data.started_at.replace(/[^0-9]/ig, '')) || (new Date(e.detail.value.replace(/-/g, '/')) <= (new Date()))) {
             this.setData({
               ended_in: this.data.ended_in,
             })
