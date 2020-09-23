@@ -11,7 +11,6 @@ Page({
     // apiUrl: 'http://58.218.198.18:9998',
     // apiUrl: "https://test.rookie-zheng.top",
     // apiUrl: "http://123.57.189.137:1235",
-    apiUrl: "https://hahaturbo.site",
     avatarUrl: './user-unlogin.png',
     userInfo: {},
     logged: false,
@@ -556,7 +555,7 @@ Page({
                         header: {
                           'content-type': 'application/json'
                         },
-                        url: this.data.apiUrl + '/user/login',
+                        url: this.$state.apiURL + '/user/login',
                         data: {
                           encryptedData: res.encryptedData,
                           iv: res.iv,
@@ -575,7 +574,7 @@ Page({
                             console.log("isLogin2", this.data.isLogin, "key2", this.$state.login_key);
                             wx.request({
                               method: 'POST',
-                              url: this.data.apiUrl + '/user/info',
+                              url: this.$state.apiURL + '/user/info',
                               data: {
                                 login_key: this.$state.login_key,
                               },
@@ -645,7 +644,7 @@ Page({
       //   console.log("isLogin2", this.data.isLogin, "key2", this.$state.login_key);
       //   wx.request({
       //     method: 'POST',
-      //     url: this.data.apiUrl + '/user/info',
+      //     url: this.$state.apiURL + '/user/info',
       //     data: {
       //       login_key: this.$state.login_key,
       //     },
@@ -1006,7 +1005,7 @@ Page({
     // 获取目标板
     wx.request({
       method: 'POST',
-      url: this.data.apiUrl + '/user/board/get',
+      url: this.$state.apiURL + '/user/board/get',
       data: {
         login_key: this.$state.login_key,
       },
