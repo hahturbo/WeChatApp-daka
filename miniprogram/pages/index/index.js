@@ -9,7 +9,9 @@ Page({
     // isLogin: false,
     isLogin: true,
     // apiUrl: 'http://58.218.198.18:9998',
-    apiUrl: "https://test.rookie-zheng.top",
+    // apiUrl: "https://test.rookie-zheng.top",
+    // apiUrl: "http://123.57.189.137:1235",
+    apiUrl: "https://hahaturbo.site",
     avatarUrl: './user-unlogin.png',
     userInfo: {},
     logged: false,
@@ -809,11 +811,11 @@ Page({
 
   ChangePageGetBoard: function (e) {
     this.GetBoard();
- 
+
     setTimeout(() => {
       this.changePage(e);
     }, 500);
-     
+
 
     // this.setData({
     //   changedPageCounts: this.data.changedPageCounts + 1,
@@ -836,7 +838,7 @@ Page({
       }
     })
     // 换页部分
-    this.GetCardData();//多次获取，稳定数据，可能删除
+    this.GetCardData(); //多次获取，稳定数据，可能删除
     this.changePage(e);
     // this.setData({
     //   changedPageCounts: this.data.changedPageCounts + 1,

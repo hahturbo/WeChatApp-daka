@@ -11,7 +11,9 @@ let store = {
   msg: 'xxxxx',
   user: {},
   //  apiURL: "http://58.218.198.18:9998",
-   apiURL: "https://test.rookie-zheng.top",
+  // apiURL: "https://test.rookie-zheng.top",
+  // apiURL: "http://123.57.189.137:1235",
+  apiURL: "https://hahaturbo.site",
   isLogin: false,
   isTry: true,//尝试登陆变量 false时显示登录框
   ifFirstTime:false,//是否第一次登陆（缓存）
