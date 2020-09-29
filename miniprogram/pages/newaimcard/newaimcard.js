@@ -635,8 +635,11 @@ Component({
                 success: (res) => {
                   console.log("拉取邀请码成功");
                   console.log(res.data);
+                  //尝试修复前后端变量名不一致导致邀请后无法完成
+                  let buffer =  res.data.data.data
+                  buffer[0]['title']=buffer[0]['goal_name']
                   this.setState({
-                    aimCardDatas: res.data.data.data,
+                    aimCardDatas: buffer,
                   })
                   console.log(this.$state.aimCardDatas[0]);
                 }
@@ -662,6 +665,7 @@ Component({
    
 
           }
+       
         } else {
           // console.log("22");
           //未填完弹窗
@@ -676,7 +680,11 @@ Component({
             }],
             dialogShow: true,
           })
-
+          this.setData({
+            can_share: false,
+            share_text: ["(新建打卡后可邀请)", "新建打卡"],
+          }) 
+return
         }
       }
       setTimeout(()=>{

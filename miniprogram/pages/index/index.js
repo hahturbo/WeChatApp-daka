@@ -247,6 +247,8 @@ Page({
     this.changePage(e);
   },
   getindex: function (show) {
+    console.log("this.$state.aimCardData in index start");
+    console.log(this.$state.aimCardData);
     let cardindex = [];
     wx.request({
       method: 'POST',
@@ -287,7 +289,8 @@ Page({
         })
       }
     })
-
+    // console.log("this.$state.aimCardData in index end");
+    // console.log(this.$state.aimCardData);
   },
   //获取打卡信息
   GetCardData: function (e) {
@@ -295,6 +298,7 @@ Page({
     if (L < 5) {
       L = 5;
     }
+    console.log(this.$state.aimCardData);
     console.log(this.$state.card_num, ">>", L);
 
     wx.request({
@@ -308,7 +312,10 @@ Page({
       success: (res) => {
         console.log("拉取post成功");
         console.log(res.data);
+     
         this.ClearNewAimData();
+        // console.log("this.$state.aimCardData in2 ");
+        // console.log(this.$state.aimCardData);
         //剔除过期数组项
         let array0 = res.data.data.data;
         let array1 = [];
@@ -319,10 +326,12 @@ Page({
             array1.push(array0[i]);
           }
         }
+   
         this.setState({
           // aimCardDatas: res.data.data.data,
           aimCardDatas: array1,
         })
+  
         this.getindex(this.$state.aimCardDatas);
         console.log("L2:", array0, ">>", this.$state.aimCardDatas, );
         this.setState({
@@ -333,6 +342,7 @@ Page({
           key: "card_num",
           data: this.$state.card_num,
         })
+        
         //貌似无用
         // console.log((this.$state.aimCardDatas[0].canBeSignedNow == 1) && (this.$state.aimCardDatas[0].frequency_type[2] == 1));
         // if ((this.$state.aimCardDatas[0].canBeSignedNow == 1) && (this.$state.aimCardDatas[0].frequency_type[2] == 1)) {
@@ -342,7 +352,8 @@ Page({
         //     error_code: "无法获取打卡信息",
         //   })
         // }
-
+        console.log("this.$state.aimCardData");
+        console.log(this.$state.aimCardData);
         //自动打卡微信运动
         for (let i = 0; i < this.$state.card_num; i++) {
           if (this.$state.aimCardDatas[i].canBeSignedNow == 1 && this.$state.aimCardDatas[i].goal_type == 2) {
@@ -365,7 +376,7 @@ Page({
 
       }
     })
-
+    console.log(this.$state.aimCardData);
   },
 
   //申请微信运动授权
@@ -744,10 +755,15 @@ Page({
     }
   },
   ClearNewAimData: function () {
+    console.log(this.$state.can_share)
     //清理全局变量impoant！
-    this.setState({
-      aimCardData: [],
-    })
+    if(!this.$state.can_share){
+      this.setState({
+        aimCardData: [],
+      })
+
+    }
+
 
     this.setData({
       team: 0,
@@ -774,7 +790,10 @@ Page({
   changePage_Finish: function (e) {
     console.log("e", e);
     console.log(this.$state.aimCardData);
+    console.log(this.$state.aimCardData['title']);
+    console.log(this.$state.aimCardData['goal_type']);
     console.log(this.$state.aimCardData['needed_be_signed_deadline']);
+    console.log(this.$state.can_share)
     if (this.$state.aimCardData['title'] != null && ((this.$state.aimCardData['goal_type'] != 1 && this.$state.aimCardData['goal_type'] != null) || (this.$state.aimCardData['end_time'] != null && this.$state.aimCardData['needed_be_signed_deadline'] != null))) {
       //data.invite_time
       if (this.$state.can_share == false) {
