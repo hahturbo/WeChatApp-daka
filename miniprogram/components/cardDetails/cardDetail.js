@@ -376,6 +376,29 @@ Component({
             login_key: this.$state.login_key,
           },
           success: (res) => {
+            // if (this.$state.CardData[this.data.item].goal_type == 0) {
+            //   // 极简
+            //   wx.request({
+            //     url: this.$state.apiURL + '/user/goal/edit',
+            //     method: 'POST',
+            //     data: {
+            //       goal_id: this.$state.CardData[this.data.item].goal_id,
+            //       login_key: this.$state.login_key,
+            //       now_type: 0,
+            //       goal_type: 3,
+            //       goal_name: this.$state.CardData[this.data.item].goal_name,
+            //     },
+            //     success: (res) => {
+            //       console.log("modify delete success jijian");
+            //       console.log(res);
+            //       this.setData({
+            //         dialogshow: false,
+            //       })
+            //       this.triggerEvent('deleteEvent', 'delete');
+            //       this.getcarddetail();
+            //     },
+            //   })
+            // }
             this.getcarddetail();
             console.log('sign succsee!');
           },

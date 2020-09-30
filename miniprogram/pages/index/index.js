@@ -312,7 +312,7 @@ Page({
       success: (res) => {
         console.log("拉取post成功");
         console.log(res.data);
-     
+
         this.ClearNewAimData();
         // console.log("this.$state.aimCardData in2 ");
         // console.log(this.$state.aimCardData);
@@ -326,12 +326,12 @@ Page({
             array1.push(array0[i]);
           }
         }
-   
+
         this.setState({
           // aimCardDatas: res.data.data.data,
           aimCardDatas: array1,
         })
-  
+
         this.getindex(this.$state.aimCardDatas);
         console.log("L2:", array0, ">>", this.$state.aimCardDatas, );
         this.setState({
@@ -342,7 +342,7 @@ Page({
           key: "card_num",
           data: this.$state.card_num,
         })
-        
+
         //貌似无用
         // console.log((this.$state.aimCardDatas[0].canBeSignedNow == 1) && (this.$state.aimCardDatas[0].frequency_type[2] == 1));
         // if ((this.$state.aimCardDatas[0].canBeSignedNow == 1) && (this.$state.aimCardDatas[0].frequency_type[2] == 1)) {
@@ -757,7 +757,7 @@ Page({
   ClearNewAimData: function () {
     console.log(this.$state.can_share)
     //清理全局变量impoant！
-    if(!this.$state.can_share){
+    if (!this.$state.can_share) {
       this.setState({
         aimCardData: [],
       })
@@ -1067,7 +1067,33 @@ Page({
       success: (res) => {
         console.log("打卡上传成功");
         console.log(res.data);
-        this.setData({})
+        // let itgoal_type, itgoal_name;
+        // for (let i = 0; i < this.$state.aimCardDatas.length; i++) {
+        //   if (goal_id == this.$state.aimCardDatas[i].goal_id) {
+        //     itgoal_name = this.$state.aimCardDatas[i].goal_name;
+        //     itgoal_type = this.$state.aimCardDatas[i].goal_type;
+        //     break;
+        //   }
+        // }
+        // if (itgoal_type == 0) {
+        //   // 极简
+        //   wx.request({
+        //     url: this.$state.apiURL + '/user/goal/edit',
+        //     method: 'POST',
+        //     data: {
+        //       goal_id: goal_id,
+        //       login_key: this.$state.login_key,
+        //       now_type: 0,
+        //       goal_type: 3,
+        //       goal_name: itgoal_name,
+        //     },
+        //     success: (res) => {
+        //       console.log("modify delete success jijan");
+        //       this.GetCardData();
+        //       return;
+        //     },
+        //   })
+        // }
         this.GetCardData();
       }
     })
