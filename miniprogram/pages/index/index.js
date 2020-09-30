@@ -206,13 +206,15 @@ Page({
   //分享
   // e.target.dataset.index为传过来的下标（第几个打卡）
   onShareAppMessage: function (e) {
+    let shareGoal = this.$state.aimCardData ? this.$state.aimCardData : this.$state.CardData[e.target.dataset.index];
     console.log(e.target.dataset.index);
-    console.log("sharing", this.$state.CardData[e.target.dataset.index].groupData.invite_id);
+    console.log("sharing", shareGoal.groupData.invite_id);
     console.log('分享成功');
+
     return {
-      title: this.$state.CardData[e.target.dataset.index].groupData.groupMembers[0].nickname + '邀请您一起和TA打卡',
+      title: shareGoal.groupData.groupMembers[0].nickname + '邀请您一起和TA打卡',
       desc: '分享页面的内容',
-      path: 'pages/index/index?id=' + this.$state.CardData[e.target.dataset.index].groupData.invite_id,
+      path: 'pages/index/index?id=' + shareGoal.groupData.invite_id,
       // 路径，传递参数到指定页面。
     }
 
