@@ -431,6 +431,20 @@ Component({
     buttontap: function (e) {
       console.log('button tap');
       if (e.detail.item.text == "删除") {
+        if (this.$state.CardData[this.data.item].goal_is_a_group) {
+          // 是小组
+          if (!this.$state.CardData[this.data.item].groupData.is_group_creator) {
+            wx.showToast({
+              title: '您不是组长，没有权限删除！',
+              icon:'none',
+              duration:2000
+            })
+            this.setData({
+              dialogshow: false,
+            })
+            return;
+          }
+        }
         if (this.$state.CardData[this.data.item].goal_type == 0) {
           // 极简
           wx.request({
