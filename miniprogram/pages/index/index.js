@@ -206,7 +206,8 @@ Page({
   //分享
   // e.target.dataset.index为传过来的下标（第几个打卡）
   onShareAppMessage: function (e) {
-    let shareGoal = this.$state.aimCardData ? this.$state.aimCardData : this.$state.CardData[e.target.dataset.index];
+    let shareGoal = this.$state.aimCardDatas[0] ? this.$state.aimCardDatas[0] : this.$state.CardData[e.target.dataset.index];
+    console.log('shoreGoal',shareGoal);
     console.log(e.target.dataset.index);
     console.log("sharing", shareGoal.groupData.invite_id);
     console.log('分享成功');
