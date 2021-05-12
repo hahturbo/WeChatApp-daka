@@ -22,15 +22,26 @@
 				<!-- 上月 -->
 				<view class="gray grid" wx:for="{{lastmonthgrid}}" wx:key='item'>{{item}}</view>
 				<!-- 当月 -->
-				<view class="grid" wx:for="{{thismonthday}}" wx:key='thismonth' wx:for-item="thismonthday">
+				<view
+				 class="grid"
+				 wx:for="{{thismonthday}}"
+				 wx:key='thismonth'
+				 wx:for-item="thismonthday"
+				>
 					<!-- 是否今天 -->
-					<view class='self' wx:if="{{ format === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat && !cardend }}"></view>
+					<view class='self' wx:if="{{ format === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat && !cardend }}" />
 					<!-- date -->
 					<view class="wrap {{thismonthday.othersigned?'othersigned':''}} {{!$state.CardData[item].goal_is_a_group&&thismonthday.signed?'signed':''}} {{$state.CardData[item].goal_is_a_group&&thismonthday.signed?'mysigned':''}} {{thismonthday.signedmembers.length==$state.CardGroupData.groupMembers.length&&$state.CardGroupData.groupMembers.length>0?'allsigned':''}}" bindtap='select' data-date='{{thismonthday.date}}'>{{thismonthday.date}}</view>
 					<!-- 小组打卡用户头像框 -->
 					<view class="group {{select === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat ? 'select' :''}}" wx:if="{{ (select === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat)&(secondselect==1)&($state.CardData[item].goal_is_a_group)? true :false}}" style="right:{{thismonthday.week>3?0:auto}};">
 						<view class="userimgs">
-							<image class="user_img" wx:for="{{thismonthday.signedmembers}}" wx:key='item' wx:for-item="GroupMembers" src="{{GroupMembers.img}}"></image>
+							<image
+							 class="user_img"
+							 wx:for="{{thismonthday.signedmembers}}"
+							 wx:key='item'
+							 wx:for-item="GroupMembers"
+							 src="{{GroupMembers.img}}"
+							/>
 						</view>
 					</view>
 				</view>
@@ -56,27 +67,44 @@
 		<view class="group_members" wx:if="{{$state.CardData[item].goal_is_a_group?true:false}}">
 			<view class="type">小组成员：</view>
 			<view class="group_users">
-				<view class="group_user" wx:for="{{$state.CardData[item].groupData.groupMembers}}" wx:key="item" wx:for-item="GroupData">
-					<image class="members_img" src="{{GroupData.img}}"></image>
+				<view
+				 class="group_user"
+				 wx:for="{{$state.CardData[item].groupData.groupMembers}}"
+				 wx:key="item"
+				 wx:for-item="GroupData"
+				>
+					<image class="members_img" src="{{GroupData.img}}" />
 					<view class="type members_text">{{GroupData.nickname}}</view>
 				</view>
 				<view class="group_user invite" wx:if="{{$state.CardData[item].groupData.groupMembers.length<5&&!cardend}}">
-					<button class="button_invite" open-type='share' data-index="{{item}}" style="background-color: transparent;text-align:left;position:absolute;color:rgba(0,0,0,0)">分享</button>
-					<image class="members_img" src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/invite_add.png"></image>
+					<button
+					 class="button_invite"
+					 open-type='share'
+					 data-index="{{item}}"
+					 style="background-color: transparent;text-align:left;position:absolute;color:rgba(0,0,0,0)"
+					>分享
+					</button>
+					<image class="members_img" src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/invite_add.png" />
 					<view class="type members_text invite">邀请好友加入</view>
 				</view>
 
 			</view>
 		</view>
-		<image class="card_ended" src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/cardend.png" wx:if="{{cardend}}"></image>
+		<image class="card_ended" src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/cardend.png" wx:if="{{cardend}}" />
 		<view class="buttongroup" wx:if="{{!cardend}}">
 			<button class="todaydaka {{$state.CardData[item].canBeSignedNow&1?'':'signed'}}" bindtap="todaydaka">{{$state.CardData[item].canBeSignedNow&1?'今日打卡':'今日完成'}}</button>
 			<view class="deletedaka" bindtap="deletedaka">删除打卡</view>
 		</view>
-		<view class="block line" style="height:12vh;"></view>
-		<mp-dialog title="{{dialogtitle}}" show="{{dialogshow}}" bindbuttontap="buttontap" buttons="{{dialogbutton}}">
+		<view class="block line" style="height:12vh;" />
+		<mp-dialog
+		 title="{{dialogtitle}}"
+		 show="{{dialogshow}}"
+		 bindbuttontap="buttontap"
+		 buttons="{{dialogbutton}}"
+		>
 			<view>删除后不可恢复，确定吗？</view>
 		</mp-dialog>
 
 	</view>
 </scroll-view>
+
