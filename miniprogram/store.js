@@ -1,54 +1,54 @@
-
 // 全局变量
 let store = {
-  skin:1, //1初始橙 2网格白
-  version:"1.1.00",
+  skin: 1, //1初始橙 2网格白
+  version: "1.1.00",
   card_num: 0,
 
-  user_Info:'',
-  can_share:false,
-  invite_goal_id:'',
+  user_Info: '',
+  can_share: false,
+  invite_goal_id: '',
   msg: 'xxxxx',
   user: {},
   //  apiURL: "http://58.218.198.18:9998",
   // apiURL: "https://test.rookie-zheng.top",
-  // apiURL: "http://123.57.189.137:1235",
-  apiURL: "https://hahaturbo.site",
+  apiURL: "http://127.0.0.1:8088",
+  // apiURL: "https://hahaturbo.site",
   isLogin: false,
-  isTry: true,//尝试登陆变量 false时显示登录框
-  ifFirstTime:false,//是否第一次登陆（缓存）
-  signed_up:"" ,
-  using_day:0,
+  isTry: true, //尝试登陆变量 false时显示登录框
+  ifFirstTime: false, //是否第一次登陆（缓存）
+  signed_up: "",
+  using_day: 0,
   // isLogin: true,
   login_key: null,
   aimCardData: [],
-  aimCardDatas: [],//打卡显示数据
-  board_num:0,
-  goalsBoardData:[],
-  CardData:'',
-  CardDetail:'',
-  CardGroupData:'',
-  GoalType:['极简', '普通', '微信运动'],
+  aimCardDatas: [], //打卡显示数据
+  board_num: 0,
+  goalsBoardData: [],
+  CardData: '',
+  CardDetail: '',
+  CardGroupData: '',
+  GoalType: ['极简', '普通', '微信运动'],
 
-  tick_title:'',
+  tick_title: '',
 }
 // 所有已加载的页面和组件
 let pcList = []
+
 function initPage() {
   let oldPage = Page
-  Page = function(obj) {
-    let oldOnLoad = obj.onLoad || function() {}
-    let oldOnUnload = obj.onUnload || function() {}
-    obj.onLoad = function() {
+  Page = function (obj) {
+    let oldOnLoad = obj.onLoad || function () {}
+    let oldOnUnload = obj.onUnload || function () {}
+    obj.onLoad = function () {
       // 实现store功能，onLoad的时候将state增加到Page的data中
       loadStore.call(this)
       // 实现store的setState功能
-      this.setState = function(obj) {
+      this.setState = function (obj) {
         setState.call(this, obj)
       }
       oldOnLoad.call(this, ...arguments)
     }
-    obj.onUnload = function() {
+    obj.onUnload = function () {
       // 把this传进function
       unloadStore.call(this)
       oldOnUnload.call(this, ...arguments)
@@ -56,21 +56,22 @@ function initPage() {
     return oldPage(obj)
   }
 }
+
 function initComponent() {
   let oldComponent = Component
-  Component = function(obj) {
-    let oldAttached = obj.attached || function() {}
-    let oldDetached = obj.detached || function() {}
-    obj.attached = function() {
+  Component = function (obj) {
+    let oldAttached = obj.attached || function () {}
+    let oldDetached = obj.detached || function () {}
+    obj.attached = function () {
       // 实现store功能，onLoad的时候将state增加到Component的data中
       loadStore.call(this)
       // 实现store的setState功能
-      this.setState = function(obj) {
+      this.setState = function (obj) {
         setState.call(this, obj)
       }
       oldAttached.call(this, ...arguments)
     }
-    obj.detached = function() {
+    obj.detached = function () {
       // 把this传进function
       unloadStore.call(this)
       oldDetached.call(this, ...arguments)
@@ -78,6 +79,7 @@ function initComponent() {
     return oldComponent(obj)
   }
 }
+
 function setState(obj) {
   let keys = Object.keys(obj)
   let newObj = {}
@@ -89,6 +91,7 @@ function setState(obj) {
     item.setData(newObj)
   })
 }
+
 function loadStore() {
   // 加入pcList，待setState的时候遍历
   pcList.push(this)
@@ -98,6 +101,7 @@ function loadStore() {
     $state: store
   })
 }
+
 function unloadStore() {
   // 从pcList中移除
   let index = pcList.findIndex(item => {

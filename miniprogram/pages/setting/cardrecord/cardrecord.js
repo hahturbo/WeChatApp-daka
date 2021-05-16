@@ -1,4 +1,5 @@
 // miniprogram/pages/cardrecord/cardrecord.js
+const awx = wx.toAsync("request", "login", "getWeRunData", "getUserInfo")
 Page({
 
   /**
@@ -33,68 +34,55 @@ Page({
       date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
       date = new Date(date);
       let end = new Date(this.data.carddatas[item].ended_in);
-      if (date > end) {
+      if (date > end && this.data.carddatas[item].goal_type == 1) {
         return 1;
       }
       return 0;
     }
   },
   GetCardData: function (e) {
-    wx.request({
-      method: 'POST',
-      url: this.$state.apiURL + '/user/goal/get',
-      data: {
-        from: 0,
-        amount: this.$state.user_Info.goal_num,
-        login_key: this.$state.login_key,
-      },
-      success: (res) => {
-        console.log(res);
-        this.setState({
-          CardData: res.data.data.data,
-        })
-        this.setData({
-          carddatas: this.$state.CardData,
-        })
-        let cardend = [];
-        for (let i = 0; i < this.$state.user_Info.goal_num; i++) {
-          cardend[i] = this.endjudge(i)
-        }
-        console.log('cardend', cardend);
-        this.setData({
-          cardend: cardend
-        })
+    (async () => {
+      let result = await awx.request({
+        method: 'POST',
+        url: this.$state.apiURL + '/user/goal/get',
+        data: {
+          login_key: this.$state.login_key,
+        },
+      })
+      this.setState({
+        CardData: result.data.data.data
+      })
+      this.setData({
+        carddatas: result.data.data.data
+      })
+      let cardend = [];
+      for (let i = 0; i < this.$state.CardData.length; i++) {
+        cardend[i] = this.endjudge(i)
       }
-    })
+      console.log('cardend', cardend);
+      this.setData({
+        cardend: cardend
+      })
+    })()
 
   },
   slideButtonTap: function (e) {
-    console.log(e);
-    let gid = e.detail.data;
-    wx.request({
-      method: 'POST',
-      url: this.$state.apiURL + '/user/goal/delete',
-      data: {
-        login_key: this.$state.login_key,
-        goal_id: gid,
-      },
-      success: (res) => {
-        console.log("删除操作成功");
-        console.log(res);
-        setTimeout(() => {
-          this.onLoad();
-        }, 500);
-
-
-      },
-      fail: (res) => {
-        console.log("删除失败： " + res);
-      },
-      finish: () => {
-        console.log("删除完成： ");
+    (async () => {
+      let result = await awx.request({
+        method: 'POST',
+        url: this.$state.apiURL + '/user/goal/delete',
+        data: {
+          login_key: this.$state.login_key,
+          goal_id: e.detail.data,
+        },
+      })
+      if (result.errMsg === "request:fail ") {
+        console.log(`delete fail ${result.errMsg}`)
+        return
       }
-    })
-
+      console.log(result.data)
+      this.GetCardData()
+    })()
   },
 
 

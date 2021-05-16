@@ -3,7 +3,7 @@
 	<!--账户信息区 -->
 	<view class="user">
 		<!-- <open-data class='user_img' type="userAvatarUrl"></open-data> -->
-		<image class='user_img' src='{{invite_data.group.groupMembers[0].img}}'> </image>
+		<image class='user_img' src='{{invite_data.group.groupMembers[0].img}}' />
 		<view class="userzonetext">
 			<!-- <open-data class='user_name' type="userNickName"></open-data> -->
 			<text  class='user_name'>{{error_code==502?"获取邀请失败":error_code==404?"未授权登陆无法获取邀请信息":invite_data.group.groupMembers[0].nickname}} </text>
@@ -26,10 +26,11 @@
 		<view class='detail'>小组成员：
 			<view>
 				<view class='members' wx:for="{{invite_data.group.groupMembers}}">
-					<image class='user_img' src='{{item.img}}'> </image>
+					<image class='user_img' src='{{item.img}}' />
 					<text  class='user_name'>{{item.nickname}} </text>
 				</view>
 			</view>
 		</view>
 	</scroll-view>
 </view>
+

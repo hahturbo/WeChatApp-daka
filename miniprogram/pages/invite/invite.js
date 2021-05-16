@@ -1,4 +1,5 @@
 // pages/invite/invite.js
+const awx = wx.toAsync("request", "login", "getWeRunData", "getUserInfo")
 Component({
   /**
    * 组件的属性列表
@@ -11,72 +12,57 @@ Component({
    * 组件的初始数据
    */
   data: {
-    invite_data:"",
-   error_code:502,
+    invite_data: "",
+    error_code: 502,
 
   },
 
-  attached: function(){
-    console.log("in5");
-    // setTimeout(()=>{
-    //   this.GetInviteData();
-    // },500);
+  attached: function () {
     this.GetInviteData();
-    setInterval(()=>{
-      this.GetInviteData();
-    },2500);
-   
+    let timer = setInterval(() => {
+      if (!this.datat.invite_data.length) {
+        this.GetInviteData()
+      } else {
+        clearInterval(timer)
+      }
+    }, 2500)
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
-//受邀时获取信息
-GetInviteData: function(){
-  console.log(  "id",this.$state.invite_goal_id, " login_key:",this.$state.login_key,);
- if(this.$state.login_key==null){
-  console.log("无登陆无邀请");
-  this.setData({
-    error_code:404,
-  })
-return 404;
- }
-  //测试用
-  // let cache="ZmyDvLBaikLzcoRQ";
-  // let cacheke="fd5645134d50cc3ba1cdb504943bbdaa";
-  // console.log(  "id",cache, " login_key:",cacheke);
-  console.log("正在拉取邀请信息");
-  wx.request({
-    method: 'POST',
-    url: this.$state.apiURL+ '/user/group/get/data',
-    // invite_id:this.$state.invite_id,
-    data:{
-      t:1,
-      p:this.$state.invite_goal_id,
-      login_key:this.$state.login_key,
-      // p:cache,
-      // login_key:cacheke,
+    //受邀时获取信息
+    GetInviteData: function () {
+      (async () => {
+        console.log("id", this.$state.invite_goal_id, " login_key:", this.$state.login_key, );
+        if (this.$state.login_key == null) {
+          console.log("无登陆无邀请");
+          this.setData({
+            error_code: 404,
+          })
+          return 404;
+        }
+        let result = awx.request({
+          method: 'POST',
+          url: this.$state.apiURL + '/user/group/get/data',
+          data: {
+            t: 1,
+            p: this.$state.invite_goal_id,
+            login_key: this.$state.login_key,
+          },
+        })
+        if (result.errMsg === "request:fail ") {
+          this.setData({
+            error_code: 502,
+          })
+          return
+        }
+        this.setData({
+          invite_data: result.data,
+          error_code: 200,
+        })
+      })()
     },
-     //view.py 1260
-    success: (res)=> {
-      console.log("获取邀请信息成功",res);
-this.setData({
-  invite_data:res.data,
-  error_code:200,
-})
-      console.log(this.data.invite_data);
-      } ,
-    fail: function(res){
-      this.setData({
-        error_code:502,
-      })
-        console.log("获取邀请失败");
-      }
-  })
-},
-
-
-
   }
 })

@@ -1,4 +1,5 @@
 // pages/modifycard/modifycard.js
+const awx = wx.toAsync("request", "login", "getWeRunData", "getUserInfo")
 Component({
   /**
    * 组件的属性列表
@@ -45,10 +46,8 @@ Component({
 
   },
 
-  lifetimes: {
-    ready: function () {
-      this.initdata();
-    },
+  attached: function () {
+    this.initdata();
   },
   /**
    * 组件的方法列表
@@ -59,17 +58,26 @@ Component({
       this.setData({
         goal_type: this.$state.CardData[this.data.item].goal_type,
         goal_name: this.$state.CardData[this.data.item].goal_type == 2 ? parseInt(this.$state.CardData[this.data.item].goal_name.replace(/[^0-9]/ig, '')) : this.$state.CardData[this.data.item].goal_name,
-        started_at: this.$state.CardData[this.data.item].started_at,
-        ended_in: this.$state.CardData[this.data.item].ended_in,
-        frequency: this.$state.CardData[this.data.item].frequency,
-        frequency_type: this.$state.CardData[this.data.item].frequency_type,
-        frequency_typeformat: this.frequency_typeformat(this.$state.CardData[this.data.item].frequency, this.$state.CardData[this.data.item].frequency_type),
-        // frequency_typeindex: parseInt(this.$state.CardData[this.data.item].frequency_type.replace(/[^0-9]/ig, ''), 2),
-        reminder_at: this.$state.CardData[this.data.item].reminder_at,
-        reminder_atindex: this.reminderformat(this.$state.CardData[this.data.item].reminder_at),
-        needed_be_signed_at: this.$state.CardData[this.data.item].needed_be_signed_at,
-        needed_be_signed_deadline: this.$state.CardData[this.data.item].needed_be_signed_deadline,
+
       })
+      if (this.data.goal_type != 0) {
+        this.setData({
+          frequency: this.$state.CardData[this.data.item].frequency,
+        })
+      }
+      if (this.data.goal_type == 1) {
+        this.setData({
+          started_at: this.$state.CardData[this.data.item].started_at,
+          ended_in: this.$state.CardData[this.data.item].ended_in,
+          frequency_type: this.$state.CardData[this.data.item].frequency_type,
+          frequency_typeformat: this.frequency_typeformat(this.$state.CardData[this.data.item].frequency, this.$state.CardData[this.data.item].frequency_type),
+          // frequency_typeindex: parseInt(this.$state.CardData[this.data.item].frequency_type.replace(/[^0-9]/ig, ''), 2),
+          reminder_at: this.$state.CardData[this.data.item].reminder_at,
+          reminder_atindex: this.reminderformat(this.$state.CardData[this.data.item].reminder_at),
+          needed_be_signed_at: this.$state.CardData[this.data.item].needed_be_signed_at,
+          needed_be_signed_deadline: this.$state.CardData[this.data.item].needed_be_signed_deadline,
+        })
+      }
     },
     reminderformat: function (reminder_at) {
       return reminder_at >= 30 ? reminder_at / 30 + 3 : reminder_at / 5;
@@ -164,82 +172,75 @@ Component({
     },
     // modify-父组件调用
     modify: function () {
-      console.log(this.data.goal_type);
-      if (this.data.goal_type == 0) {
-        // 极简
-        wx.request({
-          url: this.$state.apiURL + '/user/goal/edit',
-          method: 'POST',
-          data: {
-            goal_id: this.$state.CardData[this.data.item].goal_id,
-            login_key: this.$state.login_key,
-            now_type: this.data.goal_type,
-            goal_type: this.data.goal_type,
-            goal_name: this.data.goal_name,
-          },
-          success: (res) => {
-            console.log("modify success");
-            console.log(res);
-            this.triggerEvent('deleteEvent', 'modify');
-          },
-          fail: (res) => {
-            console.log(res);
-          }
+      (async () => {
+        let icon = "success"
+        wx.showLoading({
+          title: icon,
         })
-      } else if (this.data.goal_type == 2) {
-        this.setData({
-          goal_name: '每天走' + this.data.goal_name + '步',
+        let result
+        switch (this.data.goal_type) {
+          case 0:
+            result = awx.request({
+              url: this.$state.apiURL + '/user/goal/edit',
+              method: 'POST',
+              data: {
+                goal_id: this.$state.CardData[this.data.item].goal_id,
+                login_key: this.$state.login_key,
+                now_type: this.data.goal_type,
+                goal_type: this.data.goal_type,
+                goal_name: this.data.goal_name,
+              },
+            })
+            break;
+          case 2:
+            result = await awx.request({
+              url: this.$state.apiURL + '/user/goal/edit',
+              method: 'POST',
+              data: {
+                goal_id: this.$state.CardData[this.data.item].goal_id,
+                login_key: this.$state.login_key,
+                now_type: this.data.goal_type,
+                goal_type: this.data.goal_type,
+                goal_name: this.data.goal_name,
+                frequency: parseInt(this.data.goal_name.replace(/[^0-9]/ig, '')),
+              },
+            })
+            break
+          case 1:
+            result = await awx.request({
+              url: this.$state.apiURL + '/user/goal/edit',
+              method: 'POST',
+              data: {
+                goal_id: this.$state.CardData[this.data.item].goal_id,
+                login_key: this.$state.login_key,
+                now_type: this.data.goal_type,
+                goal_type: this.data.goal_type,
+                goal_name: this.data.goal_name,
+                started_at: this.data.started_at,
+                ended_in: this.data.ended_in,
+                frequency: this.data.frequency,
+                frequency_type: this.data.frequency_type,
+                reminder_at: this.data.reminder_at,
+                needed_be_signed_at: this.data.needed_be_signed_at,
+                needed_be_signed_deadline: this.data.needed_be_signed_deadline,
+              },
+            })
+            break;
+        }
+        if (result.errMsg === "request:fail ") {
+          console.log(result.errMsg)
+          icon = "error"
+        }
+        console.log(result.data)
+        await wx.showToast({
+          title: icon,
+          icon: icon,
+          duration: 2000,
         })
-        // 运动
-        wx.request({
-          url: this.$state.apiURL + '/user/goal/edit',
-          method: 'POST',
-          data: {
-            goal_id: this.$state.CardData[this.data.item].goal_id,
-            login_key: this.$state.login_key,
-            now_type: this.data.goal_type,
-            goal_type: this.data.goal_type,
-            goal_name: this.data.goal_name,
-            frequency: parseInt(this.data.goal_name.replace(/[^0-9]/ig, '')),
-          },
-          success: (res) => {
-            console.log("modify success");
-            console.log(res);
-            this.triggerEvent('deleteEvent', 'modify');
-          },
-          fail: (res) => {
-            console.log(res);
-          }
-        })
-      } else {
-        // 普通
-        wx.request({
-          url: this.$state.apiURL + '/user/goal/edit',
-          method: 'POST',
-          data: {
-            goal_id: this.$state.CardData[this.data.item].goal_id,
-            login_key: this.$state.login_key,
-            now_type: this.data.goal_type,
-            goal_type: this.data.goal_type,
-            goal_name: this.data.goal_name,
-            started_at: this.data.started_at,
-            ended_in: this.data.ended_in,
-            frequency: this.data.frequency,
-            frequency_type: this.data.frequency_type,
-            reminder_at: this.data.reminder_at,
-            needed_be_signed_at: this.data.needed_be_signed_at,
-            needed_be_signed_deadline: this.data.needed_be_signed_deadline,
-          },
-          success: (res) => {
-            console.log("modify success");
-            console.log(res);
-            this.triggerEvent('deleteEvent', 'modify');
-          },
-          fail: (res) => {
-            console.log(res);
-          }
-        })
-      }
+        if (icon === "success") {
+          this.triggerEvent('deleteEvent', 'modify')
+        }
+      })()
     },
   }
 })

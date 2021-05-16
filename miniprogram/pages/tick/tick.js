@@ -278,9 +278,9 @@ Component({
     // {"type":"change","timeStamp":6292,"target":{"id":"","offsetLeft":8,"offsetTop":5,"dataset":{}},"currentTarget":{"id":"","offsetLeft":8,"offsetTop":5,"dataset":{}},"mark":{},"detail":{"x":0,"y":161.2,"source":"touch"}
     bindKeyInput: function (e) {
       let input_index = e.target.dataset.index;
-      console.log(JSON.stringify(e));
+      // console.log(JSON.stringify(e));
       let goalsBoard = this.data.goalsBoard;
-      console.log(JSON.stringify(goalsBoard));
+      // console.log(JSON.stringify(goalsBoard));
       let i = parseInt(e.currentTarget.dataset.index);
       goalsBoard[i].name = e.detail.value;
       this.setData({
@@ -371,16 +371,16 @@ Component({
         } else {
           goalsBoard[i].disabled = true;
         }
-        console.log(goalsBoard[i].disabled);
+        // console.log(goalsBoard[i].disabled);
         this.setData({
           goalsBoard: goalsBoard,
           board_num: i - x,
         })
-        console.log("A2B1:", this.data.goalsBoard);
+        // console.log("A2B1:", this.data.goalsBoard);
         this.FinshInput();
-        console.log("A2B2:", this.data.goalsBoard);
+        // console.log("A2B2:", this.data.goalsBoard);
       }
-      console.log("A2B3", this.$state.goalsBoardData);
+      // console.log("A2B3", this.$state.goalsBoardData);
     },
 
     CheckIfisAim(title) {
@@ -407,7 +407,7 @@ Component({
     FreshBtoA: function () {
       let goalsBoardData = this.$state.goalsBoardData;
       let goalsBoard = this.data.goalsBoard;
-      console.log("B2A", this.data.goalsBoard);
+      // console.log("B2A", this.data.goalsBoard);
       this.setState({
         goalsBoardData: goalsBoard,
       })

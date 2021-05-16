@@ -1,14 +1,12 @@
 {
-
   "usingComponents": {
-    "carddetail":"../../components/cardDetails/cardDetail",
-     "mp-dialog": "/miniprogram_npm/weui-miniprogram/dialog/dialog",
-    "newaimcard":"../newaimcard/newaimcard",
-    "setting":"../setting/setting",
-    "tick":"../tick/tick",
-    "invite":"../invite/invite",
+    "carddetail": "../../components/cardDetails/cardDetail",
+    "mp-dialog": "/miniprogram_npm/weui-miniprogram/dialog/dialog",
+    "newaimcard": "../newaimcard/newaimcard",
+    "setting": "../setting/setting",
+    "tick": "../tick/tick",
+    "invite": "../invite/invite",
     "mp-icon": "/miniprogram_npm/weui-miniprogram/icon/icon",
-    "modifycard":"../modifycard/modifycard"
-
+    "modifycard": "../modifycard/modifycard"
   }
 }

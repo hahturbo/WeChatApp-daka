@@ -20,11 +20,11 @@ Component({
    */
 
   methods: {
-    ToLogin:function(e){
+    ToLogin: function (e) {
       this.setState({
-        isTry:false,
+        isTry: false,
       })
-        },
+    },
 
   }
 })
