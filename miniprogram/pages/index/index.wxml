@@ -7,20 +7,20 @@
 			<h1>登陆授权</h1>
 			<open-data class='user_img' type="userAvatarUrl" />
 			<h1>{{error_code}}</h1>
-			<button open-type='getUserInfo' bindgetuserinfo='BtnCheckP' id='bn_login'>请使用微信登陆</button>
+			<button open-type='getUserInfo' bindtap='BtnCheckP' id='bn_login'>请使用微信登陆</button>
 			<button bindtap="btn_nologin">暂不登陆</button>
 		</view>
 	</view>
 	<image
 	 wx:if='{{$state.skin==1}}'
 	 class='background'
-	 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/background.png"
+	 src="{{$state.imgURL+'/background.png'}}"
 	 mode="aspectFill"
 	/>
 	<image
 	 wx:if='{{$state.skin==2}}'
 	 class='background'
-	 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/background2.png"
+	 src="{{$state.imgURL+'/background2.png'}}"
 	 mode="aspectFill"
 	/>
 	<mp-dialog
@@ -37,7 +37,7 @@
 			 binderror=" imageError"
 			 class='downimg'
 			 hidden='{{nowPage!=2}}'
-			 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/aim3.png"
+			 src="{{$state.imgURL+'/aim3.png'}}"
 			 data-to="3"
 			 bindtap="ChangePageGetBoard"
 			/>
@@ -45,7 +45,7 @@
 			 binderror=" imageError"
 			 class='downimg '
 			 hidden='{{nowPage!=0}}'
-			 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/aim3.png"
+			 src="{{$state.imgURL+'/aim3.png'}}"
 			 data-to="3"
 			 bindtap="ChangePageGetBoard"
 			/>
@@ -53,7 +53,7 @@
 			 binderror=" imageError"
 			 class='downimg '
 			 hidden='{{nowPage!=1}}'
-			 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/back.png"
+			 src="{{$state.imgURL+'/back.png'}}"
 			 data-to="0"
 			 bindtap="changePage_Back"
 			/>
@@ -61,7 +61,7 @@
 			 binderror=" imageError"
 			 class='downimg'
 			 hidden='{{nowPage!=6}}'
-			 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/notmodify.png"
+			 src="{{$state.imgURL+'/notmodify.png'}}"
 			 data-to="4"
 			 bindtap="changePage_Back"
 			/>
@@ -69,7 +69,7 @@
 			 binderror=" imageError"
 			 class='downimg '
 			 hidden='{{nowPage!=4}}'
-			 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/back.png"
+			 src="{{$state.imgURL+'/back.png'}}"
 			 data-to="0"
 			 bindtap="DetailEnd"
 			/>
@@ -77,7 +77,7 @@
 			 binderror=" imageError"
 			 class='downimg'
 			 hidden='{{nowPage!=3}}'
-			 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick.png"
+			 src="{{$state.imgURL+'/tick.png'}}"
 			 data-to="0"
 			 bindtap="ChangePagePostBoard"
 			/>
@@ -85,7 +85,7 @@
 			 binderror=" imageError"
 			 class='downimg '
 			 hidden='{{nowPage!=5}}'
-			 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/refuse.png"
+			 src="{{$state.imgURL+'/refuse.png'}}"
 			 bindtap="changePage"
 			 data-to="0"
 			/>
@@ -100,7 +100,7 @@
 			 binderror=" imageError"
 			 class='downmidimg'
 			 hidden='{{nowPage!=0&&nowPage!=1}}'
-			 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/newaim3.png"
+			 src="{{$state.imgURL+'/newaim3.png'}}"
 			 data-to="1"
 			 bindtap="{{$state.isLogin?'changeNewAimPage':'ToLogin'}}"
 			/>
@@ -108,7 +108,7 @@
 			 binderror=" imageError"
 			 class='downmidimg'
 			 hidden='{{nowPage!=2}}'
-			 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/setting3.png"
+			 src="{{$state.imgURL+'/setting3.png'}}"
 			 data-to="0"
 			 bindtap=""
 			/>
@@ -116,7 +116,7 @@
 			 binderror=" imageError"
 			 class='downmidimg'
 			 hidden='{{nowPage!=3}}'
-			 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/aim3.png"
+			 src="{{$state.imgURL+'/aim3.png'}}"
 			 data-to="0"
 			 bindtap=""
 			/>
@@ -124,7 +124,7 @@
 			 binderror=" imageError"
 			 class='downmidimg'
 			 hidden='{{nowPage!=4}}'
-			 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/carddetail.png"
+			 src="{{$state.imgURL+'/carddetail.png'}}"
 			 data-to="0"
 			 bindtap=""
 			/>
@@ -132,7 +132,7 @@
 			 binderror=" imageError"
 			 class='downmidimg'
 			 hidden='{{nowPage!=5}}'
-			 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/join_group.png"
+			 src="{{$state.imgURL+'/join_group.png'}}"
 			 data-to="0"
 			 bindtap=""
 			/>
@@ -140,7 +140,7 @@
 			 binderror=" imageError"
 			 class='downmidimg'
 			 hidden='{{nowPage!=6}}'
-			 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/modifycard.png"
+			 src="{{$state.imgURL+'/modifycard.png'}}"
 			/>
 		</view>
 
@@ -149,7 +149,7 @@
 			 binderror=" imageError"
 			 class='downimg'
 			 hidden='{{nowPage!=0&&nowPage!=3}}'
-			 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/setting3.png"
+			 src="{{$state.imgURL+'/setting3.png'}}"
 			 data-to="2"
 			 bindtap="ChangePagePostBoard"
 			/>
@@ -157,7 +157,7 @@
 			 binderror=" imageError"
 			 class='downimg'
 			 hidden='{{nowPage!=1}}'
-			 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/finish.png"
+			 src="{{$state.imgURL+'/finish.png'}}"
 			 data-to="0"
 			 bindtap="changePage_Finish"
 			/>
@@ -165,7 +165,7 @@
 			 binderror=" imageError"
 			 class='downimg'
 			 hidden='{{nowPage!=2}}'
-			 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick.png"
+			 src="{{$state.imgURL+'/tick.png'}}"
 			 data-to="0"
 			 bindtap="ChangePagePostBoard"
 			/>
@@ -173,7 +173,7 @@
 			 binderror=" imageError"
 			 class='downimg'
 			 hidden='{{nowPage!=5}}'
-			 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/accept.png"
+			 src="{{$state.imgURL+'/accept.png'}}"
 			 data-to="0"
 			 bindtap="{{$state.isLogin?'AcceptInvite':'ToLogin'}}"
 			/>
@@ -181,7 +181,7 @@
 			 binderror=" imageError"
 			 class='downimg'
 			 hidden='{{nowPage!=4}}'
-			 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/modify.png"
+			 src="{{$state.imgURL+'/modify.png'}}"
 			 data-to="6"
 			 bindtap="changePage"
 			/>
@@ -189,7 +189,7 @@
 			 binderror=" imageError"
 			 class='downimg'
 			 hidden='{{nowPage!=6}}'
-			 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/savemodify.png"
+			 src="{{$state.imgURL+'/savemodify.png'}}"
 			 data-to="4"
 			 bindtap="modifycard"
 			/>
@@ -214,41 +214,58 @@
 					 wx:if='{{$state.skin==1}}'
 					 class='{{$state.card_num==0||!$state.isLogin?"":"displayNone"}}'
 					 style=" width:100%;height:100%"
-					 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/mainnew.png"
+					 src="{{$state.imgURL+'/mainnew.png'}}"
 					/>
 					<image
 					 wx:if='{{$state.skin==2}}'
 					 class='{{$state.card_num==0||!$state.isLogin?"":"displayNone"}}'
 					 style=" width:100%;height:100%"
-					 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/mainnew3.png"
+					 src="{{$state.imgURL+'/mainnew3.png'}}"
 					/>
 					<!-- <text>isLogin:{{ConsoleText}}</text> -->
 					<view class='home-content  {{$state.card_num!=0&&$state.isLogin?"":"displayNone"}}'>
-						<text class='{{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2" : ""}}' bindtap="gotodetails" data-to="{{0}}">{{$state.aimCardDatas[0].goal_name}}</text>
+						<text
+						class='{{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2" : ""}}'
+						bindtap="gotodetails"
+						data-to="{{0}}">{{$state.aimCardDatas[0].goal_name}}
+						</text>
 						<image
 						 bindtap="gotodetails"
 						 data-to="{{0}}"
 						 class=''
 						 style=" width:70%;height:40%"
-						 src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/mainnew2.png"
+						 src="{{$state.imgURL+'/mainnew2.png'}}"
 						/>
 
-						<text class='{{$state.aimCardDatas[0].goal_is_a_group==0?"":"displayNone"}}	' style='color:#FF9966; font-size:30rpx;'>已连续{{$state.aimCardDatas[0].constantly
+						<text
+						class='{{$state.aimCardDatas[0].goal_is_a_group==0?"":"displayNone"}}'
+						style='color:#FF9966; font-size:30rpx;'>已连续{{$state.aimCardDatas[0].constantly
 }}次</text>
-						<text  class='{{$state.aimCardDatas[0].goal_is_a_group==1?"":"displayNone"}}	' style='color:#FF9966; font-size:30rpx;'>今日小组已有{{$state.aimCardDatas[0].groupData.how_many_members_signed_today}}人打卡</text>
-						<button class='new_aim_card {{$state.aimCardDatas[0].canBeSignedNow==1?"":"NACunable"}}' data-id='{{$state.aimCardDatas[0].goal_id}}' bindtap='{{$state.aimCardDatas[0].canBeSignedNow==1?"sign_btn":""}}'>
-							<text style='{{$state.skin==1?"color:#FFFFFF;":"color:#000000"}}' class='  {{$state.aimCardDatas[0].canBeSignedNow==1?"":"displayNone"}}'>今日打卡</text>
-							<text style='{{$state.skin==1?"color:#FFFFFF;":"color:#000000"}}' class='{{$state.aimCardDatas[0].canBeSignedNow==-121?"":"displayNone"}}'>今日未完成</text>
+						<text
+						class='{{$state.aimCardDatas[0].goal_is_a_group==1?"":"displayNone"}}'
+						style='color:#FF9966; font-size:30rpx;'>
+						今日小组已有{{$state.aimCardDatas[0].sign_today}}人打卡
+						</text>
+						<button class='new_aim_card {{$state.aimCardDatas[0].sign_today?"NACunable":""}}' data-id='{{$state.aimCardDatas[0].goal_id}}' bindtap='{{$state.aimCardDatas[0].sign_today?"":"sign_btn"}}'>
+							<text
+							style='{{$state.skin==1?"color:#FFFFFF;":"color:#000000"}}'
+							class='{{$state.aimCardDatas[0].sign_today?"displayNone":""}}'>今日打卡
+							</text>
+							<text
+							style='{{$state.skin==1?"color:#FFFFFF;":"color:#000000"}}'
+							hidden="{{$state.aimCardDatas[0].sign_today||$state.aimCardDatas[0].goal_type!=2}}"
+							class='{{parseInt($state.aimCardDatas[0].frequency)>parseInt(stepInfoList[stepInfoList.length-1].step)?"displayNone":""}}'>今日未完成
+							</text>
 							<image
 							 hidden='{{$state.skin!=1}}'
-							 class='{{($state.aimCardDatas[0].canBeSignedNow==-118)||($state.aimCardDatas[0].canBeSignedNow==-520)?"":"displayNone"}}'
-							 src='https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tickB_finish.png'
+							 class='{{$state.aimCardDatas[0].sign_today?"":"displayNone"}}'
+							 src="{{$state.imgURL+'/tickB_finish.png'}}"
 							 style="width:100%; height:90rpx"
 							/>
 							<image
 							 hidden='{{$state.skin!=2}}'
-							 class='{{($state.aimCardDatas[0].canBeSignedNow==-118)||($state.aimCardDatas[0].canBeSignedNow==-520)?"":"displayNone"}}'
-							 src='https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tickB_finish2.png'
+							 class='{{$state.aimCardDatas[0].sign_today?"":"displayNone"}}'
+							 src="{{$state.imgURL+'/tickB_finish2.png'}}"
 							 style="width:100%; height:90rpx"
 							/>
 
@@ -264,16 +281,34 @@
 					<text  bindtap="gotodetails" class='mid-text {{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2" : ""}}' data-to="{{index+1}}">{{$state.aimCardDatas[index+1].goal_name}}</text>
 					<text class='small-text {{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2_2" : ""}} {{$state.aimCardDatas[index+1].goal_is_a_group==0?"":"displayNone"}}'>已连续{{$state.aimCardDatas[index+1].constantly
 }}次</text>
-					<text class='small-text {{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2_2" : ""}} {{$state.aimCardDatas[index+1].goal_is_a_group==1?"":"displayNone"}}'>本次小组已有{{$state.aimCardDatas[index+1].groupData.how_many_members_signed_today}}人打卡</text>
+					<text class='small-text {{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2_2" : ""}} {{$state.aimCardDatas[index+1].goal_is_a_group==1?"":"displayNone"}}'>本次小组已有{{$state.aimCardDatas[index+1].sign_today}}人打卡</text>
 				</view>
-				<view class='button {{$state.aimCardDatas[index+1].canBeSignedNow==1?"":"buttonNo"}}' data-id='{{$state.aimCardDatas[index+1].goal_id}}' bindtap='{{$state.aimCardDatas[index+1].canBeSignedNow==1?"sign_btn":""}}'>
-					<image wx:if='{{$state.skin==1}}' class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==-118)||($state.aimCardDatas[index+1].canBeSignedNow==-520)?"":"displayNone"}}' src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick_finish.png" />
-					<image wx:if='{{$state.skin==2}}' class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==-118)||($state.aimCardDatas[index+1].canBeSignedNow==-520)?"":"displayNone"}}' src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick_finish2.png" />
-					<image class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==1)&&($state.aimCardDatas[index+1].frequency_type[0]==0)?"":"displayNone"}}' src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick_able.png" />
-					<image class='icon {{(($state.aimCardDatas[index+1].canBeSignedNow==1)&&(($state.aimCardDatas[index+1].frequency_type[0]==1)||($state.aimCardDatas[index+1].frequency_type=="")))?"":"displayNone"}}' src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick_today.png" />
-					<image wx:if='{{$state.skin==1}}' class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==-121)?"":"displayNone"}}' src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick_unfinish.png" />
-					<image wx:if='{{$state.skin==2}}' class='icon {{($state.aimCardDatas[index+1].canBeSignedNow==-121)?"":"displayNone"}}' src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick_unfinish2.png" />
-					<!-- <image class='icon' src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick_able.png"></image> -->
+				<view 
+				class='button 
+				{{
+				($state.aimCardDatas[index+1].sign_today&&($state.aimCardDatas[index+1].goal_type!=2))||
+				($state.aimCardDatas[index+1].goal_type==2&&parseInt($state.aimCardDatas[index+1].frequency)>parseInt(stepInfoList[stepInfoList.length-1].step))?"buttonNo":""}}' 
+				data-id='{{$state.aimCardDatas[index+1].goal_id}}' 
+				data-index = '{{index}}'
+				bindtap='sign_btn'
+				>
+					<image wx:if='{{$state.skin==1}}' class='icon {{$state.aimCardDatas[index+1].sign_today?"":"displayNone"}}' src="{{$state.imgURL+'/tick_finish.png'}}" />
+					<image wx:if='{{$state.skin==2}}' class='icon {{$state.aimCardDatas[index+1].sign_today?"":"displayNone"}}' src="{{$state.imgURL+'/tick_finish2.png'}}" />
+					<image class='icon {{(!$state.aimCardDatas[index+1].sign_today)&&($state.aimCardDatas[index+1].frequency_type[0]==0)?"":"displayNone"}}' src="{{$state.imgURL+'/tick_able.png'}}" />
+					<image class='icon {{((!$state.aimCardDatas[index+1].sign_today&&$state.aimCardDatas[index+1].goal_type!=2)&&(($state.aimCardDatas[index+1].frequency_type[0]==1)||($state.aimCardDatas[index+1].frequency_type==null)))?"":"displayNone"}}' src="{{$state.imgURL+'/tick_today.png'}}" />
+					<image
+					 wx:if='{{$state.skin==1}}'
+					 hidden="{{$state.aimCardDatas[index+1].sign_today||$state.aimCardDatas[index+1].goal_type!=2}}"
+					 class='icon {{parseInt($state.aimCardDatas[index+1].frequency)>parseInt(stepInfoList[stepInfoList.length-1].step)?"displayNone":""}}'
+					 src="{{$state.imgURL+'/tick_unfinish.png'}}"
+					/>
+					<image
+					 wx:if='{{$state.skin==2}}'
+					 hidden="{{$state.aimCardDatas[index+1].sign_today||$state.aimCardDatas[index+1].goal_type!=2}}"
+					 class='icon {{parseInt($state.aimCardDatas[index+1].frequency)>parseInt(stepInfoList[stepInfoList.length-1].step)?"displayNone":""}}'
+					 src="{{$state.imgURL+'/tick_unfinish2.png'}}"
+					/>
+					<!-- <image class='icon' src="{{$state.imgURL+'/tick_able.png'}}"></image> -->
 				</view>
 			</view>
 			<!-- </view>
@@ -303,7 +338,7 @@
 		</view>
 		<!-- nowpage==4 -->
 		<view class='containerB toFullCard carddetail' wx:if="{{nowPage==4}}">
-			<carddetail carditem="{{carditem}}" bind:deleteEvent='getsondelete' />
+			<carddetail carditem="{{carditem}}" bind:deleteEvent='getsondelete' bind:getCardData='GetCardData' />
 		</view>
 	</view>
 	<!-- 再来一个，实现进出背景和内容动画都有 -->
@@ -316,8 +351,8 @@
 	<!-- nowpage3 start -->
 	<!-- <view class='{{nowPage==3 ? "toGoalCard" : "displayNone"}}'> -->
 	<view wx:if="{{nowPage==3}}" class="toGoalCard">
-		<image wx:if='{{$state.skin==1}}' id="clicp" src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/clicp.png" />
-		<image wx:if='{{$state.skin==2}}' id="clicp2" src="https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/clicp2.png" />
+		<image wx:if='{{$state.skin==1}}' id="clicp" src="{{$state.imgURL+'/clicp.png'}}" />
+		<image wx:if='{{$state.skin==2}}' id="clicp2" src="{{$state.imgURL+'/clicp2.png'}}" />
 		<view class='containerC '>
 			<tick/>
 		</view>
