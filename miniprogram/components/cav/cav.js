@@ -20,7 +20,7 @@ Component({
   lifetimes: {
     ready: function () {
       wx.getImageInfo({
-        src: 'https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick-YES.png',
+        src: `${this.$state.imgURL}/tick-YES.png`,
         success: (res) => {
           this.setData({
             tickYES: res.path
@@ -31,7 +31,7 @@ Component({
         }
       })
       wx.getImageInfo({
-        src: 'https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/code.jpg',
+        src: `${this.$state.imgURL}/code.jpg`,
         success: (res) => {
           this.setData({
             code: res.path
@@ -54,7 +54,7 @@ Component({
     Drawshare: function () {
       let name = this.$state.tick_title;
       console.log("draw", name)
-      // res.path='https://haha1001.gitee.io/wechatapp-daka/miniprogram/images/tick-YES.png'
+      // res.path=`${this.$state.imgURL}/tick-YES.png`
       const ctx = wx.createCanvasContext("share", this)
       //var ctx = wx.createContext()
       console.log(wx);

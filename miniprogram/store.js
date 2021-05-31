@@ -9,16 +9,12 @@ let store = {
   invite_goal_id: '',
   msg: 'xxxxx',
   user: {},
-  //  apiURL: "http://58.218.198.18:9998",
-  // apiURL: "https://test.rookie-zheng.top",
   apiURL: "http://127.0.0.1:8088",
   // apiURL: "https://hahaturbo.site",
   isLogin: false,
   isTry: true, //尝试登陆变量 false时显示登录框
-  ifFirstTime: false, //是否第一次登陆（缓存）
   signed_up: "",
   using_day: 0,
-  // isLogin: true,
   login_key: null,
   aimCardData: [],
   aimCardDatas: [], //打卡显示数据
@@ -26,10 +22,11 @@ let store = {
   goalsBoardData: [],
   CardData: '',
   CardDetail: '',
-  CardGroupData: '',
   GoalType: ['极简', '普通', '微信运动'],
 
   tick_title: '',
+
+  imgURL: `https://haha1001.gitee.io/wechatapp-daka/miniprogram/images`
 }
 // 所有已加载的页面和组件
 let pcList = []

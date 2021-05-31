@@ -11,7 +11,7 @@ Component({
     },
   },
   observers: {
-    'carditem': function (carditem) {
+    carditem(carditem) {
       this.setData({
         item: carditem,
       })
@@ -201,8 +201,8 @@ Component({
                 login_key: this.$state.login_key,
                 now_type: this.data.goal_type,
                 goal_type: this.data.goal_type,
-                goal_name: this.data.goal_name,
-                frequency: parseInt(this.data.goal_name.replace(/[^0-9]/ig, '')),
+                goal_name: `每天走${this.data.goal_name}步`,
+                frequency: this.data.goal_name,
               },
             })
             break

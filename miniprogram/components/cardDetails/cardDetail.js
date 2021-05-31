@@ -1,5 +1,4 @@
 // components/cardDetails/cardDetail.js
-import moment from 'moment';
 const awx = wx.toAsync("request", "login", "getWeRunData", "getUserInfo")
 Component({
   /**
@@ -69,46 +68,22 @@ Component({
    */
   methods: {
     initCardDetail: function () {
-      (async () => {
+      return (async () => {
         if (this.$state.CardData[this.data.item].goal_type == 2) {
-          this.getWeRunData()
+          await this.getWeRunData()
           if (this.$state.CardData[this.data.item].goal_type == 2 && parseInt(this.data.stepInfoList[this.data.stepInfoList.length - 1].step) >= parseInt(this.$state.CardData[this.data.item].goal_name.replace(/[^\d]/g, ""))) {
             await awx.request({
               method: "POST",
               url: this.$state.apiURL + "/user/goal/sign",
               data: {
-                goal_id: this.$state.CardData[i].goal_id,
+                goal_id: this.$state.CardData[this.data.item].goal_id,
                 login_key: this.$state.login_key,
               },
             })
           }
         }
-        if (this.$state.CardData[this.data.item].goal_is_a_group) {
-          this.setState({
-            CardGroupData: this.$state.CardData[this.data.item].groupData,
-          })
-        } else {
-          this.setState({
-            CardGroupData: "",
-          })
-        }
-        console.log(this.$state.CardGroupData)
         // 获取打卡记录
-        let record = await awx.request({
-          method: "POST",
-          url: this.$state.apiURL + "/user/getSignedRecord",
-          data: {
-            goal_id: this.$state.CardData[this.data.item].goal_id,
-            login_key: this.$state.login_key,
-          },
-        })
-        if (record.errMsg === "request:fail ") {
-          console.log(record.errMsg)
-          return
-        }
-        this.setState({
-          CardDetail: record.data.data
-        })
+        await this.getCardDetail()
         this.today()
         const endflag = this.comparedate()
         if (endflag) {
@@ -116,6 +91,7 @@ Component({
             cardend: endflag
           })
         }
+        return Promise.resolve()
       })()
     },
     display: function (year, month, date) {
@@ -228,7 +204,7 @@ Component({
           othersigned: this.data.membersnum > 0 ? true : false,
         })
       }
-      // console.log(thismonthday);
+      console.log(thismonthday);
       this.setData({
         thismonthday,
       })
@@ -255,28 +231,29 @@ Component({
       })
     },
     getCardDetail: function () {
-      (async () => {
-        // 获取打卡详情
-        let result = await awx.request({
+      return (async () => {
+        // 获取打卡记录
+        let record = await awx.request({
           method: "POST",
-          url: this.$state.apiURL + "/user/goal/get",
+          url: this.$state.apiURL + "/user/getSignedRecord",
           data: {
+            goal_id: this.$state.CardData[this.data.item].goal_id,
             login_key: this.$state.login_key,
           },
         })
-        if (result.errMsg === "request:fail ") {
-          console.log(result.errMsg)
+        if (record.errMsg === "request:fail ") {
+          console.log(record.errMsg)
           return
         }
-        console.log(result.data)
         this.setState({
-          CardData: result.data.data.data
+          CardDetail: record.data.data
         })
+        return Promise.resolve()
       })()
     },
 
     getWeRunData: function () {
-      (async () => {
+      return (async () => {
         let wWeRun = await awx.getWeRunData()
         if (wWeRun.encryptedData) {
           // 微信获取运动成功
@@ -298,6 +275,7 @@ Component({
             return
           }
           console.log("werun success")
+          console.log(weRunData)
           this.setData({
             stepInfoList: weRunData.data.stepInfoList
           })
@@ -309,7 +287,7 @@ Component({
             duration: 1500,
           })
         }
-        console.log("111")
+        return Promise.resolve()
       })()
     },
 
@@ -325,43 +303,39 @@ Component({
     todaysigned: function (year, month, date) {
       // console.log(this.$state.CardDetail);
       for (let i = 0; i < this.$state.CardDetail.length; i++) {
-        if (this.$state.CardData[this.data.item].goal_id == this.$state.CardDetail[i].goal_id) {
+        if (this.$state.CardData[this.data.item].goal_id != this.$state.CardDetail[i].goal_id) {
+          return false
+        } else {
           if (this.getTimestamp(this.$state.CardDetail[i]).getFullYear() == year && this.getTimestamp(this.$state.CardDetail[i]).getMonth() + 1 == month && this.getTimestamp(this.$state.CardDetail[i]).getDate() == date) {
             return true
           }
+          return false
         }
       }
-      return false
     },
     // groupData[i].signed_data -> singned_data
     todaysignedmembers: function (year, month, date) {
-      if (!this.$state.CardGroupData || this.$state.CardGroupData == -11)
+      if (!this.$state.CardData[this.data.item].goal_is_a_group)
         return null
       let members = [],
-        groupData = this.$state.CardGroupData.groupMembers,
-        goal_id = this.$state.CardGroupData.goal_id
-      let user_id, img, i, j
-      for (i = 0; i < groupData.length; i++) {
-        let singned_data = groupData[i].signed_data
-        user_id = groupData[i].id
+        groupMembers = this.$state.CardData[this.data.item].groupData.groupMembers,
+        goal_id = this.$state.CardData[this.data.item].groupData.goal_id
+      let img, i, j
+      for (i = 0; i < groupMembers.length; i++) {
+        let singned_data = groupMembers[i].signed_data
         img = ""
         for (j = 0; j < singned_data.length; j++) {
-          if (
-            singned_data[j].goal_id == goal_id &&
-            user_id == singned_data[j].user_id
-          ) {
+          if (singned_data[j].goal_id == goal_id) {
             if (
               this.getTimestamp(singned_data[j]).getFullYear() == year && this.getTimestamp(singned_data[j]).getMonth() + 1 == month && this.getTimestamp(singned_data[j]).getDate() == date
             ) {
-              img = groupData[i].img
+              img = groupMembers[i].img
               break
             }
           }
         }
-        if (1 && img.length) {
-          // console.log(img);
+        if (img.length) {
           members.push({
-            user_id: user_id,
             img: img,
           })
         }
@@ -372,7 +346,10 @@ Component({
       return members
     },
     todaydaka: function (e) {
-      (async () => {
+      return (async () => {
+        if (this.$state.CardData[this.data.carditem].sign_today) {
+          return
+        }
         let result = await awx.request({
           method: "POST",
           url: this.$state.apiURL + "/user/goal/sign",
@@ -385,17 +362,17 @@ Component({
           console.log(result.errMsg)
           return
         }
-        console.log(result.data)
-        this.getCardDetail()
+        await this.GetCardData()
+        await this.getCardDetail()
+        this.today()
+        const endflag = this.comparedate()
+        if (endflag) {
+          this.setData({
+            cardend: endflag
+          })
+        }
+        return Promise.resolve()
       })()
-      // if (this.$state.CardData[this.data.item].goal_type == 2 && parseInt(this.data.stepInfoList[this.data.stepInfoList.length - 1].step) < parseInt(this.$state.CardData[this.data.item].goal_name.replace(/[^\d]/g, ""))) {
-      //   wx.showToast({
-      //     title: "您的步数不够哦！",
-      //     image: "../../images/Step.png",
-      //     duration: 2000,
-      //   })
-      //   return
-      // }
     },
     deletedaka: function () {
       this.setData({
@@ -415,7 +392,7 @@ Component({
     },
     // dialog-buttontap
     buttontap: function (e) {
-      (async () => {
+      return (async () => {
         if (e.detail.item.text == "删除") {
           if (this.$state.CardData[this.data.item].goal_is_a_group) {
             // 是小组
@@ -496,9 +473,51 @@ Component({
             dialogshow: false,
           })
         }
+        return Promise.resolve()
       })()
-      console.log("button tap")
-
+    },
+    getindex: function (show) {
+      return (async () => {
+        let res = await awx.request({
+          method: 'POST',
+          url: this.$state.apiURL + '/user/goal/get',
+          data: {
+            login_key: this.$state.login_key,
+          },
+        })
+        this.setState({
+          CardData: res.data.data.data,
+        })
+        return Promise.resolve()
+      })()
+    },
+    //获取打卡信息
+    GetCardData: function () {
+      return (async () => {
+        let result = await awx.request({
+          method: 'POST',
+          url: this.$state.apiURL + '/user/goal/Bget',
+          data: {
+            amount: 5,
+            login_key: this.$state.login_key,
+          },
+        })
+        console.log(result.data)
+        this.setState({
+          aimCardDatas: result.data.data.data,
+          card_num: result.data.data.data.length,
+        })
+        await this.getindex(this.$state.aimCardDatas);
+        console.log(" this.$state.aimCardDatas.length", this.$state.aimCardDatas.length)
+        await wx.setStorage({
+          key: "card_num",
+          data: this.$state.card_num,
+        })
+        console.log(this.$state.aimCardDatas);
+        return Promise.resolve()
+        // 自动打卡微信运动
+        // ()()
+      })()
     },
   },
 })

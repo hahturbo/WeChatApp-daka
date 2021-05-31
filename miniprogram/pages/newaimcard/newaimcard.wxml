@@ -39,7 +39,7 @@
 			 maxlength="10"
 			 placeholder="点此输入"
 			 data-name="title"
-			 bindinput="valueChanged"
+			 bindinput="TitleInput"
 			 value="{{title}}"
 			/>
 			<input
@@ -47,15 +47,15 @@
 			 maxlength="5"
 			 placeholder="点此输入步数"
 			 data-name="title"
-			 bindinput="valueChanged"
-			 value="{{title}}"
+			 bindinput="TitleInput"
 			 type='number'
+			 value="{{title}}"
 			/>
 
 		</view>
 
 		<view class="date">
-			<view class='card {{normal_card_display==1 ? "displayNone" : ""}}' bindtap="doUpload">
+			<view class='card {{type!=1 ? "displayNone" : ""}}' bindtap="doUpload">
 				<picker
 				 mode="date"
 				 value="{{date_start}}"
@@ -70,7 +70,7 @@
 					</view>
 				</picker>
 			</view>
-			<view class='card  {{normal_card_display==1 ? "displayNone" : ""}}' bindtap="doUpload">
+			<view class='card  {{type!=1 ? "displayNone" : ""}}' bindtap="doUpload">
 				<picker
 				 mode="date"
 				 value="{{date_start}}"
@@ -86,7 +86,7 @@
 				</picker>
 			</view>
 
-			<view class='card  {{normal_card_display==1 ? "displayNone" : ""}}' bindtap="doUpload">
+			<view class='card  {{type!=1 ? "displayNone" : ""}}' bindtap="doUpload">
 				<!-- bindPickerFrequencyChange -->
 				<picker
 				 mode="multiSelector"
@@ -105,7 +105,7 @@
 
 		</view>
 
-		<view class='card  {{normal_card_display==1 ? "displayNone" : ""}}'>
+		<view class='card  {{type!=1 ? "displayNone" : ""}}'>
 
 			<view class="picker">
 				<text>打卡时间:  </text>

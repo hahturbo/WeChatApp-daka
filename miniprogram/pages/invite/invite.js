@@ -18,14 +18,17 @@ Component({
   },
 
   attached: function () {
-    this.GetInviteData();
-    let timer = setInterval(() => {
-      if (!this.datat.invite_data.length) {
-        this.GetInviteData()
-      } else {
-        clearInterval(timer)
-      }
-    }, 2500)
+    (async () => {
+      await this.GetInviteData();
+      let timer = setInterval(async () => {
+        if (!this.datat.invite_data.length) {
+          await this.GetInviteData()
+        } else {
+          clearInterval(timer)
+        }
+      }, 2500)
+    })()
+
   },
 
   /**
@@ -34,7 +37,7 @@ Component({
   methods: {
     //受邀时获取信息
     GetInviteData: function () {
-      (async () => {
+      return (async () => {
         console.log("id", this.$state.invite_goal_id, " login_key:", this.$state.login_key, );
         if (this.$state.login_key == null) {
           console.log("无登陆无邀请");
@@ -43,7 +46,7 @@ Component({
           })
           return 404;
         }
-        let result = awx.request({
+        let result = await awx.request({
           method: 'POST',
           url: this.$state.apiURL + '/user/group/get/data',
           data: {
@@ -62,6 +65,7 @@ Component({
           invite_data: result.data,
           error_code: 200,
         })
+        return Promise.resolve()
       })()
     },
   }

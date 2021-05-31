@@ -283,14 +283,11 @@
 }}次</text>
 					<text class='small-text {{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2_2" : ""}} {{$state.aimCardDatas[index+1].goal_is_a_group==1?"":"displayNone"}}'>本次小组已有{{$state.aimCardDatas[index+1].sign_today}}人打卡</text>
 				</view>
-				<view 
-				class='button 
-				{{
-				($state.aimCardDatas[index+1].sign_today&&($state.aimCardDatas[index+1].goal_type!=2))||
-				($state.aimCardDatas[index+1].goal_type==2&&parseInt($state.aimCardDatas[index+1].frequency)>parseInt(stepInfoList[stepInfoList.length-1].step))?"buttonNo":""}}' 
-				data-id='{{$state.aimCardDatas[index+1].goal_id}}' 
-				data-index = '{{index}}'
-				bindtap='sign_btn'
+				<view
+				 class='button {{($state.aimCardDatas[index+1].sign_today&&($state.aimCardDatas[index+1].goal_type!=2))||($state.aimCardDatas[index+1].goal_type==2&&parseInt($state.aimCardDatas[index+1].frequency)>parseInt(stepInfoList[stepInfoList.length-1].step))?"buttonNo":""}}'
+				 data-id='{{$state.aimCardDatas[index+1].goal_id}}'
+				 data-index='{{index}}'
+				 bindtap='sign_btn'
 				>
 					<image wx:if='{{$state.skin==1}}' class='icon {{$state.aimCardDatas[index+1].sign_today?"":"displayNone"}}' src="{{$state.imgURL+'/tick_finish.png'}}" />
 					<image wx:if='{{$state.skin==2}}' class='icon {{$state.aimCardDatas[index+1].sign_today?"":"displayNone"}}' src="{{$state.imgURL+'/tick_finish2.png'}}" />
