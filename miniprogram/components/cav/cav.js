@@ -184,32 +184,5 @@ Component({
         })
       }
     },
-
-    // SavePic: function () {
-    //   console.log("保存ing")
-    //   wx.canvasToTempFilePath({
-    //     fileType: 'jpg',
-    //     canvasId: 'share',
-    //     success: (res) => {
-    //       if (!res.tempFilePath) {
-    //         console.log("fff")
-    //       }
-    //       console.log("保存ing2")
-    //       // wx.saveImageToPhotosAlbum({
-    //       //   filePath: res.tempFilePath,
-    //       //   success: (res) => {
-    //       //     console.log("保存成功")
-    //       //   }
-    //       // })
-    //     },
-    //     fail: (res) => {
-    //       console.log("保存f：", res)
-    //     },
-    //     finish: (res) => {
-    //       console.log("保存：", res)
-    //     }
-    //   }, this)
-    // }
-
   }
 })

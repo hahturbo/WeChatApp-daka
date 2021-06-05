@@ -25,9 +25,7 @@ Page({
   },
 
   btn:function(e){
-    console.log(e)
     let skin=e.currentTarget.dataset.skin;
-    console.log(skin);
     this.setState({
       skin:skin,
     })

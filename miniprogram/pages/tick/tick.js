@@ -113,7 +113,6 @@ Component({
 
 
   attached: function () {
-    console.log("onload");
     this.FreshAtoB();
    
     //this.FinshInput();//A2B已有
@@ -150,7 +149,6 @@ Component({
         })
 
       var startIndex = event.target.dataset.index
-      console.log('获取到的元素为', this.data.goalsBoard[startIndex])
       // 初始化页面数据
 
       pageInfo.startY = event.touches[0].clientY
@@ -180,7 +178,6 @@ Component({
       var movableViewInfo = this.data.movableViewInfo
       var movedDistance = event.touches[0].clientY - pageInfo.startY
       movableViewInfo.y = pageInfo.startY - (pageInfo.rowHeight / 2) + movedDistance
-      console.log('移动的距离为', movedDistance)
 
       // 修改预计放置位置
       var movedIndex = parseInt(movedDistance / pageInfo.rowHeight)
@@ -200,7 +197,6 @@ Component({
       }
       // 移动movableView
       pageInfo.readyPlaceIndex = readyPlaceIndex
-      // console.log('移动到了索引', readyPlaceIndex, '选项为', optionList[readyPlaceIndex])
 
       this.setData({
         movableViewInfo: movableViewInfo,
@@ -223,13 +219,11 @@ Component({
         if (ExgoalsBoard[i].name == "" && null_flag == 15) {
           null_flag = i;
         } //当获取到目标数后，可删除？
-        console.log(ExgoalsBoard[i].name);
         if (null_flag != 15 && (ExgoalsBoard[i].name != "" || ExgoalsBoard[i].icon != 0)) {
           ExgoalsBoard[i].id = null_flag + 1;
           ExgoalsBoard[null_flag].id = i + 1;
           let temp;
           temp = ExgoalsBoard[i];
-          console.log(null_flag, ExgoalsBoard[i], temp);
           ExgoalsBoard[i] = ExgoalsBoard[null_flag];
           ExgoalsBoard[null_flag] = temp;
         } else {
@@ -245,10 +239,7 @@ Component({
         movableViewInfo: movableViewInfo,
         goalsBoard: ExgoalsBoard,
       })
-      // console.log(JSON.stringify(this.data.goalsBoard));
       this.FinshInput();
-      console.log(JSON.stringify(this.data.goalsBoard));
-      // this.FreshBtoA();//finshinput已经包含
 
     },
 
@@ -256,7 +247,6 @@ Component({
       px = px * 2; //默认乘2，防止无法获取屏幕宽度
       wx.getSystemInfo({
         success(res) {
-          // console.log(res.windowWidth)
           px = px / res.windowWidth * 750;
           px = px / 2;
         }
@@ -267,7 +257,6 @@ Component({
     FindID: function (num) {
       let i = 0;
       for (i = 0; i < 15; i++) {
-        console.log(i + ":" + JSON.stringify(this.data.goalsBoard[i]));
         if (this.data.goalsBoard[i].id == num) {
           return i;
         }
@@ -275,12 +264,9 @@ Component({
       return -1;
     },
 
-    // {"type":"change","timeStamp":6292,"target":{"id":"","offsetLeft":8,"offsetTop":5,"dataset":{}},"currentTarget":{"id":"","offsetLeft":8,"offsetTop":5,"dataset":{}},"mark":{},"detail":{"x":0,"y":161.2,"source":"touch"}
     bindKeyInput: function (e) {
       let input_index = e.target.dataset.index;
-      // console.log(JSON.stringify(e));
       let goalsBoard = this.data.goalsBoard;
-      // console.log(JSON.stringify(goalsBoard));
       let i = parseInt(e.currentTarget.dataset.index);
       goalsBoard[i].name = e.detail.value;
       this.setData({
@@ -313,8 +299,6 @@ Component({
     },
 
     ImgTap: function (e) {
-      // console.log("TAP");
-      // console.log(JSON.stringify(e));
       let ExgoalsBoard = this.data.goalsBoard;
       ExgoalsBoard[e.currentTarget.dataset.index].icon = ExgoalsBoard[e.currentTarget.dataset.index].icon ^ 1;
       this.setData({
@@ -339,28 +323,22 @@ Component({
 
     // 从All刷新到board
     FreshAtoB: function () {
-      console.log(this.$state.goalsBoardData);
       let goalsBoardData = this.$state.goalsBoardData;
       let goalsBoard = this.data.goalsBoard;
       let length = goalsBoardData.length > 15 ? 15 : goalsBoardData.length;
       console.log("length", length);
       let x = 0; //差
       let title;
-      console.log("A2goalsBoardData:",goalsBoardData);
       for (let i = 0; i < 15; i++) {
         if (i < length) {
           //去除空行,不存在的打卡
           let title = goalsBoardData[i].title;
           let icon = goalsBoardData[i].type;
-          //this.CheckIfisAim(title);
-          console.log("tittle", title);//这里已经无法获取title
           if (title && (icon == 0 || this.CheckIfisAim(title))) {
             goalsBoard[i - x].name = goalsBoardData[i].title;
             // id  
             goalsBoard[i - x].icon = goalsBoardData[i].type;
-            console.log(goalsBoard[i - x].icon);
             if (goalsBoard[i - x].icon == 2) {
-              console.log("true");
               goalsBoard[i - x].disabled = true;
             } else {
               goalsBoard[i - x].disabled = false;
@@ -371,16 +349,12 @@ Component({
         } else {
           goalsBoard[i].disabled = true;
         }
-        // console.log(goalsBoard[i].disabled);
         this.setData({
           goalsBoard: goalsBoard,
           board_num: i - x,
         })
-        // console.log("A2B1:", this.data.goalsBoard);
         this.FinshInput();
-        // console.log("A2B2:", this.data.goalsBoard);
       }
-      // console.log("A2B3", this.$state.goalsBoardData);
     },
 
     CheckIfisAim(title) {
@@ -393,13 +367,10 @@ Component({
       }
       for (let i = 0; i < this.$state.aimCardDatas.length; i++) {
         title_card = this.$state.aimCardDatas[i].goal_name;
-        console.log(title, ":", title_card)
         if (title == title_card) {
-          console.log("AIMtrue");
           return true;
         }
       }
-      console.log("AIMfalse");
       return false;
     },
 
@@ -407,7 +378,6 @@ Component({
     FreshBtoA: function () {
       let goalsBoardData = this.$state.goalsBoardData;
       let goalsBoard = this.data.goalsBoard;
-      // console.log("B2A", this.data.goalsBoard);
       this.setState({
         goalsBoardData: goalsBoard,
       })

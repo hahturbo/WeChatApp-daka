@@ -50,7 +50,6 @@ Component({
     membersnum: 0,
     share: false,
     //微信运动
-    stepInfoList: "",
   },
 
   observers: {
@@ -71,7 +70,7 @@ Component({
       return (async () => {
         if (this.$state.CardData[this.data.item].goal_type == 2) {
           await this.getWeRunData()
-          if (this.$state.CardData[this.data.item].goal_type == 2 && parseInt(this.data.stepInfoList[this.data.stepInfoList.length - 1].step) >= parseInt(this.$state.CardData[this.data.item].goal_name.replace(/[^\d]/g, ""))) {
+          if (this.$state.CardData[this.data.item].goal_type == 2 && parseInt(this.$state.stepInfoList[this.$state.stepInfoList.length - 1].step) >= parseInt(this.$state.CardData[this.data.item].goal_name.replace(/[^\d]/g, ""))) {
             await awx.request({
               method: "POST",
               url: this.$state.apiURL + "/user/goal/sign",
@@ -101,7 +100,6 @@ Component({
         date: date,
         datetitle: year + "年" + this.zero(month) + "月",
       })
-      // console.log(JSON.stringify(this.data, null, 2))
       this.createday(year, month)
       this.createmptygrid(year, month)
     },
@@ -138,7 +136,6 @@ Component({
         month = DATE.getMonth() + 1,
         date = DATE.getDate(),
         select = year + "-" + this.zero(month) + "-" + this.zero(date)
-      console.log(`DATE:${DATE},year:${year},month:${month},date:${date},select:${select}`)
       this.setData({
         format: select,
         select: select,
@@ -204,7 +201,6 @@ Component({
           othersigned: this.data.membersnum > 0 ? true : false,
         })
       }
-      console.log(thismonthday);
       this.setData({
         thismonthday,
       })
@@ -242,7 +238,7 @@ Component({
           },
         })
         if (record.errMsg === "request:fail ") {
-          console.log(record.errMsg)
+          console.error(record.errMsg)
           return
         }
         this.setState({
@@ -275,12 +271,10 @@ Component({
             return
           }
           console.log("werun success")
-          console.log(weRunData)
-          this.setData({
+          this.setState({
             stepInfoList: weRunData.data.stepInfoList
           })
         } else {
-          console.log("微信步数获取失败：");
           wx.showToast({
             icon: 'error',
             title: '微信运动获取失败',
@@ -301,7 +295,6 @@ Component({
     },
     // 是否打卡
     todaysigned: function (year, month, date) {
-      // console.log(this.$state.CardDetail);
       for (let i = 0; i < this.$state.CardDetail.length; i++) {
         if (this.$state.CardData[this.data.item].goal_id != this.$state.CardDetail[i].goal_id) {
           return false
@@ -309,9 +302,9 @@ Component({
           if (this.getTimestamp(this.$state.CardDetail[i]).getFullYear() == year && this.getTimestamp(this.$state.CardDetail[i]).getMonth() + 1 == month && this.getTimestamp(this.$state.CardDetail[i]).getDate() == date) {
             return true
           }
-          return false
         }
       }
+      return false
     },
     // groupData[i].signed_data -> singned_data
     todaysignedmembers: function (year, month, date) {
@@ -350,6 +343,16 @@ Component({
         if (this.$state.CardData[this.data.carditem].sign_today) {
           return
         }
+        if (this.$state.CardData[this.data.carditem].goal_type == 2) {
+          if (parseInt(this.$state.CardData[this.data.carditem].frequency) > parseInt(this.$state.stepInfoList[this.$state.stepInfoList.length - 1].step)) {
+            wx.showToast({
+              title: '您的步数不够',
+              icon: 'none',
+              duration: 2500,
+            })
+          }
+          return
+        }
         let result = await awx.request({
           method: "POST",
           url: this.$state.apiURL + "/user/goal/sign",
@@ -359,7 +362,7 @@ Component({
           },
         })
         if (result.errMsg === "request:fail ") {
-          console.log(result.errMsg)
+          console.error(result.errMsg)
           return
         }
         await this.GetCardData()
@@ -461,7 +464,7 @@ Component({
             })
           }
           if (result.errMsg === "request:fail ") {
-            console.log(result.errMsg)
+            console.error(result.errMsg)
             return
           }
           this.setData({
@@ -502,7 +505,6 @@ Component({
             login_key: this.$state.login_key,
           },
         })
-        console.log(result.data)
         this.setState({
           aimCardDatas: result.data.data.data,
           card_num: result.data.data.data.length,
@@ -513,7 +515,6 @@ Component({
           key: "card_num",
           data: this.$state.card_num,
         })
-        console.log(this.$state.aimCardDatas);
         return Promise.resolve()
         // 自动打卡微信运动
         // ()()

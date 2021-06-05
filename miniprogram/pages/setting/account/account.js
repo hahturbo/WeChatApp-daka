@@ -59,8 +59,6 @@ Page({
   },
   tapDialogButton: function (e) {
     if (e.detail.item.text == "确认") {
-      console.log(e)
-      console.log(this.data.btn_type)
       if (this.data.btn_type == "logoff") {
         this.btn_logoff();
       } else {
@@ -74,7 +72,6 @@ Page({
   },
 
   btn: function (e) {
-    console.log(e);
     if (e.currentTarget.dataset.tap == 'btn_logoff') {
       this.setData({
         btn_type: "logoff",

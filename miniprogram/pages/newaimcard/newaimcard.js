@@ -82,17 +82,14 @@ Component({
     },
 
     onLoad: function (options) {
-      console.log('options2', options);
     },
 
     bindPickerTypeChange: function (e) {
-      console.log('picker发送选择改变，携带值为', e.detail.value)
       if (e.detail.value == 0) {
         this.setData({
           type: e.detail.value
         })
       } else {
-        //this.GetWeRunData();//微信运动函数
         this.setData({
           type: e.detail.value
         })
@@ -127,7 +124,6 @@ Component({
     //标题输入
     valueChanged: function (e) {
       return (async () => {
-        console.log(e);
         switch (e.target.dataset.name) {
           case "goal_type":
             if (e.detail.value != 2) {
@@ -135,9 +131,7 @@ Component({
                 type: e.detail.value
               })
             } else {
-              //this.GetWeRunData();//微信运动函数
               let setting = await wx.getSetting()
-              console.log(JSON.stringify(setting, null, 2))
               if (!setting.authSetting["scope.werun"]) {
                 let runAuth = await wx.showModal({
                   title: '[极简打卡]请求获取您的运动权限',
@@ -176,9 +170,7 @@ Component({
             let now_date_temp = new Date().getTime(); //获取时间戳
             let now_time = new Date().getHours() * 3600 + new Date().getMinutes() * 60; //当日时间
             now_time *= 1000;
-            console.log(now_time);
             if (now_date_temp - now_time > start_date_temp) {
-              console.log("haha2 ");
             } else {
               this.setData({
                 date_start: e.detail.value
@@ -191,8 +183,6 @@ Component({
               let start_date_temp = new Date(this.data.date_start);
               let end_date_temp = new Date(e.detail.value);
               let now_date_temp = new Date().getTime();
-
-              console.log(start_date_temp, end_date_temp);
               if (start_date_temp > end_date_temp) return;
               if (end_date_temp < now_date_temp) return;
               this.setData({
@@ -203,10 +193,6 @@ Component({
           case "frequency":
             var f = e.detail.value;
             let d = 1;
-
-            console.log(f);
-
-            console.log(f[0], f[1], f[2], f[3]);
             switch (f[2]) {
               case 0:
                 d = 1 * f[1] + 1;
@@ -221,12 +207,9 @@ Component({
                 console.log("error-34");
             }
 
-            console.log("arrat:", this.data.frequencyArray[e.detail.value]);
-
             let data = this.$state.aimCardData;
             data["frequencynum"] = d
             data["frequency"] = f
-            console.log(data);
 
             this.setState({
               aimCardData: data
@@ -236,7 +219,6 @@ Component({
               frequencynum: d,
               frequencyout: this.data.frequencyArray[0][0] + this.data.frequencyArray[1][f[1]] + this.data.frequencyArray[2][f[2]] + this.data.frequencyArray[3][f[3]],
             })
-            console.log(f);
             break;
           case "needed_be_signed_at":
             this.setData({
@@ -247,9 +229,6 @@ Component({
             if (this.data.time_aim1 == "请选择") return;
             let startTotalMinutes = parseInt(this.data.time_aim1.split(':')[0]) * 60 + parseInt(this.data.time_aim1.split(':')[1]);
             let endTotalMinutes = parseInt(e.detail.value.split(':')[0]) * 60 + parseInt(e.detail.value.split(':')[1]);
-
-            console.log(e.detail.value);
-
             if (endTotalMinutes < startTotalMinutes) {
               return
             } else {
@@ -302,11 +281,9 @@ Component({
     },
     //打卡频率
     bindPickerFrequencyChange: function (e) {
-      console.log('picker发送选择改变，携带值为', e.detail.value)
       var f;
       let d = 1;
       f = e.detail.value;
-      console.log(f[0], f[1], f[2], f[3]);
       switch (f[2]) {
         case 0:
           d = 1 * f[1] + 1;
@@ -321,28 +298,22 @@ Component({
           console.log("error-34");
       }
 
-      console.log("arrat:", this.data.frequencyArray[e.detail.value]);
       this.setData({
         frequency: f,
         frequencynum: d,
         frequencyout: this.data.frequencyArray[0][0] + this.data.frequencyArray[1][f[1]] + this.data.frequencyArray[2][f[2]] + this.data.frequencyArray[3][f[3]],
       })
-      console.log(f);
     },
     bindMultiPickerColumnChange: function (e) {
-      console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
     },
 
     // 日期选择器
     bindDatestartChange: function (e) {
-      console.log('picker发送选择改变，携带值为', e.detail.value)
       let start_date_temp = new Date(e.detail.value);
       let now_date_temp = new Date().getTime(); //获取时间戳
       let now_time = new Date().getHours() * 3600 + new Date().getMinutes() * 60; //当日时间
       now_time *= 1000;
-      console.log(now_time);
       if (now_date_temp - now_time > start_date_temp) {
-        console.log("haha2 ");
       } else {
         this.setData({
           date_start: e.detail.value
@@ -351,15 +322,12 @@ Component({
 
     },
     bindDateendChange: function (e) {
-      console.log('picker发送选择改变，携带值为', e.detail.value)
-      console.log("started at: " + this.data.date_start);
       if (this.data.date_start !== '请选择') {
         //  在已选开始日期条件下，不早于开始日期
         let start_date_temp = new Date(this.data.date_start);
         let end_date_temp = new Date(e.detail.value);
         let now_date_temp = new Date().getTime();
 
-        console.log(start_date_temp, end_date_temp);
         if (start_date_temp > end_date_temp) return;
         if (end_date_temp < now_date_temp) return;
         this.setData({
@@ -368,19 +336,16 @@ Component({
       }
     },
     bindTimeAim1Change: function (e) {
-      console.log('picker发送选择改变，携带值为', e.detail.value)
       this.setData({
         time_aim1: e.detail.value
       })
     },
 
     bindTimeAim2Change: function (e) {
-      console.log('picker发送选择改变，携带值为')
       if (this.data.time_aim1 == "请选择") return;
       let startTotalMinutes = parseInt(this.data.time_aim1.split(':')[0]) * 60 + parseInt(this.data.time_aim1.split(':')[1]);
       let endTotalMinutes = parseInt(e.detail.value.split(':')[0]) * 60 + parseInt(e.detail.value.split(':')[1]);
 
-      console.log(e.detail.value);
 
       if (endTotalMinutes < startTotalMinutes) {
         return
@@ -392,7 +357,6 @@ Component({
     },
 
     bindTimeCallChange: function (e) {
-      console.log('picker发送选择改变，携带值为', e.detail.value)
       this.setData({
         time_call: e.detail.value
       })
@@ -413,7 +377,6 @@ Component({
           })
           let goal_type, team, num, reminder_at;
           !this.$state.aimCardData['goal_type'] ? goal_type = 1 : goal_type = parseInt(this.$state.aimCardData['goal_type']);
-          console.log(this.$state.aimCardData);
           !this.$state.aimCardData['team'] ? team = 0 : team = this.$state.aimCardData['team'];
           !this.$state.aimCardData['reminder_at'] ? reminder_at = 0 : reminder_at = this.$state.aimCardData['reminder_at'];
           if (goal_type == 1) {
@@ -484,28 +447,29 @@ Component({
               return
             }
             // 提交目标板
-            let data = [{
+            let data = {
               id: this.$state.board_num + 1,
               icon: 2,
-              name: this.$state.aimCardData["title"]
-            }]
+              name: goal_type == 2 ? `每天走${this.$state.aimCardData["title"]}步` : this.$state.aimCardData["title"]
+            }
             let boardResult = await awx.request({
               method: 'POST',
-              url: this.$state.apiURL + '/user/board/change',
-              data: {
+              url: this.$state.apiURL + '/user/board/add',
+              goal: {
                 login_key: this.$state.login_key,
                 data: data,
               },
             })
             if (boardResult.errMsg === "request:fail ") {
               this.setData({
-                error_code: '/user/board/change' + result.errMsg,
+                error_code: '/user/board/add' + result.errMsg,
               })
               return
             }
             this.setState({
               board_num: this.$state.board_num + 1
             })
+            console.log("board up success")
           }
           this.setState({
             can_share: true

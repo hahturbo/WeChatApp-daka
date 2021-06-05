@@ -6,14 +6,10 @@ const awx = wx.toAsync("request", "login", "getWeRunData", "getUserInfo")
 Page({
   data: {
     //主页面数据
-    avatarUrl: `./user-unlogin.png`,
-    userInfo: {},
-
     error_code: "(。・∀・)ノ",
 
     nowPage: 0,
     changedPageCounts: 0,
-
 
     //新建打卡数据：邀请次数，不重复post
     invite_time: 0,
@@ -28,12 +24,6 @@ Page({
       text: '确定'
     }],
     ifFirstTime: false, //是否第一次登陆（缓存）
-    //微信运动
-    "stepInfoList": [{
-      "timestamp": 0,
-      "step": 0,
-    }, ],
-
     //新建打卡页面数据
     carditem: '',
     card_index: '',
@@ -45,7 +35,6 @@ Page({
         let skin = wx.getStorageSync('skin')
         let card_num = wx.getStorageSync('card_num')
         let IFT = wx.getStorageSync('IFT')
-        console.log("s card_num out:", card_num)
         if (IFT == null) {
           IFT = true;
         }
@@ -53,8 +42,6 @@ Page({
           card_num: card_num,
         })
         if (skin) {
-          // Do something with return value
-          console.log("s skin out:", skin)
           this.setState({
             skin: skin,
           })
@@ -64,16 +51,12 @@ Page({
           this.ShowSkin();
         }
       } catch (e) {
-        console.log(e)
         this.setState({
           skin: 0
         })
       }
-      console.log('options1', options);
-      console.log('options2', options.id);
       let invite_goal_id = options.id;
       if (invite_goal_id) {
-        console.log("invite_goal_id");
         this.setData({
           nowPage: 5,
         })
@@ -81,14 +64,13 @@ Page({
           invite_goal_id: invite_goal_id,
         })
       } else {
-        console.log("not invite_goal_id");
+        console.warn("not invite_goal_id");
       }
       await this.AutoCheckP(); //自动登陆授权
     })()
   },
   onShow: function (e) {
     return (async () => {
-      console.log("show0", this.$state.isLogin)
       if (this.$state.isLogin) {
         await this.GetCardData();
       }
@@ -99,38 +81,25 @@ Page({
   },
 
   ShowSkin: function () {
-    console.log("skin", this.$state.skin, "TT", typeof (this.$state.skin));
     switch (this.$state.skin) {
       case "1":
       case 1:
-        console.log("skin1")
         wx.setNavigationBarColor({
           frontColor: '#000000',
           backgroundColor: '#FFCC66',
-          complete: () => {
-            console.log("换1完成")
-          }
         })
         break;
       case "2":
       case 2:
-        console.log("skin2")
         wx.setNavigationBarColor({
           frontColor: '#000000',
           backgroundColor: '#ffffff',
-          complete: () => {
-            console.log("换2 完成")
-          }
         })
         break;
       default:
-        console.log("skin1")
         wx.setNavigationBarColor({
           frontColor: '#000000',
           backgroundColor: '#FFCC66',
-          complete: () => {
-            console.log("换d 完成")
-          }
         })
         break;
     }
@@ -139,18 +108,13 @@ Page({
 
 
   imageError: function (e) {
-    console.log('image发生error事件，携带值为', e.detail.errMsg)
+    console.error('image发生error事件，携带值为', e.detail.errMsg)
   },
 
   //分享
   // e.target.dataset.index为传过来的下标（第几个打卡）
   onShareAppMessage: function (e) {
     let shareGoal = this.$state.aimCardDatas[0] ? this.$state.aimCardDatas[0] : this.$state.CardData[e.target.dataset.index];
-    console.log('shoreGoal', shareGoal);
-    console.log(e.target.dataset.index);
-    console.log("sharing", shareGoal.groupData.invite_id);
-    console.log('分享成功');
-
     return {
       title: shareGoal.groupData.groupMembers[0].nickname + '邀请您一起和TA打卡',
       desc: '分享页面的内容',
@@ -161,7 +125,6 @@ Page({
   },
   AcceptInvite: function (e) {
     return (async () => {
-      console.log("invite_id:,", this.$state.invite_goal_id, "login_key: ", this.$state.login_key, );
       let result = await awx.request({
         method: 'POST',
         url: this.$state.apiURL + '/user/group/join',
@@ -171,7 +134,6 @@ Page({
         },
       })
       if (result) {
-        console.log(`join success${result.data}`)
         this.setState({
           card_num: this.$state.card_num + 1,
         })
@@ -197,7 +159,6 @@ Page({
       this.setState({
         CardData: res.data.data.data,
       })
-      console.log(this.$state.CardData, show.length);
       for (let i = 0; i < show.length; i++) {
         for (let j = 0; j < this.$state.CardData.length; j++) {
           if (show[i].goal_id == this.$state.CardData[j].goal_id) {
@@ -223,22 +184,17 @@ Page({
           login_key: this.$state.login_key,
         },
       })
-      console.log(result.data)
       this.ClearNewAimData()
       this.setState({
         aimCardDatas: result.data.data.data,
         card_num: result.data.data.data.length,
       })
       await this.getindex(this.$state.aimCardDatas);
-      console.log(" this.$state.aimCardDatas.length", this.$state.aimCardDatas.length)
       await wx.setStorage({
         key: "card_num",
         data: this.$state.card_num,
       })
-      console.log(this.$state.aimCardDatas);
       return Promise.resolve()
-      // 自动打卡微信运动
-      // ()()
     })()
   },
 
@@ -290,7 +246,6 @@ Page({
   GetWeRunData: function () {
     return (async () => {
       let setting = await wx.getSetting()
-      console.log(JSON.stringify(setting, null, 2))
       if (!setting.authSetting["scope.werun"]) {
         let runAuth = await wx.showModal({
           title: '[极简打卡]请求获取您的微信步数',
@@ -328,11 +283,10 @@ Page({
               login_key: this.$state.login_key,
             },
           })
-          this.setData({
+          this.setState({
             stepInfoList: weRunData.data.stepInfoList
           })
         } else {
-          console.log("微信步数获取失败：");
           wx.showToast({
             icon: 'none',
             title: '微信运动步数获取失败',
@@ -392,7 +346,6 @@ Page({
       return Promise.resolve()
     })()
   },
-
   //总登陆
   checkPermission: function (userInfo = null) {
     return (async () => {
@@ -416,9 +369,6 @@ Page({
         }
         let result = await awx.request({
           method: 'POST',
-          header: {
-            'content-type': 'application/json'
-          },
           url: this.$state.apiURL + '/user/login',
           data: {
             encryptedData: userInfo ? userInfo.encryptedData : null,
@@ -427,7 +377,6 @@ Page({
           },
         })
         if (result.errMsg === "request:fail ") {
-          console.log(result.errMsg)
           this.setData({
             error_code: result.errMsg
           })
@@ -472,7 +421,6 @@ Page({
           login_key: this.$state.login_key,
         },
       })
-      console.log("info", info.data);
       let DATE = new Date();
       let DATESU = new Date(info.data.data.signed_up.replace(/-/g, '/'));
       DATE = parseInt((DATE - DATESU) / (24 * 60 * 60 * 1000));
@@ -480,16 +428,13 @@ Page({
         DATE = 0;
       }
       this.setState({
-        user_info: info.data.data,
         signed_up: info.data.data.signed_up,
         using_day: DATE,
       })
-      console.log("isLogin", this.$state.isLogin, "key", this.$state.login_key);
       await Promise.all([
         this.GetCardData(),
         this.GetWeRunData()
       ])
-      console.log(this.$state.aimCardDatas, this.data.stepInfoList)
       return Promise.resolve()
     })()
 
@@ -630,7 +575,6 @@ Page({
     return (async () => {
       let goal_type, team, num, reminder_at;
       !this.$state.aimCardData['goal_type'] ? goal_type = 1 : goal_type = parseInt(this.$state.aimCardData['goal_type']);
-      console.log(this.$state.aimCardData);
       !this.$state.aimCardData['team'] ? team = 0 : team = this.$state.aimCardData['team'];
       !this.$state.aimCardData['reminder_at'] ? reminder_at = 0 : reminder_at = this.$state.aimCardData['reminder_at'];
       let result
@@ -704,28 +648,29 @@ Page({
       wx.setStorageSync("card_num", this.$state.card_num)
 
       // 提交目标板
-      let data = [{
+      let data = {
         id: this.$state.board_num + 1,
         icon: 2,
-        name: this.$state.aimCardData["title"]
-      }]
+        name: goal_type == 2 ? `每天走${this.$state.aimCardData["title"]}步` : this.$state.aimCardData["title"]
+      }
       let boardResult = await awx.request({
         method: 'POST',
-        url: this.$state.apiURL + '/user/board/change',
+        url: this.$state.apiURL + '/user/board/add',
         data: {
           login_key: this.$state.login_key,
-          data: data,
+          goal: data,
         },
       })
       if (boardResult.errMsg === "request:fail ") {
         this.setData({
-          error_code: '/user/board/change' + result.errMsg,
+          error_code: '/user/board/add' + result.errMsg,
         })
         return
       }
       this.setState({
         board_num: this.$state.board_num + 1
       })
+      console.log("board up success")
       this.setState({
         aimCardData: []
       })
@@ -746,7 +691,6 @@ Page({
       this.setState({
         goalsBoardData: result.data.data
       })
-      console.log("this.$state.goalsBoardData", this.$state.goalsBoardData);
       return Promise.resolve()
     })()
   },
@@ -754,15 +698,18 @@ Page({
   sign_btn: function (e) {
     return (async () => {
       let index = e.currentTarget.dataset.index
+      console.log(this.$state.aimCardDatas[index])
       if (this.$state.aimCardDatas[index].signed_day) {
+        console.log(`signed`)
         return
       } else if (this.$state.aimCardDatas[index].goal_type == 2) {
-        if (parseInt(this.$state.aimCardDatas[index].frequency) > parseInt(this.data.stepInfoList[this.stepInfoList.length - 1].step)) {
-          wx.showModal({
+        if (parseInt(this.$state.aimCardDatas[index].frequency) > parseInt(this.$state.stepInfoList[this.$state.stepInfoList.length - 1].step)) {
+          wx.showToast({
             title: '您的步数不够',
             icon: 'none',
             duration: 2500,
           })
+          return
         }
       }
       let goal_id = e.currentTarget.dataset.id;
@@ -781,7 +728,6 @@ Page({
   },
 
   changePage_Back: function (e) {
-    console.log(this.data.title != null);
     if (e.currentTarget.dataset.to == 0) {
       this.setData({
         dialogTitle: "打卡未保存，确认退出？",
@@ -810,7 +756,6 @@ Page({
   },
 
   tapDialogButton: function (e) {
-    console.log(e.detail.item.text);
     if (e.detail.item.text == "退出编辑") {
       this.ClearNewAimData();
       this.setData({

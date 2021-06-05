@@ -80,7 +80,6 @@ Page({
         console.log(`delete fail ${result.errMsg}`)
         return
       }
-      console.log(result.data)
       this.GetCardData()
     })()
   },

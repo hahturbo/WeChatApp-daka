@@ -4,16 +4,13 @@ let store = {
   version: "1.1.00",
   card_num: 0,
 
-  user_Info: '',
   can_share: false,
   invite_goal_id: '',
-  msg: 'xxxxx',
-  user: {},
-  apiURL: "http://127.0.0.1:8088",
+  // apiURL:"http://localhost:8088",
+  apiURL: "http://192.168.1.101:8088", // 真机调试
   // apiURL: "https://hahaturbo.site",
   isLogin: false,
   isTry: true, //尝试登陆变量 false时显示登录框
-  signed_up: "",
   using_day: 0,
   login_key: null,
   aimCardData: [],
@@ -23,7 +20,7 @@ let store = {
   CardData: '',
   CardDetail: '',
   GoalType: ['极简', '普通', '微信运动'],
-
+  stepInfoList: '',
   tick_title: '',
 
   imgURL: `https://haha1001.gitee.io/wechatapp-daka/miniprogram/images`
@@ -108,25 +105,5 @@ function unloadStore() {
     pcList.splice(index, 1)
   }
 }
-
-
-
 initPage()
 initComponent()
-// ：https://blog.csdn.net/milugloomy/java/article/details/102609414
-
-// 然后使用方式，在wxml中使用
-//  <view>{{$state.msg}}</view>
-// 在js中获取state和更新state
-// Page({
-//   //...
-//   func(){
-//     // 获取state中的user
-//     let storeUser = this.$state.user
-//     storeUser.name = 'Becky'
-//     // 更新state中的user
-//     this.setState({
-//       user:storeUser
-//     })
-//   }
-// })
