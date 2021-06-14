@@ -189,6 +189,7 @@ Component({
                 now_type: this.data.goal_type,
                 goal_type: this.data.goal_type,
                 goal_name: this.data.goal_name,
+                old_name: this.$state.CardData[this.data.item].goal_name,
               },
             })
             break;
@@ -203,6 +204,7 @@ Component({
                 goal_type: this.data.goal_type,
                 goal_name: `每天走${this.data.goal_name}步`,
                 frequency: this.data.goal_name,
+                old_name: this.$state.CardData[this.data.item].goal_name,
               },
             })
             break
@@ -223,6 +225,7 @@ Component({
                 reminder_at: this.data.reminder_at,
                 needed_be_signed_at: this.data.needed_be_signed_at,
                 needed_be_signed_deadline: this.data.needed_be_signed_deadline,
+                old_name: this.$state.CardData[this.data.item].goal_name,
               },
             })
             break;

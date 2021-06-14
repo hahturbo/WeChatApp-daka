@@ -68,19 +68,6 @@ Component({
   methods: {
     initCardDetail: function () {
       return (async () => {
-        if (this.$state.CardData[this.data.item].goal_type == 2) {
-          await this.getWeRunData()
-          if (this.$state.CardData[this.data.item].goal_type == 2 && parseInt(this.$state.stepInfoList[this.$state.stepInfoList.length - 1].step) >= parseInt(this.$state.CardData[this.data.item].goal_name.replace(/[^\d]/g, ""))) {
-            await awx.request({
-              method: "POST",
-              url: this.$state.apiURL + "/user/goal/sign",
-              data: {
-                goal_id: this.$state.CardData[this.data.item].goal_id,
-                login_key: this.$state.login_key,
-              },
-            })
-          }
-        }
         // 获取打卡记录
         await this.getCardDetail()
         this.today()
@@ -89,6 +76,9 @@ Component({
           this.setData({
             cardend: endflag
           })
+        }
+        if (this.$state.CardData[this.data.item].goal_type == 2) {
+          await this.getWeRunData()
         }
         return Promise.resolve()
       })()
@@ -350,8 +340,8 @@ Component({
               icon: 'none',
               duration: 2500,
             })
+            return
           }
-          return
         }
         let result = await awx.request({
           method: "POST",
@@ -510,7 +500,6 @@ Component({
           card_num: result.data.data.data.length,
         })
         await this.getindex(this.$state.aimCardDatas);
-        console.log(" this.$state.aimCardDatas.length", this.$state.aimCardDatas.length)
         await wx.setStorage({
           key: "card_num",
           data: this.$state.card_num,

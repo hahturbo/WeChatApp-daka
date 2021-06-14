@@ -1,10 +1,4 @@
 /**index.wxss**/
-@media screen and (min-width: 500px) {
-    page .return2Home {
-        animation: closePad 1s forwards;
-    }
-}
-
 .auth {
     width: 100vh;
     height: 140vh;
@@ -68,13 +62,12 @@
 
 /* 主新建卡类定义 类：home-content */
 .downfirst {
-    width: 500rpx;
-    height: 10vw;
-    top: -230rpx;
     position: absolute;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    bottom: 100%;
+    width:100%;
 }
 
 .LetAMCCenter {

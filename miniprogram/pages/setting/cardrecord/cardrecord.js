@@ -73,7 +73,8 @@ Page({
         url: this.$state.apiURL + '/user/goal/delete',
         data: {
           login_key: this.$state.login_key,
-          goal_id: e.detail.data,
+          goal_id: e.detail.data[0],
+          title: e.detail.data[1],
         },
       })
       if (result.errMsg === "request:fail ") {

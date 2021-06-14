@@ -138,7 +138,6 @@ Component({
       h = h / 2;
       wx.getSystemInfo({
         success(res) {
-          // console.log(res.windowWidth)
           h = h * res.windowWidth / 750;
           h = h * 2;
         }
@@ -359,7 +358,6 @@ Component({
 
     CheckIfisAim(title) {
       console.log("CheckIfisAim");
-      console.log(this.$state.aimCardDatas);
       let title_card;
       if (this.$state.aimCardDatas.length == 0) {
         console.log("无打卡项");

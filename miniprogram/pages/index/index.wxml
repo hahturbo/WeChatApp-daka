@@ -12,109 +12,170 @@
 			<button bindtap="btn_nologin">暂不登陆</button>
 		</view>
 	</view>
-	<image wx:if='{{$state.skin==1}}' class='background' src="{{$state.imgURL+'/background.png'}}" mode="aspectFill" />
-	<image wx:if='{{$state.skin==2}}' class='background' src="{{$state.imgURL+'/background2.png'}}" mode="aspectFill" />
-	<mp-dialog title="{{dialogTitle}}" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{dialogsButton}}">
-		<!-- <view>{{dialogTitle}}</view> -->
-	</mp-dialog>
+	<image
+	 wx:if='{{$state.skin==1}}'
+	 class='background'
+	 src="{{$state.imgURL+'/background.png'}}"
+	 mode="aspectFill"
+	/>
+	<image
+	 wx:if='{{$state.skin==2}}'
+	 class='background'
+	 src="{{$state.imgURL+'/background2.png'}}"
+	 mode="aspectFill"
+	/>
+	<mp-dialog
+	 title="{{dialogTitle}}"
+	 show="{{dialogShow}}"
+	 bindbuttontap="tapDialogButton"
+	 buttons="{{dialogsButton}}"
+	/>
 	<view class='down {{$state.skin==1?"d_shadow":""}} {{$state.skin==2?"d_black_line":""}}'>
-		<view class="downleft">
-			<image binderror="imageError" class='downimg' hidden='{{nowPage!=2}}' src="{{$state.imgURL+'/aim3.png'}}"
-				data-to="3" bindtap="ChangePageGetBoard" />
-			<image binderror="imageError" class='downimg ' hidden='{{nowPage!=0}}' src="{{$state.imgURL+'/aim3.png'}}"
-				data-to="3" bindtap="ChangePageGetBoard" />
-			<image binderror="imageError" class='downimg ' hidden='{{nowPage!=1}}' src="{{$state.imgURL+'/back.png'}}"
-				data-to="0" bindtap="changePage_Back" />
-			<image binderror="imageError" class='downimg' hidden='{{nowPage!=6}}' src="{{$state.imgURL+'/notmodify.png'}}"
-				data-to="4" bindtap="changePage_Back" />
-			<image binderror="imageError" class='downimg ' hidden='{{nowPage!=4}}' src="{{$state.imgURL+'/back.png'}}"
-				data-to="0" bindtap="DetailEnd" />
-			<image binderror="imageError" class='downimg' hidden='{{nowPage!=3}}' src="{{$state.imgURL+'/tick.png'}}"
-				data-to="0" bindtap="ChangePagePostBoard" />
-			<image binderror="imageError" class='downimg ' hidden='{{nowPage!=5}}' src="{{$state.imgURL+'/refuse.png'}}"
-				bindtap="changePage" data-to="0" />
-		</view>
-		<view wx:if='{{$state.skin==1}}' class='downmidshadow ' />
 		<view class='downfirst' wx:if="{{(nowPage==0&&$state.card_num==0)||(!$state.isLogin&&nowPage==0)}}">
 			<text style="color:gray">现在，给自己制定一个打卡计划</text>
 			<text style="color:gray">⬇</text>
 		</view>
-		<view
-			class='downmid {{nowPage==1||nowPage==2||nowPage==3||nowPage==4||nowPage==5||nowPage==6? "downmiddisable" : ""}} {{$state.skin==2?"d_black_border":""}}'>
-			<image binderror="imageError" class='downmidimg' hidden='{{nowPage!=0&&nowPage!=1}}'
-				src="{{$state.imgURL+'/newaim3.png'}}" data-to="1" bindtap="{{$state.isLogin?'changeNewAimPage':'ToLogin'}}" />
-			<image binderror="imageError" class='downmidimg' hidden='{{nowPage!=2}}' src="{{$state.imgURL+'/setting3.png'}}"
-				data-to="0" bindtap="" />
-			<image binderror="imageError" class='downmidimg' hidden='{{nowPage!=3}}' src="{{$state.imgURL+'/aim3.png'}}"
-				data-to="0" bindtap="" />
-			<image binderror="imageError" class='downmidimg' hidden='{{nowPage!=4}}' src="{{$state.imgURL+'/carddetail.png'}}"
-				data-to="0" bindtap="" />
-			<image binderror="imageError" class='downmidimg' hidden='{{nowPage!=5}}' src="{{$state.imgURL+'/join_group.png'}}"
-				data-to="0" bindtap="" />
-			<image binderror="imageError" class='downmidimg' hidden='{{nowPage!=6}}'
-				src="{{$state.imgURL+'/modifycard.png'}}" />
+		<view class='downleft'>
+			<image
+			 src="{{$state.imgURL+'/aim3.png'}}"
+			 data-to="3"
+			 bindtap="ChangePageGetBoard"
+			 hidden="{{!(nowPage==0||nowPage==2||nowPage==3)}}"
+			/>
+			<image
+			 src="{{$state.imgURL+'/back.png'}}"
+			 hidden="{{!(nowPage==1)}}"
+			 data-to="0"
+			 bindtap="changePage_Back"
+			/>
+			<image
+			 hidden='{{!(nowPage==4)}}'
+			 src="{{$state.imgURL+'/back.png'}}"
+			 data-to="0"
+			 bindtap="DetailEnd"
+			/>
+			<image
+			 src="{{$state.imgURL+'/notmodify.png'}}"
+			 hidden="{{!(nowPage==6)}}"
+			 data-to="4"
+			 bindtap="changePage_Back"
+			/>
+			<image
+			 src="{{$state.imgURL+'/refuse.png'}}"
+			 hidden="{{!(nowPage==5)}}"
+			 data-to="0"
+			 bindtap="changePage"
+			/>
 		</view>
-
-		<view class="downright">
-			<image binderror="imageError" class='downimg' hidden='{{nowPage!=0&&nowPage!=3}}'
-				src="{{$state.imgURL+'/setting3.png'}}" data-to="2" bindtap="ChangePagePostBoard" />
-			<image binderror="imageError" class='downimg' hidden='{{nowPage!=1}}' src="{{$state.imgURL+'/finish.png'}}"
-				data-to="0" bindtap="changePage_Finish" />
-			<image binderror="imageError" class='downimg' hidden='{{nowPage!=2}}' src="{{$state.imgURL+'/tick.png'}}"
-				data-to="0" bindtap="ChangePagePostBoard" />
-			<image binderror="imageError" class='downimg' hidden='{{nowPage!=5}}' src="{{$state.imgURL+'/accept.png'}}"
-				data-to="0" bindtap="{{$state.isLogin?'AcceptInvite':'ToLogin'}}" />
-			<image binderror="imageError" class='downimg' hidden='{{nowPage!=4}}' src="{{$state.imgURL+'/modify.png'}}"
-				data-to="6" bindtap="changePage" />
-			<image binderror="imageError" class='downimg' hidden='{{nowPage!=6}}' src="{{$state.imgURL+'/savemodify.png'}}"
-				data-to="4" bindtap="modifycard" />
-
+		<view class='downmid'>
+			<image
+			 src="{{$state.imgURL+'/newaim3.png'}}"
+			 data-to="1"
+			 hidden="{{!(nowPage==0||nowPage==1)}}"
+			 bindtap="{{$state.isLogin?'changeNewAimPage':'ToLogin'}}"
+			/>
+			<image
+			 src="{{$state.imgURL+'/tick.png'}}"
+			 hidden="{{!(nowPage==2||nowPage==3)}}"
+			 data-to="0"
+			 bindtap="ChangePagePostBoard"
+			/>
+			<image src="{{$state.imgURL+'/carddetail.png'}}" hidden="{{!(nowPage==4)}}" />
+			<image src="{{$state.imgURL+'/modifycard.png'}}" hidden="{{!(nowPage==6)}}" />
+			<image src="{{$state.imgURL+'/join_group.png'}}" hidden="{{!(nowPage==5)}}" />
+		</view>
+		<view class='downright'>
+			<image
+			 src="{{$state.imgURL+'/setting3.png'}}"
+			 data-to="2"
+			 hidden="{{!(nowPage==0||nowPage==2||nowPage==3)}}"
+			 bindtap="ChangePagePostBoard"
+			/>
+			<image
+			 src="{{$state.imgURL+'/finish.png'}}"
+			 hidden="{{!(nowPage==1)}}"
+			 data-to="0"
+			 bindtap="changePage_Finish"
+			/>
+			<image
+			 src="{{$state.imgURL+'/modify.png'}}"
+			 hidden="{{!(nowPage==4)}}"
+			 data-to="6"
+			 bindtap="changePage"
+			/>
+			<image
+			 src="{{$state.imgURL+'/savemodify.png'}}"
+			 hidden="{{!(nowPage==6)}}"
+			 data-to="4"
+			 bindtap="modifycard"
+			/>
+			<image
+			 src="{{$state.imgURL+'/accept.png'}}"
+			 hidden="{{!(nowPage==5)}}"
+			 data-to="0"
+			 bindtap="{{$state.isLogin?'AcceptInvite':'ToLogin'}}"
+			/>
 		</view>
 	</view>
-	<!-- nowPage 默认等于 0 ， 但是你按下 新建打卡 就会变成1 ， 这里判断 如果不等于0了 就添加一个 toFullCard 的 类
-         这个类里面 就有动画的样式
-         这里的 changedPageCounts 就是为了判断是不是 首次进入首页，如果是第一次进入首页的话 就不会给他添加return2Home的类， 否则就会添加 
-         nmd这里n个三元运算符
-    -->
-
 	<scroll-view scroll-y="true" class='AllMainCard' wx:if="{{nowPage== 0}}">
 		<view class="LetAMCCenter">
-			<view id="main_container"
-				class='aim_card  {{$state.skin==1? "bgcolor-o":""}} {{$state.skin==2? "bgcolor-skin2":""}} {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}}'
-				animation="{{open_animation}}">
+			<view id="main_container" class='aim_card  {{$state.skin==1? "bgcolor-o":""}} {{$state.skin==2? "bgcolor-skin2":""}} {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}}' animation="{{open_animation}}">
 
 				<view class='home-content' wx:if="{{nowPage==0}}">
-					<image wx:if='{{$state.skin==1}}' hidden="{{$state.card_num!=0&&$state.isLogin}}"
-						style=" width:100%;height:100%" src="{{$state.imgURL+'/mainnew.png'}}" />
-					<image wx:if='{{$state.skin==2}}' hidden="{{$state.card_num!=0&&$state.isLogin}}"
-						style=" width:100%;height:100%" src="{{$state.imgURL+'/mainnew3.png'}}" />
+					<image
+					 wx:if='{{$state.skin==1}}'
+					 hidden="{{$state.card_num!=0&&$state.isLogin}}"
+					 style=" width:100%;height:100%"
+					 src="{{$state.imgURL+'/mainnew.png'}}"
+					/>
+					<image
+					 wx:if='{{$state.skin==2}}'
+					 hidden="{{$state.card_num!=0&&$state.isLogin}}"
+					 style=" width:100%;height:100%"
+					 src="{{$state.imgURL+'/mainnew3.png'}}"
+					/>
 					<view class='home-content' wx:if="{{$state.card_num!=0&&$state.isLogin}}">
 						<text class='{{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2" : ""}}'
 							bindtap="gotodetails" data-to="{{0}}">{{$state.aimCardDatas[0].goal_name}}
 						</text>
-						<image bindtap="gotodetails" data-to="{{0}}" class='' style=" width:70%;height:40%"
-							src="{{$state.imgURL+'/mainnew2.png'}}" />
+						<image
+						 bindtap="gotodetails"
+						 data-to="{{0}}"
+						 class=''
+						 style=" width:70%;height:40%"
+						 src="{{$state.imgURL+'/mainnew2.png'}}"
+						/>
 
 						<text wx:if="{{$state.aimCardDatas[0].goal_is_a_group==0}}"
 							style='color:#FF9966; font-size:30rpx;'>已连续{{$state.aimCardDatas[0].continuousNum
 							}}次</text>
 						<text wx:if="{{$state.aimCardDatas[0].goal_is_a_group==1}}" style='color:#FF9966; font-size:30rpx;'>
-							今日小组已有{{$state.aimCardDatas[0].sign_today}}人打卡
+							今日小组已有{{$state.aimCardDatas[0].how_many_today}}人打卡
 						</text>
 						<button
-							class='new_aim_card {{$state.aimCardDatas[0].sign_today||(!$state.aimCardDatas[0].sign_today&&($state.aimCardDatas[0].goal_type==0||($state.aimCardDatas[0].goal_type==2&&my.myInt($state.aimCardDatas[0].frequency)<=my.myInt($state.stepInfoList[$state.stepInfoList.length-1].step))))?"NACunable":""}}'
-							data-id='{{$state.aimCardDatas[0].goal_id}}' data-index="{{0}}"
-							bindtap='{{$state.aimCardDatas[0].sign_today?"":"sign_btn"}}'>
+						 class='new_aim_card {{$state.aimCardDatas[0].sign_today||(!$state.aimCardDatas[0].sign_today&&($state.aimCardDatas[0].goal_type==2&&my.myInt($state.aimCardDatas[0].frequency)>my.myInt($state.stepInfoList[$state.stepInfoList.length-1].step)))?"NACunable":""}}'
+						 data-id='{{$state.aimCardDatas[0].goal_id}}'
+						 data-index="{{0}}"
+						 bindtap='{{$state.aimCardDatas[0].sign_today?"":"sign_btn"}}'
+						>
 							<text style='{{$state.skin==1?"color:#FFFFFF;":"color:#000000"}}'
 								hidden="{{!(!$state.aimCardDatas[0].sign_today&&($state.aimCardDatas[0].goal_type!=2||($state.aimCardDatas[0].goal_type==2&&my.myInt($state.aimCardDatas[0].frequency)<=my.myInt($state.stepInfoList[$state.stepInfoList.length-1].step))))}}">今日打卡
 							</text>
 							<text style='{{$state.skin==1?"color:#FFFFFF;":"color:#000000"}}'
 								hidden="{{!(!$state.aimCardDatas[0].sign_today&&$state.aimCardDatas[0].goal_type==2&&my.myInt($state.aimCardDatas[0].frequency)>my.myInt($state.stepInfoList[$state.stepInfoList.length-1].step))}}">今日未完成
 							</text>
-							<image wx:if='{{$state.skin==1}}' hidden="{{!$state.aimCardDatas[0].sign_today}}"
-								src="{{$state.imgURL+'/tickB_finish.png'}}" style="width:100%; height:90rpx" />
-							<image wx:if='{{$state.skin==2}}' hidden="{{!$state.aimCardDatas[0].sign_today}}"
-								src="{{$state.imgURL+'/tickB_finish2.png'}}" style="width:100%; height:90rpx" />
+							<image
+							 wx:if='{{$state.skin==1}}'
+							 hidden="{{!$state.aimCardDatas[0].sign_today}}"
+							 src="{{$state.imgURL+'/tickB_finish.png'}}"
+							 style="width:100%; height:90rpx"
+							/>
+							<image
+							 wx:if='{{$state.skin==2}}'
+							 hidden="{{!$state.aimCardDatas[0].sign_today}}"
+							 src="{{$state.imgURL+'/tickB_finish2.png'}}"
+							 style="width:100%; height:90rpx"
+							/>
 
 						</button>
 					</view>
@@ -123,9 +184,7 @@
 		</view>
 
 		<view class="LetAMCCenter" wx:for='{{$state.aimCardDatas}}'>
-			<view
-				class='mid-contentA {{$state.skin==2?"bgcolor-skin2":""}} {{(index%3==0&&$state.skin==1)?"bgcolor-g":""}} {{(index%3==1&&$state.skin==1)?"bgcolor-b":""}} {{(index%3==2&&$state.skin==1)?"bgcolor-o":""}}'
-				wx:if="{{$state.aimCardDatas[index+1]}}">
+			<view class='mid-contentA {{$state.skin==2?"bgcolor-skin2":""}} {{(index%3==0&&$state.skin==1)?"bgcolor-g":""}} {{(index%3==1&&$state.skin==1)?"bgcolor-b":""}} {{(index%3==2&&$state.skin==1)?"bgcolor-o":""}}' wx:if="{{$state.aimCardDatas[index+1]}}">
 				<view class='contentAText'>
 					<text bindtap="gotodetails"
 						class='mid-text {{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2" : ""}}'
@@ -134,26 +193,30 @@
 						wx:if="{{$state.aimCardDatas[index+1].goal_is_a_group==0}}">已连续{{$state.aimCardDatas[index+1].continuousNum
 						}}次</text>
 					<text class='small-text {{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2_2" : ""}}'
-						wx:if="{{$state.aimCardDatas[index+1].goal_is_a_group==1}}">本次小组已有{{$state.aimCardDatas[index+1].sign_today}}人打卡</text>
+						wx:if="{{$state.aimCardDatas[index+1].goal_is_a_group==1}}">本次小组已有{{$state.aimCardDatas[index+1].how_many_today}}人打卡</text>
 				</view>
 				<view
-					class='button {{$state.aimCardDatas[index+1].sign_today||(!$state.aimCardDatas[index+1].sign_today&&$state.aimCardDatas[index+1].goal_type==2&&my.myInt($state.aimCardDatas[index+1].frequency)>my.myInt($state.stepInfoList[$state.stepInfoList.length-1].step))?"buttonNo":""}}'
-					data-id='{{$state.aimCardDatas[index+1].goal_id}}' data-index='{{index+1}}' bindtap='sign_btn'>
-					<image wx:if='{{$state.skin==1}}' class='icon' hidden="{{!$state.aimCardDatas[index+1].sign_today}}"
-						src="{{$state.imgURL+'/tick_finish.png'}}" />
-					<image wx:if='{{$state.skin==2}}' class='icon' hidden="{{!$state.aimCardDatas[index+1].sign_today}}"
-						src="{{$state.imgURL+'/tick_finish2.png'}}" />
-					<image hidden="{{$state.aimCardDatas[index+1].sign_today||$state.aimCardDatas[index+1].frequency_type[0]!=0}}"
-						class='icon' src="{{$state.imgURL+'/tick_able.png'}}" />
-					<image class='icon'
-						hidden="{{!(!$state.aimCardDatas[index+1].sign_today&&($state.aimCardDatas[index+1].goal_type==0||($state.aimCardDatas[index+1].goal_type==2&&my.myInt($state.aimCardDatas[index+1].frequency)<=my.myInt($state.stepInfoList[$state.stepInfoList.length-1].step))))}}"
-						src="{{$state.imgURL+'/tick_today.png'}}" />
-					<image wx:if='{{$state.skin==1}}'
-						hidden="{{!(!$state.aimCardDatas[index+1].sign_today&&$state.aimCardDatas[index+1].goal_type==2&&my.myInt($state.aimCardDatas[index+1].frequency)>my.myInt($state.stepInfoList[$state.stepInfoList.length-1].step))}}"
-						src="{{$state.imgURL+'/tick_unfinish.png'}}" />
-					<image wx:if='{{$state.skin==2}}'
-						hidden="{{!(!$state.aimCardDatas[index+1].sign_today&&$state.aimCardDatas[index+1].goal_type==2&&my.myInt($state.aimCardDatas[index+1].frequency)>my.myInt($state.stepInfoList[$state.stepInfoList.length-1].step))}}"
-						src="{{$state.imgURL+'/tick_unfinish2.png'}}" />
+				 class='button {{$state.aimCardDatas[index+1].sign_today||(!$state.aimCardDatas[index+1].sign_today&&$state.aimCardDatas[index+1].goal_type==2&&my.myInt($state.aimCardDatas[index+1].frequency)>my.myInt($state.stepInfoList[$state.stepInfoList.length-1].step))?"buttonNo":""}}'
+				 data-id='{{$state.aimCardDatas[index+1].goal_id}}'
+				 data-index='{{index+1}}'
+				 bindtap='sign_btn'
+				>
+					<image
+					 wx:if='{{$state.skin==1}}'
+					 class='icon'
+					 hidden="{{!$state.aimCardDatas[index+1].sign_today}}"
+					 src="{{$state.imgURL+'/tick_finish.png'}}"
+					/>
+					<image
+					 wx:if='{{$state.skin==2}}'
+					 class='icon'
+					 hidden="{{!$state.aimCardDatas[index+1].sign_today}}"
+					 src="{{$state.imgURL+'/tick_finish2.png'}}"
+					/>
+					<image hidden="{{$state.aimCardDatas[index+1].sign_today||$state.aimCardDatas[index+1].frequency_type[0]!=0}}" class='icon' src="{{$state.imgURL+'/tick_able.png'}}" />
+					<image class='icon' hidden="{{!(!$state.aimCardDatas[index+1].sign_today&&($state.aimCardDatas[index+1].goal_type==0||($state.aimCardDatas[index+1].goal_type==2&&my.myInt($state.aimCardDatas[index+1].frequency)<=my.myInt($state.stepInfoList[$state.stepInfoList.length-1].step))))}}" src="{{$state.imgURL+'/tick_today.png'}}" />
+					<image wx:if='{{$state.skin==1}}' hidden="{{!(!$state.aimCardDatas[index+1].sign_today&&$state.aimCardDatas[index+1].goal_type==2&&my.myInt($state.aimCardDatas[index+1].frequency)>my.myInt($state.stepInfoList[$state.stepInfoList.length-1].step))}}" src="{{$state.imgURL+'/tick_unfinish.png'}}" />
+					<image wx:if='{{$state.skin==2}}' hidden="{{!(!$state.aimCardDatas[index+1].sign_today&&$state.aimCardDatas[index+1].goal_type==2&&my.myInt($state.aimCardDatas[index+1].frequency)>my.myInt($state.stepInfoList[$state.stepInfoList.length-1].step))}}" src="{{$state.imgURL+'/tick_unfinish2.png'}}" />
 				</view>
 			</view>
 		</view>
@@ -163,20 +226,18 @@
 
 	<!-- class='AllMainCard'end -->
 
-	<view
-		class='FullScreenCard aim_card  {{$state.skin==1? "bgcolor-o":""}} {{$state.skin==2? "bgcolor-skin2":""}} {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}}'
-		wx:if="{{nowPage==1||nowPage==2||nowPage==4||nowPage==5}}">
+	<view class='FullScreenCard aim_card  {{$state.skin==1? "bgcolor-o":""}} {{$state.skin==2? "bgcolor-skin2":""}} {{nowPage != 0 ? "toFullCard" : (changedPageCounts != 0 ? "return2Home" : "")}}' wx:if="{{nowPage==1||nowPage==2||nowPage==4||nowPage==5}}">
 		<!-- animation="{{open_animation}}" -->
 		<view class=' containerB toFullCard' wx:if="{{nowPage==1}}">
-			<newaimcard />
+			<newaimcard/>
 		</view>
 		<!-- nowpage 1 end -->
 		<view class=' containerB toFullCard' wx:if="{{nowPage==2}}">
-			<setting />
+			<setting/>
 		</view>
 		<!-- nowpage==5 -->
 		<view class=' containerB toFullCard' wx:if="{{nowPage==5}}">
-			<invite />
+			<invite/>
 		</view>
 		<!-- nowpage==4 -->
 		<view class='containerB toFullCard carddetail' wx:if="{{nowPage==4}}">
@@ -184,9 +245,7 @@
 		</view>
 	</view>
 	<!-- 再来一个，实现进出背景和内容动画都有 -->
-	<view
-		class='FullScreenCard aim_card toFullCard {{$state.skin==1? "bgcolor-o":""}} {{$state.skin==2? "bgcolor-skin2":""}}'
-		wx:if="{{nowPage==6}}">
+	<view class='FullScreenCard aim_card toFullCard {{$state.skin==1? "bgcolor-o":""}} {{$state.skin==2? "bgcolor-skin2":""}}' wx:if="{{nowPage==6}}">
 		<!-- nowpage==6 -->
 		<view class='containerB toFullCard modifycard' wx:if="{{nowPage==6}}">
 			<modifycard carditem="{{carditem}}" id='modifycard' bind:deleteEvent='getsondelete' />
@@ -197,7 +256,8 @@
 		<image wx:if='{{$state.skin==1}}' id="clicp" src="{{$state.imgURL+'/clicp.png'}}" />
 		<image wx:if='{{$state.skin==2}}' id="clicp2" src="{{$state.imgURL+'/clicp2.png'}}" />
 		<view class='containerC '>
-			<tick />
+			<tick/>
 		</view>
 	</view>
 </view>
+

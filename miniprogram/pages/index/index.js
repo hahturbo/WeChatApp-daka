@@ -367,6 +367,7 @@ Page({
           console.log("wx.login failure");
           return
         }
+        console.log(wxLogin)
         let result = await awx.request({
           method: 'POST',
           url: this.$state.apiURL + '/user/login',
@@ -698,7 +699,6 @@ Page({
   sign_btn: function (e) {
     return (async () => {
       let index = e.currentTarget.dataset.index
-      console.log(this.$state.aimCardDatas[index])
       if (this.$state.aimCardDatas[index].signed_day) {
         console.log(`signed`)
         return
@@ -721,7 +721,7 @@ Page({
           login_key: this.$state.login_key,
         },
       })
-      console.log(`sign post ${result.data}`)
+      console.log(`sign post ${JSON.stringify(result.data,null,2)}`)
       await this.GetCardData()
       return Promise.resolve()
     })()

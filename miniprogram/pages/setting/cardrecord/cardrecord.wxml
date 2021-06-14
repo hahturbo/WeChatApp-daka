@@ -5,7 +5,7 @@
 <scroll-view class="scrollY" scroll-y="true">
 	<view class="mid-contentD" wx:for="{{carddatas}}" wx:if="{{cardend[index]}}">
 		<mp-slideview class="slide" data-gid="item.goal_id"
-			buttons="{{[{ type: 'warn',text:'彻底删除', extClass:'img_delete', src:$state.imgURL+'/corddelete.png', data:item.goal_id}]}}"
+			buttons="{{[{ type: 'warn',text:'彻底删除', extClass:'img_delete', src:$state.imgURL+'/corddelete.png', data:[item.goal_id,item.goal_name]}]}}"
 			icon="{{false}}" bindbuttontap="slideButtonTap">
 			<navigator url="{{'./detail/detail?id='+index}}">
 				<view class="contentDText">

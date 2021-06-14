@@ -18,7 +18,7 @@
   display: none !important;
 }
 
-image{
+.containerCin image{
   width:85rpx;
   height: 50rpx;
   float: right;

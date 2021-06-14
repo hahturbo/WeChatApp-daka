@@ -6,8 +6,8 @@ let store = {
 
   can_share: false,
   invite_goal_id: '',
-  // apiURL:"http://localhost:8088",
-  apiURL: "http://192.168.1.101:8088", // 真机调试
+  apiURL:"http://localhost:8088",
+  // apiURL: "http://192.168.1.101:8088", // 真机调试
   // apiURL: "https://hahaturbo.site",
   isLogin: false,
   isTry: true, //尝试登陆变量 false时显示登录框
