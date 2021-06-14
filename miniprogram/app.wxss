@@ -177,6 +177,8 @@ page .btn_go_on {
 
 }
 .down image{
-  width: 41.57%;
-  height:auto;
+  /* width: 41.57%;
+  height:auto; */
+  width: 100rpx;
+  height:100rpx;
 }

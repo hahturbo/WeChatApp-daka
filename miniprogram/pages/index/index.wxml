@@ -69,7 +69,7 @@
 		</view>
 		<view class='downmid'>
 			<image
-			 src="{{$state.imgURL+'/newaim3.png'}}"
+			 src="{{$state.imgURL+'/newaim3(new).png'}}"
 			 data-to="1"
 			 hidden="{{!(nowPage==0||nowPage==1)}}"
 			 bindtap="{{$state.isLogin?'changeNewAimPage':'ToLogin'}}"
@@ -80,9 +80,9 @@
 			 data-to="0"
 			 bindtap="ChangePagePostBoard"
 			/>
-			<image src="{{$state.imgURL+'/carddetail.png'}}" hidden="{{!(nowPage==4)}}" />
-			<image src="{{$state.imgURL+'/modifycard.png'}}" hidden="{{!(nowPage==6)}}" />
-			<image src="{{$state.imgURL+'/join_group.png'}}" hidden="{{!(nowPage==5)}}" />
+			<image src="{{$state.imgURL+'/carddetail(new).png'}}" hidden="{{!(nowPage==4)}}" />
+			<image src="{{$state.imgURL+'/modifycard(new).png'}}" hidden="{{!(nowPage==6)}}" />
+			<image src="{{$state.imgURL+'/join_group(new).png'}}" hidden="{{!(nowPage==5)}}" />
 		</view>
 		<view class='downright'>
 			<image

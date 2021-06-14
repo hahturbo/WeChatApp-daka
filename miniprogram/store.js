@@ -1,9 +1,8 @@
 // 全局变量
 let store = {
   skin: 1, //1初始橙 2网格白
-  version: "1.1.00",
+  version: "2.0.0",
   card_num: 0,
-
   can_share: false,
   invite_goal_id: '',
   apiURL:"http://localhost:8088",
@@ -23,7 +22,8 @@ let store = {
   stepInfoList: '',
   tick_title: '',
 
-  imgURL: `https://haha1001.gitee.io/wechatapp-daka/miniprogram/images`
+  // imgURL: `https://haha1001.gitee.io/wechatapp-daka/miniprogram/images`
+  imgURL: `http://localhost:8088/images`
 }
 // 所有已加载的页面和组件
 let pcList = []

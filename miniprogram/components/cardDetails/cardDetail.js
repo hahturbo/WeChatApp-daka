@@ -98,11 +98,9 @@ Component({
       // 对待极简和运动的
       let end = new Date(this.$state.CardData[this.data.item].ended_in)
       let today = new Date(this.data.select)
-      if (end < today && this.$state.CardData[this.data.item].goal_type == 4) {
+      if (end < today && this.$state.CardData[this.data.item].goal_type % 3 == 1) {
         today = end
-      } else if (
-        this.$state.CardData[this.data.item].goal_type != 3 && this.$state.CardData[this.data.item].goal_type != 5
-      ) {
+      } else if (this.$state.CardData[this.data.item].goal_type != 3 && this.$state.CardData[this.data.item].goal_type != 5) {
         return false // false代表还没结束
       }
       this.setData({
