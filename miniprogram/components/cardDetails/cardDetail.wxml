@@ -103,7 +103,6 @@
 			</button>
 			<view class="deletedaka" bindtap="deletedaka">删除打卡</view>
 		</view>
-		<view class="block line" style="height:12vh;" />
 		<mp-dialog
 		 title="{{dialogtitle}}"
 		 show="{{dialogshow}}"

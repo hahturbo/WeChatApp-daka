@@ -1,97 +1,63 @@
 /* pages/setting/setting.wxss */
-
-.uploader-text{
+.settings {
+  height: 90vh;
   width: 100%;
-  height: 100%;
-}
-.containerB{
-  /* display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box; */
-  width: 720rpx;
-  height: 100%;
-  /* position:fixed;  */
-  border-radius: 50rpx 50rpx 0rpx 0rpx;
-  background: #eee;
-  align-items: center;
+  background-color: #fff;
+  border-radius: 50rpx 50rpx 0 0;
+  padding: 50rpx;
   display: flex;
   flex-direction: column;
-  
-}
-.right_text{
-  right: 0rpx;
-  margin-right: 30rpx;
-  /* display: inline-block;
-  position: absolute; */
-  float: right;
-}
-
-
-
-.right_text picker{
-  display: inline-block;
-}
-.right_text_unselect{
-  color: gray !important; 
-}
-.displayNone{
-  display: none !important;
-}
-
-.card {
-  margin-top: 20rpx;
-  height: 100rpx;
-  width: 720rpx;
-  background: #fff;
-  /* border: 5rpx solid #eee; */
-  border-left: none;
-  border-right: none;
-  display: flex;
-  position: relative;
-  flex-direction: row;
-  align-items: left;
-  transition: all 300ms ease;
+  align-items: center;
+  transition: all 1s ease;
   box-sizing: border-box;
 }
 
-
-  navigator{
-    width:720rpx;
-    display: inline-block;
-  }
-
-
-
 /* 设置css */
 .user {
-  /* margin-top: 30rpx; */
   height: 250rpx;
   width: 100%;
-  background: #fff;
-  border-radius: 50rpx 50rpx 0rpx 0rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
-  transition: all 300ms ease;
-  justify-content: space-between;
 }
-.user_img{
-  margin: 40rpx;
+
+.user_img {
   width: 150rpx;
   height: 150rpx;
-  border-radius:50%;
-  /* border-width: 8rpx; */
-  overflow:hidden;
+  border-radius: 50rpx;
+  overflow: hidden;
   text-align: center;
 }
-.userzonetext{
+
+.userzonetext {
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  width: 70%;
-  /* justify-content: ; */
+  justify-content: center;
+  padding: 0 50rpx;
 }
-.user_name{
-font-size: 70rpx;
-margin-left: 20rpx;
+
+.user_name {
+  font-size: 70rpx;
+}
+
+.card {
+  border-bottom: 4rpx solid #eee;
+  height: 100rpx;
+  width: 100%;
+  background: #fff;
+  display: flex;
+}
+
+.card navigator {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.right_text {
+  flex: 1 1 auto;
+  text-align: right;
 }

@@ -1,7 +1,4 @@
 /* miniprogram/pages/setting/cardrecord/detail/detail.wxss */
-.containerB {
-  background-color: white;
-}
 
 #carddetail2 {
   margin: 5rpx;

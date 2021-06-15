@@ -63,28 +63,20 @@
 /* 主新建卡类定义 类：home-content */
 .downfirst {
     position: absolute;
-    display:flex;
-    flex-direction:column;
-    align-items: center;
-    bottom: 100%;
-    width:100%;
-}
-
-.LetAMCCenter {
-    width: 100%;
-    align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    margin-bottom: 30rpx;
+    align-items: center;
+    bottom: 100%;
+    width: 100%;
 }
 
 .AllMainCard {
-    left: 200rpx;
-    width: 700rpx;
+    width: 100%;
     height: 90vh;
-    /* overflow: visible; */
     display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
     align-items: center;
 }
 
@@ -117,45 +109,53 @@
     justify-content: space-around;
 }
 
-.mid-contentA {
-    width: 600rpx;
-    height: 180rpx;
-    border-radius: 30rpx;
-
-    border-style: dashed;
-    border-color: #ffffff;
-    border-width: 5rpx;
+.aim_card {
+    /*滚动条*/
+    width: 88%;
+    height: 680rpx;
+    margin: 40rpx auto;
+    border-radius: 45rpx;
+    border: 5rpx dotted #ffffff;
     position: relative;
-    margin: 5rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
 
+.mid-contentA {
+    width: 88%;
+    height: 203rpx;
+    margin: 40rpx auto;
+    border: 5rpx dotted #ffffff;
+    border-radius: 30rpx;
+    position: relative;
     display: flex;
     flex-direction: row;
 }
 
 .bgcolor-g {
-    box-shadow: 0px 0px 40rpx 10rpx #888888;
+    box-shadow: 0rpx 0rpx 8rpx rgba(242, 157, 112, 0.9);
     background-color: #a8d08c;
 }
 
 .bgcolor-b {
-    box-shadow: 0px 0px 40rpx 10rpx #888888;
+    box-shadow: 0rpx 0rpx 8rpx rgba(242, 157, 112, 0.9);
     background-color: #b3d0eb;
 }
 
 .bgcolor-o {
-    box-shadow: 0px 0px 40rpx 10rpx #888888;
+    box-shadow: 0rpx 0rpx 8rpx rgba(242, 157, 112, 0.9);
     background-color: #ffcc66;
 }
 
 .bgcolor-skin2 {
-    border-style: dotted;
-    border-width: 5px;
-    border-color: black;
+    border: 5rpx dotted #353535;
     background-color: var(--main-color2);
 }
 
 .contentAText {
-    width: 70%;
+    flex: 1 1 auto;
     display: flex;
     align-items: left;
     flex-direction: column;
@@ -179,11 +179,9 @@
 
 .button {
     width: 30%;
-    height: 99%;
+    height: auto;
     background-color: #ff9966;
-    border-radius: 30rpx;
-    align-items: center;
-    display: flex;
+    border-radius: 26rpx;
 }
 
 .buttonNo {
@@ -232,13 +230,14 @@
 @keyframes open {
     from {
         opacity: 0;
+        width: 80%;
     }
 
     to {
         opacity: 1;
         width: 100%;
         height: 100%;
-        background-color: #ffffff;
+        border-radius: 50rpx 50rpx 0 0;
     }
 }
 
@@ -255,14 +254,14 @@
 @keyframes close {
     to {
         opacity: 1;
-        width: 600rpx;
-        height: 600rpx;
+        width: 88%;
+        height: 680rpx;
         /* background-color: var(--main-color); */
     }
 
     from {
         opacity: 0;
-        width: 720rpx;
+        width: 100%;
         height: 100vh;
         background-color: #ffffff;
     }
@@ -271,8 +270,8 @@
 @keyframes closePad {
     to {
         opacity: 1;
-        width: 600rpx;
-        height: 600rpx;
+        width: 88%;
+        height: 680rpx;
         background-color: var(--main-color);
     }
 
@@ -285,7 +284,7 @@
 }
 
 /* 新建打卡按钮 */
-Page .new_aim_card {
+.new_aim_card {
     width: 60%;
     /* height: 80rpx; */
     background: rgb(255, 153, 102);

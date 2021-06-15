@@ -1,9 +1,15 @@
 /* components/cardDetails/cardDetail.wxss */
 .cardDetail {
-  height: 86.5vh;
-  border-radius: 50rpx 50rpx 0rpx 0rpx;
-  /* background: #fff;   */
-  width: 98vw;
+  height: 90vh;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 50rpx 50rpx 0 0;
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 1s ease;
+  box-sizing: border-box;
 }
 
 .cardDetail text {
@@ -39,7 +45,8 @@
 
 .calander_top {
   display: flex;
-  line-height: 50rpx;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   padding: 5rpx;
   box-sizing: border-box;
@@ -50,7 +57,7 @@
   font-size: 35rpx;
   /* flex: 1; */
   text-align: center;
-  font-weight: 200;
+  /* font-weight: 200; */
 }
 
 .header {

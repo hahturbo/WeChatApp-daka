@@ -55,7 +55,7 @@ Page({
           skin: 0
         })
       }
-      let invite_goal_id = options.id;
+      let invite_goal_id = "";
       if (invite_goal_id) {
         this.setData({
           nowPage: 5,

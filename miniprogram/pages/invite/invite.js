@@ -21,12 +21,12 @@ Component({
     (async () => {
       await this.GetInviteData();
       let timer = setInterval(async () => {
-        if (!this.datat.invite_data.length) {
+        if (!this.data.invite_data) {
           await this.GetInviteData()
         } else {
           clearInterval(timer)
         }
-      }, 2500)
+      }, 5000)
     })()
 
   },
@@ -50,8 +50,7 @@ Component({
           method: 'POST',
           url: this.$state.apiURL + '/user/group/get/data',
           data: {
-            t: 1,
-            p: this.$state.invite_goal_id,
+            invite_id: this.$state.invite_goal_id,
             login_key: this.$state.login_key,
           },
         })

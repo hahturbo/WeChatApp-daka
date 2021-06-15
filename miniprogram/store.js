@@ -5,9 +5,9 @@ let store = {
   card_num: 0,
   can_share: false,
   invite_goal_id: '',
-  apiURL:"http://localhost:8088",
+  // apiURL:"http://localhost:8088",
   // apiURL: "http://192.168.1.101:8088", // 真机调试
-  // apiURL: "https://hahaturbo.site",
+  apiURL: "https://wxdaka.hahaturbo.site",
   isLogin: false,
   isTry: true, //尝试登陆变量 false时显示登录框
   using_day: 0,
@@ -23,7 +23,7 @@ let store = {
   tick_title: '',
 
   // imgURL: `https://haha1001.gitee.io/wechatapp-daka/miniprogram/images`
-  imgURL: `http://localhost:8088/images`
+  imgURL: `https://wxdaka.hahaturbo.site/images`
 }
 // 所有已加载的页面和组件
 let pcList = []

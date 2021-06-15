@@ -1,14 +1,14 @@
 <!--pages/setting/setting.wxml-->
 
-<view id="settings" class=' containerB'>
+<view class="settings">
 	<!--账户信息区 -->
 	<view class="user">
 		<open-data class='user_img' type="userAvatarUrl" />
 
 		<view class="userzonetext">
 			<open-data class="user_name {{$state.isLogin?'':'displayNone'}}" type='userNickName' />
-			<view class="user_name {{$state.isLogin?'displayNone':''}}" bindtap="ToLogin"> 请登录</view>
-			<text style="font-size:30rpx;text-align: left;">使用天数:{{$state.using_day}}</text>
+			<view class="user_name" hidden="{{$state.isLogin}}" bindtap="ToLogin"> 请登录</view>
+			<text>使用天数:{{$state.using_day}}</text>
 		</view>
 
 	</view>
