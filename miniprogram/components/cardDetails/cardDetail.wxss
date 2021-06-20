@@ -1,6 +1,6 @@
 /* components/cardDetails/cardDetail.wxss */
 .cardDetail {
-  height: 90vh;
+  height: 87vh;
   width: 100%;
   background-color: #fff;
   border-radius: 50rpx 50rpx 0 0;

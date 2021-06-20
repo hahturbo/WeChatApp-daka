@@ -1,0 +1,43 @@
+<!--pages/tick/tick.wxml-->
+<view class="containerCin">
+
+<view class="cavAll" wx:if='{{cav}}'>
+    <cav class='cavout'></cav>
+		<mp-icon class="close_icon" icon="close" color="black" size="{{25}}" bindtap="cav_close"></mp-icon>
+</view>
+
+	<view><text class="title">我的目标板</text></view>
+	<!-- <movable-area id="movable_area"> -->
+	<!-- wx:for="(single, index) in goalsBoard" -->
+	<!-- <movable-view wx:for="{{goalsBoard}}" wx:for-index="index" wx:for-item="single" wx:key="index" class='line' direction="vertical" bindchange='LineTap' data-number='{{index}}' y='{{ MoveableViewY[0]}}'>{{single.id}}.....<input></input><image lazy-load src="https://wxdaka.hahaturbo.site/images/tick_ok.png"></image></movable-view> -->
+	<!-- <movable-view class='line' direction="vertical" bindchange='LineTap' data-number='1' y='{{ MoveableViewY[1]}}'>{{MoveableViewID[1]}}<input></input><image lazy-load src="https://wxdaka.hahaturbo.site/images/tick_ok.png"></image></movable-view> -->
+	<!-- </movable-area> -->
+
+	<movable-area class='movable-area' style='display:{{movableViewInfo.showClass}}; height:{{pageInfo.scrollHeight}}%;'>
+		<movable-view class='line' out-of-bounds='true' damping='999' direction="vertical" y="{{movableViewInfo.y}}">
+			<view class='TapArea' data-index='{{index}}' bindtouchstart='dragStart' bindtouchmove='dragMove' bindtouchend='dragEnd'>{{movableViewInfo.data.id}}.</view>
+			<!-- <view class='' >{{item.name}}.</view>     -->
+			<input value="{{movableViewInfo.data.name}}"></input>
+			<view class="tick_circle"  wx:if="{{movableViewInfo.data.icon==0}}" bindtap="ImgTap" data-index='{{index}}'  ></view>
+				  <image lazy-load src="https://wxdaka.hahaturbo.site/images/tick_ok.png"  wx:if="{{movableViewInfo.data.icon==1}}" bindtap="ImgTap" data-index='{{index}}' ></image>
+          <image lazy-load  src="https://wxdaka.hahaturbo.site/images/tick_aim.png" wx:if="{{movableViewInfo.data.icon==2}}" data-index='{{index}}' ></image>
+
+		</movable-view>
+	</movable-area>
+
+	<scroll-view scroll-y='{{pageInfo.scrollY}}' style='height:85%'>
+		<block wx:for='{{goalsBoard}}'  wx:if='{{(index<10)||(index<$state.board_num)}}'>
+			<view class='line {{pageInfo.readyPlaceIndex == index ? "ready-place" : ""}}'>
+				<view class='TapArea' data-index='{{index}}' bindtouchstart='dragStart' bindtouchmove='dragMove' bindtouchend='dragEnd'>{{item.id}}.</view>
+				<!-- <view class='' >{{item.name}}.</view>     -->
+				<input data-index='{{index}}' value="{{item.name}}" maxlength="20" bindinput="{{$state.isLogin?'bindKeyInput':'ToLogin'}}" bindblur="FinshInput" disabled="{{item.disabled}}"></input>
+				<!-- {{index}}>{{null_flag}}?true:false -->
+			<view class="tick_circle"  wx:if="{{item.icon==0}}" bindtap='{{item.disabled==false?"ImgTap":""}}' data-index='{{index}}'  ></view>
+				<!-- <image lazy-load src="https://wxdaka.hahaturbo.site/images/tick_circle.png"  wx:if="{{item.icon==0}}" bindtap='{{item.disabled==false?"ImgTap":""}}' data-index='{{index}}'  ></image> -->
+				  <image lazy-load class='img_ok' src="https://wxdaka.hahaturbo.site/images/tick_ok.png"  wx:if="{{item.icon==1}}" bindtap="ImgTap" data-index='{{index}}'  ></image>
+          <image lazy-load  src="https://wxdaka.hahaturbo.site/images/tick_aim.png" wx:if="{{item.icon==2}}" data-index='{{index}}'  ></image>  
+			</view>
+		</block>
+	</scroll-view>
+
+</view>

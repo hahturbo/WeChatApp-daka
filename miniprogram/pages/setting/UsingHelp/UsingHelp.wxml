@@ -1,4 +1,0 @@
-<!-- miniprogram/pages/setting/UsingHelp/UsingHelp.wxml -->
-<scroll-view class='UsingHelp' scroll-y='true'>
-	<image src="https://wxdaka.hahaturbo.site/images/help.jpg" style="height:7005rpx;width:720rpx" />
-</scroll-view>

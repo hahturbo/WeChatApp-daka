@@ -37,7 +37,7 @@
 						wx:if="{{ (select === year+'-'+thismonthday.monthFormat+'-'+thismonthday.dateFormat)&(secondselect==1)&($state.CardData[item].goal_is_a_group)? true :false}}"
 						style="right:{{thismonthday.week>3?0:auto}};">
 						<view class="userimgs">
-							<image class="user_img" wx:for="{{thismonthday.signedmembers}}" wx:key='item' wx:for-item="GroupMembers"
+							<image lazy-load class="user_img" wx:for="{{thismonthday.signedmembers}}" wx:key='item' wx:for-item="GroupMembers"
 								src="{{GroupMembers.img}}" />
 						</view>
 					</view>
@@ -73,7 +73,7 @@
 			<view class="group_users">
 				<view class="group_user" wx:for="{{$state.CardData[item].groupData.groupMembers}}" wx:key="item"
 					wx:for-item="GroupData">
-					<image class="members_img" src="{{GroupData.img}}" />
+					<image lazy-load class="members_img" src="{{GroupData.img}}" />
 					<view class="type members_text">{{GroupData.nickname}}</view>
 				</view>
 				<view class="group_user invite" wx:if="{{$state.CardData[item].groupData.groupMembers.length<5&&!cardend}}">
@@ -81,12 +81,12 @@
 						style="background-color: transparent;text-align:left;position:absolute;color:rgba(0,0,0,0)">
 						分享
 					</button>
-					<image class="members_img" src="https://wxdaka.hahaturbo.site/images/invite_add.png" />
+					<image lazy-load class="members_img" src="https://wxdaka.hahaturbo.site/images/invite_add.png" />
 					<view class="type members_text invite">邀请好友加入</view>
 				</view>
 			</view>
 		</view>
-		<image class="card_ended" src="https://wxdaka.hahaturbo.site/images/cardend.png" wx:if="{{cardend}}" />
+		<image lazy-load class="card_ended" src="https://wxdaka.hahaturbo.site/images/cardend.png" wx:if="{{cardend}}" />
 		<view class="buttongroup" wx:if="{{!cardend}}">
 			<button class="todaydaka {{$state.CardData[item].sign_today?'signed':''}}" bindtap="todaydaka">
 				{{$state.CardData[item].sign_today?'今日完成':'今日打卡'}}

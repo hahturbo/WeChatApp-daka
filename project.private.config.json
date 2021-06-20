@@ -25,14 +25,10 @@
           "scene": null
         },
         {
-          "name": "pages/setting/skin/skin",
-          "pathName": "pages/setting/skin/skin",
+          "name": "packages/skinPackage/pages/skin/skin",
+          "pathName": "packages/skinPackage/pages/skin/skin",
           "query": "",
-          "scene": null,
-          "partialCompile": {
-            "enabled": true,
-            "pages": []
-          }
+          "scene": null
         }
       ]
     }

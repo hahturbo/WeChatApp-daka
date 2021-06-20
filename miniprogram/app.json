@@ -1,16 +1,36 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/setting/account/account",
-    "pages/setting/about/about",
-    "pages/setting/about/serverdetail/serverdetail",
-    "pages/setting/cardrecord/cardrecord",
-    "pages/setting/skin/skin",
-    "pages/setting/cardrecord/detail/detail",
-    "pages/setting/UsingHelp/UsingHelp",
-    "pages/setting/about/contact/contact"
+    "pages/index/index"
   ],
-
+  "subpackages": [{
+    "root": "packages/aboutPackage",
+    "pages": [
+      "pages/about/about",
+      "pages/contact/contact",
+      "pages/serverdetail/serverdetail"
+    ]
+  }, {
+    "root": "packages/accountPackage",
+    "pages": [
+      "pages/account/account"
+    ]
+  }, {
+    "root": "packages/cordPackage",
+    "pages": [
+      "pages/cardrecord/cardrecord",
+      "pages/detail/detail"
+    ]
+  }, {
+    "root": "packages/helpPackage",
+    "pages": [
+      "pages/UsingHelp/UsingHelp"
+    ]
+  }, {
+    "root": "packages/skinPackage",
+    "pages": [
+      "pages/skin/skin"
+    ]
+  }],
   "window": {
     "backgroundColor": "#FFC864",
     "backgroundTextStyle": "light",

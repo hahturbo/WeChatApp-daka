@@ -1,6 +1,5 @@
 {
   "miniprogramRoot": "miniprogram/",
-  "cloudfunctionRoot": "cloudfunctions/",
   "setting": {
     "urlCheck": false,
     "es6": true,
@@ -34,13 +33,15 @@
     "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
-    "minifyWXSS": true
+    "minifyWXSS": true,
+    "lazyCodeLoading": "requiredComponents"
   },
   "appid": "wx7a7b8efd9185beaf",
   "projectname": "%E6%89%93%E5%8D%A1",
-  "libVersion": "2.8.1",
+  "libVersion": "2.17.3",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
   "condition": {
     "plugin": {
       "list": []
