@@ -13,7 +13,7 @@
 	<!-- end -->
 	<scroll-view class='invite_data' scroll-y='true'>
 		<view class='detail'>打卡标题：{{invite_data.goal.goal_name}}</view>
-		<view class='detail'>打卡类型：小组 {{$state.GoalType[invite_data.goal.goal_type]}}</view>
+		<view class='detail'>打卡类型：小组 {{goal_type[invite_data.goal.goal_type]}}</view>
 		<view wx:if="{{invite_data.goal.goal_type==1}}">
 			<view class='detail'>开始日期：{{invite_data.goal.goal_start_time}}</view>
 			<view class='detail'>结束日期：{{invite_data.goal.goal_end_time}}</view>

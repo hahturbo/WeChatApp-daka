@@ -16,10 +16,13 @@
 		<!-- name -->
 		<view class="card">
 			<text class="title-type">{{goal_type==2?'每日步数目标：':'打卡标题：'}}</text>
-			<input class='right_text name_input {{goal_type==2 ? "displayNone" : ""}}' maxlength="10" placeholder="点此输入"
-				data-name="goal_name" bindinput="valueChanged" value="{{goal_name}}" />
-			<input class='right_text name_input {{goal_type!=2 ? "displayNone" : ""}}' maxlength="5" placeholder="点此输入步数"
-				data-name="goal_name" bindinput="valueChanged" value="{{goal_name}}" type='number' />
+			<view class='right_text name_input'>
+				<input wx:if="{{goal_type!=2}}" maxlength="10" placeholder="点此输入" placeholder-style='text-align:right'
+					data-name="goal_name" bindinput="valueChanged" value="{{goal_name}}" />
+				<input wx:else maxlength="5" placeholder="点此输入步数" placeholder-style='text-align:right' data-name="goal_name"
+					bindinput="valueChanged" value="{{goal_name}}" type='number' />
+			</view>
+
 		</view>
 		<!--  -->
 		<view class="normal" wx:if="{{goal_type==1}}">
@@ -55,7 +58,7 @@
 						bindchange="valueChanged">
 						{{needed_be_signed_at}}
 					</picker>
-					<text>—</text>
+					<text> — </text>
 					<picker mode="time" value="{{needed_be_signed_deadline}}" start="00:00" end="23:59"
 						data-name="needed_be_signed_deadline" bindchange="valueChanged">
 						{{needed_be_signed_deadline}}

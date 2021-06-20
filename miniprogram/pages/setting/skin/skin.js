@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    index: 1,
+    skinNames: ['柠檬黄', '方格纸']
   },
 
   /**
@@ -14,28 +15,35 @@ Page({
   onLoad: function (options) {
 
     wx.setNavigationBarTitle({
-      title: "外观设置"   
+      title: "外观设置"
 
     })
     wx.setNavigationBarColor({
-      backgroundColor:"#ffffff",
+      backgroundColor: "#ffffff",
       frontColor: '#000000'
     })
 
   },
 
-  btn:function(e){
-    let skin=e.currentTarget.dataset.skin;
+  btn: function (e) {
     this.setState({
-      skin:skin,
+      skin: this.$state.skin == 1 ? 2 : 1,
     })
     wx.setStorage({
-      key:"skin",
-      data:skin,
+      key: "skin",
+      data: this.$state.skin,
     })
 
   },
-
+  handleTouchMove(e) {
+    console.log(`touchmove${e}`);
+  },
+  handleTouchStart(e) {
+    console.log(`touchstart${e}`);
+  },
+  handleTouchEnd(e) {
+    console.log(`touchend${e}`);
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

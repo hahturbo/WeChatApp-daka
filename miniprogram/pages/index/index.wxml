@@ -12,8 +12,8 @@
 			<button bindtap="btn_nologin">暂不登陆</button>
 		</view>
 	</view>
-	<image wx:if='{{$state.skin==1}}' class='background' src="{{$state.imgURL+'/background.png'}}" mode="aspectFill" />
-	<image wx:if='{{$state.skin==2}}' class='background' src="{{$state.imgURL+'/background2.png'}}" mode="aspectFill" />
+	<image wx:if='{{$state.skin==1}}' class='background' src="https://wxdaka.hahaturbo.site/images/background.png" mode="aspectFill" />
+	<image wx:if='{{$state.skin==2}}' class='background' src="https://wxdaka.hahaturbo.site/images/background2.png" mode="aspectFill" />
 	<mp-dialog title="{{dialogTitle}}" show="{{dialogShow}}" bindbuttontap="tapDialogButton"
 		buttons="{{dialogsButton}}" />
 	<view class='down {{$state.skin==1?"d_shadow":""}} {{$state.skin==2?"d_black_line":""}}'>
@@ -22,30 +22,30 @@
 			<text style="color:gray">⬇</text>
 		</view>
 		<view class='downleft'>
-			<image src="{{$state.imgURL+'/aim3.png'}}" data-to="3" bindtap="ChangePageGetBoard"
+			<image src="https://wxdaka.hahaturbo.site/images/aim3.png" data-to="3" bindtap="ChangePageGetBoard"
 				hidden="{{!(nowPage==0||nowPage==2||nowPage==3)}}" />
-			<image src="{{$state.imgURL+'/back.png'}}" hidden="{{!(nowPage==1)}}" data-to="0" bindtap="changePage_Back" />
-			<image hidden='{{!(nowPage==4)}}' src="{{$state.imgURL+'/back.png'}}" data-to="0" bindtap="DetailEnd" />
-			<image src="{{$state.imgURL+'/notmodify.png'}}" hidden="{{!(nowPage==6)}}" data-to="4"
+			<image src="https://wxdaka.hahaturbo.site/images/back.png" hidden="{{!(nowPage==1)}}" data-to="0" bindtap="changePage_Back" />
+			<image hidden='{{!(nowPage==4)}}' src="https://wxdaka.hahaturbo.site/images/back.png" data-to="0" bindtap="DetailEnd" />
+			<image src="https://wxdaka.hahaturbo.site/images/notmodify.png" hidden="{{!(nowPage==6)}}" data-to="4"
 				bindtap="changePage_Back" />
-			<image src="{{$state.imgURL+'/refuse.png'}}" hidden="{{!(nowPage==5)}}" data-to="0" bindtap="changePage" />
+			<image src="https://wxdaka.hahaturbo.site/images/refuse.png" hidden="{{!(nowPage==5)}}" data-to="0" bindtap="changePage" />
 		</view>
 		<view class='downmid'>
-			<image src="{{$state.imgURL+'/newaim3(new).png'}}" data-to="1" hidden="{{!(nowPage==0||nowPage==1)}}"
+			<image src="https://wxdaka.hahaturbo.site/images/newaim3(new).png" data-to="1" hidden="{{!(nowPage==0||nowPage==1)}}"
 				bindtap="{{$state.isLogin?'changeNewAimPage':'ToLogin'}}" />
-			<image src="{{$state.imgURL+'/tick.png'}}" hidden="{{!(nowPage==2||nowPage==3)}}" data-to="0"
+			<image src="https://wxdaka.hahaturbo.site/images/tick.png" hidden="{{!(nowPage==2||nowPage==3)}}" data-to="0"
 				bindtap="ChangePagePostBoard" />
-			<image src="{{$state.imgURL+'/carddetail(new).png'}}" hidden="{{!(nowPage==4)}}" />
-			<image src="{{$state.imgURL+'/modifycard(new).png'}}" hidden="{{!(nowPage==6)}}" />
-			<image src="{{$state.imgURL+'/join_group(new).png'}}" hidden="{{!(nowPage==5)}}" />
+			<image src="https://wxdaka.hahaturbo.site/images/carddetail(new).png" hidden="{{!(nowPage==4)}}" />
+			<image src="https://wxdaka.hahaturbo.site/images/modifycard(new).png" hidden="{{!(nowPage==6)}}" />
+			<image src="https://wxdaka.hahaturbo.site/images/join_group(new).png" hidden="{{!(nowPage==5)}}" />
 		</view>
 		<view class='downright'>
-			<image src="{{$state.imgURL+'/setting3.png'}}" data-to="2" hidden="{{!(nowPage==0||nowPage==2||nowPage==3)}}"
+			<image src="https://wxdaka.hahaturbo.site/images/setting3.png" data-to="2" hidden="{{!(nowPage==0||nowPage==2||nowPage==3)}}"
 				bindtap="ChangePagePostBoard" />
-			<image src="{{$state.imgURL+'/finish.png'}}" hidden="{{!(nowPage==1)}}" data-to="0" bindtap="changePage_Finish" />
-			<image src="{{$state.imgURL+'/modify.png'}}" hidden="{{!(nowPage==4)}}" data-to="6" bindtap="changePage" />
-			<image src="{{$state.imgURL+'/savemodify.png'}}" hidden="{{!(nowPage==6)}}" data-to="4" bindtap="modifycard" />
-			<image src="{{$state.imgURL+'/accept.png'}}" hidden="{{!(nowPage==5)}}" data-to="0"
+			<image src="https://wxdaka.hahaturbo.site/images/finish.png" hidden="{{!(nowPage==1)}}" data-to="0" bindtap="changePage_Finish" />
+			<image src="https://wxdaka.hahaturbo.site/images/modify.png" hidden="{{!(nowPage==4)}}" data-to="6" bindtap="changePage" />
+			<image src="https://wxdaka.hahaturbo.site/images/savemodify.png" hidden="{{!(nowPage==6)}}" data-to="4" bindtap="modifycard" />
+			<image src="https://wxdaka.hahaturbo.site/images/accept.png" hidden="{{!(nowPage==5)}}" data-to="0"
 				bindtap="{{$state.isLogin?'AcceptInvite':'ToLogin'}}" />
 		</view>
 	</view>
@@ -56,15 +56,15 @@
 
 			<view class='home-content' wx:if="{{nowPage==0}}">
 				<image wx:if='{{$state.skin==1}}' hidden="{{$state.card_num!=0&&$state.isLogin}}"
-					style=" width:100%;height:100%" src="{{$state.imgURL+'/mainnew.png'}}" />
+					style=" width:100%;height:100%" src="https://wxdaka.hahaturbo.site/images/mainnew.png" />
 				<image wx:if='{{$state.skin==2}}' hidden="{{$state.card_num!=0&&$state.isLogin}}"
-					style=" width:100%;height:100%" src="{{$state.imgURL+'/mainnew3.png'}}" />
+					style=" width:100%;height:100%" src="https://wxdaka.hahaturbo.site/images/mainnew3.png" />
 				<view class='home-content' wx:if="{{$state.card_num!=0&&$state.isLogin}}">
 					<text class='{{$state.skin==1 ? "text_skin1" : ""}} {{$state.skin==2 ? "text_skin2" : ""}}'
 						bindtap="gotodetails" data-to="{{0}}">{{$state.aimCardDatas[0].goal_name}}
 					</text>
 					<image bindtap="gotodetails" data-to="{{0}}" class='' style=" width:70%;height:40%"
-						src="{{$state.imgURL+'/mainnew2.png'}}" />
+						src="https://wxdaka.hahaturbo.site/images/mainnew2.png" />
 
 					<text wx:if="{{$state.aimCardDatas[0].goal_is_a_group==0}}"
 						style='color:#FF9966; font-size:30rpx;'>已连续{{$state.aimCardDatas[0].continuousNum
@@ -83,9 +83,9 @@
 							hidden="{{!(!$state.aimCardDatas[0].sign_today&&$state.aimCardDatas[0].goal_type==2&&my.myInt($state.aimCardDatas[0].frequency)>my.myInt($state.stepInfoList[$state.stepInfoList.length-1].step))}}">今日未完成
 						</text>
 						<image wx:if='{{$state.skin==1}}' hidden="{{!$state.aimCardDatas[0].sign_today}}"
-							src="{{$state.imgURL+'/tickB_finish.png'}}" style="width:100%; height:90rpx" />
+							src="https://wxdaka.hahaturbo.site/images/tickB_finish.png" style="width:100%; height:90rpx" />
 						<image wx:if='{{$state.skin==2}}' hidden="{{!$state.aimCardDatas[0].sign_today}}"
-							src="{{$state.imgURL+'/tickB_finish2.png'}}" style="width:100%; height:90rpx" />
+							src="https://wxdaka.hahaturbo.site/images/tickB_finish2.png" style="width:100%; height:90rpx" />
 
 					</button>
 				</view>
@@ -109,20 +109,20 @@
 				class='button {{$state.aimCardDatas[index+1].sign_today||(!$state.aimCardDatas[index+1].sign_today&&$state.aimCardDatas[index+1].goal_type==2&&my.myInt($state.aimCardDatas[index+1].frequency)>my.myInt($state.stepInfoList[$state.stepInfoList.length-1].step))?"buttonNo":""}}'
 				data-id='{{$state.aimCardDatas[index+1].goal_id}}' data-index='{{index+1}}' bindtap='sign_btn'>
 				<image wx:if='{{$state.skin==1}}' class='icon' hidden="{{!$state.aimCardDatas[index+1].sign_today}}"
-					src="{{$state.imgURL+'/tick_finish.png'}}" />
+					src="https://wxdaka.hahaturbo.site/images/tick_finish.png" />
 				<image wx:if='{{$state.skin==2}}' class='icon' hidden="{{!$state.aimCardDatas[index+1].sign_today}}"
-					src="{{$state.imgURL+'/tick_finish2.png'}}" />
+					src="https://wxdaka.hahaturbo.site/images/tick_finish2.png" />
 				<image hidden="{{$state.aimCardDatas[index+1].sign_today||$state.aimCardDatas[index+1].frequency_type[0]!=0}}"
-					class='icon' src="{{$state.imgURL+'/tick_able.png'}}" />
+					class='icon' src="https://wxdaka.hahaturbo.site/images/tick_able.png" />
 				<image class='icon'
 					hidden="{{!(!$state.aimCardDatas[index+1].sign_today&&($state.aimCardDatas[index+1].goal_type==0||($state.aimCardDatas[index+1].goal_type==2&&my.myInt($state.aimCardDatas[index+1].frequency)<=my.myInt($state.stepInfoList[$state.stepInfoList.length-1].step))))}}"
-					src="{{$state.imgURL+'/tick_today.png'}}" />
+					src="https://wxdaka.hahaturbo.site/images/tick_today.png" />
 				<image wx:if='{{$state.skin==1}}'
 					hidden="{{!(!$state.aimCardDatas[index+1].sign_today&&$state.aimCardDatas[index+1].goal_type==2&&my.myInt($state.aimCardDatas[index+1].frequency)>my.myInt($state.stepInfoList[$state.stepInfoList.length-1].step))}}"
-					src="{{$state.imgURL+'/tick_unfinish.png'}}" />
+					src="https://wxdaka.hahaturbo.site/images/tick_unfinish.png" />
 				<image wx:if='{{$state.skin==2}}'
 					hidden="{{!(!$state.aimCardDatas[index+1].sign_today&&$state.aimCardDatas[index+1].goal_type==2&&my.myInt($state.aimCardDatas[index+1].frequency)>my.myInt($state.stepInfoList[$state.stepInfoList.length-1].step))}}"
-					src="{{$state.imgURL+'/tick_unfinish2.png'}}" />
+					src="https://wxdaka.hahaturbo.site/images/tick_unfinish2.png" />
 			</view>
 		</view>
 		<!-- LetAMCCenter_END -->
@@ -152,8 +152,8 @@
 	</view>
 	<!-- nowpage3 start -->
 	<view wx:if="{{nowPage==3}}" class="toGoalCard">
-		<image wx:if='{{$state.skin==1}}' id="clicp" src="{{$state.imgURL+'/clicp.png'}}" />
-		<image wx:if='{{$state.skin==2}}' id="clicp2" src="{{$state.imgURL+'/clicp2.png'}}" />
+		<image wx:if='{{$state.skin==1}}' id="clicp" src="https://wxdaka.hahaturbo.site/images/clicp.png" />
+		<image wx:if='{{$state.skin==2}}' id="clicp2" src="https://wxdaka.hahaturbo.site/images/clicp2.png" />
 		<view class='containerC '>
 			<tick />
 		</view>

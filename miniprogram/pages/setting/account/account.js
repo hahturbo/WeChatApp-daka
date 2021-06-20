@@ -36,26 +36,22 @@ Page({
 
   },
 
-  GetUserInfo: function () {
-    return (async () => {
-      let result = await awx.request({
-        method: 'POST',
-        url: this.$state.apiURL + '/user/info',
-        data: {
-          login_key: this.$state.login_key,
-        },
-      })
-      if (result.errMsg === "request:fail ") {
-        console.log(result.errMsg)
-        return
-      }
-      this.setData({
-        user_info: result.data.data,
-      })
-      return Promise.resolve()
-    })()
-
-
+  async GetUserInfo() {
+    let result = await awx.request({
+      method: 'POST',
+      url: this.$state.apiURL + '/user/info',
+      data: {
+        login_key: this.$state.login_key,
+      },
+    })
+    if (result.errMsg === "request:fail ") {
+      console.log(result.errMsg)
+      return
+    }
+    this.setData({
+      user_info: result.data.data,
+    })
+    return Promise.resolve()
   },
   tapDialogButton: function (e) {
     if (e.detail.item.text == "确认") {
@@ -102,40 +98,36 @@ Page({
     }
   },
 
-  btn_clean: function (e) {
-    return (async () => {
-      let result = await awx.request({
-        method: 'POST',
-        url: this.$state.apiURL + '/user/clean',
-        data: {
-          login_key: this.$state.login_key,
-        },
-      })
-      if (result.errMsg === "request:fail ") {
-        console.error(result.errMsg)
-        return
-      }
-      await this.GetUserInfo()
-      return Promise.resolve()
-    })()
+  async btn_clean(e) {
+    let result = await awx.request({
+      method: 'POST',
+      url: this.$state.apiURL + '/user/clean',
+      data: {
+        login_key: this.$state.login_key,
+      },
+    })
+    if (result.errMsg === "request:fail ") {
+      console.error(result.errMsg)
+      return
+    }
+    await this.GetUserInfo()
+    return Promise.resolve()
   },
 
-  btn_logoff: function (e) {
-    return (async () => {
-      let result = await awx.request({
-        method: 'POST',
-        url: this.$state.apiURL + '/user/logoff',
-        data: {
-          login_key: this.$state.login_key,
-        },
-      })
-      if (result.errMsg === "request:fail ") {
-        console.error(result.errMsg)
-        return
-      }
-      await this.GetUserInfo()
-      return Promise.resolve()
-    })()
+  async btn_logoff(e) {
+    let result = await awx.request({
+      method: 'POST',
+      url: this.$state.apiURL + '/user/logoff',
+      data: {
+        login_key: this.$state.login_key,
+      },
+    })
+    if (result.errMsg === "request:fail ") {
+      console.error(result.errMsg)
+      return
+    }
+    await this.GetUserInfo()
+    return Promise.resolve()
   },
 
   /**

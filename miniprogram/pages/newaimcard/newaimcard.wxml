@@ -24,10 +24,14 @@
 		<view class="card">
 			<view wx:if="{{type!=2}}" class="title-type">打卡标题：</view>
 			<view wx:else class="title-type">每日步数目标：</view>
-			<input class='right_text title_input {{type==2 ? "displayNone" : ""}}' maxlength="10" placeholder="点此输入"
-				data-name="title" bindinput="TitleInput" value="{{title}}" />
-			<input class='right_text title_input {{type!=2 ? "displayNone" : ""}}' maxlength="5" placeholder="点此输入步数"
-				data-name="title" bindinput="TitleInput" type='number' value="{{title}}" />
+			<view class='right_text title_input'>
+				<input wx:if="{{type!=2}}" maxlength="10" placeholder="点此输入"
+					placeholder-style='text-align:right' data-name="title" bindinput="TitleInput" value="{{title}}" />
+				<input wx:else maxlength="5" placeholder="点此输入步数"
+					placeholder-style='text-align:right' data-name="title" bindinput="TitleInput" type='number'
+					value="{{title}}" />
+			</view>
+
 		</view>
 
 		<view class="date">
@@ -64,7 +68,7 @@
 					end="23:59" data-name="needed_be_signed_at" bindchange="valueChanged">
 					{{time_aim1}}
 				</picker>
-				<view>—</view>
+				<view> — </view>
 				<picker class='{{time_aim2=="请选择"?"right_text_unselect":""}}' mode="time" value="{{time}}" start="00:00"
 					end="23:59" data-name="needed_be_signed_deadline" bindchange="valueChanged">
 					{{time_aim2}}

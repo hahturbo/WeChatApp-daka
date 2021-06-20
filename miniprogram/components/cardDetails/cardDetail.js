@@ -33,7 +33,67 @@ Component({
     // 上月格子
     lastmonthgrid: [],
     // 当月格子
-    thismonthday: [],
+    thismonthday: [{
+      "date": 1
+    }, {
+      "date": 2
+    }, {
+      "date": 3
+    }, {
+      "date": 4
+    }, {
+      "date": 5
+    }, {
+      "date": 6
+    }, {
+      "date": 7
+    }, {
+      "date": 8
+    }, {
+      "date": 9
+    }, {
+      "date": 10
+    }, {
+      "date": 11
+    }, {
+      "date": 12
+    }, {
+      "date": 13
+    }, {
+      "date": 14
+    }, {
+      "date": 15
+    }, {
+      "date": 16
+    }, {
+      "date": 17
+    }, {
+      "date": 18
+    }, {
+      "date": 19
+    }, {
+      "date": 20
+    }, {
+      "date": 21
+    }, {
+      "date": 22
+    }, {
+      "date": 23
+    }, {
+      "date": 24
+    }, {
+      "date": 25
+    }, {
+      "date": 26
+    }, {
+      "date": 27
+    }, {
+      "date": 28
+    }, {
+      "date": 29
+    }, {
+      "date": 30
+    }],
     // 下月格子
     nextmonthgrid: [],
     year: 0,
@@ -49,6 +109,7 @@ Component({
     cardend: false,
     membersnum: 0,
     share: false,
+    goal_type: ['极简', '普通', '微信运动'],
     //微信运动
   },
 
@@ -66,22 +127,20 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    initCardDetail: function () {
-      return (async () => {
-        // 获取打卡记录
-        await this.getCardDetail()
-        this.today()
-        const endflag = this.comparedate()
-        if (endflag) {
-          this.setData({
-            cardend: endflag
-          })
-        }
-        if (this.$state.CardData[this.data.item].goal_type == 2) {
-          await this.getWeRunData()
-        }
-        return Promise.resolve()
-      })()
+    async initCardDetail() {
+      // 获取打卡记录
+      await this.getCardDetail()
+      this.today()
+      const endflag = this.comparedate()
+      if (endflag) {
+        this.setData({
+          cardend: endflag
+        })
+      }
+      if (this.$state.CardData[this.data.item].goal_type == 2) {
+        await this.getWeRunData()
+      }
+      return Promise.resolve()
     },
     display: function (year, month, date) {
       this.setData({
@@ -214,63 +273,59 @@ Component({
         nextmonthgrid,
       })
     },
-    getCardDetail: function () {
-      return (async () => {
-        // 获取打卡记录
-        let record = await awx.request({
-          method: "POST",
-          url: this.$state.apiURL + "/user/getSignedRecord",
+    async getCardDetail() {
+      // 获取打卡记录
+      let record = await awx.request({
+        method: "POST",
+        url: this.$state.apiURL + "/user/getSignedRecord",
+        data: {
+          goal_id: this.$state.CardData[this.data.item].goal_id,
+          login_key: this.$state.login_key,
+        },
+      })
+      if (record.errMsg === "request:fail ") {
+        console.error(record.errMsg)
+        return
+      }
+      this.setState({
+        CardDetail: record.data.data
+      })
+      return Promise.resolve()
+    },
+
+    async getWeRunData() {
+      let wWeRun = await awx.getWeRunData()
+      if (wWeRun.encryptedData) {
+        // 微信获取运动成功
+        let weRunData = await awx.request({
+          method: 'POST',
+          url: this.$state.apiURL + '/user/getWeRunData',
           data: {
-            goal_id: this.$state.CardData[this.data.item].goal_id,
+            encryptedData: wWeRun.encryptedData,
+            iv: wWeRun.iv,
             login_key: this.$state.login_key,
           },
         })
-        if (record.errMsg === "request:fail ") {
-          console.error(record.errMsg)
-          return
-        }
-        this.setState({
-          CardDetail: record.data.data
-        })
-        return Promise.resolve()
-      })()
-    },
-
-    getWeRunData: function () {
-      return (async () => {
-        let wWeRun = await awx.getWeRunData()
-        if (wWeRun.encryptedData) {
-          // 微信获取运动成功
-          let weRunData = await awx.request({
-            method: 'POST',
-            url: this.$state.apiURL + '/user/getWeRunData',
-            data: {
-              encryptedData: wWeRun.encryptedData,
-              iv: wWeRun.iv,
-              login_key: this.$state.login_key,
-            },
-          })
-          if (weRunData.errMsg === "request:fail ") {
-            wx.showToast({
-              icon: 'error',
-              title: '微信运动获取失败',
-              duration: 1500,
-            })
-            return
-          }
-          console.log("werun success")
-          this.setState({
-            stepInfoList: weRunData.data.stepInfoList
-          })
-        } else {
+        if (weRunData.errMsg === "request:fail ") {
           wx.showToast({
             icon: 'error',
             title: '微信运动获取失败',
             duration: 1500,
           })
+          return
         }
-        return Promise.resolve()
-      })()
+        console.log("werun success")
+        this.setState({
+          stepInfoList: weRunData.data.stepInfoList
+        })
+      } else {
+        wx.showToast({
+          icon: 'error',
+          title: '微信运动获取失败',
+          duration: 1500,
+        })
+      }
+      return Promise.resolve()
     },
 
     // this.log.data => this.$state.CardDetail[this.properties.carditem]
@@ -326,44 +381,42 @@ Component({
       })
       return members
     },
-    todaydaka: function (e) {
-      return (async () => {
-        if (this.$state.CardData[this.data.carditem].sign_today) {
-          return
-        }
-        if (this.$state.CardData[this.data.carditem].goal_type == 2) {
-          if (parseInt(this.$state.CardData[this.data.carditem].frequency) > parseInt(this.$state.stepInfoList[this.$state.stepInfoList.length - 1].step)) {
-            wx.showToast({
-              title: '您的步数不够',
-              icon: 'none',
-              duration: 2500,
-            })
-            return
-          }
-        }
-        let result = await awx.request({
-          method: "POST",
-          url: this.$state.apiURL + "/user/goal/sign",
-          data: {
-            goal_id: this.$state.CardData[this.data.carditem].goal_id,
-            login_key: this.$state.login_key,
-          },
-        })
-        if (result.errMsg === "request:fail ") {
-          console.error(result.errMsg)
-          return
-        }
-        await this.GetCardData()
-        await this.getCardDetail()
-        this.today()
-        const endflag = this.comparedate()
-        if (endflag) {
-          this.setData({
-            cardend: endflag
+    async todaydaka() {
+      if (this.$state.CardData[this.data.carditem].sign_today) {
+        return
+      }
+      if (this.$state.CardData[this.data.carditem].goal_type == 2) {
+        if (parseInt(this.$state.CardData[this.data.carditem].frequency) > parseInt(this.$state.stepInfoList[this.$state.stepInfoList.length - 1].step)) {
+          wx.showToast({
+            title: '您的步数不够',
+            icon: 'none',
+            duration: 2500,
           })
+          return
         }
-        return Promise.resolve()
-      })()
+      }
+      let result = await awx.request({
+        method: "POST",
+        url: this.$state.apiURL + "/user/goal/sign",
+        data: {
+          goal_id: this.$state.CardData[this.data.carditem].goal_id,
+          login_key: this.$state.login_key,
+        },
+      })
+      if (result.errMsg === "request:fail ") {
+        console.error(result.errMsg)
+        return
+      }
+      await this.GetCardData()
+      await this.getCardDetail()
+      this.today()
+      const endflag = this.comparedate()
+      if (endflag) {
+        this.setData({
+          cardend: endflag
+        })
+      }
+      return Promise.resolve()
     },
     deletedaka: function () {
       this.setData({
@@ -382,130 +435,122 @@ Component({
       console.log("shanchudaka")
     },
     // dialog-buttontap
-    buttontap: function (e) {
-      return (async () => {
-        if (e.detail.item.text == "删除") {
-          if (this.$state.CardData[this.data.item].goal_is_a_group) {
-            // 是小组
-            if (
-              !this.$state.CardData[this.data.item].groupData
-              .is_group_creator
-            ) {
-              await wx.showToast({
-                title: "您不是组长，没有权限删除！",
-                icon: "none",
-                duration: 2000,
-              })
-              this.setData({
-                dialogshow: false,
-              })
-              return
-            }
-          }
-          let result
-          if (this.$state.CardData[this.data.item].goal_type == 0) {
-            // 极简
-            result = await awx.request({
-              url: this.$state.apiURL + "/user/goal/edit",
-              method: "POST",
-              data: {
-                goal_id: this.$state.CardData[this.data.item].goal_id,
-                login_key: this.$state.login_key,
-                now_type: 0,
-                goal_type: 3,
-                goal_name: this.$state.CardData[this.data.item].goal_name,
-              },
+    async buttontap(e) {
+      if (e.detail.item.text == "删除") {
+        if (this.$state.CardData[this.data.item].goal_is_a_group) {
+          // 是小组
+          if (
+            !this.$state.CardData[this.data.item].groupData
+            .is_group_creator
+          ) {
+            await wx.showToast({
+              title: "您不是组长，没有权限删除！",
+              icon: "none",
+              duration: 2000,
             })
-          } else if (this.$state.CardData[this.data.item].goal_type == 2) {
-            // 运动
-            result = await awx.request({
-              url: this.$state.apiURL + "/user/goal/edit",
-              method: "POST",
-              data: {
-                goal_id: this.$state.CardData[this.data.item].goal_id,
-                login_key: this.$state.login_key,
-                now_type: 2,
-                goal_type: 5,
-                goal_name: this.$state.CardData[this.data.item].goal_name,
-                frequency: this.$state.CardData[this.data.item].frequency,
-              },
+            this.setData({
+              dialogshow: false,
             })
-          } else if (this.$state.CardData[this.data.item].goal_type == 1) {
-            // 普通
-            result = await awx.request({
-              url: this.$state.apiURL + "/user/goal/edit",
-              method: "POST",
-              data: {
-                goal_id: this.$state.CardData[this.data.item].goal_id,
-                login_key: this.$state.login_key,
-                now_type: 1,
-                goal_type: 4,
-                goal_name: this.$state.CardData[this.data.item].goal_name,
-                started_at: this.$state.CardData[this.data.item].started_at,
-                ended_in: this.$state.CardData[this.data.item].ended_in,
-                frequency: this.$state.CardData[this.data.item].frequency,
-                frequency_type: this.$state.CardData[this.data.item].frequency_type,
-                reminder_at: this.$state.CardData[this.data.item].reminder_at,
-                needed_be_signed_at: this.$state.CardData[this.data.item].needed_be_signed_at,
-                needed_be_signed_deadline: this.$state.CardData[this.data.item].needed_be_signed_deadline,
-              },
-            })
-          }
-          if (result.errMsg === "request:fail ") {
-            console.error(result.errMsg)
             return
           }
-          this.setData({
-            dialogshow: false,
+        }
+        let result
+        if (this.$state.CardData[this.data.item].goal_type == 0) {
+          // 极简
+          result = await awx.request({
+            url: this.$state.apiURL + "/user/goal/edit",
+            method: "POST",
+            data: {
+              goal_id: this.$state.CardData[this.data.item].goal_id,
+              login_key: this.$state.login_key,
+              now_type: 0,
+              goal_type: 3,
+              goal_name: this.$state.CardData[this.data.item].goal_name,
+            },
           })
-          this.triggerEvent("deleteEvent", "delete")
-        } else {
-          this.setData({
-            dialogshow: false,
+        } else if (this.$state.CardData[this.data.item].goal_type == 2) {
+          // 运动
+          result = await awx.request({
+            url: this.$state.apiURL + "/user/goal/edit",
+            method: "POST",
+            data: {
+              goal_id: this.$state.CardData[this.data.item].goal_id,
+              login_key: this.$state.login_key,
+              now_type: 2,
+              goal_type: 5,
+              goal_name: this.$state.CardData[this.data.item].goal_name,
+              frequency: this.$state.CardData[this.data.item].frequency,
+            },
+          })
+        } else if (this.$state.CardData[this.data.item].goal_type == 1) {
+          // 普通
+          result = await awx.request({
+            url: this.$state.apiURL + "/user/goal/edit",
+            method: "POST",
+            data: {
+              goal_id: this.$state.CardData[this.data.item].goal_id,
+              login_key: this.$state.login_key,
+              now_type: 1,
+              goal_type: 4,
+              goal_name: this.$state.CardData[this.data.item].goal_name,
+              started_at: this.$state.CardData[this.data.item].started_at,
+              ended_in: this.$state.CardData[this.data.item].ended_in,
+              frequency: this.$state.CardData[this.data.item].frequency,
+              frequency_type: this.$state.CardData[this.data.item].frequency_type,
+              reminder_at: this.$state.CardData[this.data.item].reminder_at,
+              needed_be_signed_at: this.$state.CardData[this.data.item].needed_be_signed_at,
+              needed_be_signed_deadline: this.$state.CardData[this.data.item].needed_be_signed_deadline,
+            },
           })
         }
-        return Promise.resolve()
-      })()
+        if (result.errMsg === "request:fail ") {
+          console.error(result.errMsg)
+          return
+        }
+        this.setData({
+          dialogshow: false,
+        })
+        this.triggerEvent("deleteEvent", "delete")
+      } else {
+        this.setData({
+          dialogshow: false,
+        })
+      }
+      return Promise.resolve()
     },
-    getindex: function (show) {
-      return (async () => {
-        let res = await awx.request({
-          method: 'POST',
-          url: this.$state.apiURL + '/user/goal/get',
-          data: {
-            login_key: this.$state.login_key,
-          },
-        })
-        this.setState({
-          CardData: res.data.data.data,
-        })
-        return Promise.resolve()
-      })()
+    async getindex() {
+      let res = await awx.request({
+        method: 'POST',
+        url: this.$state.apiURL + '/user/goal/get',
+        data: {
+          login_key: this.$state.login_key,
+        },
+      })
+      this.setState({
+        CardData: res.data.data.data,
+      })
+      return Promise.resolve()
     },
     //获取打卡信息
-    GetCardData: function () {
-      return (async () => {
-        let result = await awx.request({
-          method: 'POST',
-          url: this.$state.apiURL + '/user/goal/Bget',
-          data: {
-            amount: 5,
-            login_key: this.$state.login_key,
-          },
-        })
-        this.setState({
-          aimCardDatas: result.data.data.data,
-          card_num: result.data.data.data.length,
-        })
-        await this.getindex(this.$state.aimCardDatas);
-        await wx.setStorage({
-          key: "card_num",
-          data: this.$state.card_num,
-        })
-        return Promise.resolve()
-        // 自动打卡微信运动
-        // ()()
-      })()
+    async GetCardData() {
+      let result = await awx.request({
+        method: 'POST',
+        url: this.$state.apiURL + '/user/goal/Bget',
+        data: {
+          amount: 5,
+          login_key: this.$state.login_key,
+        },
+      })
+      this.setState({
+        aimCardDatas: result.data.data.data,
+        card_num: result.data.data.data.length,
+      })
+      await this.getindex(this.$state.aimCardDatas);
+      await wx.setStorage({
+        key: "card_num",
+        data: this.$state.card_num,
+      })
+      return Promise.resolve()
     },
   },
 })

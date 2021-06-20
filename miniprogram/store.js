@@ -21,9 +21,6 @@ let store = {
   GoalType: ['极简', '普通', '微信运动'],
   stepInfoList: '',
   tick_title: '',
-
-  // imgURL: `https://haha1001.gitee.io/wechatapp-daka/miniprogram/images`
-  imgURL: `https://wxdaka.hahaturbo.site/images`
 }
 // 所有已加载的页面和组件
 let pcList = []

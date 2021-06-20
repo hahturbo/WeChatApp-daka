@@ -1,32 +1,20 @@
-<!--miniprogram/pages/setting/skin/skin.wxml-->
-<view>
-
-	<view class="beautyL">
+<!-- miniprogram/pages/setting/skin/skin.wxml -->
+<view class="skin">
+	<view class="skin-swider" bind:touchmove="{{handleTouchMove}}" bind:touchstart="{{handleTouchStart}}" bind:touchend="{{handleTouchEnd}}">
+		<view class="skin-image-swider">
+			<image src="https://wxdaka.hahaturbo.site/images/skin1.png" />
+		</view>
+		<view class="skin-image-swider left">
+			<image src="https://wxdaka.hahaturbo.site/images/skin2.png" />
+		</view>
+		<view class="skin-image-swider right">
+			<image src="https://wxdaka.hahaturbo.site/images/skin2.png" />
+		</view>
 	</view>
-	<view class="beautyR">
+	<view class="skin-button">
+		<view>{{skinNames[index-1]}}</view>
+		<view class="choose" wx:if='{{$state.skin==index}}' />
+		<view class="nochoose" wx:else bindtap="btn" />
 	</view>
-	<scroll-view scroll-x="true" scroll-y="false" class="skin_zone">
-		<view class="card_border">
-		</view>
-		<view class="skin_card">
-			<view class="skin_in">
-				<image src="{{$state.imgURL+'/skin1.png'}}"></image>
-				<text>柠檬黄</text>
-				<view class='icon icon_cirle' wx:if='{{$state.skin!=1}}' bindtap="btn" data-skin='1'></view>
-				<image class='icon ' src="{{$state.imgURL+'/cardend.png'}}" wx:if='{{$state.skin==1}}'></image>
-			</view>
-		</view>
-
-		<view class="skin_card">
-			<view class="skin_in">
-				<image src="{{$state.imgURL+'/skin2.png'}}"></image>
-				<text>方格纸</text>
-				<view class='icon icon_cirle' wx:if='{{$state.skin!=2}}' bindtap="btn" data-skin='2'></view>
-				<image class='icon ' src="{{$state.imgURL+'/cardend.png'}}" wx:if='{{$state.skin==2}}'></image>
-				<!-- <mp-icon class='icon {{$state.skin!=2?"icon_cirle":""}}' icon='{{$state.skin==2?"done":""}}' color="green" size="{{35}}" bindtap="btn" data-skin='2'></mp-icon> -->
-			</view>
-		</view>
-		<view class="card_border">
-		</view>
-	</scroll-view>
 </view>
+

@@ -1,15 +1,15 @@
 /* miniprogram/pages/setting/cardrecord/detail/detail.wxss */
 
 #carddetail2 {
-  margin: 5rpx;
-  margin-bottom: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .ad {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 13.5vh;
+  height: 10vh;
   width: 100vw;
   font-size: 90rpx;
   font-weight: 600;
@@ -22,7 +22,8 @@
   animation-direction: alternate;
   animation-play-state: running;
 }
-.ad_t{
+
+.ad_t {
   animation-name: advise_ft;
   animation-duration: 5s;
   animation-timing-function: linear;
@@ -58,6 +59,7 @@
     background-color: #e74c3c;
   }
 }
+
 @keyframes advise_ft {
   0% {
     transform: translateX(-60vw) scale(0.2);
@@ -68,21 +70,21 @@
     transform: translateX(-20vw) scale(0.6);
     font-weight: 400;
   }
-  
+
   40% {
     transform: translateX(0vw) scale(1.5);
     font-weight: 500;
   }
-  
+
   60% {
     transform: translateX(20vw) scale(1);
-    
+
     font-weight: 500;
   }
-  
+
   80% {
     transform: translateX(40vw) scale(0.6);
-    
+
     font-weight: 400;
   }
 

@@ -171,79 +171,77 @@ Component({
       }
     },
     // modify-父组件调用
-    modify: function () {
-      (async () => {
-        let icon = "success"
-        wx.showLoading({
-          title: icon,
-        })
-        let result
-        switch (this.data.goal_type) {
-          case 0:
-            result = awx.request({
-              url: this.$state.apiURL + '/user/goal/edit',
-              method: 'POST',
-              data: {
-                goal_id: this.$state.CardData[this.data.item].goal_id,
-                login_key: this.$state.login_key,
-                now_type: this.data.goal_type,
-                goal_type: this.data.goal_type,
-                goal_name: this.data.goal_name,
-                old_name: this.$state.CardData[this.data.item].goal_name,
-              },
-            })
-            break;
-          case 2:
-            result = await awx.request({
-              url: this.$state.apiURL + '/user/goal/edit',
-              method: 'POST',
-              data: {
-                goal_id: this.$state.CardData[this.data.item].goal_id,
-                login_key: this.$state.login_key,
-                now_type: this.data.goal_type,
-                goal_type: this.data.goal_type,
-                goal_name: `每天走${this.data.goal_name}步`,
-                frequency: this.data.goal_name,
-                old_name: this.$state.CardData[this.data.item].goal_name,
-              },
-            })
-            break
-          case 1:
-            result = await awx.request({
-              url: this.$state.apiURL + '/user/goal/edit',
-              method: 'POST',
-              data: {
-                goal_id: this.$state.CardData[this.data.item].goal_id,
-                login_key: this.$state.login_key,
-                now_type: this.data.goal_type,
-                goal_type: this.data.goal_type,
-                goal_name: this.data.goal_name,
-                started_at: this.data.started_at,
-                ended_in: this.data.ended_in,
-                frequency: this.data.frequency,
-                frequency_type: this.data.frequency_type,
-                reminder_at: this.data.reminder_at,
-                needed_be_signed_at: this.data.needed_be_signed_at,
-                needed_be_signed_deadline: this.data.needed_be_signed_deadline,
-                old_name: this.$state.CardData[this.data.item].goal_name,
-              },
-            })
-            break;
-        }
-        if (result.errMsg === "request:fail ") {
-          console.log(result.errMsg)
-          icon = "error"
-        }
-        console.log(result.data)
-        await wx.showToast({
-          title: icon,
-          icon: icon,
-          duration: 2000,
-        })
-        if (icon === "success") {
-          this.triggerEvent('deleteEvent', 'modify')
-        }
-      })()
+    async modify() {
+      let icon = "success"
+      wx.showLoading({
+        title: icon,
+      })
+      let result
+      switch (this.data.goal_type) {
+        case 0:
+          result = awx.request({
+            url: this.$state.apiURL + '/user/goal/edit',
+            method: 'POST',
+            data: {
+              goal_id: this.$state.CardData[this.data.item].goal_id,
+              login_key: this.$state.login_key,
+              now_type: this.data.goal_type,
+              goal_type: this.data.goal_type,
+              goal_name: this.data.goal_name,
+              old_name: this.$state.CardData[this.data.item].goal_name,
+            },
+          })
+          break;
+        case 2:
+          result = await awx.request({
+            url: this.$state.apiURL + '/user/goal/edit',
+            method: 'POST',
+            data: {
+              goal_id: this.$state.CardData[this.data.item].goal_id,
+              login_key: this.$state.login_key,
+              now_type: this.data.goal_type,
+              goal_type: this.data.goal_type,
+              goal_name: `每天走${this.data.goal_name}步`,
+              frequency: this.data.goal_name,
+              old_name: this.$state.CardData[this.data.item].goal_name,
+            },
+          })
+          break
+        case 1:
+          result = await awx.request({
+            url: this.$state.apiURL + '/user/goal/edit',
+            method: 'POST',
+            data: {
+              goal_id: this.$state.CardData[this.data.item].goal_id,
+              login_key: this.$state.login_key,
+              now_type: this.data.goal_type,
+              goal_type: this.data.goal_type,
+              goal_name: this.data.goal_name,
+              started_at: this.data.started_at,
+              ended_in: this.data.ended_in,
+              frequency: this.data.frequency,
+              frequency_type: this.data.frequency_type,
+              reminder_at: this.data.reminder_at,
+              needed_be_signed_at: this.data.needed_be_signed_at,
+              needed_be_signed_deadline: this.data.needed_be_signed_deadline,
+              old_name: this.$state.CardData[this.data.item].goal_name,
+            },
+          })
+          break;
+      }
+      if (result.errMsg === "request:fail ") {
+        console.log(result.errMsg)
+        icon = "error"
+      }
+      console.log(result.data)
+      await wx.showToast({
+        title: icon,
+        icon: icon,
+        duration: 2000,
+      })
+      if (icon === "success") {
+        this.triggerEvent('deleteEvent', 'modify')
+      }
     },
   }
 })

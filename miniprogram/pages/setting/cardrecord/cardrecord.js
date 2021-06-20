@@ -1,5 +1,5 @@
 // miniprogram/pages/cardrecord/cardrecord.js
-const awx = wx.toAsync("request", "login", "getWeRunData", "getUserInfo")
+const awx = wx.toAsync("request")
 Page({
 
   /**
@@ -30,63 +30,53 @@ Page({
       if (this.data.carddatas[item].goal_type >= 3) {
         return 2;
       }
-      let date = new Date();
-      date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-      date = new Date(date);
+      let today = new Date().setHours(0, 0, 0, 0);
       let end = new Date(this.data.carddatas[item].ended_in);
-      if (date > end && this.data.carddatas[item].goal_type == 1) {
+      if (today > end && this.data.carddatas[item].goal_type == 1) {
         return 1;
       }
       return 0;
     }
   },
-  GetCardData: function (e) {
-    (async () => {
-      let result = await awx.request({
-        method: 'POST',
-        url: this.$state.apiURL + '/user/goal/get',
-        data: {
-          login_key: this.$state.login_key,
-        },
-      })
-      this.setState({
-        CardData: result.data.data.data
-      })
-      this.setData({
-        carddatas: result.data.data.data
-      })
-      let cardend = [];
-      for (let i = 0; i < this.$state.CardData.length; i++) {
-        cardend[i] = this.endjudge(i)
-      }
-      console.log('cardend', cardend);
-      this.setData({
-        cardend: cardend
-      })
-    })()
-
+  async GetCardData(e) {
+    let result = await awx.request({
+      method: 'POST',
+      url: this.$state.apiURL + '/user/goal/get',
+      data: {
+        login_key: this.$state.login_key,
+      },
+    })
+    this.setState({
+      CardData: result.data.data.data
+    })
+    this.setData({
+      carddatas: result.data.data.data
+    })
+    let cardend = [];
+    for (let i = 0; i < this.$state.CardData.length; i++) {
+      cardend[i] = this.endjudge(i)
+    }
+    console.log('cardend', cardend);
+    this.setData({
+      cardend: cardend
+    })
   },
-  slideButtonTap: function (e) {
-    (async () => {
-      let result = await awx.request({
-        method: 'POST',
-        url: this.$state.apiURL + '/user/goal/delete',
-        data: {
-          login_key: this.$state.login_key,
-          goal_id: e.detail.data[0],
-          title: e.detail.data[1],
-        },
-      })
-      if (result.errMsg === "request:fail ") {
-        console.log(`delete fail ${result.errMsg}`)
-        return
-      }
-      this.GetCardData()
-    })()
+  async slideButtonTap(e) {
+    let result = await awx.request({
+      method: 'POST',
+      url: this.$state.apiURL + '/user/goal/delete',
+      data: {
+        login_key: this.$state.login_key,
+        goal_id: e.detail.data[0],
+        title: e.detail.data[1],
+      },
+    })
+    if (result.errMsg === "request:fail ") {
+      console.log(`delete fail ${result.errMsg}`)
+      return
+    }
+    this.GetCardData()
   },
-
-
-
 
 
 

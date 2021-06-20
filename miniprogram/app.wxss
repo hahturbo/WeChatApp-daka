@@ -8,18 +8,20 @@ page {
   --second-text-color: #888888;
 }
 
-page::-webkit-scrollbar {
-  display: none; /* Chrome Safari */
+button {
+  outline: none;
+  width: max-content;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-page {
-  scrollbar-width: none; /* firefox */
-  -ms-overflow-style: none; /* IE 10+ */
-  overflow-x: hidden;
-  overflow-y: auto;
+button::after {
+  border: none !important;
 }
 
-/* {{skin==1 ? "text_skin1" : ""}} {{skin==2 ? "text_skin2" : ""}} */
 .text_skin1 {
   color: #FFFFFF;
 }
@@ -70,22 +72,9 @@ page {
   right: 100rpx;
 }
 
-.right_text {
-  right: 30rpx;
-  display: inline-block;
-  position: absolute;
-}
-
-.right_text picker {
-  display: inline-block;
-}
-
-.right_text_unselect {
-  color: gray !important;
-}
-.FullScreenCard text {
+/* .FullScreenCard text {
   font-size: 30rpx;
-}
+} */
 
 /* 背景图片定义 */
 .background {
@@ -104,7 +93,6 @@ page .btn_cancel {
 }
 
 page .btn_go_on {
-  /* background: red; */
   color: red;
 }
 
@@ -147,8 +135,6 @@ page .btn_go_on {
 }
 
 .down image {
-  /* width: 41.57%;
-  height:auto; */
   width: 100rpx;
   height: 100rpx;
 }

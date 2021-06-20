@@ -1,71 +1,53 @@
 /* miniprogram/pages/setting/account/account.wxss */
 /* 设置css */
 
-.user {
-  /* margin-top: 30rpx; */
-  height: 350rpx;
+.account {
   width: 100%;
+  height: 100vh;
   background: #fff;
-  /* border-radius: 50rpx 50rpx 0rpx 0rpx; */
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
 }
-.user_img{
-  margin-left: 40%;
-  margin-right: 40%;
-  margin-top: 10%;
-  width:150rpx;
+
+.user_img {
+  margin: 15rpx auto;
+  width: 150rpx;
   height: 150rpx;
-  border-radius:35rpx;
-  border-style: solid;
-  border-color: var(--main-color);
+  border: 4rpx solid var(--main-color);
+  border-radius: 30rpx;
   display: flex;
   flex-direction: row;
-  border-width: 8rpx; 
-  overflow:hidden;
+  overflow: hidden;
   text-align: center;
 }
 
-.userzonetext{
+.user_name {
+  margin: 15rpx auto;
+  font-size: 40rpx;
+  text-align: center;
+}
+
+.account_data {
+  margin: 15rpx auto;
   display: flex;
-  flex-direction: row;
-  width: 70%;
-  /* justify-content: ; */
+  flex-direction: column;
+  justify-content: center
 }
 
-.user_name{
-font-size: 40rpx;
-text-align: center;
+.detail {
+  padding: 15rpx;
+  text-align: left;
 }
 
-.account_data{
-  margin-top: 15rpx;
- /* margin: 100rpx; */
-  margin-bottom: 10vh;
-  background-color: white;
-  display: flex;
-  flex-direction:column;
-  align-items: center;
-  /* justify-content: space-between; */
-  
+.clean {
+  margin: 15rpx auto;
+  color: #ed7d31;
 }
 
-.detail{
-
-width: 300rpx;
-margin:15rpx;
-font-size: 35rpx;
-text-align: left;
-}
-
-.clean{
-  color: var(--main-color);
-}
-
-.logoff{
-  margin: 50rpx;
-  background-color: var(--main-color);
+.logoff {
+  margin: 15rpx auto;
+  background-color: #ed7d31;
   color: #fff;
 }
