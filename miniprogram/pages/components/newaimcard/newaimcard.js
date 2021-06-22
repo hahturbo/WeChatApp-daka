@@ -170,7 +170,8 @@ Component({
           now_time *= 1000;
           if (now_date_temp - now_time > start_date_temp) {} else {
             this.setData({
-              date_start: e.detail.value
+              date_start: e.detail.value,
+              date_end: "请选择"
             })
           }
           break;

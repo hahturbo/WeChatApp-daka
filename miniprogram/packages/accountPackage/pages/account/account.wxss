@@ -12,10 +12,12 @@
 }
 
 .user_img {
+
   margin: 15rpx auto;
+  margin-top: 80rpx;
   width: 150rpx;
   height: 150rpx;
-  border: 4rpx solid var(--main-color);
+  border: 4rpx solid #ed7d31;
   border-radius: 30rpx;
   display: flex;
   flex-direction: row;
@@ -30,6 +32,7 @@
 }
 
 .account_data {
+  flex-grow: 1;
   margin: 15rpx auto;
   display: flex;
   flex-direction: column;

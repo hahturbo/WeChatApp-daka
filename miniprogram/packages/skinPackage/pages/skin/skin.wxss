@@ -70,7 +70,7 @@
 }
 
 .appear {
-  animation: appear .9s;
+  animation: appear .5s ease-in-out;
 }
 
 @keyframes appear {

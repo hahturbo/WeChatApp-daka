@@ -1,14 +1,14 @@
 <!-- components/cardDetails/cardDetail.wxml -->
-<scroll-view class="cardDetail" scroll-y="true">
+<view class="cardDetail">
 	<!-- 打卡标题 -->
 	<view class="card_title">{{$state.CardData[item].goal_name}}</view>
 	<!-- 日历 -->
 	<view class="calander">
 		<!-- 年月 -->
 		<view class="calander_top">
-			<text class="switchmonth" bindtap="lastmonth" decode='true'>&lt;</text>
+			<view class="left arrow" bindtap="lastmonth"></view>
 			<text class="date_title">{{datetitle}}</text>
-			<text class="switchmonth" bindtap="nextmonth" decode='true'>&gt;</text>
+			<view class="right arrow" bindtap="nextmonth"></view>
 		</view>
 		<!-- 主体 -->
 		<view class="calander_main">
@@ -97,4 +97,4 @@
 			<view>删除后不可恢复，确定吗？</view>
 		</mp-dialog>
 	</view>
-</scroll-view>
+</view>

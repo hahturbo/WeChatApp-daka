@@ -12,9 +12,9 @@
 			<button bindtap="btn_nologin">暂不登陆</button>
 		</view>
 	</view>
-	<image lazy-load wx:if='{{$state.skin==1}}' class='background' src="https://wxdaka.hahaturbo.site/images/background.png"
+	<image wx:if='{{$state.skin==1}}' class='background' src="https://wxdaka.hahaturbo.site/images/background.png"
 		mode="aspectFill" />
-	<image lazy-load wx:if='{{$state.skin==2}}' class='background' src="https://wxdaka.hahaturbo.site/images/background2.png"
+	<image wx:if='{{$state.skin==2}}' class='background' src="https://wxdaka.hahaturbo.site/images/background2.png"
 		mode="aspectFill" />
 	<mp-dialog title="{{dialogTitle}}" show="{{dialogShow}}" bindbuttontap="tapDialogButton"
 		buttons="{{dialogsButton}}" />
@@ -158,11 +158,5 @@
 		<modifycard carditem="{{carditem}}" wx:if="{{nowPage==6}}" id='modifycard' bind:deleteEvent='getsondelete' />
 	</view>
 	<!-- nowpage3 start -->
-	<view wx:if="{{nowPage==3}}" class="toGoalCard">
-		<image lazy-load wx:if='{{$state.skin==1}}' id="clicp" src="https://wxdaka.hahaturbo.site/images/clicp.png" />
-		<image lazy-load wx:if='{{$state.skin==2}}' id="clicp2" src="https://wxdaka.hahaturbo.site/images/clicp2.png" />
-		<view class='containerC '>
-			<tick />
-		</view>
-	</view>
+	<tick wx:if="{{nowPage==3}}" class="toGoalCard" />
 </view>

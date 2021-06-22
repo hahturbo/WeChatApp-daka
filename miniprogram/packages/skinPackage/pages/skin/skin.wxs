@@ -17,11 +17,11 @@ wxsTouchStart = function (event, ownerInstance) {
 	return false;
 }
 wxsTouchMove = function (event, ownerInstance) {
-	if (preClientX && event.touches[0].clientX - preClientX >= 15) {
+	if (preClientX && event.touches[0].clientX - preClientX >= 10) {
 		event.instance.callMethod("handleTouchMove", {
 			result: "toRight"
 		})
-	} else if (preClientX && event.touches[0].clientX - preClientX <= -15) {
+	} else if (preClientX && event.touches[0].clientX - preClientX <= -10) {
 		event.instance.callMethod("handleTouchMove", {
 			result: "toLeft"
 		})

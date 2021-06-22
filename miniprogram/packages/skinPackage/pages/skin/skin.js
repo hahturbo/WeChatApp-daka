@@ -13,7 +13,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      index:this.$state.skin
+      index: this.$state.skin
     })
     wx.setNavigationBarTitle({
       title: "外观设置"
@@ -47,7 +47,6 @@ Page({
       this.setData({
         index: 1
       })
-    console.log(`touchmove${result}`);
   },
   handleTouchStart(e) {
     // console.log(`touchstart${e}`);

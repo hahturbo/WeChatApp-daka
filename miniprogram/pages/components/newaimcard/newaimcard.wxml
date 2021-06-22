@@ -68,7 +68,7 @@
 				<view>结束日期:</view>
 				<picker
 				 mode="date"
-				 class='right_text {{date_end=="请先选择开始日期"?"right_text_unselect":""}}'
+				 class='right_text {{date_end=="请先选择开始日期"||date_end==="请选择"?"right_text_unselect":""}}'
 				 value="{{date_start}}"
 				 start="2019-09-01"
 				 end="2099-09-01"
