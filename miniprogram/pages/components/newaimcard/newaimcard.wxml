@@ -11,7 +11,7 @@
 		<view class='{{team==1?".team_select":""}} team' bindtap="click_team_btn">小组打卡</view>
 	</view>
 	<!-- 选项 -->
-	<scroll-view scroll-y='{{team==0 ? "false" : "true"}}'>
+	<view style="overflow-y: auto;width:100%;">
 		<view class="card">
 			打卡类型：
 			<picker
@@ -130,13 +130,13 @@
 			<!-- 新建打卡默认0，详情传对应下标 -->
 			<button
 			 class="btn_invite"
-			 open-type='{{can_share?"share":""}}'
+			 open-type='{{$state.can_share?"share":""}}'
 			 bindtap="btn_share"
 			 data-index='0'
 			>
 				{{share_text[1]}}
 			</button>
 		</view>
-	</scroll-view>
+	</view>
 </view>
 

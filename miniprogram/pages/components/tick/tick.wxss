@@ -5,6 +5,7 @@
 
 .board {
   width: 88%;
+  min-height: 80%;
   box-sizing: border-box;
   border: 3rpx solid #000;
   border-radius: 50rpx;
@@ -83,9 +84,10 @@ input {
 }
 
 .title {
+  margin-top: 20rpx;
   color: #ED7D31;
   font-size: 50rpx;
-  font-weight: bolder;
+  font-weight: bold;
 }
 
 movable-area {
@@ -98,8 +100,7 @@ movable-area {
 
 
 .line {
-  margin-top: 20rpx;
-  margin-left: 3%;
+  margin: 20rpx;
   height: 60rpx;
   width: 95%;
   background: white;
@@ -110,10 +111,6 @@ movable-area {
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-}
-
-.line:last-child {
-  border-bottom-color: transparent;
 }
 
 .TapArea {

@@ -1,5 +1,21 @@
 // components/cardDetails/cardDetail.js
-const awx = wx.toAsync("request", "login", "getWeRunData", "getUserInfo")
+const awx = wx.toAsync("request", "login", "getWeRunData", "getUserInfo");
+const throttle = (fun, delay) => {
+  let pre = 0;
+  let timer = null;
+  return function (...args) {
+    if (Date.now() - pre > delay) {
+      clearTimeout(timer);
+      timer = null;
+      pre = Date.now();
+      fun.apply(this, args);
+    } else if (!timer) {
+      timer = setTimeout(() => {
+        fun.apply(this, args);
+      }, delay);
+    }
+  };
+};
 Component({
   /**
    * 组件的属性列表
@@ -33,67 +49,98 @@ Component({
     // 上月格子
     lastmonthgrid: [],
     // 当月格子
-    thismonthday: [{
-      "date": 1
-    }, {
-      "date": 2
-    }, {
-      "date": 3
-    }, {
-      "date": 4
-    }, {
-      "date": 5
-    }, {
-      "date": 6
-    }, {
-      "date": 7
-    }, {
-      "date": 8
-    }, {
-      "date": 9
-    }, {
-      "date": 10
-    }, {
-      "date": 11
-    }, {
-      "date": 12
-    }, {
-      "date": 13
-    }, {
-      "date": 14
-    }, {
-      "date": 15
-    }, {
-      "date": 16
-    }, {
-      "date": 17
-    }, {
-      "date": 18
-    }, {
-      "date": 19
-    }, {
-      "date": 20
-    }, {
-      "date": 21
-    }, {
-      "date": 22
-    }, {
-      "date": 23
-    }, {
-      "date": 24
-    }, {
-      "date": 25
-    }, {
-      "date": 26
-    }, {
-      "date": 27
-    }, {
-      "date": 28
-    }, {
-      "date": 29
-    }, {
-      "date": 30
-    }],
+    thismonthday: [
+      {
+        date: 1,
+      },
+      {
+        date: 2,
+      },
+      {
+        date: 3,
+      },
+      {
+        date: 4,
+      },
+      {
+        date: 5,
+      },
+      {
+        date: 6,
+      },
+      {
+        date: 7,
+      },
+      {
+        date: 8,
+      },
+      {
+        date: 9,
+      },
+      {
+        date: 10,
+      },
+      {
+        date: 11,
+      },
+      {
+        date: 12,
+      },
+      {
+        date: 13,
+      },
+      {
+        date: 14,
+      },
+      {
+        date: 15,
+      },
+      {
+        date: 16,
+      },
+      {
+        date: 17,
+      },
+      {
+        date: 18,
+      },
+      {
+        date: 19,
+      },
+      {
+        date: 20,
+      },
+      {
+        date: 21,
+      },
+      {
+        date: 22,
+      },
+      {
+        date: 23,
+      },
+      {
+        date: 24,
+      },
+      {
+        date: 25,
+      },
+      {
+        date: 26,
+      },
+      {
+        date: 27,
+      },
+      {
+        date: 28,
+      },
+      {
+        date: 29,
+      },
+      {
+        date: 30,
+      },
+    ],
     // 下月格子
     nextmonthgrid: [],
     year: 0,
@@ -109,19 +156,20 @@ Component({
     cardend: false,
     membersnum: 0,
     share: false,
-    goal_type: ['极简', '普通', '微信运动'],
-    //微信运动
+    goal_type: ["极简", "普通", "微信运动"],
+    signLoading: false,
+    scrollToTop: false,
   },
 
   observers: {
     carditem: function (carditem) {
       this.setData({
         item: carditem,
-      })
+      });
     },
   },
   attached: function () {
-    this.initCardDetail()
+    this.initCardDetail();
   },
   /**
    * 组件的方法列表
@@ -129,18 +177,18 @@ Component({
   methods: {
     async initCardDetail() {
       // 获取打卡记录
-      await this.getCardDetail()
-      this.today()
-      const endflag = this.comparedate()
+      await this.getCardDetail();
+      this.today();
+      const endflag = this.comparedate();
       if (endflag) {
         this.setData({
-          cardend: endflag
-        })
+          cardend: endflag,
+        });
       }
       if (this.$state.CardData[this.data.item].goal_type == 2) {
-        await this.getWeRunData()
+        await this.getWeRunData();
       }
-      return Promise.resolve()
+      return Promise.resolve();
     },
     display: function (year, month, date) {
       this.setData({
@@ -148,34 +196,31 @@ Component({
         month: month,
         date: date,
         datetitle: year + "年" + this.zero(month) + "月",
-      })
-      this.createday(year, month)
-      this.createmptygrid(year, month)
+      });
+      this.createday(year, month);
+      this.createmptygrid(year, month);
     },
     // 比较当天和结束时间选择
     comparedate: function () {
-      if (this.$state.CardData[this.data.item].goal_type >= 3) return true
-      if (this.$state.CardData[this.data.item].goal_type != 1) return false
+      if (this.$state.CardData[this.data.item].goal_type >= 3) return true;
+      if (this.$state.CardData[this.data.item].goal_type != 1) return false;
       // goal_type==1
-      let end = new Date(this.$state.CardData[this.data.item].ended_in)
-      let today = new Date(this.data.select)
+      let end = new Date(this.$state.CardData[this.data.item].ended_in);
+      let today = new Date(this.data.select);
       if (end > today) {
-        return false
+        return false;
       }
-      today = end
+      today = end;
       this.setData({
         select: this.$state.CardData[this.data.item].ended_in,
         year: today.getFullYear(),
         month: today.getMonth() + 1,
         date: today.getDate(),
-        datetitle: today.getFullYear() + "年" + this.zero(today.getMonth() + 1) + "月",
-      })
-      this.display(
-        today.getFullYear(),
-        today.getMonth() + 1,
-        today.getDate()
-      )
-      return true
+        datetitle:
+          today.getFullYear() + "年" + this.zero(today.getMonth() + 1) + "月",
+      });
+      this.display(today.getFullYear(), today.getMonth() + 1, today.getDate());
+      return true;
     },
     // 默认选中当天
     today: function () {
@@ -183,7 +228,7 @@ Component({
         year = DATE.getFullYear(),
         month = DATE.getMonth() + 1,
         date = DATE.getDate(),
-        select = year + "-" + this.zero(month) + "-" + this.zero(date)
+        select = year + "-" + this.zero(month) + "-" + this.zero(date);
       this.setData({
         format: select,
         select: select,
@@ -193,19 +238,24 @@ Component({
         DATE: date,
         YEAR: year,
         MONTH: month,
-      })
-      this.display(year, month, date)
+      });
+      this.display(year, month, date);
     },
     // 选择对应方法
     select: function (e) {
-      let second = this.data.secondselect
+      let second = this.data.secondselect;
       if (second == 0 && this.data.date == e.currentTarget.dataset.date) {
-        second = 1
+        second = 1;
       } else if (second == 1) {
-        second = 0
+        second = 0;
       }
       let date = e.currentTarget.dataset.date,
-        select = this.data.year + "-" + this.zero(this.data.month) + "-" + this.zero(date)
+        select =
+          this.data.year +
+          "-" +
+          this.zero(this.data.month) +
+          "-" +
+          this.zero(date);
       this.setData({
         datetitle: this.data.year + "年" + this.zero(this.data.month) + "月",
         select: select,
@@ -213,31 +263,31 @@ Component({
         month: this.data.month,
         date: date,
         secondselect: second,
-      })
+      });
     },
     // 上个月
     lastmonth: function () {
-      let month = this.data.month == 1 ? 12 : this.data.month - 1
-      let year = this.data.month == 1 ? this.data.year - 1 : this.data.year
-      this.display(year, month, 0)
+      let month = this.data.month == 1 ? 12 : this.data.month - 1;
+      let year = this.data.month == 1 ? this.data.year - 1 : this.data.year;
+      this.display(year, month, 0);
     },
     // 下个月
     nextmonth: function () {
-      let month = this.data.month == 12 ? 1 : this.data.month + 1
-      let year = this.data.month == 12 ? this.data.year + 1 : this.data.year
-      this.display(year, month, 0)
+      let month = this.data.month == 12 ? 1 : this.data.month + 1;
+      let year = this.data.month == 12 ? this.data.year + 1 : this.data.year;
+      this.display(year, month, 0);
     },
     // 获取当月天数
     Getthismonthday: function (year, month) {
-      return new Date(year, month, 0).getDate()
+      return new Date(year, month, 0).getDate();
     },
     zero: function (i) {
-      return i >= 10 ? i : "0" + i
+      return i >= 10 ? i : "0" + i;
     },
     // 绘制空格
     createday: function (year, month) {
       let thismonthday = [],
-        days = this.Getthismonthday(year, month)
+        days = this.Getthismonthday(year, month);
       for (let i = 1; i <= days; i++) {
         thismonthday.push({
           date: i,
@@ -247,11 +297,11 @@ Component({
           signed: this.todaysigned(year, month, i),
           signedmembers: this.todaysignedmembers(year, month, i),
           othersigned: this.data.membersnum > 0 ? true : false,
-        })
+        });
       }
       this.setData({
         thismonthday,
-      })
+      });
     },
 
     // 获取当月空出天数
@@ -259,20 +309,26 @@ Component({
       let week = new Date(Date.UTC(year, month - 1, 1)).getDay(),
         lastmonthgrid = [],
         nextmonthgrid = [],
-        emptyday = week == 0 ? 7 : week
-      let thismonthday = this.Getthismonthday(year, month)
-      let lastmonthday = month - 1 < 0 ? this.Getthismonthday(year - 1, 12) : this.Getthismonthday(year, month - 1)
+        emptyday = week == 0 ? 7 : week;
+      let thismonthday = this.Getthismonthday(year, month);
+      let lastmonthday =
+        month - 1 < 0
+          ? this.Getthismonthday(year - 1, 12)
+          : this.Getthismonthday(year, month - 1);
       for (let i = 1; i <= emptyday; i++) {
-        lastmonthgrid.push(lastmonthday - (emptyday - i))
+        lastmonthgrid.push(lastmonthday - (emptyday - i));
       }
-      let next = 42 - thismonthday - emptyday - 7 >= 0 ? 42 - thismonthday - emptyday - 7 : 42 - thismonthday - emptyday
+      let next =
+        42 - thismonthday - emptyday - 7 >= 0
+          ? 42 - thismonthday - emptyday - 7
+          : 42 - thismonthday - emptyday;
       for (let i = 1; i <= next; i++) {
-        nextmonthgrid.push(i)
+        nextmonthgrid.push(i);
       }
       this.setData({
         lastmonthgrid,
         nextmonthgrid,
-      })
+      });
     },
     async getCardDetail() {
       // 获取打卡记录
@@ -283,119 +339,147 @@ Component({
           goal_id: this.$state.CardData[this.data.item].goal_id,
           login_key: this.$state.login_key,
         },
-      })
+      });
       if (record.errMsg === "request:fail ") {
-        console.error(record.errMsg)
-        return
+        console.error(record.errMsg);
+        return;
       }
       this.setState({
-        CardDetail: record.data.data
-      })
-      return Promise.resolve()
+        CardDetail: record.data.data,
+      });
+      return Promise.resolve();
     },
 
     async getWeRunData() {
-      let wWeRun = await awx.getWeRunData()
+      let wWeRun = await awx.getWeRunData();
       if (wWeRun.encryptedData) {
         // 微信获取运动成功
         let weRunData = await awx.request({
-          method: 'POST',
-          url: this.$state.apiURL + '/user/getWeRunData',
+          method: "POST",
+          url: this.$state.apiURL + "/user/getWeRunData",
           data: {
             encryptedData: wWeRun.encryptedData,
             iv: wWeRun.iv,
             login_key: this.$state.login_key,
           },
-        })
+        });
         if (weRunData.errMsg === "request:fail ") {
           wx.showToast({
-            icon: 'error',
-            title: '微信运动获取失败',
+            icon: "error",
+            title: "微信运动获取失败",
             duration: 1500,
-          })
-          return
+          });
+          return;
         }
-        console.log("werun success")
+        console.log("werun success");
         this.setState({
-          stepInfoList: weRunData.data.stepInfoList
-        })
+          stepInfoList: weRunData.data.stepInfoList,
+        });
       } else {
         wx.showToast({
-          icon: 'error',
-          title: '微信运动获取失败',
+          icon: "error",
+          title: "微信运动获取失败",
           duration: 1500,
-        })
+        });
       }
-      return Promise.resolve()
+      return Promise.resolve();
     },
 
     // this.log.data => this.$state.CardDetail[this.properties.carditem]
     // 获取时间戳
     getTimestamp: function (e) {
-      let date = e.signed_at
-      date = date.substring(0, 19)
-      date = date.replace(/-/g, "/")
-      return new Date(date)
+      let date = e.signed_at;
+      date = date.substring(0, 19);
+      date = date.replace(/-/g, "/");
+      return new Date(date);
     },
     // 是否打卡
     todaysigned: function (year, month, date) {
       for (let i = 0; i < this.$state.CardDetail.length; i++) {
-        if (this.$state.CardData[this.data.item].goal_id != this.$state.CardDetail[i].goal_id) {
-          return false
+        if (
+          this.$state.CardData[this.data.item].goal_id !=
+          this.$state.CardDetail[i].goal_id
+        ) {
+          return false;
         } else {
-          if (this.getTimestamp(this.$state.CardDetail[i]).getFullYear() == year && this.getTimestamp(this.$state.CardDetail[i]).getMonth() + 1 == month && this.getTimestamp(this.$state.CardDetail[i]).getDate() == date) {
-            return true
+          if (
+            this.getTimestamp(this.$state.CardDetail[i]).getFullYear() ==
+              year &&
+            this.getTimestamp(this.$state.CardDetail[i]).getMonth() + 1 ==
+              month &&
+            this.getTimestamp(this.$state.CardDetail[i]).getDate() == date
+          ) {
+            return true;
           }
         }
       }
-      return false
+      return false;
     },
     // groupData[i].signed_data -> singned_data
     todaysignedmembers: function (year, month, date) {
-      if (!this.$state.CardData[this.data.item].goal_is_a_group)
-        return null
+      if (!this.$state.CardData[this.data.item].goal_is_a_group) return null;
       let members = [],
-        groupMembers = this.$state.CardData[this.data.item].groupData.groupMembers,
-        goal_id = this.$state.CardData[this.data.item].groupData.goal_id
-      let img, i, j
+        groupMembers =
+          this.$state.CardData[this.data.item].groupData.groupMembers,
+        goal_id = this.$state.CardData[this.data.item].groupData.goal_id;
+      let img, i, j;
       for (i = 0; i < groupMembers.length; i++) {
-        let singned_data = groupMembers[i].signed_data
-        img = ""
+        let singned_data = groupMembers[i].signed_data;
+        img = "";
         for (j = 0; j < singned_data.length; j++) {
           if (singned_data[j].goal_id == goal_id) {
             if (
-              this.getTimestamp(singned_data[j]).getFullYear() == year && this.getTimestamp(singned_data[j]).getMonth() + 1 == month && this.getTimestamp(singned_data[j]).getDate() == date
+              this.getTimestamp(singned_data[j]).getFullYear() == year &&
+              this.getTimestamp(singned_data[j]).getMonth() + 1 == month &&
+              this.getTimestamp(singned_data[j]).getDate() == date
             ) {
-              img = groupMembers[i].img
-              break
+              img = groupMembers[i].img;
+              break;
             }
           }
         }
         if (img.length) {
           members.push({
             img: img,
-          })
+          });
         }
       }
       this.setData({
         membersnum: members.length,
-      })
-      return members
+      });
+      return members;
     },
+    handleScroll: throttle(function (e) {
+      if (this.data.scrollToTop) return;
+      if (e.detail.scrollTop >= 30) {
+        this.setData({
+          scrollToTop: true,
+        });
+        this.triggerEvent("scrollToTop");
+      }
+    }, 200),
     async todaydaka() {
       if (this.$state.CardData[this.data.carditem].sign_today) {
-        return
+        return;
       }
       if (this.$state.CardData[this.data.carditem].goal_type == 2) {
-        if (parseInt(this.$state.CardData[this.data.carditem].frequency) > parseInt(this.$state.stepInfoList[this.$state.stepInfoList.length - 1].step)) {
+        if (
+          parseInt(this.$state.CardData[this.data.carditem].frequency) >
+          parseInt(
+            this.$state.stepInfoList[this.$state.stepInfoList.length - 1].step
+          )
+        ) {
           wx.showToast({
-            title: '您的步数不够',
-            icon: 'none',
+            title: "您的步数不够",
+            icon: "none",
             duration: 2500,
-          })
-          return
+          });
+          return;
         }
       }
+      this.setData({
+        signLoading: true,
+      });
       let result = await awx.request({
         method: "POST",
         url: this.$state.apiURL + "/user/goal/sign",
@@ -403,27 +487,27 @@ Component({
           goal_id: this.$state.CardData[this.data.carditem].goal_id,
           login_key: this.$state.login_key,
         },
-      })
+      });
       if (result.errMsg === "request:fail ") {
-        console.error(result.errMsg)
-        return
+        console.error(result.errMsg);
+        return;
       }
-      await this.GetCardData()
-      await this.getCardDetail()
-      this.today()
-      const endflag = this.comparedate()
-      if (endflag) {
-        this.setData({
-          cardend: endflag
-        })
-      }
-      return Promise.resolve()
+      await this.GetCardData();
+      await this.getCardDetail();
+      this.today();
+      const endflag = this.comparedate();
+      this.setData({
+        signLoading: false,
+        cardend: endflag ? endflag : this.data.cardend,
+      });
+      return Promise.resolve();
     },
     deletedaka: function () {
       this.setData({
         dialogshow: true,
         dialogtitle: "确定要删除此打卡吗？",
-        dialogbutton: [{
+        dialogbutton: [
+          {
             text: "删除",
             extClass: "btn_go_on",
           },
@@ -432,8 +516,8 @@ Component({
             extClass: "btn_cancel",
           },
         ],
-      })
-      console.log("shanchudaka")
+      });
+      console.log("shanchudaka");
     },
     // dialog-buttontap
     async buttontap(e) {
@@ -441,21 +525,20 @@ Component({
         if (this.$state.CardData[this.data.item].goal_is_a_group) {
           // 是小组
           if (
-            !this.$state.CardData[this.data.item].groupData
-            .is_group_creator
+            !this.$state.CardData[this.data.item].groupData.is_group_creator
           ) {
             await wx.showToast({
               title: "您不是组长，没有权限删除！",
               icon: "none",
               duration: 2000,
-            })
+            });
             this.setData({
               dialogshow: false,
-            })
-            return
+            });
+            return;
           }
         }
-        let result
+        let result;
         if (this.$state.CardData[this.data.item].goal_type == 0) {
           // 极简
           result = await awx.request({
@@ -468,7 +551,7 @@ Component({
               goal_type: 3,
               goal_name: this.$state.CardData[this.data.item].goal_name,
             },
-          })
+          });
         } else if (this.$state.CardData[this.data.item].goal_type == 2) {
           // 运动
           result = await awx.request({
@@ -482,7 +565,7 @@ Component({
               goal_name: this.$state.CardData[this.data.item].goal_name,
               frequency: this.$state.CardData[this.data.item].frequency,
             },
-          })
+          });
         } else if (this.$state.CardData[this.data.item].goal_type == 1) {
           // 普通
           result = await awx.request({
@@ -497,61 +580,64 @@ Component({
               started_at: this.$state.CardData[this.data.item].started_at,
               ended_in: this.$state.CardData[this.data.item].ended_in,
               frequency: this.$state.CardData[this.data.item].frequency,
-              frequency_type: this.$state.CardData[this.data.item].frequency_type,
+              frequency_type:
+                this.$state.CardData[this.data.item].frequency_type,
               reminder_at: this.$state.CardData[this.data.item].reminder_at,
-              needed_be_signed_at: this.$state.CardData[this.data.item].needed_be_signed_at,
-              needed_be_signed_deadline: this.$state.CardData[this.data.item].needed_be_signed_deadline,
+              needed_be_signed_at:
+                this.$state.CardData[this.data.item].needed_be_signed_at,
+              needed_be_signed_deadline:
+                this.$state.CardData[this.data.item].needed_be_signed_deadline,
             },
-          })
+          });
         }
         if (result.errMsg === "request:fail ") {
-          console.error(result.errMsg)
-          return
+          console.error(result.errMsg);
+          return;
         }
         this.setData({
           dialogshow: false,
-        })
-        this.triggerEvent("deleteEvent", "delete")
+        });
+        this.triggerEvent("deleteEvent", "delete");
       } else {
         this.setData({
           dialogshow: false,
-        })
+        });
       }
-      return Promise.resolve()
+      return Promise.resolve();
     },
     async getindex() {
       let res = await awx.request({
-        method: 'POST',
-        url: this.$state.apiURL + '/user/goal/get',
+        method: "POST",
+        url: this.$state.apiURL + "/user/goal/get",
         data: {
           login_key: this.$state.login_key,
         },
-      })
+      });
       this.setState({
         CardData: res.data.data.data,
-      })
-      return Promise.resolve()
+      });
+      return Promise.resolve();
     },
     //获取打卡信息
     async GetCardData() {
       let result = await awx.request({
-        method: 'POST',
-        url: this.$state.apiURL + '/user/goal/Bget',
+        method: "POST",
+        url: this.$state.apiURL + "/user/goal/Bget",
         data: {
           amount: 5,
           login_key: this.$state.login_key,
         },
-      })
+      });
       this.setState({
         aimCardDatas: result.data.data.data,
         card_num: result.data.data.data.length,
-      })
+      });
       await this.getindex(this.$state.aimCardDatas);
       await wx.setStorage({
         key: "card_num",
         data: this.$state.card_num,
-      })
-      return Promise.resolve()
+      });
+      return Promise.resolve();
     },
   },
-})
+});

@@ -20,7 +20,7 @@ Component({
   lifetimes: {
     ready: function () {
       wx.getImageInfo({
-        src: `https://wxdaka.hahaturbo.site/images/tick-YES.png`,
+        src: `https://wxda.hahaturbo.site/daka-img/tick-YES.png`,
         success: (res) => {
           this.setData({
             tickYES: res.path
@@ -31,7 +31,7 @@ Component({
         }
       })
       wx.getImageInfo({
-        src: `https://wxdaka.hahaturbo.site/images/code.jpg`,
+        src: `https://wxda.hahaturbo.site/daka-img/code.jpg`,
         success: (res) => {
           this.setData({
             code: res.path
@@ -54,7 +54,7 @@ Component({
     Drawshare: function () {
       let name = this.$state.tick_title;
       console.log("draw", name)
-      // res.path=`https://wxdaka.hahaturbo.site/images/tick-YES.png`
+      // res.path=`https://wxda.hahaturbo.site/daka-img/tick-YES.png`
       const ctx = wx.createCanvasContext("share", this)
       //var ctx = wx.createContext()
       console.log(wx);
